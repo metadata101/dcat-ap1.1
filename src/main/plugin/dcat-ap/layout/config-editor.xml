@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:schema="http://schema.org/" xsi:noNamespaceSchemaLocation="../../../../../../config-editor.xsd">
+	<!-- Define form field types per metadata element. -->
+	<fields>
+		<for name="dct:title" use="textarea"/>
+		<for name="dct:description" use="textarea"/>
+		<for name="vcard:hasEmail" use="email"/>
+<!-- 		<for name="dcat:mediaType" use="data-gn-keyword-picker" />-->
+		<for name="dct:format" use="data-gn-keyword-picker" />
+		<for name="dct:type" use="data-gn-keyword-picker" />
+		<for name="dct:license" use="data-gn-keyword-picker"/>
+		<for name="dct:language" use="data-gn-keyword-picker"/>
+		<for name="dct:issued" use="data-gn-date-picker"/>
+		<for name="dct:modified" use="data-gn-date-picker"/>
+		<for name="schema:startDate" use="data-gn-date-picker"/>
+		<for name="schema:endDate" use="data-gn-date-picker"/>
+<!--  		<for name="dcat:keyword" use="data-gn-keyword-picker"/>-->
+		<for name="dcat:theme" use="data-gn-keyword-picker" />
+		
+		<!-- <directiveAttributes data-include="external.authority.data-theme"/> 
+			<directiveAttributes data-include="-external.authority.data-theme,-external.authority.file-type,-external.authority.language,-external.authority.organzation-type,-external.authority.licence"/> 
+			<directiveAttributes data-include="xpath::string-join(//skos:inScheme[starts-with(@rdf:resource,'http://publications.europa.eu/resource/authority')]/concat('-external.authority.', 
+			substring-after(@rdf:resource[. != ''], 'http://publications.europa.eu/resource/authority/')), 
+			',')"/> <directiveAttributes data-include="xpath::string-join(//skos:inScheme[contains(@rdf:resource,'authority')]/concat('-external.authority.', 
+			substring-after(@rdf:resource[. != ''], 'authority/')), ',')"/> </for> -->
+	</fields>
+	<!-- Complex fields. -->
+	<fieldsWithFieldset>
+		<name>dcat:Dataset</name>
+		<name>dcat:distribution</name>
+		<name>dcat:Distribution</name>
+		<name>spdx:checksum</name>
+		<name>spdx:Checksum</name>
+		<name>foaf:page</name>
+		<name>foaf:Document</name>
+<!--
+		<name>dcat:mediaType</name>
+-->
+		<name>dct:format</name>
+	</fieldsWithFieldset>
+	<transparentFieldset>
+<!--  
+		<name>dcat:Distribution</name>
+		<name>spdx:Checksum</name>
+		<name>foaf:Document</name>
+-->
+	</transparentFieldset>
+	<!-- View configuration -->
+	<views>
+		<view name="default">
+			<tab id="default" default="true">
+				<!-- DON'T MOVE THIS SECTION, otherwise rendering stops at a certain point in the fields list -->
+				<section>
+					<section name="metadata">
+						<field xpath="/dcat:Dataset/dct:title" or="title" in="/dcat:Dataset/*"/>
+						<action type="add" if="count(/dcat:Dataset/dct:title)=0" or="title" in="/dcat:Dataset">
+							<template>
+								<snippet>
+									<dct:title/>
+								</snippet>
+							</template>
+						</action>
+						<field xpath="/dcat:Dataset/dct:description" or="description" in="/dcat:Dataset/*" />
+						<action type="add" if="count(/dcat:Dataset/dct:description)=0" or="description" in="/dcat:Dataset">
+							<template>
+								<snippet>
+									<dct:description/>
+								</snippet>
+							</template>
+						</action>
+						<field xpath="/dcat:Dataset/dct:accessRights" or="accessRights" in="/dcat:Dataset/*"/>
+						<field xpath="/dcat:Dataset/dct:issued" or="issued" in="/dcat:Dataset/*" del="."/>
+						<field xpath="/dcat:Dataset/dct:modified" or="modified" in="/dcat:Dataset/*"/>
+						<field xpath="/dcat:Dataset/owl:versionInfo" or="versionInfo" in="/dcat:Dataset/*"/>
+						<field xpath="/dcat:Dataset/adms:versionNotes" or="versionNotes" in="/dcat:Dataset/*"/>
+						<field xpath="/dcat:Dataset/dcat:theme" or="theme" in="/dcat:Dataset/*" />
+						<action type="add" or="theme" in="/dcat:Dataset" if="count(/dcat:Dataset/dcat:theme)=0">
+							<template>
+								<snippet>
+						            <dcat:theme>
+						               <skos:Concept rdf:about="">
+						                  <skos:prefLabel xml:lang="nl"/>
+						                  <skos:prefLabel xml:lang="en"/>
+						                  <skos:prefLabel xml:lang="fr"/>
+						                  <skos:prefLabel xml:lang="de"/>
+						                  <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/data-theme"/>
+						               </skos:Concept>
+						            </dcat:theme>
+								</snippet>
+							</template>
+						</action>
+ 						<field xpath="/dcat:Dataset/dct:conformsTo" or="conformsTo" in="/dcat:Dataset/*"/>
+						<field xpath="/dcat:Dataset/dct:accrualPeriodicity" or="accrualPeriodicity" in="/dcat:Dataset/*"/>
+						<field xpath="/dcat:Dataset/dct:hasVersion" or="hasVersion" in="/dcat:Dataset/*"/>
+						<field xpath="/dcat:Dataset/dct:identifier" or="identifier" in="/dcat:Dataset/*"/>
+						<field xpath="/dcat:Dataset/dct:isVersionOf" or="isVersionOf" in="/dcat:Dataset/*"/>
+						<field xpath="/dcat:Dataset/dcat:landingPage">
+							<template>
+								<values>
+									<key label="landingPage" xpath="@rdf:resource" tooltip="landingPage"/>
+								</values>
+								<snippet>
+									<dcat:landingPage rdf:resource="{{landingPage}}"/>
+								</snippet>
+							</template>
+						</field>
+						<field xpath="/dcat:Dataset/dct:language" or="language" in="/dcat:Dataset/*" />
+						<action type="add" or="language" in="/dcat:Dataset" if="count(/dcat:Dataset/dct:language)=0">
+							<template>
+								<snippet>
+						            <dct:language>
+						               <skos:Concept rdf:about="">
+						                  <skos:prefLabel xml:lang="nl"/>
+						                  <skos:prefLabel xml:lang="en"/>
+						                  <skos:prefLabel xml:lang="fr"/>
+						                  <skos:prefLabel xml:lang="de"/>
+						                  <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/language"/>
+						               </skos:Concept>
+						            </dct:language>
+								</snippet>
+							</template>
+						</action>
+ 						<field xpath="/dcat:Dataset/dct:provenance" or="provenance" in="/dcat:Dataset/*"/>
+						<field xpath="/dcat:Dataset/dct:relation" or="relation" in="/dcat:Dataset/*"/>
+						<field xpath="/dcat:Dataset/dct:source" or="source" in="/dcat:Dataset/*"/>
+						<field xpath="/dcat:Dataset/dct:type" or="type" in="/dcat:Dataset/*"/>
+						<action type="add" or="type" in="/dcat:Dataset" if="count(/dcat:Dataset/dct:type)=0">
+							<template>
+								<snippet>
+						            <dct:type>
+						               <skos:Concept rdf:about="">
+						                  <skos:prefLabel xml:lang="nl"/>
+						                  <skos:prefLabel xml:lang="en"/>
+						                  <skos:prefLabel xml:lang="fr"/>
+						                  <skos:prefLabel xml:lang="de"/>
+						                  <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/resource-type"/>
+						               </skos:Concept>
+						            </dct:type>
+								</snippet>
+							</template>
+						</action>
+ 					</section>
+					<!-- Dataset - Contact point - Organization (Part 1) -->
+					<section name="vcardOrganization">
+						<field xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:fn" or="fn" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/*"/>
+						<field xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:organization-name" or="organization-name" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/*"/>
+						<!-- Dataset - Contact point - Organization - Address -->
+						<section name="vcardAddress">
+							<field xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:street-address" or="street-address" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/*"/>
+							<field xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:locality" or="locality" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/*"/>
+							<field xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:postal-code" or="postal-code" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/*"/>
+							<field xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:country-name" or="country-name" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/*"/>
+						</section>
+						<field xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasEmail" or="hasEmail" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/*"/>
+						<field xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasURL" or="hasURL" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/*"/>
+						<field xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasTelephone" or="hasTelephone" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/*"/>
+					</section>
+					<section name="keywords">
+						<field xpath="/dcat:Dataset/dcat:keyword" or="keyword" in="/dcat:Dataset/*"/>
+					</section>
+					<!-- Dataset - Publisher - Agent -->
+					<section name="foafAgent">
+						<field xpath="/dcat:Dataset/dct:publisher/foaf:Agent/foaf:name" or="name" in="/dcat:Dataset/dct:publisher/foaf:Agent/*"/>
+						<field xpath="/dcat:Dataset/dct:publisher/foaf:Agent/dct:type" or="type" in="/dcat:Dataset/dct:publisher/foaf:Agent/*" />
+						<action type="add" or="type" in="/dcat:Dataset/dct:publisher/foaf:Agent" if="count(/dcat:Dataset/dct:publisher/foaf:Agent/dct:type)=0">
+							<template>
+								<snippet>
+						            <dct:type>
+						               <skos:Concept rdf:about="">
+						                  <skos:prefLabel xml:lang="nl"/>
+						                  <skos:prefLabel xml:lang="en"/>
+						                  <skos:prefLabel xml:lang="fr"/>
+						                  <skos:prefLabel xml:lang="de"/>
+										  <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/organization-type"/>
+						               </skos:Concept>
+						            </dct:type>
+								</snippet>
+							</template>
+						</action>
+ 					</section>
+					<!-- Dataset - Identifier -->
+					<section name="admsIdentifier">
+						<field xpath="/dcat:Dataset/adms:identifier/adms:Identifier/skos:notation" or="notation" in="/dcat:Dataset/adms:identifier/adms:Identifier/*"/>
+					</section>
+					<!-- Dataset - Temporal -->
+					<section name="dctPeriodOfTime">
+						<field xpath="/dcat:Dataset/dct:temporal/dct:PeriodOfTime/schema:startDate" or="startDate" in="/dcat:Dataset/dct:temporal/dct:PeriodOfTime/*" del="."/>
+						<field xpath="/dcat:Dataset/dct:temporal/dct:PeriodOfTime/schema:endDate" or="endDate" in="/dcat:Dataset/dct:temporal/dct:PeriodOfTime/*" del="."/>
+					</section>
+				</section>
+			</tab>
+			<tab id="distribution">
+				<section>
+<!-- 
+				    <action type="add" btnLabel="dcat:Distribution" addDirective="data-gn-directory-entry-selector" or="distribution" in="/dcat:Dataset">
+				      <directiveAttributes 
+				        data-template-add-action="true"
+				        data-search-action="false"
+				        data-popup-action="false"
+				        data-filter='{"_root": "dcat:Distribution"}'
+				        data-insert-modes=""
+				        data-template-type="distribution"/>
+				    </action>
+-->
+ 					<section xpath="/dcat:Dataset/dcat:distribution" or="distribution" in="/dcat:Dataset"/>
+				</section>
+<!--
+				<field name="distribution[1]Title-20" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:title" or="title" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*"/>
+				<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:title)=0" name="add-distribution[1]Title-20" or="title" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+					<template>
+						<snippet>
+							<dct:title/>
+						</snippet>
+					</template>
+				</action>
+					<field name="distribution[1]Description-3" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:description" or="description" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*"/>
+					<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:description)=0" name="add-distribution[1]Description-3" or="description" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+						<template>
+							<snippet>
+								<dct:description/>
+							</snippet>
+						</template>
+					</action>				
+				<section>
+					<field name="distribution[1]AccessURL-2" or="accessURL" templateModeOnly="true" xpath="/dcat:Dataset/dcat:distribution[1]/dcat:Distribution[1]/dcat:accessURL">
+						<template>
+							<values>
+								<key label="accessURL" xpath="@rdf:resource" tooltip="downloadURL"/>
+							</values>
+							<snippet>
+								<dcat:accessURL rdf:resource="{{accessURL}}"/>
+							</snippet>
+						</template>
+					</field>
+					<field name="distribution[1]DownloadURL-2" templateModeOnly="true" xpath="/dcat:Dataset/dcat:distribution[1]/dcat:Distribution[1]/dcat:downloadURL">
+						<template>
+							<values>
+								<key label="downloadURL" xpath="@rdf:resource" tooltip="downloadURL"/>
+							</values>
+							<snippet>
+								<dcat:downloadURL rdf:resource="{{download}}"/>
+							</snippet>
+						</template>
+					</field>	
+
+					<field name="distribution[1]Format-4" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:format" or="format" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="."/>
+					<field name="distribution[1]License-5" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:license" or="license" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="."/>
+					<field name="distribution[1]ByteSize-6" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dcat:byteSize" or="byteSize" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*"/>
+					<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dcat:byteSize)=0" name="add-distribution[1]ByteSize-6" or="byteSize" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+						<template>
+							<snippet>
+								<dcat:byteSize/>
+							</snippet>
+						</template>
+					</action>
+					<section name="spdx:CheckSum">
+						<field name="checkSumAlgorithm-8" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum/spdx:algorithm" or="algorithm" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum/*"/>
+						<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum/spdx:algorithm)=0" name="add-checkSumAlgorithm-8" or="algorithm" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum">
+							<template>
+								<snippet>
+									<spdx:algorithm/>
+								</snippet>
+							</template>
+						</action>
+						<field name="checkSumChecksumValue-9" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum/spdx:checksumValue" or="checksumValue" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum/*"/>
+						<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum/spdx:checksumValue)=0" name="add-checkSumChecksumValue-9" or="checksumValue" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum">
+							<template>
+								<snippet>
+									<spdx:checksumValue/>
+								</snippet>
+							</template>
+						</action>
+					</section>
+					<section name="foaf:Document">
+						<field name="documentName-11" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/foaf:page/foaf:Document/foaf:name" or="name" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/foaf:page/foaf:Document/*"/>
+						<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/foaf:page/foaf:Document/foaf:name)=0" name="add-documentName-11" or="name" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/foaf:page/foaf:Document">
+							<template>
+								<snippet>
+									<foaf:name/>
+								</snippet>
+							</template>
+						</action>
+					</section>
+					<field name="distribution[1]Language-14" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:language" or="language" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="."/>
+					<field name="distribution[1]ConformsTo-15" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:conformsTo" or="conformsTo" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*"/>
+					<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:conformsTo)=0" name="add-distribution[1]ConformsTo-15" or="conformsTo" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+						<template>
+							<snippet>
+								<dct:conformsTo/>
+							</snippet>
+						</template>
+					</action>
+					<field name="distribution[1]MediaType-16" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dcat:mediaType" or="mediaType" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*"/>
+					<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dcat:mediaType)=0" name="add-distribution[1]MediaType-16" or="mediaType" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+						<template>
+							<snippet>
+								<dcat:mediaType/>
+							</snippet>
+						</template>
+					</action>
+					<field name="distribution[1]Issued-17" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:issued" or="issued" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="."/>
+					<field name="distribution[1]Rights-18" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:rights" or="rights" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*"/>
+					<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:rights)=0" name="add-distribution[1]Rights-18" or="rights" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+						<template>
+							<snippet>
+								<dct:rights/>
+							</snippet>
+						</template>
+					</action>
+					<field name="distribution[1]Status-19" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/adms:status" or="status" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*"/>
+					<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/adms:status)=0" name="add-distribution[1]Status-19" or="status" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+						<template>
+							<snippet>
+								<adms:status/>
+							</snippet>
+						</template>
+					</action>
+					<field name="distribution[1]Modified-21" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:modified" or="modified" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="."/>
+				</section>
+-->
+			</tab>
+			<flatModeExceptions>
+				<for name="dct:language"/>
+				<for name="dct:type"/>
+				<for name="dct:format"/>
+				<for name="dcat:license"/>
+				<for name="dcat:theme"/>
+				<for name="dcat:keyword"/>
+<!--				<for name="dcat:mediaType"/>-->
+				<for name="periodOfTimeStartDate"/>
+			</flatModeExceptions>
+			<thesaurusList>
+				<thesaurus key="external.authority.data-theme" maxtags="1" transformations="" fieldset="false"/>
+				<thesaurus key="external.authority.resource-type" maxtags="1" transformations="" fieldset="false"/>
+				<thesaurus key="external.authority.organization-type" maxtags="1" transformations="" fieldset="false"/>
+<!--				<thesaurus key="external.authority.media-type" maxtags="1" transformations="" fieldset="false"/>-->
+				<thesaurus key="external.authority.file-type" maxtags="1" transformations="" fieldset="false"/>
+				<thesaurus key="external.authority.language" maxtags="1" transformations="" fieldset="false"/>
+				<thesaurus key="external.authority.licence" maxtags="1" transformations="" fieldset="false"/>
+			</thesaurusList>
+		</view>
+		<view name="xml">
+			<tab id="xml" default="true"/>
+		</view>
+	</views>
+	<batchEditing>
+		<section name="identification">
+			<field name="title" xpath="dct:title"/>
+		</section>
+	</batchEditing>
+</editor>

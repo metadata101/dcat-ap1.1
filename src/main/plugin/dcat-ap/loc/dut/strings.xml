@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  -->
+
+<strings>
+  <xml_dublin-core>Save this metadata as a Dublin Core XML file</xml_dublin-core>
+  <xml_dcat-ap>Save this metadata as a DCAT-AP XML file</xml_dcat-ap>
+  <default>Dataset</default>
+  <defaultMenu>Standaard</defaultMenu>
+  <advanced>Geavanceerd</advanced>
+  <xml>XML</xml>
+  <dataset>Dataset</dataset>
+  <metadata>Metadata</metadata>
+  <metadata-on-metadata>Metadata over metadata</metadata-on-metadata>
+  <distribution>Distributies</distribution>
+  <!-- DCAT-AP view labels and help -->
+  <identification>Identificatie</identification>
+  <vcardOrganization>Contactpunt</vcardOrganization>
+  <keywords>Sleutelwoorden</keywords>
+  <vcardAddress>Adres</vcardAddress>
+  <foafAgent>Uitgever</foafAgent>
+  <admsIdentifier>Identificator</admsIdentifier>
+  <dctPeriodOfTime>Periodiciteit</dctPeriodOfTime>
+</strings>

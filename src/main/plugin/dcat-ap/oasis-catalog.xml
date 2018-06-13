@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (C) 2001-2016 Food and Agriculture Organization of the
+  ~ United Nations (FAO-UN), United Nations World Food Programme (WFP)
+  ~ and United Nations Environment Programme (UNEP)
+  ~
+  ~ This program is free software; you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation; either version 2 of the License, or (at
+  ~ your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful, but
+  ~ WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  ~ General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program; if not, write to the Free Software
+  ~ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
+  ~
+  ~ Contact: Jeroen Ticheler - FAO - Viale delle Terme di Caracalla 2,
+  ~ Rome - Italy. email: geonetwork@osgeo.org
+  -->
+
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="public">
+
+  <!-- OASIS CATALOG FOR GEONETWORK TO REMAP VARIOUS XML IDs -->
+
+  <!-- This used to be done in Java code, but with the use of these
+             maps you can customise this to suit yourself. -->
+
+  <!-- =============== ISO19139 maps -->
+
+  <!-- Before opengis.net started being used as the srv namespace URL
+         we used http://www.isotc211.org/2005/srv so remap opengis.net to
+             that so all our stuff continues to work -->
+
+  <!-- These are to map schemaLocation hints to local schemas to make sure that
+       GeoNetwork edits and validates against a schema it knows about. -->
+
+  <system
+    systemId="http://www.openarchives.org/OAI/2.0/rdf.xsd"
+    uri="schema/rdf.xsd"/>
+
+</catalog>

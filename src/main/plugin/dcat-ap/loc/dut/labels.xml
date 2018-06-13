@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (C) 2001-2016 Food and Agriculture Organization of the
+  ~ United Nations (FAO-UN), United Nations World Food Programme (WFP)
+  ~ and United Nations Environment Programme (UNEP)
+  ~
+  ~ This program is free software; you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation; either version 2 of the License, or (at
+  ~ your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful, but
+  ~ WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+  ~ General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program; if not, write to the Free Software
+  ~ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
+  ~
+  ~ Contact: Jeroen Ticheler - FAO - Viale delle Terme di Caracalla 2,
+  ~ Rome - Italy. email: geonetwork@osgeo.org
+  -->
+
+<labels xmlns:dct="http://purl.org/dc/terms/" 
+xmlns:spdx="http://spdx.org/rdf/terms#" 
+xmlns:owl="http://www.w3.org/2002/07/owl#"
+xmlns:adms="http://www.w3.org/ns/adms#"
+xmlns:dcat="http://www.w3.org/ns/dcat#" 
+xmlns:locn="http://www.w3.org/ns/locn#" 
+xmlns:foaf="http://xmlns.com/foaf/0.1/" 
+xmlns:vcard="http://www.w3.org/2006/vcard/ns#" 
+xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+xmlns:schema="http://schema.org/" >
+	<!-- ==================================================== -->
+	<element name="dcat:dataset">
+		<label>Dataset</label>
+		<description/>
+	</element>
+	<!-- ==================================================== -->
+	<element name="dct:title">
+		<label>Titel</label>
+		<description>A name given to the resource. Typically, Title will be a name by which the resource is formally known.</description>
+	</element>	
+	<!-- ==================================================== -->
+	<element name="dcat:theme">
+		<label>Thema</label>
+		<description>The data theme of the resource.</description>
+		<example>Recommended best practice is to select a value from a controlled vocabulary or formal classification scheme.</example>
+	</element>	
+	<!-- ==================================================== -->
+	<element name="dct:description">
+		<label>Beschrijving</label>
+		<description>An account of the content of the resource.</description>
+		<example>Examples of Description include, but are not limited to, an abstract, table of contents, reference to a graphical representation of content, or free-text account of the content.</example>
+	</element>	
+	<!-- ==================================================== -->
+	<element name="dct:identifier">
+		<label>Identificator van de bron</label>
+		<description>An unambiguous reference to the resource within a given context.</description>
+		<example>Recommended best practice is to identify the resource by means of a string or number conforming to a formal identification system. Formal identification systems include but are not limited to the Uniform Resource Identifier (URI) (including the Uniform Resource Locator (URL)), the Digital Object Identifier (DOI), and the International Standard Book Number (ISBN).</example>
+	</element>
+	<!-- ==================================================== -->
+	<element name="dct:modified">
+		<label>Wijzigingsdatum</label>
+		<description>Data metadata was modified</description>
+	</element>
+	<!-- ==================================================== -->
+	<element name="dct:abstract">
+		<label>Abstract</label>
+		<description>A summary of the content of the resource.</description>
+	</element>
+	<!-- ==================================================== -->
+	<element name="dct:spatial">
+		<label>Ruimtelijke bedekking</label>
+		<description>Spatial characteristics of the intellectual content of the resource.</description>
+	</element>
+	<!-- ==================================================== -->
+	<element name="dct:audience">
+		<label>Audience</label>
+		<description>A class of entity for whom the resource is intended or useful.</description>
+	</element>
+	<!-- ==================================================== -->
+	<element name="dct:accrualMethod">
+		<label>Accrual Method</label>
+		<description>The method by which items are added to a collection.</description>
+	</element>
+	<!-- ==================================================== -->
+	<element name="dct:accrualPeriodicity">
+		<label>Wijzigingsfrekwentie</label>
+		<description>The frequency with which items are added to a collection.</description>
+	</element>
+	<!-- ==================================================== -->
+	<element name="dct:accrualPolicy">
+		<label>Accrual Policy</label>
+		<description>The policy governing the addition of items to a collection.</description>
+	</element>
+	<!-- ==================================================== -->
+	<element name="dct:instructionalMethod">
+		<label>Instructional Method</label>
+		<description>A process, used to engender knowledge, attitudes and skills, that the resource is designed to support.</description>
+	</element>
+	<!-- ==================================================== -->
+	<element name="dct:provenance">
+		<label>Provenance</label>
+		<description>A statement of any changes in ownership and custody of the resource since its creation that are significant for its authenticity, integrity and interpretation.</description>
+	</element>
+	<!-- ==================================================== -->
+	<element name="dct:rightsHolder">
+		<label>Rights Holder</label>
+		<description>A person or organization owning or managing rights over the resource.</description>
+	</element>
+  <!-- ==================================================== -->
+  <element name="dct:references">
+    <label>Gerelateerde bronnen</label>
+    <description>A related resource that is referenced, cited, or otherwise pointed to by the described resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:accessRights">
+    <label>Toegangsrechten</label>
+    <description>Information about who can access the resource or an indication of its security status.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:alternative">
+    <label>Alternatieve titel</label>
+    <description>An alternative name for the resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:bibliographicCitation">
+    <label>Bibliographic Citation</label>
+    <description>A bibliographic reference for the resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:conformsTo">
+    <label>Conformiteit</label>
+    <description>An established standard to which the described resource conforms.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:created">
+    <label>Datum creatie</label>
+    <description>Date of creation of the resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:dateAccepted">
+    <label>Datum aanvaarding</label>
+    <description>Date of acceptance of the resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:dateCopyrighted">
+    <label>Datum copyright</label>
+    <description>Date of copyright.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:dateSubmitted">
+    <label>Datum verzonden</label>
+    <description>Date of submission of the resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:educationLevel">
+    <label>Audience Education Level</label>
+    <description>A class of entity, defined in terms of progression through an educational or training context, for which the described resource is intended.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:extent">
+    <label>Extent</label>
+    <description>The size or duration of the resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:hasFormat">
+    <label>Has Format</label>
+    <description>A related resource that is substantially the same as the pre-existing described resource, but in another format.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:hasPart">
+    <label>Has Part</label>
+    <description>A related resource that is included either physically or logically in the described resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:hasVersion">
+    <label>Gerelateerde bron</label>
+    <description>A related resource that is a version, edition, or adaptation of the described resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:isFormatOf">
+    <label>Is Format Of</label>
+    <description>A related resource that is substantially the same as the described resource, but in another format.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:isPartOf">
+    <label>Is Part Of</label>
+    <description>A related resource in which the described resource is physically or logically included.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:isReferencedBy">
+    <label>Is Referenced By</label>
+    <description>A related resource that references, cites, or otherwise points to the described resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:isReplacedBy">
+    <label>Is Replaced By</label>
+    <description>A related resource that supplants, displaces, or supersedes the described resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:isRequiredBy">
+    <label>Is vereist voor</label>
+    <description>A related resource that requires the described resource to support its function, delivery, or coherence.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:isVersionOf">
+    <label>Versie van</label>
+    <description>A related resource of which the described resource is a version, edition, or adaptation.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:issued">
+    <label>Creatie datum</label>
+    <description>Date of formal issuance (e.g., publication) of the resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:license">
+    <label>Licensie</label>
+    <description>A legal document giving official permission to do something with the resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:mediator">
+    <label>Mediator</label>
+    <description>An entity that mediates access to the resource and for whom the resource is intended or useful.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:medium">
+    <label>Medium</label>
+    <description>The material or physical carrier of the resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:replaces">
+    <label>Replaces</label>
+    <description>A related resource that is supplanted, displaced, or superseded by the described resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:requires">
+    <label>Requires</label>
+    <description>A related resource that is required by the described resource to support its function, delivery, or coherence.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:tableOfContents">
+    <label>Table Of Contents</label>
+    <description>A list of subunits of the resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:temporal">
+    <label>Tijdelijke bedekking</label>
+    <description>Temporal characteristics of the resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:valid">
+    <label>Datum validatie</label>
+    <description>Date (often a range) of validity of a resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="vcard:Organization">
+    <label>Organisatie</label>
+    <description>Organisatie.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="vcard:organization-name">
+    <label>Naam van de organisatie</label>
+    <description>Naam van de organisatie.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="vcard:hasEmail">
+    <label>Email</label>
+    <description>Email.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="vcard:fn">
+    <label>Contactpersoon</label>
+    <description>Contactpersoon.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="vcard:hasAddress">
+    <label>Adres</label>
+    <description>Adres.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="vcard:Address">
+    <label>Adres</label>
+    <description>Adres.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="vcard:street-address">
+    <label>Straat en nummer</label>
+    <description>Straat en nummer.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="vcard:locality">
+    <label>Gemeente</label>
+    <description>Gemeente.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="vcard:postal-code">
+    <label>Postcode</label>
+    <description>Postcode.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="vcard:country-name">
+    <label>Land</label>
+    <description>Land.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="vcard:hasURL">
+    <label>Url</label>
+    <description>Url.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="vcard:hasTelephone">
+    <label>Telefoon</label>
+    <description>Telefoon.</description>
+  </element>
+  <!-- ==================================================== -->
+
+  <element name="dct:publisher">
+	<label>Publicerende organisatie</label>
+	<description>An entity responsible for making the resource available.</description>
+	<example>Examples of Publisher include a person, an organization, or a service. Typically, the name of a Publisher should be used to indicate the entity.</example>
+  </element>
+  <!-- ==================================================== -->
+  <element name="foaf:Agent">
+    <label>Organisatie</label>
+    <description>Organisatie.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="foaf:name">
+    <label>Naam</label>
+    <description>Naam van de organisatie.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:type" context="dcat:Dataset">
+	<label>Type</label>
+	<description>Type van de dataset.</description>
+    <helper>
+      <option value="dataset">Dataset</option>
+      <option value="series">Series</option>
+    </helper>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:type">
+	<label>Type</label>
+	<description>The nature or genre of the content of the resource. Type includes terms describing general categories, functions, genres, or aggregation levels for content.</description>
+	<example>Recommended best practice is to select a value from a controlled vocabulary (for example, the DCMI Type Vocabulary). To describe the physical or digital manifestation of the resource, use the Format element.</example>
+  </element>
+  <!-- ==================================================== -->
+  <element name="skos:Concept" context="dct:type">
+    <label>Type</label>
+    <description>Type organisatie.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="skos:Concept" context="dcat:theme">
+	<label>Thema</label>
+	<description>The data theme of the resource.</description>
+	<example>Recommended best practice is to select a value from a controlled vocabulary or formal classification scheme.</example>
+  </element>
+  <!-- ==================================================== -->
+  <element name="skos:Concept" context="dct:language">
+    <label>Taal</label>
+    <description>Taal metadata.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="skos:Concept" context="dct:format">
+    <label>Formaat</label>
+    <description>Formaat.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="skos:Concept" context="dct:license">
+    <label>Licensie</label>
+    <description>A legal document giving official permission to do something with the resource.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="foaf:page">
+    <label>Pagina</label>
+    <description>Pagina.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="foaf:Document">
+    <label>Document</label>
+    <description>Document.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dcat:landingPage">
+    <label>Website</label>
+    <description>Website.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:language">
+    <label>Taal</label>
+    <description>Taal metadata.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dcat:keyword">
+    <label>Sleutelwoord</label>
+    <description>Sleutelwoord.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dcat:contactPoint">
+    <label>Contactpunt</label>
+    <description>Contactpunt.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:Location">
+    <label>Ligging</label>
+    <description>Ligging.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="locn:geometry">
+    <label>Geometry</label>
+    <description>Geometry.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dcat:distribution">
+    <label>Distributie</label>
+    <description>Distributie.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dcat:Distribution">
+    <label>Distributie</label>
+    <description>Distributie.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dcat:accessURL">
+    <label>URL</label>
+    <description>URL.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:format">
+    <label>Formaat</label>
+    <description>Formaat.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="spdx:checksum">
+    <label>Checksum</label>
+    <description>Checksum.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="spdx:Checksum">
+    <label>Checksum</label>
+    <description>Checksum.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="spdx:algorithm">
+    <label>Algoritme</label>
+    <description>Algoritme.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="spdx:checksumValue">
+    <label>Checksum waarde</label>
+    <description>Checksum waarde.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:relation">
+    <label>Relatie</label>
+    <description>Relatie.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:resource">
+    <label>Bron</label>
+    <description>Bron.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="adms:Identifier">
+    <label>Identificator</label>
+    <description>Identificator.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:periodOfTime">
+    <label>Periodiciteit</label>
+    <description>Periodiciteit.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="owl:versionInfo">
+    <label>Versie info</label>
+    <description>Versie info.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="adms:versionNotes">
+    <label>Versie notities</label>
+    <description>Versie notities.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:source">
+    <label>Bron</label>
+    <description>Bron.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dcat:downloadURL">
+    <label>Download URL</label>
+    <description>Download URL.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dcat:mediaType">
+    <label>Media type</label>
+    <description>MIME type.</description>
+    <helper>
+      <option value="text/csv">CSV file (text/plain)</option>
+      <option value="text/plain">Text file (text/plain)</option>
+      <option value="application/vnd.ms-excel">Excel file (application/vnd.ms-excel)</option>
+      <option value="text/xml">XML file (text/xml)</option>
+      <option value="application/pdf">PDF file (application/pdf)</option>
+      <option value="application/xml">XML file (application/xml)</option>
+      <option value="application/dxf">DXF file (application/dxf)</option>
+      <option value="application/vnd.google-earth.kml+xml">KML file (application/vnd.google-earth.kml+xml)</option>
+      <option value="application/zip">ZIP file (application/zip)</option>
+      <option value="image/tiff">TIFF Image file (image/tiff)</option>
+    </helper>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dct:rights">
+    <label>Rechten</label>
+    <description>Rechten.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="dcat:byteSize">
+    <label>Grootte in bytes</label>
+    <description>Grootte in bytes.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="adms:status">
+    <label>Status</label>
+    <description>Status.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="skos:notation">
+    <label>Notatie</label>
+    <description>Notatie.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="schema:startDate">
+    <label>Startdatum</label>
+    <description>Startdatum.</description>
+  </element>
+  <!-- ==================================================== -->
+  <element name="schema:endDate">
+    <label>Einddatum</label>
+    <description>Einddatum.</description>
+  </element>
+</labels>
