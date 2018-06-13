@@ -107,10 +107,4 @@ public class DCATAPSchemaPlugin
         return allTypenames;
     }
 
-
-	@Override
-	public Set<String> getAssociatedSeriesUUIDs(Element metadata) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
