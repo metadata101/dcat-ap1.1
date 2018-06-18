@@ -173,7 +173,7 @@
 		                              then $thesaurusConfig/@maxtags
 		                              else 1"/>
 <!--  				<xsl:variable name="maxTags"
-          	select="if ($thesaurusKey = 'external.authority.language') then '1' else ''"/>-->
+          	select="if ($thesaurusKey = 'external.theme.language') then '1' else ''"/>-->
 		        <!-- Create a div with the directive configuration
 		            * elementRef: the element ref to edit
 		            * elementName: the element name
