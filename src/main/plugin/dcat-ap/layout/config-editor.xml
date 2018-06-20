@@ -41,7 +41,10 @@
 	</transparentFieldset>
 	<!-- View configuration -->
 	<views>
-		<view name="default">
+    <view name="default">
+	      <sidePanel>
+	        <directive data-gn-validation-report=""/>
+	      </sidePanel>
 			<tab id="default" default="true">
 				<!-- DON'T MOVE THIS SECTION, otherwise rendering stops at a certain point in the fields list -->
 				<section>
@@ -334,7 +337,10 @@
 			</thesaurusList>
 		</view>
 		<view name="xml">
-			<tab id="xml" default="true"/>
+	      <sidePanel>
+	        <directive data-gn-validation-report=""/>
+	      </sidePanel>		
+	      <tab id="xml" default="true"/>
 		</view>
 	</views>
 	<batchEditing>
