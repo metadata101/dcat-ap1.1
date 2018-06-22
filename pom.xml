@@ -18,6 +18,16 @@
       <artifactId>schema-core</artifactId>
       <version>${project.version}</version>
     </dependency>
+    <dependency>
+      <groupId>org.geonetwork-opensource</groupId>
+      <artifactId>core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.geonetwork-opensource</groupId>
+      <artifactId>harvesters</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
   <build>
