@@ -29,4 +29,6 @@
 
   <bean id="dcat-apSchemaPlugin"
         class="org.fao.geonet.schema.dcatap.DCATAPSchemaPlugin"/>
+  <bean id="dcatap" class="org.fao.geonet.kernel.harvest.harvester.dcatap.DCATAPHarvester"
+        scope="prototype"/>
 </beans>

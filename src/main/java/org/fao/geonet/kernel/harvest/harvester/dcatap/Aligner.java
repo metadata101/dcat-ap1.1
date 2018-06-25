@@ -25,6 +25,7 @@ package org.fao.geonet.kernel.harvest.harvester.dcatap;
 
 import jeeves.server.context.ServiceContext;
 
+import org.apache.commons.lang3.StringUtils;
 import org.fao.geonet.GeonetContext;
 import org.fao.geonet.Logger;
 import org.fao.geonet.constants.Geonet;
@@ -49,6 +50,7 @@ import org.fao.geonet.utils.Xml;
 import org.fao.geonet.utils.XmlRequest;
 import org.jdom.Element;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.util.List;
@@ -114,10 +116,8 @@ public class Aligner extends BaseAligner {
         GeonetContext gc = (GeonetContext) context.getHandlerContext(Geonet.CONTEXT_NAME);
         dataMan = gc.getBean(DataManager.class);
         result = new HarvestResult();
-
-        //--- setup REST operation rest/document?id={uuid}
-
-        request = context.getBean(GeonetHttpRequestFactory.class).createXmlRequest(new URL(params.baseUrl + "/rest/document"));
+        
+        //request = context.getBean(GeonetHttpRequestFactory.class).createXmlRequest(new URL(params.baseUrl));
 
     }
 
@@ -166,8 +166,12 @@ public class Aligner extends BaseAligner {
             try {
                 String id = dataMan.getMetadataId(ri.uuid);
 
-                if (id == null) addMetadata(ri);
-                else updateMetadata(ri, id);
+                if (id == null) {
+                	addMetadata(ri);
+                } else {
+                	updateMetadata(ri, id);
+                }
+
                 result.totalMetadata++;
 
             }catch (Throwable t) {
@@ -296,12 +300,10 @@ public class Aligner extends BaseAligner {
      *
      * @param uuid uuid of metadata to request
      * @return metadata the metadata
+     * @throws MalformedURLException 
      */
-    private Element retrieveMetadata(String uuid) {
-        request.clearParams();
-        //request.addParam("id","{"+uuid+"}");
-        request.addParam("id", uuid);
-
+    private Element retrieveMetadata(String uuid) throws MalformedURLException {
+    	request = context.getBean(GeonetHttpRequestFactory.class).createXmlRequest(new URL(params.baseUrl + "/dataset/" + uuid + ".rdf"));
         try {
             if (log.isDebugEnabled()) {
                 log.debug("Getting record from : " + request.getHost() + " (uuid:" + uuid + ")");

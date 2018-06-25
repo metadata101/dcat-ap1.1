@@ -39,10 +39,13 @@ import org.fao.geonet.kernel.harvest.harvester.RecordInfo;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.Aligner;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.DCATAPParams;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.Search;
+import org.fao.geonet.schema.dcatap.DCATAPNamespaces;
+import org.fao.geonet.schema.dcatap.DCATAPSchemaPlugin;
 import org.fao.geonet.utils.GeonetHttpRequestFactory;
 import org.fao.geonet.utils.Xml;
 import org.fao.geonet.utils.XmlRequest;
 import org.jdom.Element;
+import org.jdom.Namespace;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -106,7 +109,8 @@ class Harvester implements IHarvester<HarvestResult> {
         this.log = log;
         //--- perform all searches
 
-        XmlRequest request = context.getBean(GeonetHttpRequestFactory.class).createXmlRequest(new URL(params.baseUrl + "/rest/find/document"));
+//        XmlRequest request = context.getBean(GeonetHttpRequestFactory.class).createXmlRequest(new URL(params.baseUrl + "/catalog.rdf"));
+        XmlRequest request = context.getBean(GeonetHttpRequestFactory.class).createXmlRequest(new URL("http://localhost:8080/geonetwork/catalogs/catalog.rdf"));
 
         Set<RecordInfo> records = new HashSet<RecordInfo>();
 
@@ -157,41 +161,68 @@ class Harvester implements IHarvester<HarvestResult> {
     }
 
     /**
-     * Does REST search request.
+     * Does DCAT-AP search request.
      */
     private Set<RecordInfo> search(XmlRequest request, Search s) throws Exception {
-        request.clearParams();
-
-        request.addParam("searchText", s.freeText);
-        request.addParam("max", params.maxResults);
-        Element response = doSearch(request);
 
         Set<RecordInfo> records = new HashSet<RecordInfo>();
+        int firstPageSize = 0;
+        int startPage = 1;
+        int maxResults = params.maxResults;
+        while (true) {
+            request.clearParams();
+//            request.addParam("page", startPage);
+	        Element response = doSearch(request);
+	
+	        if (log.isDebugEnabled())
+	            log.debug("Number of child elements in response: " + response.getChildren().size());
 
-        if (log.isDebugEnabled())
-            log.debug("Number of child elements in response: " + response.getChildren().size());
+	        String rdf = response.getName();
+	        if (!rdf.equals("RDF")) {
+	            throw new OperationAbortedEx("Missing 'RDF' element in\n", Xml.getString(response));
+	        }
+	
+	        Element catalog = response.getChild("Catalog", DCATAPNamespaces.DCAT);
+	        if (catalog == null) {
+	            throw new OperationAbortedEx("Missing 'Catalog' element in \n", Xml.getString(response));
+	        }
 
-        String rss = response.getName();
-        if (!rss.equals("rss")) {
-            throw new OperationAbortedEx("Missing 'rss' element in\n", Xml.getString(response));
-        }
+	        @SuppressWarnings("unchecked")
+	        List<Element> list = catalog.getChildren();
+	        int returnedCount = list.size();
+	
+	        if (firstPageSize==0) {
+	        	firstPageSize = returnedCount;
+	        }
+	        
+	        for (Element record : list) {
+	            if (cancelMonitor.get()) {
+	                return Collections.emptySet();
+	            }
+	
+	            if (!record.getName().equals("dataset")) continue; // skip all the other crap
+	            RecordInfo recInfo = getRecordInfo((Element) record.clone());
+	            if (recInfo != null) records.add(recInfo);
 
-        Element channel = response.getChild("channel");
-        if (channel == null) {
-            throw new OperationAbortedEx("Missing 'channel' element in \n", Xml.getString(response));
-        }
-
-        @SuppressWarnings("unchecked")
-        List<Element> list = channel.getChildren();
-
-        for (Element record : list) {
-            if (cancelMonitor.get()) {
-                return Collections.emptySet();
+	        }
+            if (returnedCount != firstPageSize) {
+                break;
             }
 
-            if (!record.getName().equals("item")) continue; // skip all the other crap
-            RecordInfo recInfo = getRecordInfo((Element) record.clone());
-            if (recInfo != null) records.add(recInfo);
+            // Another way to escape from an infinite loop
+
+            if (returnedCount == 0) {
+                log.warning("Forcing harvest end since numberOfRecordsReturned = 0");
+                break;
+            }
+
+            if (records.size() > maxResults) {
+                log.warning("Forcing harvest end since maximum records to be harvested is reached");
+                break;
+            }
+
+            // Start page of next records.
+            startPage++;
         }
 
         log.info("Records added to result list : " + records.size());
@@ -201,6 +232,7 @@ class Harvester implements IHarvester<HarvestResult> {
 
     private Element doSearch(XmlRequest request) throws OperationAbortedEx {
         try {
+            System.out.println("Sent request " + request.getSentData());
             log.info("Searching on : " + params.getName());
             Element response = request.execute();
             if (log.isDebugEnabled()) {
@@ -230,21 +262,28 @@ class Harvester implements IHarvester<HarvestResult> {
 
         // get uuid and date modified
         try {
+	        Element dataset = record.getChild("Dataset", DCATAPNamespaces.DCAT);
+	        if (dataset == null) {
+                log.warning("Missing 'Dataset' element in \n" + Xml.getString(record));
+                return null;
+	        }
             // uuid is in <guid> child
-            String guidLink = record.getChildText("guid");
-            if (guidLink != null) {
-                guidLink = URLDecoder.decode(guidLink, Constants.ENCODING);
-                identif = StringUtils.substringAfter(guidLink, "id=");
+            String about = dataset.getAttributeValue("about", DCATAPNamespaces.RDF);
+            if (about != null) {
+                String aboutLink = URLDecoder.decode(about, Constants.ENCODING);
+                identif = StringUtils.substringAfterLast(aboutLink, "/");
             }
             if (identif.length() == 0) {
                 log.warning("Record doesn't have a uuid : " + Xml.getString(record));
                 return null; // skip this one
             }
 
-            String modified = record.getChildText("pubDate");
+            String modified = dataset.getChildText("modified", DCATAPNamespaces.DCT);
             // convert the pubDate to a known format (ISOdate)
             Date modDate = parseDate(modified);
-            modified = new ISODate(modDate.getTime(), false).toString();
+            if (modDate!=null) {
+	            modified = new ISODate(modDate.getTime(), false).toString();
+            }
             if (modified != null && modified.length() == 0) modified = null;
 
             if (log.isDebugEnabled())
@@ -268,43 +307,18 @@ class Harvester implements IHarvester<HarvestResult> {
     /**
      * Parse the date provided in the pubDate field.
      *
-     * The field may be formatted according to different languages: e.g.
-     * <ul>
-     * <li>"Mon, 04 Feb 2013 10:19:00 +1000"</li>
-     * <li>"Fr, 24 Mrz 2017 10:58:59 +0100"</li>
-     * </ul>
-     *
-     * This method also provides a workaround for
-     *    https://bugs.openjdk.java.net/browse/JDK-8136539
-     *
-     * @param pubDate the date to parse
+     * @param modifiedDate the date to parse
      * @return
      */
-    protected Date parseDate(String pubDate) throws ParseException {
+    protected Date parseDate(String modifiedDate) throws ParseException {
 
-        // try some well known locales.
-        // TODO: this should be improved
-        Locale wellKnownLocales[] = {Locale.ENGLISH, Locale.FRENCH, Locale.GERMAN, Locale.ITALIAN};
-
-        for (Locale locale : wellKnownLocales) {
-            SimpleDateFormat sdf = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss Z", locale);
-            try {
-                return sdf.parse(pubDate);
-            } catch (ParseException e) {
-                // workaround for https://bugs.openjdk.java.net/browse/JDK-8136539
-                if(locale == Locale.GERMAN && pubDate.toLowerCase(Locale.GERMAN).contains("mrz")) {
-                    try {
-                        log.info("Applying MRZ workaround to '"+pubDate+"'");
-                        return sdf.parse(pubDate.toLowerCase(Locale.GERMAN).replace("mrz", "mär"));
-                    } catch (ParseException ex) {
-                    }
-                }
-
-                log.debug("Date '"+pubDate+"' is not parsable according to " + locale);
-            }
+    	SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-DD'T'HH:mm:ss");
+        try {
+            return sdf.parse(modifiedDate.toUpperCase());
+        } catch (Exception e) {
+            log.debug("Date '"+modifiedDate+"' is not parsable");
         }
-
-        throw new ParseException("Can't parse date '"+pubDate+"'", 0);
+        return null;
     }
 
     public List<HarvestError> getErrors() {

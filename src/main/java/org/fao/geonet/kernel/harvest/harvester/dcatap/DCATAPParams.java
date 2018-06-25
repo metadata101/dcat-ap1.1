@@ -46,7 +46,7 @@ public class DCATAPParams extends AbstractParams {
     //---
     //--------------------------------------------------------------------------
 
-    private static int MAX_HARVEST_RESULTS = 100000; // TODO: config param
+    private static int MAX_HARVEST_RESULTS = 2; // TODO: config param
 
     //---------------------------------------------------------------------------
     //---
