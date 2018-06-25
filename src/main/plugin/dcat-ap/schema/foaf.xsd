@@ -14,9 +14,7 @@
 			<xs:element name="Document">
 				<xs:complexType>
 					<xs:sequence>
-						<!-- mandatory properties for oaf:Document-->
-						<xs:element name="name" type="rdf:PlainLiteral" minOccurs="1"/>
-						<!-- recommended properties for oaf:Document-->
+						<xs:element name="name" type="rdf:PlainLiteral" minOccurs="1" maxOccurs="unbounded"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
 				</xs:complexType>

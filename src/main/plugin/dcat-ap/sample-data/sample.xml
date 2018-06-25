@@ -1,254 +1,369 @@
-<rdf:RDF xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:owl="http://www.w3.org/2002/07/owl#"
-         xmlns:adms="http://www.w3.org/ns/adms#"
-         xmlns:locn="http://www.w3.org/ns/locn#"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns:foaf="http://xmlns.com/foaf/0.1/"
-         xmlns:dct="http://purl.org/dc/terms/"
-         xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
-         xmlns:dcat="http://www.w3.org/ns/dcat#"
-         xmlns:schema="http://schema.org/"
-         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-         xsi:schemaLocation="http://www.w3.org/1999/02/22-rdf-syntax-ns# rdf.xsd">
-  <dcat:Catalog rdf:about="">
-      <dct:title xml:lang="nl">String</dct:title>
-      <dct:description xml:lang="nl">String</dct:description>
-      <dct:publisher>
-         <foaf:Agent rdf:about="">
-            <foaf:name xml:lang="nl">String</foaf:name>
-            <dct:type/>
-         </foaf:Agent>
-      </dct:publisher>
-      <dcat:dataset>
-         <dcat:Dataset>
-            <dct:identifier>51c1f5c0-e9ec-4f97-b326-6f6fc2eeaf6f</dct:identifier>
-            <dct:title xml:lang="nl">DCAT-AP Template</dct:title>
-            <dct:description xml:lang="nl">String</dct:description>
-            <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">
-               <gco:DateTime xmlns:gco="undefined">2001-12-17T09:30:47</gco:DateTime>
-            </dct:issued>
-            <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">
-               <gco:DateTime xmlns:gco="undefined">2001-12-17T09:30:47</gco:DateTime>
-            </dct:modified>
-            <dcat:contactPoint>
-               <vcard:Organization rdf:about="">
-                  <vcard:fn>String</vcard:fn>
-                  <vcard:organization-name>String</vcard:organization-name>
-                  <vcard:hasAddress>
-                     <vcard:Address rdf:about="">
-                        <vcard:street-address>String</vcard:street-address>
-                        <vcard:locality>String</vcard:locality>
-                        <vcard:postal-code>String</vcard:postal-code>
-                        <vcard:country-name>String</vcard:country-name>
-                     </vcard:Address>
-                  </vcard:hasAddress>
-                  <vcard:hasEmail/>
-                  <vcard:hasURL/>
-                  <vcard:hasTelephone/>
-               </vcard:Organization>
-            </dcat:contactPoint>
-            <dct:publisher>
-               <foaf:Agent rdf:about="">
-                  <foaf:name xml:lang="nl">String</foaf:name>
-                  <dct:type xmlns:dc="http://purl.org/dc/elements/1.1/">
-                     <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/organization-type/DIVISION">
-                        <skos:prefLabel xml:lang="nl">Afdeling</skos:prefLabel>
-                        <skos:prefLabel xml:lang="en">Division</skos:prefLabel>
-                        <skos:prefLabel xml:lang="fr">Division</skos:prefLabel>
-                        <skos:prefLabel xml:lang="de">Abteilung</skos:prefLabel>
-                        <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/organization-type"/>
-                     </skos:Concept>
-                  </dct:type>
-               </foaf:Agent>
-            </dct:publisher>
-            <dcat:keyword xml:lang="nl">String</dcat:keyword>
-            <dcat:theme xmlns:dc="http://purl.org/dc/elements/1.1/">
-               <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/data-theme/SOCI">
-                  <skos:prefLabel xml:lang="nl">Bevolking en samenleving</skos:prefLabel>
-                  <skos:prefLabel xml:lang="en">Population and society</skos:prefLabel>
-                  <skos:prefLabel xml:lang="fr">Population et société</skos:prefLabel>
-                  <skos:prefLabel xml:lang="de">Bevölkerung und Gesellschaft</skos:prefLabel>
-                  <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/data-theme"/>
-               </skos:Concept>
-            </dcat:theme>
-            <dct:accessRights/>
-            <dct:conformsTo/>
-            <foaf:page>
-               <foaf:Document rdf:about="">
-                  <foaf:name xml:lang="nl">String</foaf:name>
-               </foaf:Document>
-            </foaf:page>
-            <dct:accrualPeriodicity/>
-            <dct:hasVersion/>
-            <dct:isVersionOf/>
-            <dcat:landingPage rdf:resource=""/>
-            <dct:language>
-               <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/language/NLD">
-                  <skos:prefLabel xml:lang="nl">Nederlands</skos:prefLabel>
-                  <skos:prefLabel xml:lang="en">Dutch</skos:prefLabel>
-                  <skos:prefLabel xml:lang="fr">néerlandais</skos:prefLabel>
-                  <skos:prefLabel xml:lang="de">Niederländisch</skos:prefLabel>
-                  <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/language"/>
-               </skos:Concept>
-            </dct:language>
-            <adms:identifier>
-               <adms:Identifier rdf:about="">
-                  <skos:notation rdf:datatype="">String</skos:notation>
-               </adms:Identifier>
-            </adms:identifier>
-            <dct:provenance/>
-            <dct:relation/>
-            <dct:source/>
-            <dct:spatial>
-               <dct:Location rdf:about="">
-                  <locn:geometry rdf:datatype="">String</locn:geometry>
-                  <skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-               </dct:Location>
-            </dct:spatial>
-            <dct:temporal>
-               <dct:PeriodOfTime rdf:about="">
-                  <schema:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">
-                     <gco:DateTime xmlns:gco="undefined">2001-12-17T09:30:47</gco:DateTime>
-                  </schema:startDate>
-                  <schema:endDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">
-                     <gco:DateTime xmlns:gco="undefined">2001-12-17T09:30:47</gco:DateTime>
-                  </schema:endDate>
-               </dct:PeriodOfTime>
-            </dct:temporal>
-            <dct:type>
-               <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/resource-type/service">
-                  <skos:prefLabel xml:lang="nl">Dienst met betrekking tot ruimtelijke gegevens</skos:prefLabel>
-                  <skos:prefLabel xml:lang="en"/>
-                  <skos:prefLabel xml:lang="fr"/>
-                  <skos:prefLabel xml:lang="de"/>
-                  <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/resource-type"/>
-               </skos:Concept>
-            </dct:type>
-            <owl:versionInfo xml:lang="nl">String</owl:versionInfo>
-            <adms:versionNotes xml:lang="nl">String</adms:versionNotes>
-            <dcat:distribution>
-               <dcat:Distribution rdf:about="">
-                  <dct:title xml:lang="nl">String</dct:title>
-                  <dct:description xml:lang="nl">String</dct:description>
-                  <dcat:accessURL rdf:resource=""/>
-                  <dcat:downloadURL rdf:resource=""/>
-                  <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">
-                     <gco:DateTime xmlns:gco="undefined">2001-12-17T09:30:47</gco:DateTime>
-                  </dct:issued>
-                  <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">
-                     <gco:DateTime xmlns:gco="undefined">2001-12-17T09:30:47</gco:DateTime>
-                  </dct:modified>
-                  <dct:format>
-                     <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/file-type/CSV">
-                        <skos:prefLabel xml:lang="nl">CSV</skos:prefLabel>
-                        <skos:prefLabel xml:lang="en">CSV</skos:prefLabel>
-                        <skos:prefLabel xml:lang="fr"/>
-                        <skos:prefLabel xml:lang="de"/>
-                        <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/file-type"/>
-                     </skos:Concept>
-                  </dct:format>
-                  <dcat:mediaType>text/csv</dcat:mediaType>
-                  <dct:language>
-                     <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/language/NLD">
-                        <skos:prefLabel xml:lang="nl">Nederlands</skos:prefLabel>
-                        <skos:prefLabel xml:lang="en">Dutch</skos:prefLabel>
-                        <skos:prefLabel xml:lang="fr">néerlandais</skos:prefLabel>
-                        <skos:prefLabel xml:lang="de">Niederländisch</skos:prefLabel>
-                        <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/language"/>
-                     </skos:Concept>
-                  </dct:language>
-                  <dct:license>
-                     <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/licence/CC0">
-                        <skos:prefLabel xml:lang="nl">Creative Commons CC0 1.0 Universeel</skos:prefLabel>
-                        <skos:prefLabel xml:lang="en">Creative Commons CC0 1.0 Universal</skos:prefLabel>
-                        <skos:prefLabel xml:lang="fr">Creative Commons CC0 1.0 Universel</skos:prefLabel>
-                        <skos:prefLabel xml:lang="de">Creative Commons CC0 1.0 Universell</skos:prefLabel>
-                        <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/licence"/>
-                     </skos:Concept>
-                  </dct:license>
-                  <dct:rights/>
-                  <dcat:byteSize>0</dcat:byteSize>
-                  <spdx:checksum>
-                     <spdx:Checksum rdf:about="">
-                        <spdx:algorithm/>
-                        <spdx:checksumValue>41394644363445313243</spdx:checksumValue>
-                     </spdx:Checksum>
-                  </spdx:checksum>
-                  <foaf:page>
-                     <foaf:Document rdf:about="">
-                        <foaf:name xml:lang="nl">String</foaf:name>
-                     </foaf:Document>
-                  </foaf:page>
-                  <dct:conformsTo/>
-                  <adms:status/>
-               </dcat:Distribution>
-            </dcat:distribution>
-            <dcat:distribution>
-               <dcat:Distribution>
-                  <dct:title/>
-                  <dct:description/>
-                  <dcat:accessURL/>
-                  <dcat:downloadURL/>
-                  <dct:issued>
-                     <gco:Date xmlns:gco="undefined"/>
-                  </dct:issued>
-                  <dct:modified>
-                     <gco:Date xmlns:gco="undefined"/>
-                  </dct:modified>
-                  <dct:format/>
-                  <dcat:mediaType/>
-                  <dct:language/>
-                  <dct:license/>
-                  <dct:rights/>
-                  <dcat:byteSize/>
-                  <spdx:checksum>
-                     <spdx:Checksum>
-                        <spdx:algorithm/>
-                        <spdx:checksumValue/>
-                     </spdx:Checksum>
-                  </spdx:checksum>
-                  <foaf:page>
-                     <foaf:Document>
-                        <foaf:name/>
-                     </foaf:Document>
-                  </foaf:page>
-                  <dct:conformsTo/>
-                  <adms:status/>
-               </dcat:Distribution>
-            </dcat:distribution>
-         </dcat:Dataset>
-      </dcat:dataset>
-      <dcat:homepage>
-         <foaf:Document rdf:about="">
-            <foaf:name xml:lang="nl">String</foaf:name>
-         </foaf:Document>
-      </dcat:homepage>
-      <dct:license/>
-      <dct:language/>
-      <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:issued>
-      <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:modified>
-      <dcat:themeTaxonomy/>
-      <dct:hasPart/>
-      <dct:isPartOf/>
-      <dcat:record>
-         <dcat:CatalogRecord rdf:about="">
-            <foaf:primaryTopic/>
-            <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:modified>
-            <dct:conformsTo/>
-            <adms:status/>
-            <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:issued>
-            <dct:description xml:lang="nl">String</dct:description>
-            <dct:language/>
-            <dct:source/>
-            <dct:title xml:lang="nl">String</dct:title>
-         </dcat:CatalogRecord>
-      </dcat:record>
-      <dct:rights/>
-      <dct:spatial>
-         <dct:Location rdf:about="">
-            <locn:geometry rdf:datatype="">String</locn:geometry>
-            <skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-         </dct:Location>
-      </dct:spatial>
-   </dcat:Catalog>
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Sample XML file generated by XMLSpy v2018 rel. 2 (x64) (http://www.altova.com)-->
+<rdf:RDF xmlns:schema="http://schema.org/" xmlns:dct="http://purl.org/dc/terms/" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:locn="http://www.w3.org/ns/locn#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xsi:schemaLocation="http://www.w3.org/1999/02/22-rdf-syntax-ns# rdf.xsd">
+	<dcat:Catalog rdf:about="http://www.altova.com/">
+		<dct:title xml:lang="en-us">String</dct:title>
+		<dct:description xml:lang="en-us">String</dct:description>
+		<dct:publisher>
+			<foaf:Agent rdf:about="http://www.altova.com/">
+				<foaf:name xml:lang="en-us">String</foaf:name>
+				<dct:type>
+					<skos:Concept rdf:about="http://www.altova.com/">
+						<rdf:type rdf:resource="http://www.altova.com/"/>
+						<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+						<skos:inScheme rdf:resource="http://www.altova.com/"/>
+					</skos:Concept>
+				</dct:type>
+			</foaf:Agent>
+		</dct:publisher>
+		<dcat:homepage>
+			<foaf:Document rdf:about="http://www.altova.com/">
+				<foaf:name xml:lang="en-us">String</foaf:name>
+			</foaf:Document>
+		</dcat:homepage>
+		<dct:license>
+			<dct:LicenseDocument rdf:about="http://www.altova.com/">
+				<dct:type>
+					<skos:Concept rdf:about="http://www.altova.com/">
+						<rdf:type rdf:resource="http://www.altova.com/"/>
+						<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+						<skos:inScheme rdf:resource="http://www.altova.com/"/>
+					</skos:Concept>
+				</dct:type>
+				<dct:title xml:lang="en-us">String</dct:title>
+				<dct:description xml:lang="en-us">String</dct:description>
+				<dct:identifier xml:lang="en-us">String</dct:identifier>
+			</dct:LicenseDocument>
+		</dct:license>
+		<dct:language>
+			<skos:Concept rdf:about="http://www.altova.com/">
+				<rdf:type rdf:resource="http://www.altova.com/"/>
+				<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+				<skos:inScheme rdf:resource="http://www.altova.com/"/>
+			</skos:Concept>
+		</dct:language>
+		<dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:issued>
+		<dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:modified>
+		<dcat:themeTaxonomy>
+			<skos:ConceptScheme rdf:about="http://www.altova.com/">
+				<dct:title xml:lang="en-us">String</dct:title>
+			</skos:ConceptScheme>
+		</dcat:themeTaxonomy>
+		<dct:hasPart rdf:resource="http://www.altova.com/"/>
+		<dct:isPartOf rdf:resource="http://www.altova.com/"/>
+		<dcat:record>
+			<dcat:CatalogRecord rdf:about="http://www.altova.com/">
+				<foaf:primaryTopic>http://www.altova.com/</foaf:primaryTopic>
+				<dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:modified>
+				<dct:conformsTo>
+					<dct:Standard rdf:about="http://www.altova.com/">
+						<dct:title xml:lang="en-us">String</dct:title>
+						<dct:description xml:lang="en-us">String</dct:description>
+					</dct:Standard>
+				</dct:conformsTo>
+				<adms:status>
+					<skos:Concept rdf:about="http://www.altova.com/">
+						<rdf:type rdf:resource="http://www.altova.com/"/>
+						<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+						<skos:inScheme rdf:resource="http://www.altova.com/"/>
+					</skos:Concept>
+				</adms:status>
+				<dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:issued>
+				<dct:description xml:lang="en-us">String</dct:description>
+				<dct:language>
+					<skos:Concept rdf:about="http://www.altova.com/">
+						<rdf:type rdf:resource="http://www.altova.com/"/>
+						<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+						<skos:inScheme rdf:resource="http://www.altova.com/"/>
+					</skos:Concept>
+				</dct:language>
+				<dct:source rdf:resource="http://www.altova.com/"/>
+				<dct:title xml:lang="en-us">String</dct:title>
+			</dcat:CatalogRecord>
+		</dcat:record>
+		<dct:rights>
+			<dct:RightsStatement rdf:about="http://www.altova.com/">
+				<dct:title xml:lang="en-us">String</dct:title>
+				<dct:description xml:lang="en-us">String</dct:description>
+			</dct:RightsStatement>
+		</dct:rights>
+		<dct:spatial>
+			<dct:Location rdf:about="http://www.altova.com/">
+				<locn:geometry rdf:datatype="http://www.altova.com/">String</locn:geometry>
+				<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+			</dct:Location>
+		</dct:spatial>
+		<dcat:dataset>
+			<dcat:Dataset rdf:about="http://www.altova.com/">
+				<dct:title xml:lang="en-us">String</dct:title>
+				<dct:description xml:lang="en-us">String</dct:description>
+				<dct:identifier xml:lang="en-us">String</dct:identifier>
+				<dcat:contactPoint>
+					<vcard:Organization rdf:about="http://www.altova.com/">
+						<vcard:fn>String</vcard:fn>
+						<vcard:organization-name>String</vcard:organization-name>
+						<vcard:hasAddress>
+							<vcard:Address rdf:about="http://www.altova.com/">
+								<vcard:street-address>String</vcard:street-address>
+								<vcard:locality>String</vcard:locality>
+								<vcard:postal-code>String</vcard:postal-code>
+								<vcard:country-name>String</vcard:country-name>
+							</vcard:Address>
+						</vcard:hasAddress>
+						<vcard:hasEmail>http://www.altova.com/</vcard:hasEmail>
+						<vcard:hasURL>http://www.altova.com/</vcard:hasURL>
+						<vcard:hasTelephone>http://www.altova.com/</vcard:hasTelephone>
+					</vcard:Organization>
+				</dcat:contactPoint>
+				<dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:issued>
+				<dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:modified>
+				<dct:publisher>
+					<foaf:Agent rdf:about="http://www.altova.com/">
+						<foaf:name xml:lang="en-us">String</foaf:name>
+						<dct:type>
+							<skos:Concept rdf:about="http://www.altova.com/">
+								<rdf:type rdf:resource="http://www.altova.com/"/>
+								<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+								<skos:inScheme rdf:resource="http://www.altova.com/"/>
+							</skos:Concept>
+						</dct:type>
+					</foaf:Agent>
+				</dct:publisher>
+				<dcat:keyword xml:lang="en-us">String</dcat:keyword>
+				<dcat:theme>
+					<skos:Concept rdf:about="http://www.altova.com/">
+						<rdf:type rdf:resource="http://www.altova.com/"/>
+						<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+						<skos:inScheme rdf:resource="http://www.altova.com/"/>
+					</skos:Concept>
+				</dcat:theme>
+				<dct:accessRights>
+					<dct:RightsStatement rdf:about="http://www.altova.com/">
+						<dct:title xml:lang="en-us">String</dct:title>
+						<dct:description xml:lang="en-us">String</dct:description>
+					</dct:RightsStatement>
+				</dct:accessRights>
+				<dct:conformsTo>
+					<dct:Standard rdf:about="http://www.altova.com/">
+						<dct:title xml:lang="en-us">String</dct:title>
+						<dct:description xml:lang="en-us">String</dct:description>
+					</dct:Standard>
+				</dct:conformsTo>
+				<foaf:page>
+					<foaf:Document rdf:about="http://www.altova.com/">
+						<foaf:name xml:lang="en-us">String</foaf:name>
+					</foaf:Document>
+				</foaf:page>
+				<dct:accrualPeriodicity>
+					<skos:Concept rdf:about="http://www.altova.com/">
+						<rdf:type rdf:resource="http://www.altova.com/"/>
+						<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+						<skos:inScheme rdf:resource="http://www.altova.com/"/>
+					</skos:Concept>
+				</dct:accrualPeriodicity>
+				<dct:hasVersion rdf:resource="http://www.altova.com/"/>
+				<dct:isVersionOf rdf:resource="http://www.altova.com/"/>
+				<dcat:landingPage rdf:resource="http://www.altova.com/"/>
+				<dct:language>
+					<skos:Concept rdf:about="http://www.altova.com/">
+						<rdf:type rdf:resource="http://www.altova.com/"/>
+						<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+						<skos:inScheme rdf:resource="http://www.altova.com/"/>
+					</skos:Concept>
+				</dct:language>
+				<adms:identifier>
+					<adms:Identifier rdf:about="http://www.altova.com/">
+						<skos:notation rdf:datatype="http://www.altova.com/">String</skos:notation>
+					</adms:Identifier>
+				</adms:identifier>
+				<dct:provenance>
+					<dct:ProvenanceStatement rdf:about="http://www.altova.com/">
+						<dct:description xml:lang="en-us">String</dct:description>
+					</dct:ProvenanceStatement>
+				</dct:provenance>
+				<dct:relation rdf:resource="http://www.altova.com/"/>
+				<dct:source rdf:resource="http://www.altova.com/"/>
+				<dct:spatial>
+					<dct:Location rdf:about="http://www.altova.com/">
+						<locn:geometry rdf:datatype="http://www.altova.com/">String</locn:geometry>
+						<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+					</dct:Location>
+				</dct:spatial>
+				<dct:temporal>
+					<dct:PeriodOfTime rdf:about="http://www.altova.com/">
+						<schema:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</schema:startDate>
+						<schema:endDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</schema:endDate>
+					</dct:PeriodOfTime>
+				</dct:temporal>
+				<dct:type>
+					<skos:Concept rdf:about="http://www.altova.com/">
+						<rdf:type rdf:resource="http://www.altova.com/"/>
+						<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+						<skos:inScheme rdf:resource="http://www.altova.com/"/>
+					</skos:Concept>
+				</dct:type>
+				<owl:versionInfo xml:lang="en-us">String</owl:versionInfo>
+				<adms:versionNotes xml:lang="en-us">String</adms:versionNotes>
+				<dcat:extension>
+					<rdf:Statement rdf:about="http://www.altova.com/">
+						<rdf:subject rdf:resource="http://www.altova.com/"/>
+						<rdf:predicate rdf:resource="http://www.altova.com/"/>
+						<rdf:object rdf:datatype="text" rdf:resource="http://www.altova.com/">String</rdf:object>
+					</rdf:Statement>
+				</dcat:extension>
+				<dcat:distribution>
+					<dcat:Distribution rdf:about="http://www.altova.com/">
+						<dct:title xml:lang="en-us">String</dct:title>
+						<dct:description xml:lang="en-us">String</dct:description>
+						<dcat:accessURL rdf:resource="http://www.altova.com/"/>
+						<dcat:downloadURL rdf:resource="http://www.altova.com/"/>
+						<dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:issued>
+						<dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:modified>
+						<dct:format>
+							<skos:Concept rdf:about="http://www.altova.com/">
+								<rdf:type rdf:resource="http://www.altova.com/"/>
+								<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+								<skos:inScheme rdf:resource="http://www.altova.com/"/>
+							</skos:Concept>
+						</dct:format>
+						<dcat:mediaType>
+							<skos:Concept rdf:about="http://www.altova.com/">
+								<rdf:type rdf:resource="http://www.altova.com/"/>
+								<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+								<skos:inScheme rdf:resource="http://www.altova.com/"/>
+							</skos:Concept>
+						</dcat:mediaType>
+						<dct:language>
+							<skos:Concept rdf:about="http://www.altova.com/">
+								<rdf:type rdf:resource="http://www.altova.com/"/>
+								<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+								<skos:inScheme rdf:resource="http://www.altova.com/"/>
+							</skos:Concept>
+						</dct:language>
+						<dct:license>
+							<dct:LicenseDocument rdf:about="http://www.altova.com/">
+								<dct:type>
+									<skos:Concept rdf:about="http://www.altova.com/">
+										<rdf:type rdf:resource="http://www.altova.com/"/>
+										<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+										<skos:inScheme rdf:resource="http://www.altova.com/"/>
+									</skos:Concept>
+								</dct:type>
+								<dct:title xml:lang="en-us">String</dct:title>
+								<dct:description xml:lang="en-us">String</dct:description>
+								<dct:identifier xml:lang="en-us">String</dct:identifier>
+							</dct:LicenseDocument>
+						</dct:license>
+						<dct:rights>
+							<dct:RightsStatement rdf:about="http://www.altova.com/">
+								<dct:title xml:lang="en-us">String</dct:title>
+								<dct:description xml:lang="en-us">String</dct:description>
+							</dct:RightsStatement>
+						</dct:rights>
+						<dcat:byteSize>0</dcat:byteSize>
+						<spdx:checksum>
+							<spdx:Checksum rdf:about="http://www.altova.com/">
+								<spdx:algorithm>http://www.altova.com/</spdx:algorithm>
+								<spdx:checksumValue>41394644363445313243</spdx:checksumValue>
+							</spdx:Checksum>
+						</spdx:checksum>
+						<foaf:page>
+							<foaf:Document rdf:about="http://www.altova.com/">
+								<foaf:name xml:lang="en-us">String</foaf:name>
+							</foaf:Document>
+						</foaf:page>
+						<dct:conformsTo>
+							<dct:Standard rdf:about="http://www.altova.com/">
+								<dct:title xml:lang="en-us">String</dct:title>
+								<dct:description xml:lang="en-us">String</dct:description>
+							</dct:Standard>
+						</dct:conformsTo>
+						<adms:status>
+							<skos:Concept rdf:about="http://www.altova.com/">
+								<rdf:type rdf:resource="http://www.altova.com/"/>
+								<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+								<skos:inScheme rdf:resource="http://www.altova.com/"/>
+							</skos:Concept>
+						</adms:status>
+					</dcat:Distribution>
+				</dcat:distribution>
+				<adms:sample>
+					<dcat:Distribution rdf:about="http://www.altova.com/">
+						<dct:title xml:lang="en-us">String</dct:title>
+						<dct:description xml:lang="en-us">String</dct:description>
+						<dcat:accessURL rdf:resource="http://www.altova.com/"/>
+						<dcat:downloadURL rdf:resource="http://www.altova.com/"/>
+						<dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:issued>
+						<dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:modified>
+						<dct:format>
+							<skos:Concept rdf:about="http://www.altova.com/">
+								<rdf:type rdf:resource="http://www.altova.com/"/>
+								<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+								<skos:inScheme rdf:resource="http://www.altova.com/"/>
+							</skos:Concept>
+						</dct:format>
+						<dcat:mediaType>
+							<skos:Concept rdf:about="http://www.altova.com/">
+								<rdf:type rdf:resource="http://www.altova.com/"/>
+								<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+								<skos:inScheme rdf:resource="http://www.altova.com/"/>
+							</skos:Concept>
+						</dcat:mediaType>
+						<dct:language>
+							<skos:Concept rdf:about="http://www.altova.com/">
+								<rdf:type rdf:resource="http://www.altova.com/"/>
+								<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+								<skos:inScheme rdf:resource="http://www.altova.com/"/>
+							</skos:Concept>
+						</dct:language>
+						<dct:license>
+							<dct:LicenseDocument rdf:about="http://www.altova.com/">
+								<dct:type>
+									<skos:Concept rdf:about="http://www.altova.com/">
+										<rdf:type rdf:resource="http://www.altova.com/"/>
+										<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+										<skos:inScheme rdf:resource="http://www.altova.com/"/>
+									</skos:Concept>
+								</dct:type>
+								<dct:title xml:lang="en-us">String</dct:title>
+								<dct:description xml:lang="en-us">String</dct:description>
+								<dct:identifier xml:lang="en-us">String</dct:identifier>
+							</dct:LicenseDocument>
+						</dct:license>
+						<dct:rights>
+							<dct:RightsStatement rdf:about="http://www.altova.com/">
+								<dct:title xml:lang="en-us">String</dct:title>
+								<dct:description xml:lang="en-us">String</dct:description>
+							</dct:RightsStatement>
+						</dct:rights>
+						<dcat:byteSize>0</dcat:byteSize>
+						<spdx:checksum>
+							<spdx:Checksum rdf:about="http://www.altova.com/">
+								<spdx:algorithm>http://www.altova.com/</spdx:algorithm>
+								<spdx:checksumValue>41394644363445313243</spdx:checksumValue>
+							</spdx:Checksum>
+						</spdx:checksum>
+						<foaf:page>
+							<foaf:Document rdf:about="http://www.altova.com/">
+								<foaf:name xml:lang="en-us">String</foaf:name>
+							</foaf:Document>
+						</foaf:page>
+						<dct:conformsTo>
+							<dct:Standard rdf:about="http://www.altova.com/">
+								<dct:title xml:lang="en-us">String</dct:title>
+								<dct:description xml:lang="en-us">String</dct:description>
+							</dct:Standard>
+						</dct:conformsTo>
+						<adms:status>
+							<skos:Concept rdf:about="http://www.altova.com/">
+								<rdf:type rdf:resource="http://www.altova.com/"/>
+								<skos:prefLabel xml:lang="en-us">String</skos:prefLabel>
+								<skos:inScheme rdf:resource="http://www.altova.com/"/>
+							</skos:Concept>
+						</adms:status>
+					</dcat:Distribution>
+				</adms:sample>
+			</dcat:Dataset>
+		</dcat:dataset>
+	</dcat:Catalog>
 </rdf:RDF>

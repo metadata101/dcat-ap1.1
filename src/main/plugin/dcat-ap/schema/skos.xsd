@@ -29,11 +29,11 @@
 			<xs:element name="Concept">
 				<xs:complexType>
 					<xs:sequence>
-						<!-- mandatory properties for skos:Concept-->
+						<xs:element ref="rdf:type" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element ref="skos:prefLabel" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element name="inScheme" minOccurs="0" maxOccurs="1">
 							<xs:complexType>
-								<xs:attribute ref="rdf:resource"/>
+								<xs:attribute ref="rdf:resource" use="required"/>
 							</xs:complexType>
 						</xs:element>
 					</xs:sequence>

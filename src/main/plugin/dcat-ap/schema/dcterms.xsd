@@ -26,54 +26,92 @@
 	<xs:element name="dateCopyrighted" type="rdf:DateTimeLiteral"/>
 	<xs:element name="dateSubmitted" type="rdf:DateTimeLiteral"/>
 	<xs:element name="format" type="skos:Concept"/>
-	<xs:element name="extent" type="xs:anyURI"/>
+	<xs:element name="extent" type="rdf:Resource"/>
 	<xs:element name="medium" type="xs:anyURI"/>
-	<xs:element name="isVersionOf" type="xs:anyURI"/>
-	<xs:element name="hasVersion" type="xs:anyURI"/>
-	<xs:element name="isReplacedBy" type="xs:anyURI"/>
-	<xs:element name="replaces" type="xs:anyURI"/>
+	<xs:element name="isVersionOf" type="rdf:Resource"/>
+	<xs:element name="hasVersion" type="rdf:Resource"/>
+	<xs:element name="isReplacedBy" type="rdf:Resource"/>
+	<xs:element name="replaces" type="rdf:Resource"/>
 	<xs:element name="isRequiredBy" type="xs:anyURI"/>
 	<xs:element name="requires" type="xs:anyURI"/>
-	<xs:element name="isPartOf" type="xs:anyURI"/>
-	<xs:element name="hasPart" type="xs:anyURI"/>
-	<xs:element name="isReferencedBy" type="xs:anyURI"/>
-	<xs:element name="relation" type="xs:anyURI"/>
-	<xs:element name="references" type="xs:anyURI"/>
+	<xs:element name="isPartOf" type="rdf:Resource"/>
+	<xs:element name="hasPart" type="rdf:Resource"/>
+	<xs:element name="isReferencedBy" type="rdf:Resource"/>
+	<xs:element name="relation" type="rdf:Resource"/>
+	<xs:element name="references" type="rdf:Resource"/>
 	<xs:element name="isFormatOf" type="xs:anyURI"/>
 	<xs:element name="hasFormat" type="xs:anyURI"/>
-	<xs:element name="conformsTo" type="xs:anyURI"/>
+	<xs:element name="conformsTo" type="dct:Standard"/>
 	<xs:element name="spatial" type="dct:Location"/>
 	<xs:element name="temporal" type="dct:PeriodOfTime"/>
 	<xs:element name="audience" type="xs:anyURI"/>
 	<xs:element name="accrualMethod" type="xs:anyURI"/>
-	<xs:element name="accrualPeriodicity" type="xs:anyURI"/>
+	<xs:element name="accrualPeriodicity" type="skos:Concept"/>
 	<xs:element name="accrualPolicy" type="xs:anyURI"/>
 	<xs:element name="instructionalMethod" type="xs:anyURI"/>
-	<xs:element name="provenance" type="xs:anyURI"/>
-	<xs:element name="rights" type="xs:anyURI"/>
-	<xs:element name="rightsHolder" type="xs:anyURI"/>
-	<xs:element name="source" type="xs:anyURI"/>
+	<xs:element name="provenance" type="dct:ProvenanceStatement"/>
+	<xs:element name="rights" type="dct:RightsStatement"/>
+	<xs:element name="rightsHolder" type="foaf:Agent"/>
+	<xs:element name="source" type="rdf:Resource"/>
 	<xs:element name="mediator" substitutionGroup="dct:audience"/>
 	<xs:element name="educationLevel" substitutionGroup="dct:audience"/>
-	<xs:element name="accessRights" type="xs:anyURI"/>
-	<xs:element name="license" type="skos:Concept"/>
-	<xs:element name="bibliographicCitation" type="xs:anyURI"/>
+	<xs:element name="accessRights" type="dct:RightsStatement"/>
+	<xs:element name="license" type="dct:LicenseDocument"/>
+	<xs:element name="bibliographicCitation" type="rdf:PlainLiteral"/>
 	<xs:element name="publisher" type="foaf:Agent"/>
 	<xs:element name="type" type="skos:Concept"/>
-	<xs:element name="identifier" type="xs:anyURI"/>
+	<xs:element name="identifier" type="rdf:PlainLiteral"/>
 	<xs:element name="language" type="skos:Concept"/>
 	<!-- dct:LicenseDocument -->
 	<xs:complexType name="LicenseDocument">
 		<xs:sequence>
-			<!-- mandatory properties for adms:Identifier-->
-			<xs:element ref="dct:type" maxOccurs="1"/>
+			<xs:element name="LicenseDocument" minOccurs="1" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<!-- recommended properties for dct:LicenseDocument-->
+						<xs:element ref="dct:type" minOccurs="0" maxOccurs="unbounded"/>
+						<!-- non-DCAT-AP properties for dct:LicenseDocument-->
+						<xs:element ref="dct:title" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="dct:description" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="dct:identifier" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+					<xs:attribute ref="rdf:about"/>
+				</xs:complexType>
+			</xs:element>
 		</xs:sequence>
-		<xs:attribute ref="rdf:about"/>
+	</xs:complexType>
+	<!-- dct:RightsStatement -->
+	<xs:complexType name="RightsStatement">
+		<xs:sequence>
+			<xs:element name="RightsStatement" minOccurs="1" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="dct:title" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="dct:description" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+					<xs:attribute ref="rdf:about"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>		
+	<!-- dct:Standard -->
+	<xs:complexType name="Standard">
+		<xs:sequence>
+			<xs:element name="Standard" minOccurs="1" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="dct:title" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="dct:description" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+					<xs:attribute ref="rdf:about"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
 	</xs:complexType>
 	<!-- dct:PeriodOfTime-->
 	<xs:complexType name="PeriodOfTime">
 		<xs:sequence>
-			<xs:element name="PeriodOfTime">
+			<xs:element name="PeriodOfTime" minOccurs="1" maxOccurs="1">
 				<xs:complexType>
 					<xs:sequence>
 						<!-- optional properties for dct:PeriodOfTime-->
@@ -88,12 +126,25 @@
 	<!-- dct:Location-->
 	<xs:complexType name="Location">
 		<xs:sequence>
-			<xs:element name="Location" minOccurs="0">
+			<xs:element name="Location" minOccurs="1" maxOccurs="1">
 				<xs:complexType>
 					<xs:sequence>
 						<!-- optional properties for dct:Location-->
 						<xs:element ref="locn:geometry" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element ref="skos:prefLabel" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+					<xs:attribute ref="rdf:about"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!-- dct:ProvenanceStatement -->
+	<xs:complexType name="ProvenanceStatement">
+		<xs:sequence>
+			<xs:element name="ProvenanceStatement" minOccurs="1" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="dct:description" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
 				</xs:complexType>

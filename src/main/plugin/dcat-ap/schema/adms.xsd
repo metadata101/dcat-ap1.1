@@ -6,7 +6,7 @@
       http://www.w3.org/ns/adms# 
     </xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="http://www.w3.org/ns/dcat#" schemaLocation="dcat.xsd"/>	
+	<xs:import namespace="http://www.w3.org/ns/dcat#" schemaLocation="dcat.xsd"/>
 	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
 	<xs:import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="rdf.xsd"/>
 	<xs:import namespace="http://www.w3.org/2004/02/skos/core#" schemaLocation="skos.xsd"/>
@@ -25,7 +25,7 @@
 		</xs:sequence>
 	</xs:complexType>
 	<!-- individual elements-->
-	<xs:element name="status" type="xs:anyURI"/>
+	<xs:element name="status" type="skos:Concept"/>
 	<xs:element name="identifier" type="adms:Identifier"/>
 	<xs:element name="sample" type="dcat:Distribution"/>
 	<xs:element name="versionNotes" type="rdf:PlainLiteral"/>

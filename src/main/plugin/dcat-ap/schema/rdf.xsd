@@ -42,10 +42,42 @@ Date in
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
+	<!-- rdf:Statement -->
+	<xs:complexType name="Statement">
+		<xs:sequence>
+			<xs:element name="Statement" minOccurs="1" maxOccurs="1">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="subject" minOccurs="1" maxOccurs="1">
+							<xs:complexType>
+								<xs:attribute ref="rdf:resource" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="predicate" minOccurs="1" maxOccurs="1">
+							<xs:complexType>
+								<xs:attribute ref="rdf:resource" use="required"/>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="object" minOccurs="1" maxOccurs="1">
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="xs:string">
+										<xs:attribute name="datatype"/>
+										<xs:attribute ref="rdf:resource"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+					<xs:attribute ref="rdf:about"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
 	<!-- rdf:Resource-->
 	<xs:complexType name="Resource">
-		<xs:attribute ref="rdf:resource"/>
-	</xs:complexType>		
+		<xs:attribute ref="rdf:resource" use="required"/>
+	</xs:complexType>
 	<!-- CatalogRoot -->
 	<xs:complexType name="CatalogRoot">
 		<xs:choice>
@@ -53,6 +85,7 @@ Date in
 		</xs:choice>
 	</xs:complexType>
 	<!-- individual elements -->
+	<xs:element name="type" type="rdf:Resource"/>
 	<xs:attribute name="about" type="xs:anyURI"/>
 	<xs:attribute name="resource" type="xs:anyURI"/>
 	<xs:attribute name="nodeID" type="xs:NCName"/>
