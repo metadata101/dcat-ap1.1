@@ -58,8 +58,8 @@ Source:
 			<sch:let name="noName" value="not(foaf:name)"/>
 			<sch:assert test="$noName = false()">The foaf:Agent "<sch:value-of select="$id"/>" does not have a foaf:name property.
 			</sch:assert>
-			<sch:test test="$noName = false()">The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name property.
-			</sch:test>
+			<sch:report test="$noName = false()">The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name property.
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -67,20 +67,9 @@ Source:
 		<sch:rule context="//foaf:Agent/foaf:name">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="noNameLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$noNameLiteral = false()">The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is not a literal.
+			<sch:assert test="$noNameLiteral = false()">ERROR: The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is not a literal.
 			</sch:assert>
 			<sch:report test="$noNameLiteral = false()">The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name property which is a literal "<sch:value-of select="."/>".</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>2. dct:type is a recommended property for Agent.</sch:title>
-		<sch:rule context="//foaf:Agent">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noName" value="not(dct:type)"/>
-			<sch:assert test="$noName = false()">The foaf:Agent "<sch:value-of select="$id"/>" does not have a dct:type property.
-			</sch:assert>
-			<sch:report test="$noName = false()">The foaf:Agent "<sch:value-of select="$id"/>" has a dct:type property.
-			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -88,7 +77,7 @@ Source:
 		<sch:rule context="//dcat:Catalog">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="noDataset" value="not(dcat:dataset)"/>
-			<sch:assert test="$noDataset = false()">The dcat:Catalog "<sch:value-of select="$id"/>" should have a dcat:dataset property.
+			<sch:assert test="$noDataset = false()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" should have a dcat:dataset property.
 			</sch:assert>
 			<sch:report test="$noDataset = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dcat:dataset property.
 			</sch:report>
@@ -100,7 +89,7 @@ Source:
 			<sch:let name="Catalogid" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="id" value="*/@rdf:about/string()"/>
 			<sch:let name="noDatasetType" value="not(dcat:Dataset | */dct:type[resolve-QName(@rdf:resource, /*) = QName('http://www.w3.org/ns/dcat#','Dataset')])"/>
-			<sch:assert test="$noDatasetType = false()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a member  "<sch:value-of select="$id"/>" which is not a dcat:Dataset.
+			<sch:assert test="$noDatasetType = false()">ERROR: The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a member  "<sch:value-of select="$id"/>" which is not a dcat:Dataset.
 			</sch:assert>
 			<sch:report test="$noDatasetType = false()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a member  "<sch:value-of select="$id"/>" which is a dcat:Dataset.
 			</sch:report>
@@ -111,7 +100,7 @@ Source:
 		<sch:rule context="//dcat:Catalog">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="noDescription" value="not(dct:description)"/>
-			<sch:assert test="$noDescription = false()">The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:description.
+			<sch:assert test="$noDescription = false()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:description.
 			</sch:assert>
 			<sch:report test="$noDescription = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:description.
 			</sch:report>
@@ -122,19 +111,8 @@ Source:
 		<sch:rule context="//dcat:Catalog/dct:description">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="noDescriptionLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$noDescriptionLiteral = false()">In dcat:Catalog "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
+			<sch:assert test="$noDescriptionLiteral = false()">ERROR: In dcat:Catalog "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
 			<sch:report test="$noDescriptionLiteral = false()">In dcat:Catalog "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="."/>," is a literal.</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>8. dct:publisher is a required property for Catalog.</sch:title>
-		<sch:rule context="//dcat:Catalog">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noPublisher" value="not(dct:publisher)"/>
-			<sch:assert test="$noPublisher = false()">The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:publisher.
-			</sch:assert>
-			<sch:report test="$noPublisher = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:publisher.
-			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -143,7 +121,7 @@ Source:
 			<sch:let name="Catalogid" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="id" value="*/@rdf:about/string()"/>
 			<sch:let name="noAgent" value="not(foaf:Agent | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://xmlns.com/foaf/0.1/','Agent')])"/>
-			<sch:assert test="$noAgent = false()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dct:publisher  "<sch:value-of select="$id"/>" which is not a foaf:Agent.
+			<sch:assert test="$noAgent = false()">ERROR: The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dct:publisher  "<sch:value-of select="$id"/>" which is not a foaf:Agent.
 			</sch:assert>
 			<sch:report test="$noAgent = false()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dct:publisher  "<sch:value-of select="$id"/>" which is a foaf:Agent.
 			</sch:report>
@@ -154,9 +132,9 @@ Source:
 		<sch:rule context="//dcat:Catalog">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="noTitle" value="not(dct:title)"/>
-			<sch:assert test="$noTitle = false()">The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:title.
+			<sch:assert test="$noTitle = false()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:title.
 			</sch:assert>
-			<sch:report test="$noTitle = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:title.
+			<sch:report test="$noTitle = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:title "<sch:value-of select="dct:title[0]/text()"/>".
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -165,19 +143,8 @@ Source:
 		<sch:rule context="//dcat:Catalog/dct:title">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="noTitleLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$noTitleLiteral = false()">In dcat:Catalog "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
+			<sch:assert test="$noTitleLiteral = false()">ERROR: In dcat:Catalog "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
 			<sch:report test="$noTitleLiteral = false()">In dcat:Catalog "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="."/>," is a literal.</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>14. foaf:homepage is a recommended property for Catalog.</sch:title>
-		<sch:rule context="//dcat:Catalog">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noHomepage" value="not(foaf:homepage)"/>
-			<sch:assert test="$noHomepage = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a foaf:homepage.
-			</sch:assert>
-			<sch:report test="$noHomepage = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a foaf:homepage.
-			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -185,7 +152,7 @@ Source:
 		<sch:rule context="//dcat:Catalog">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="countHomepage" value="count(foaf:homepage)"/>
-			<sch:assert test="2 > $countHomepage">The dcat:Catalog "<sch:value-of select="$id"/>" has more than one foaf:homepage property.
+			<sch:assert test="2 > $countHomepage">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" has more than one foaf:homepage property.
 			</sch:assert>
 			<sch:report test="2 > $countHomepage">The dcat:Catalog "<sch:value-of select="$id"/>" has maximally one foaf:homepage property.
 			</sch:report>
@@ -197,20 +164,9 @@ Source:
 			<sch:let name="Catalogid" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="id" value="*/@rdf:about/string()"/>
 			<sch:let name="noDocument" value="not(foaf:Document | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://xmlns.com/foaf/0.1/','Document')])"/>
-			<sch:assert test="$noDocument = false()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a foaf:homepage  "<sch:value-of select="$id"/>" which is not a foaf:Document.
+			<sch:assert test="$noDocument = false()">ERROR: The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a foaf:homepage  "<sch:value-of select="$id"/>" which is not a foaf:Document.
 			</sch:assert>
 			<sch:report test="$noDocument = false()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a foaf:homepage  "<sch:value-of select="$id"/>" which is a foaf:Document.
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>18. dct:language is a recommended property for Catalog.</sch:title>
-		<sch:rule context="//dcat:Catalog">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noLanguage" value="not(dct:language)"/>
-			<sch:assert test="$noLanguage = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:language.
-			</sch:assert>
-			<sch:report test="$noLanguage = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:language.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -220,20 +176,9 @@ Source:
 			<sch:let name="Catalogid" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="id" value="*/@rdf:about/string()"/>
 			<sch:let name="noLinguisticSystem" value="not(dct:LinguisticSystem | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','LinguisticSystem')])"/>
-			<sch:assert test="$noLinguisticSystem = false()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dct:language  "<sch:value-of select="$id"/>" which is not a dct:LinguisticSystem.
+			<sch:assert test="$noLinguisticSystem = false()">ERROR: The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dct:language  "<sch:value-of select="$id"/>" which is not a dct:LinguisticSystem.
 			</sch:assert>
 			<sch:report test="$noLinguisticSystem = false()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dct:language  "<sch:value-of select="$id"/>" which is a dct:LinguisticSystem.
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>21. dct:license is a recommended property for Catalog.</sch:title>
-		<sch:rule context="//dcat:Catalog">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noLicense" value="not(dct:license)"/>
-			<sch:assert test="$noLicense = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:license.
-			</sch:assert>
-			<sch:report test="$noLicense = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:license.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -242,31 +187,9 @@ Source:
 		<sch:rule context="//dcat:Catalog">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="countLicense" value="count(dct:license)"/>
-			<sch:assert test="2 > $countLicense">The dcat:Catalog "<sch:value-of select="$id"/>" has more than one dct:license property.
+			<sch:assert test="2 > $countLicense">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" has more than one dct:license property.
 			</sch:assert>
 			<sch:report test="2 > $countLicense">The dcat:Catalog "<sch:value-of select="$id"/>" has no more than one dct:license property.
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>24. dct:issued is a recommended property for Catalog.</sch:title>
-		<sch:rule context="//dcat:Catalog">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noIssued" value="not(dct:issued )"/>
-			<sch:assert test="$noIssued = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:issued.
-			</sch:assert>
-			<sch:report test="$noIssued = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:issued.
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>25. dct:issued should be a literal typed as date or dateTime.</sch:title>
-		<sch:rule context="//dcat:Catalog/dct:issued">
-			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="issuedDateTime" value=". castable as xs:date or . castable as xs:dateTime"/>
-			<sch:assert test="$issuedDateTime = true()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:issued property which value "<sch:value-of select="./string()"/>" is not a date or dateTime.
-			</sch:assert>
-			<sch:report test="$issuedDateTime = true()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:issued property which value "<sch:value-of select="./string()"/>" is a date or dateTime.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -275,7 +198,7 @@ Source:
 		<sch:rule context="//dcat:Catalog">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="countIssued" value="count(dct:issued)"/>
-			<sch:assert test="2 > $countIssued">The dcat:Catalog "<sch:value-of select="$id"/>" has more than one dct:issued property.
+			<sch:assert test="2 > $countIssued">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" has more than one dct:issued property.
 			</sch:assert>
 			<sch:report test="2 > $countIssued">The dcat:Catalog "<sch:value-of select="$id"/>" has no more than one dct:issued property.
 			</sch:report>
@@ -287,20 +210,9 @@ Source:
 			<sch:let name="Catalogid" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="id" value="*/@rdf:about/string()"/>
 			<sch:let name="noCatalogRecord" value="not(dcat:CatalogRecord | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://www.w3.org/ns/dcat#','CatalogRecord')])"/>
-			<sch:assert test="$noCatalogRecord = false()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dcat:record  "<sch:value-of select="$id"/>" which is not a dcat:CatalogRecord.
+			<sch:assert test="$noCatalogRecord = false()">ERROR: The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dcat:record  "<sch:value-of select="$id"/>" which is not a dcat:CatalogRecord.
 			</sch:assert>
 			<sch:report test="$noCatalogRecord = false()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dcat:record  "<sch:value-of select="$id"/>" which is a dcat:CatalogRecord.
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>31. dct:modified is a recommended property for Catalog.</sch:title>
-		<sch:rule context="//dcat:Catalog">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noModified" value="not(dct:modified )"/>
-			<sch:assert test="$noModified = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:modified.
-			</sch:assert>
-			<sch:report test="$noModified = false()">he dcat:Catalog "<sch:value-of select="$id"/>" has a dct:modified.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -309,9 +221,9 @@ Source:
 		<sch:rule context="//dcat:Catalog/dct:modified">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="modifiedDateTime" value=". castable as xs:date or . castable as xs:dateTime"/>
-			<sch:assert test="$modifiedDateTime = true()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:modified property which value "<sch:value-of select="./string()"/>" is not a date or dateTime.
+			<sch:assert test="$modifiedDateTime = true()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:modified property which value "<sch:value-of select="./string()"/>" is not a date or dateTime.
 			</sch:assert>
-			<sch:report test="$modifiedDateTime = true()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:modified property which value "<sch:value-of select="./string()"/>" is a date or dateTime.
+			<sch:report test="$modifiedDateTime = true()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:modified property which value "<sch:value-of select="./string()"/>" is a date or dateTime.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -320,7 +232,7 @@ Source:
 		<sch:rule context="//dcat:Catalog">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="countModified" value="count(dct:modified)"/>
-			<sch:assert test="2 > $countModified">The dcat:Catalog "<sch:value-of select="$id"/>" has more than one dct:modified property.
+			<sch:assert test="2 > $countModified">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" has more than one dct:modified property.
 			</sch:assert>
 			<sch:report test="2 > $countModified">The dcat:Catalog "<sch:value-of select="$id"/>" has no more than one dct:modified property.
 			</sch:report>
@@ -331,7 +243,7 @@ Source:
 		<sch:rule context="//dcat:Dataset">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="noDescription" value="not(dct:description)"/>
-			<sch:assert test="$noDescription = false()">The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dct:description.
+			<sch:assert test="$noDescription = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dct:description.
 			</sch:assert>
 			<sch:report test="$noDescription = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:description.
 			</sch:report>
@@ -342,7 +254,7 @@ Source:
 		<sch:rule context="//dcat:Dataset/dct:description">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="noDescriptionLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$noDescriptionLiteral = false()">In dcat:Dataset "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
+			<sch:assert test="$noDescriptionLiteral = false()">ERROR: In dcat:Dataset "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
 			<sch:report test="$noDescriptionLiteral = false()">In dcat:Dataset "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="."/>," is a literal.</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -351,7 +263,7 @@ Source:
 		<sch:rule context="//dcat:Dataset">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="noTitle" value="not(dct:title)"/>
-			<sch:assert test="$noTitle = false()">The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dct:title.
+			<sch:assert test="$noTitle = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dct:title.
 			</sch:assert>
 			<sch:report test="$noTitle = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:title.
 			</sch:report>
@@ -362,19 +274,8 @@ Source:
 		<sch:rule context="//dcat:Dataset/dct:title">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="noTitleLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$noTitleLiteral = false()">In dcat:Dataset "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="string-join(//dct:title[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
+			<sch:assert test="$noTitleLiteral = false()">ERROR: In dcat:Dataset "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="string-join(//dct:title[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
 			<sch:report test="$noTitleLiteral = false()">In dcat:Dataset "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="."/>," is a literal.</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>41. dcat:contactPoint is a required property for Dataset.</sch:title>
-		<sch:rule context="//dcat:Dataset">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noContactPoint" value="not(dcat:contactPoint)"/>
-			<sch:assert test="$noContactPoint = false()">The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dcat:contactPoint.  <sch:value-of select="$id"/>.
-			</sch:assert>
-			<sch:report test="$noContactPoint = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:contactPoint.  <sch:value-of select="$id"/>.
-			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -384,21 +285,10 @@ Source:
 			<sch:let name="types" value="string-join(('http://www.w3.org/2006/vcard/ns#Kind', 'http://www.w3.org/2006/vcard/ns#Organization'),'|')"/>
 			<sch:let name="id" value="*/@rdf:about/string()"/>
 			<sch:let name="Kind" value="exists(*[contains($types,  concat(namespace-uri-from-QName(node-name(.)),local-name-from-QName(node-name(.))))]) or exists(*/rdf:type[contains($types,  concat(namespace-uri-from-QName(resolve-QName(@rdf:resource,/*)),local-name-from-QName(resolve-QName(@rdf:resource,/*))))])"/>
-			<sch:assert test="$Kind = true()">The dcat:Dataset "<sch:value-of select="$Datasetid"/>" has a dcat:contactPoint  "<sch:value-of select="$id"/>" which is not a vcard:Kind (or vcard:Organization,vcard:Individual,vcard:Location,vcard:Group).
+			<sch:assert test="$Kind = true()">ERROR: The dcat:Dataset "<sch:value-of select="$Datasetid"/>" has a dcat:contactPoint  "<sch:value-of select="$id"/>" which is not a vcard:Kind (or vcard:Organization,vcard:Individual,vcard:Location,vcard:Group).
 			</sch:assert>
 			<sch:report test="$Kind = true()">The dcat:Dataset "<sch:value-of select="$Datasetid"/>" has a dcat:contactPoint  "<sch:value-of select="$id"/>" which is a vcard:Kind (or vcard:Organization,vcard:Individual,vcard:Location,vcard:Group).
 			</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>45. dcat:distribution is a required property for Dataset.</sch:title>
-		<sch:rule context="//dcat:Dataset">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noDistribution" value="not(dcat:distribution )"/>
-			<sch:assert test="$noDistribution = false()">WARNING: The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dcat:distribution.
-			</sch:assert>
-			<sch:report test="$noDistribution = false()">WARNING: The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:distribution.
-			</sch:report>			
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -408,21 +298,10 @@ Source:
 			<sch:let name="types" value="string-join(('http://www.w3.org/ns/dcat#Distribution'),'|')"/>
 			<sch:let name="id" value="*/@rdf:about/string()"/>
 			<sch:let name="Distribution" value="exists(*[contains($types,  concat(namespace-uri-from-QName(node-name(.)),local-name-from-QName(node-name(.))))]) or exists(*/rdf:type[contains($types,  concat(namespace-uri-from-QName(resolve-QName(@rdf:resource,/*)),local-name-from-QName(resolve-QName(@rdf:resource,/*))))])"/>
-			<sch:assert test="$Distribution = true()">The dcat:Dataset "<sch:value-of select="$Datasetid"/>" has a dcat:distribution "<sch:value-of select="$id"/>" which is not a dcat:Distribution.
+			<sch:assert test="$Distribution = true()">ERROR: The dcat:Dataset "<sch:value-of select="$Datasetid"/>" has a dcat:distribution "<sch:value-of select="$id"/>" which is not a dcat:Distribution.
 			</sch:assert>
 			<sch:report test="$Distribution = true()">The dcat:Dataset "<sch:value-of select="$Datasetid"/>" has a dcat:distribution "<sch:value-of select="$id"/>" which is a dcat:Distribution.
-			</sch:report>			
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>49. dct:publisher is a required property for Dataset.</sch:title>
-		<sch:rule context="//dcat:Dataset">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noPublisher" value="not(dct:publisher)"/>
-			<sch:assert test="$noPublisher = false()">WARNING: The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dct:publisher.
-			</sch:assert>
-			<sch:assert test="$noPublisher = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:publisher.
-			</sch:assert>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -430,10 +309,10 @@ Source:
 		<sch:rule context="//dcat:Dataset">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="countPublisher" value="count(dct:publisher)"/>
-			<sch:assert test="2 > $countPublisher">The dcat:Dataset "<sch:value-of select="$id"/>" has more than one dct:publisher property.
+			<sch:assert test="2 > $countPublisher">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" has more than one dct:publisher property.
 			</sch:assert>
 			<sch:report test="2 > $countPublisher">The dcat:Dataset "<sch:value-of select="$id"/>" has no more than one dct:publisher property.
-			</sch:report>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -443,32 +322,10 @@ Source:
 			<sch:let name="types" value="string-join(('http://xmlns.com/foaf/0.1/Agent'),'|')"/>
 			<sch:let name="id" value="*/@rdf:about/string()"/>
 			<sch:let name="Agent" value="exists(*[contains($types,  concat(namespace-uri-from-QName(node-name(.)),local-name-from-QName(node-name(.))))]) or exists(*/rdf:type[contains($types,  concat(namespace-uri-from-QName(resolve-QName(@rdf:resource,/*)),local-name-from-QName(resolve-QName(@rdf:resource,/*))))])"/>
-			<sch:assert test="$Agent = true()">The dcat:Dataset "<sch:value-of select="$Datasetid"/>" has a dct:publisher "<sch:value-of select="$id"/>" which is not a foaf:Agent.
+			<sch:assert test="$Agent = true()">ERROR: The dcat:Dataset "<sch:value-of select="$Datasetid"/>" has a dct:publisher "<sch:value-of select="$id"/>" which is not a foaf:Agent.
 			</sch:assert>
 			<sch:report test="$Agent = true()">The dcat:Dataset "<sch:value-of select="$Datasetid"/>" has a dct:publisher "<sch:value-of select="$id"/>" which is a foaf:Agent.
-			</sch:report>			
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>79. dcat:accessURL is a required property for Distribution.</sch:title>
-		<sch:rule context="//dcat:Distribution">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noAccessURL" value="not(dcat:accessURL)"/>
-			<sch:assert test="$noAccessURL = false()">WARNING: The dcat:Distribution "<sch:value-of select="$id"/>" does not have a dcat:accessURL.
-			</sch:assert>
-			<sch:report test="$noAccessURL = false()">WARNING: The dcat:Distribution "<sch:value-of select="$id"/>" has a dcat:accessURL.
-			</sch:report>			
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>81. dct:description is a required property for Distribution.</sch:title>
-		<sch:rule context="//dcat:Distribution">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noDescription" value="not(dct:description)"/>
-			<sch:assert test="$noDescription = false()">WARNING: The dcat:Distribution "<sch:value-of select="$id"/>" does not have a dct:description.
-			</sch:assert>
-			<sch:report test="$noDescription = false()">WARNING: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:description.
-			</sch:report>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -476,21 +333,10 @@ Source:
 		<sch:rule context="//dcat:Distribution/dct:description">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="descriptionLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$descriptionLiteral = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:description property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is not a literal.
+			<sch:assert test="$descriptionLiteral = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:description property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is not a literal.
 			</sch:assert>
 			<sch:report test="$descriptionLiteral = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:description property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is a literal.
-			</sch:report>			
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>86. dct:license is a required property for Distribution.</sch:title>
-		<sch:rule context="//dcat:Distribution">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noLicense" value="not(dct:license)"/>
-			<sch:assert test="$noLicense = false()">WARNING: The dcat:Distribution "<sch:value-of select="$id"/>" does not have a dct:license.
-			</sch:assert>
-			<sch:report test="$noLicense = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:license.
-			</sch:report>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -500,10 +346,10 @@ Source:
 			<sch:let name="types" value="string-join(('http://purl.org/dc/terms/LicenseDocument'),'|')"/>
 			<sch:let name="id" value="*/@rdf:about/string()"/>
 			<sch:let name="LicenseDocument" value="exists(*[contains($types,  concat(namespace-uri-from-QName(node-name(.)),local-name-from-QName(node-name(.))))]) or exists(*/rdf:type[contains($types,  concat(namespace-uri-from-QName(resolve-QName(@rdf:resource,/*)),local-name-from-QName(resolve-QName(@rdf:resource,/*))))])"/>
-			<sch:assert test="$LicenseDocument = true()">The dcat:Distribution "<sch:value-of select="$Distributionid"/>" has a dct:license "<sch:value-of select="$id"/>" which is not a dct:LicenseDocument.
+			<sch:assert test="$LicenseDocument = true()">ERROR: The dcat:Distribution "<sch:value-of select="$Distributionid"/>" has a dct:license "<sch:value-of select="$id"/>" which is not a dct:LicenseDocument.
 			</sch:assert>
 			<sch:report test="$LicenseDocument = true()">The dcat:Distribution "<sch:value-of select="$Distributionid"/>" has a dct:license "<sch:value-of select="$id"/>" which is a dct:LicenseDocument.
-			</sch:report>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -511,7 +357,7 @@ Source:
 		<sch:rule context="//dcat:Distribution">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="countPublisher" value="count(dct:license)"/>
-			<sch:assert test="2 > $countPublisher">The dcat:Distribution "<sch:value-of select="$id"/>" has more than one dct:license property.
+			<sch:assert test="2 > $countPublisher">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has more than one dct:license property.
 			</sch:assert>
 			<sch:report test="2 > $countPublisher">The dcat:Distribution "<sch:value-of select="$id"/>" has no more than one dct:license property.
 			</sch:report>
@@ -522,37 +368,37 @@ Source:
 		<sch:rule context="//dcat:Distribution/dct:title">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="titleLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$titleLiteral = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:title property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is not a literal.
+			<sch:assert test="$titleLiteral = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:title property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is not a literal.
 			</sch:assert>
 			<sch:report test="$titleLiteral = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:title property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is a literal.
-			</sch:report>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
 		<sch:title>112. dcat:Catalog does not exist.</sch:title>
 		<sch:rule context="/">
 			<sch:let name="noCatalog" value="not(//dcat:Catalog)"/>
-			<sch:assert test="$noCatalog = false()">The mandatory class dcat:Catalog does not exist.
+			<sch:assert test="$noCatalog = false()">ERROR: The mandatory class dcat:Catalog does not exist.
 			</sch:assert>
 			<sch:report test="$noCatalog = false()">The mandatory class dcat:Catalog exists.
-			</sch:report>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
 		<sch:title>113. foaf:Agent does not exist.</sch:title>
 		<sch:rule context="/">
 			<sch:let name="noAgent" value="not(//foaf:Agent)"/>
-			<sch:assert test="$noAgent = false()">The mandatory class foaf:Agent does not exist.
+			<sch:assert test="$noAgent = false()">ERROR: The mandatory class foaf:Agent does not exist.
 			</sch:assert>
 			<sch:report test="$noAgent = false()">The mandatory class foaf:Agent does exist.
-			</sch:report>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
 		<sch:title>114. The mandatory class dcat:Dataset does not exist.</sch:title>
 		<sch:rule context="/">
 			<sch:let name="noDataset" value="not(//dcat:Dataset)"/>
-			<sch:assert test="$noDataset = false()">The mandatory class dcat:Dataset does not exist.</sch:assert>
+			<sch:assert test="$noDataset = false()">ERROR: The mandatory class dcat:Dataset does not exist.</sch:assert>
 			<sch:report test="$noDataset = false()">The mandatory class dcat:Dataset does exist.</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -562,10 +408,10 @@ Source:
 		<sch:rule context="//dcat:CatalogRecord">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="countModified" value="count(dct:modified)"/>
-			<sch:assert test="2 > $countModified">The dcat:CatalogRecord resource with URI <sch:value-of select="$id"/> has more than one dct:modified property.
+			<sch:assert test="2 > $countModified">ERROR: The dcat:CatalogRecord resource with URI <sch:value-of select="$id"/> has more than one dct:modified property.
 			</sch:assert>
 			<sch:report test="2 > $countModified">The dcat:CatalogRecord resource with URI <sch:value-of select="$id"/> has no more than one dct:modified property.
-			</sch:report>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -575,53 +421,20 @@ Source:
 			<sch:let name="types" value="string-join(('http://purl.org/dc/terms/LicenseDocument'),'|')"/>
 			<sch:let name="id" value="*/@rdf:about/string()"/>
 			<sch:let name="LicenseDocument" value="exists(*[contains($types,  concat(namespace-uri-from-QName(node-name(.)),local-name-from-QName(node-name(.))))]) or exists(*/rdf:type[contains($types,  concat(namespace-uri-from-QName(resolve-QName(@rdf:resource,/*)),local-name-from-QName(resolve-QName(@rdf:resource,/*))))])"/>
-			<sch:assert test="$LicenseDocument = true()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dct:license "<sch:value-of select="$id"/>" which is not a dct:LicenseDocument.
+			<sch:assert test="$LicenseDocument = true()">ERROR: The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dct:license "<sch:value-of select="$id"/>" which is not a dct:LicenseDocument.
 			</sch:assert>
 			<sch:report test="$LicenseDocument = true()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dct:license "<sch:value-of select="$id"/>" which is a dct:LicenseDocument.
-			</sch:report>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
 		<sch:title>163. The recommended class dcat:Distribution does not exist.</sch:title>
 		<sch:rule context="/">
 			<sch:let name="noDistribution" value="not(//dcat:Distribution)"/>
-			<sch:assert test="$noDistribution = false()">The recommended class dcat:Distribution does not exist.
+			<sch:assert test="$noDistribution = false()">ERROR: The recommended class dcat:Distribution does not exist.
 			</sch:assert>
 			<sch:report test="$noDistribution = false()">The recommended class dcat:Distribution does exist.
-			</sch:report>			
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>166. The recommended class dct:LicenseDocument does not exist.</sch:title>
-		<sch:rule context="/">
-			<sch:let name="noLicenseDocument" value="not(//dct:LicenseDocument)"/>
-			<sch:assert test="$noLicenseDocument = false()">WARNING: The recommended class dct:LicenseDocument does not exist.
-			</sch:assert>
-			<sch:report test="$noLicenseDocument = false()">WARNING: The recommended class dct:LicenseDocument does exist.
-			</sch:report>			
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<!-- Rule_ID:118  (seems wrong in DCATv1.1 !) -->
-		<sch:title>170. dct:type is a recommended property for Licence Document.</sch:title>
-		<sch:rule context="//dct:LicenseDocument">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noLicenseType" value="not(dct:type)"/>
-			<sch:assert test="$noLicenseType = false()">WARNING: The licence "<sch:value-of select="$id"/>" has no dct:type property. 
-			</sch:assert>
-			<sch:report test="$noLicenseType = false()">The licence "<sch:value-of select="$id"/>" has a dct:type property. 
-			</sch:report>			
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>200. Mandatory dct:title for a dcat:Distribution</sch:title>
-		<sch:rule context="//dcat:Distribution">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noTitle" value="not(dct:title)"/>
-			<sch:assert test="$noTitle= false()">The dcat:Distribution "<sch:value-of select="$id"/>" does not have a dct:title property.
-			</sch:assert>
-			<sch:report test="$noTitle= false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:title property.
-			</sch:report>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 </sch:schema>
