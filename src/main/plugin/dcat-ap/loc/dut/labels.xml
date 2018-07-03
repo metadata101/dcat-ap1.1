@@ -33,512 +33,187 @@ xmlns:foaf="http://xmlns.com/foaf/0.1/"
 xmlns:vcard="http://www.w3.org/2006/vcard/ns#" 
 xmlns:skos="http://www.w3.org/2004/02/skos/core#"
 xmlns:schema="http://schema.org/" >
-	<!-- ==================================================== -->
-	<element name="dcat:dataset">
-		<label>Dataset</label>
-		<description/>
-	</element>
-	<!-- ==================================================== -->
-	<element name="dct:title">
-		<label>Titel</label>
-		<description>A name given to the resource. Typically, Title will be a name by which the resource is formally known.</description>
-	</element>	
-	<!-- ==================================================== -->
-	<element name="dcat:theme">
-		<label>Thema</label>
-		<description>The data theme of the resource.</description>
-		<example>Recommended best practice is to select a value from a controlled vocabulary or formal classification scheme.</example>
-	</element>	
-	<!-- ==================================================== -->
-	<element name="dct:description">
-		<label>Beschrijving</label>
-		<description>An account of the content of the resource.</description>
-		<example>Examples of Description include, but are not limited to, an abstract, table of contents, reference to a graphical representation of content, or free-text account of the content.</example>
-	</element>	
-	<!-- ==================================================== -->
-	<element name="dct:identifier">
-		<label>Identificator van de bron</label>
-		<description>An unambiguous reference to the resource within a given context.</description>
-		<example>Recommended best practice is to identify the resource by means of a string or number conforming to a formal identification system. Formal identification systems include but are not limited to the Uniform Resource Identifier (URI) (including the Uniform Resource Locator (URL)), the Digital Object Identifier (DOI), and the International Standard Book Number (ISBN).</example>
-	</element>
-	<!-- ==================================================== -->
-	<element name="dct:modified">
-		<label>Wijzigingsdatum</label>
-		<description>Data metadata was modified</description>
-	</element>
-	<!-- ==================================================== -->
-	<element name="dct:abstract">
-		<label>Abstract</label>
-		<description>A summary of the content of the resource.</description>
-	</element>
-	<!-- ==================================================== -->
-	<element name="dct:spatial">
-		<label>Ruimtelijke bedekking</label>
-		<description>Spatial characteristics of the intellectual content of the resource.</description>
-	</element>
-	<!-- ==================================================== -->
-	<element name="dct:audience">
-		<label>Audience</label>
-		<description>A class of entity for whom the resource is intended or useful.</description>
-	</element>
-	<!-- ==================================================== -->
-	<element name="dct:accrualMethod">
-		<label>Accrual Method</label>
-		<description>The method by which items are added to a collection.</description>
-	</element>
-	<!-- ==================================================== -->
-	<element name="dct:accrualPeriodicity">
-		<label>Wijzigingsfrekwentie</label>
-		<description>The frequency with which items are added to a collection.</description>
-	</element>
-	<!-- ==================================================== -->
-	<element name="dct:accrualPolicy">
-		<label>Accrual Policy</label>
-		<description>The policy governing the addition of items to a collection.</description>
-	</element>
-	<!-- ==================================================== -->
-	<element name="dct:instructionalMethod">
-		<label>Instructional Method</label>
-		<description>A process, used to engender knowledge, attitudes and skills, that the resource is designed to support.</description>
-	</element>
-	<!-- ==================================================== -->
-	<element name="dct:provenance">
-		<label>Provenance</label>
-		<description>A statement of any changes in ownership and custody of the resource since its creation that are significant for its authenticity, integrity and interpretation.</description>
-	</element>
-	<!-- ==================================================== -->
-	<element name="dct:rightsHolder">
-		<label>Rights Holder</label>
-		<description>A person or organization owning or managing rights over the resource.</description>
-	</element>
-  <!-- ==================================================== -->
-  <element name="dct:references">
-    <label>Gerelateerde bronnen</label>
-    <description>A related resource that is referenced, cited, or otherwise pointed to by the described resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:accessRights">
-    <label>Toegangsrechten</label>
-    <description>Information about who can access the resource or an indication of its security status.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:alternative">
-    <label>Alternatieve titel</label>
-    <description>An alternative name for the resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:bibliographicCitation">
-    <label>Bibliographic Citation</label>
-    <description>A bibliographic reference for the resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:conformsTo">
-    <label>Conformiteit</label>
-    <description>An established standard to which the described resource conforms.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:created">
-    <label>Datum creatie</label>
-    <description>Date of creation of the resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:dateAccepted">
-    <label>Datum aanvaarding</label>
-    <description>Date of acceptance of the resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:dateCopyrighted">
-    <label>Datum copyright</label>
-    <description>Date of copyright.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:dateSubmitted">
-    <label>Datum verzonden</label>
-    <description>Date of submission of the resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:educationLevel">
-    <label>Audience Education Level</label>
-    <description>A class of entity, defined in terms of progression through an educational or training context, for which the described resource is intended.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:extent">
-    <label>Extent</label>
-    <description>The size or duration of the resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:hasFormat">
-    <label>Has Format</label>
-    <description>A related resource that is substantially the same as the pre-existing described resource, but in another format.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:hasPart">
-    <label>Has Part</label>
-    <description>A related resource that is included either physically or logically in the described resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:hasVersion">
-    <label>Gerelateerde bron</label>
-    <description>A related resource that is a version, edition, or adaptation of the described resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:isFormatOf">
-    <label>Is Format Of</label>
-    <description>A related resource that is substantially the same as the described resource, but in another format.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:isPartOf">
-    <label>Is Part Of</label>
-    <description>A related resource in which the described resource is physically or logically included.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:isReferencedBy">
-    <label>Is Referenced By</label>
-    <description>A related resource that references, cites, or otherwise points to the described resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:isReplacedBy">
-    <label>Is Replaced By</label>
-    <description>A related resource that supplants, displaces, or supersedes the described resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:isRequiredBy">
-    <label>Is vereist voor</label>
-    <description>A related resource that requires the described resource to support its function, delivery, or coherence.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:isVersionOf">
-    <label>Versie van</label>
-    <description>A related resource of which the described resource is a version, edition, or adaptation.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:issued">
-    <label>Creatie datum</label>
-    <description>Date of formal issuance (e.g., publication) of the resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:license">
-    <label>Licensie</label>
-    <description>A legal document giving official permission to do something with the resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:mediator">
-    <label>Mediator</label>
-    <description>An entity that mediates access to the resource and for whom the resource is intended or useful.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:medium">
-    <label>Medium</label>
-    <description>The material or physical carrier of the resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:replaces">
-    <label>Replaces</label>
-    <description>A related resource that is supplanted, displaced, or superseded by the described resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:requires">
-    <label>Requires</label>
-    <description>A related resource that is required by the described resource to support its function, delivery, or coherence.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:tableOfContents">
-    <label>Table Of Contents</label>
-    <description>A list of subunits of the resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:temporal">
-    <label>Tijdelijke bedekking</label>
-    <description>Temporal characteristics of the resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:valid">
-    <label>Datum validatie</label>
-    <description>Date (often a range) of validity of a resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="vcard:Organization">
-    <label>Organisatie</label>
-    <description>Organisatie.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="vcard:organization-name">
-    <label>Naam van de organisatie</label>
-    <description>Naam van de organisatie.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="vcard:hasEmail">
-    <label>Email</label>
-    <description>Email.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="vcard:fn">
-    <label>Contactpersoon</label>
-    <description>Contactpersoon.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="vcard:hasAddress">
-    <label>Adres</label>
-    <description>Adres.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="vcard:Address">
-    <label>Adres</label>
-    <description>Adres.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="vcard:street-address">
-    <label>Straat en nummer</label>
-    <description>Straat en nummer.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="vcard:locality">
-    <label>Gemeente</label>
-    <description>Gemeente.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="vcard:postal-code">
-    <label>Postcode</label>
-    <description>Postcode.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="vcard:country-name">
-    <label>Land</label>
-    <description>Land.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="vcard:hasURL">
-    <label>Url</label>
-    <description>Url.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="vcard:hasTelephone">
-    <label>Telefoon</label>
-    <description>Telefoon.</description>
-  </element>
-  <!-- ==================================================== -->
-
-  <element name="dct:publisher">
-	<label>Publicerende organisatie</label>
-	<description>An entity responsible for making the resource available.</description>
-	<example>Examples of Publisher include a person, an organization, or a service. Typically, the name of a Publisher should be used to indicate the entity.</example>
-  </element>
-  <!-- ==================================================== -->
-  <element name="foaf:Agent">
-    <label>Organisatie</label>
-    <description>Organisatie.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="foaf:name">
-    <label>Naam</label>
-    <description>Naam van de organisatie.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:type" context="dcat:Dataset">
-	<label>Type</label>
-	<description>Type van de dataset.</description>
-    <helper>
-      <option value="dataset">Dataset</option>
-      <option value="series">Series</option>
-    </helper>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:type">
-	<label>Type</label>
-	<description>The nature or genre of the content of the resource. Type includes terms describing general categories, functions, genres, or aggregation levels for content.</description>
-	<example>Recommended best practice is to select a value from a controlled vocabulary (for example, the DCMI Type Vocabulary). To describe the physical or digital manifestation of the resource, use the Format element.</example>
-  </element>
-  <!-- ==================================================== -->
-  <element name="skos:Concept" context="dct:type">
-    <label>Type</label>
-    <description>Type organisatie.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="skos:Concept" context="dcat:theme">
-	<label>Thema</label>
-	<description>The data theme of the resource.</description>
-	<example>Recommended best practice is to select a value from a controlled vocabulary or formal classification scheme.</example>
-  </element>
-  <!-- ==================================================== -->
-  <element name="skos:Concept" context="dct:language">
-    <label>Taal</label>
-    <description>Taal metadata.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="skos:Concept" context="dct:format">
-    <label>Formaat</label>
-    <description>Formaat.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="skos:Concept" context="dct:license">
-    <label>Licensie</label>
-    <description>A legal document giving official permission to do something with the resource.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="foaf:page">
-    <label>Pagina</label>
-    <description>Pagina.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="foaf:Document">
-    <label>Document</label>
-    <description>Document.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dcat:landingPage">
-    <label>Website</label>
-    <description>Website.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:language">
-    <label>Taal</label>
-    <description>Taal metadata.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dcat:keyword">
-    <label>Sleutelwoord</label>
-    <description>Sleutelwoord.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dcat:contactPoint">
-    <label>Contactpunt</label>
-    <description>Contactpunt.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:Location">
-    <label>Ligging</label>
-    <description>Ligging.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="locn:geometry">
-    <label>Geometry</label>
-    <description>Geometry.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dcat:distribution">
-    <label>Distributie</label>
-    <description>Distributie.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dcat:Distribution">
-    <label>Distributie</label>
-    <description>Distributie.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dcat:accessURL">
-    <label>URL</label>
-    <description>URL.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:format">
-    <label>Formaat</label>
-    <description>Formaat.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="spdx:checksum">
-    <label>Checksum</label>
-    <description>Checksum.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="spdx:Checksum">
-    <label>Checksum</label>
-    <description>Checksum.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="spdx:algorithm">
-    <label>Algoritme</label>
-    <description>Algoritme.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="spdx:checksumValue">
-    <label>Checksum waarde</label>
-    <description>Checksum waarde.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:relation">
-    <label>Relatie</label>
-    <description>Relatie.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:resource">
-    <label>Bron</label>
-    <description>Bron.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="adms:Identifier">
-    <label>Identificator</label>
-    <description>Identificator.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:periodOfTime">
-    <label>Periodiciteit</label>
-    <description>Periodiciteit.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="owl:versionInfo">
-    <label>Versie info</label>
-    <description>Versie info.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="adms:versionNotes">
-    <label>Versie notities</label>
-    <description>Versie notities.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:source">
-    <label>Bron</label>
-    <description>Bron.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dcat:downloadURL">
-    <label>Download URL</label>
-    <description>Download URL.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dcat:mediaType">
-    <label>Media type</label>
-    <description>MIME type.</description>
-    <helper>
-      <option value="text/csv">CSV file (text/plain)</option>
-      <option value="text/plain">Text file (text/plain)</option>
-      <option value="application/vnd.ms-excel">Excel file (application/vnd.ms-excel)</option>
-      <option value="text/xml">XML file (text/xml)</option>
-      <option value="application/pdf">PDF file (application/pdf)</option>
-      <option value="application/xml">XML file (application/xml)</option>
-      <option value="application/dxf">DXF file (application/dxf)</option>
-      <option value="application/vnd.google-earth.kml+xml">KML file (application/vnd.google-earth.kml+xml)</option>
-      <option value="application/zip">ZIP file (application/zip)</option>
-      <option value="image/tiff">TIFF Image file (image/tiff)</option>
-    </helper>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dct:rights">
-    <label>Rechten</label>
-    <description>Rechten.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="dcat:byteSize">
-    <label>Grootte in bytes</label>
-    <description>Grootte in bytes.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="adms:status">
-    <label>Status</label>
-    <description>Status.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="skos:notation">
-    <label>Notatie</label>
-    <description>Notatie.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="schema:startDate">
-    <label>Startdatum</label>
-    <description>Startdatum.</description>
-  </element>
-  <!-- ==================================================== -->
-  <element name="schema:endDate">
-    <label>Einddatum</label>
-    <description>Einddatum.</description>
-  </element>
+<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title"><label>titel</label></element>
+<element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description"><label>beschrijving</label></element>
+<element name="dct:identifier" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:identifier"><label>identificator</label></element>
+<element name="dcat:contactPoint" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint"><label>contactpunt</label></element>
+<element name="vcard:Organization" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization"><label>contactpunt organisatie</label></element>
+<element name="vcard:fn" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:fn"><label>naam</label></element>
+<element name="vcard:organization-name" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:organization-name"><label>naam organisatie</label></element>
+<element name="vcard:hasAddress" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress"><label>adres</label></element>
+<element name="vcard:Address" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"><label>adres</label></element>
+<element name="vcard:street-address" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:street-address"><label>street</label></element>
+<element name="vcard:locality" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:locality"><label>gemeente</label></element>
+<element name="vcard:postal-code" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:postal-code"><label>postcode</label></element>
+<element name="vcard:country-name" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:country-name"><label>land</label></element>
+<element name="vcard:hasEmail" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasEmail"><label>e-mail</label></element>
+<element name="vcard:hasURL" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasURL"><label>website</label></element>
+<element name="vcard:hasTelephone" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasTelephone"><label>telefoonnummer</label></element>
+<element name="dct:issued" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued"><label>publicatiedatum</label></element>
+<element name="dct:modified" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified"><label>laatst gewijzigd</label></element>
+<element name="dct:publisher" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher"><label>uitgever/eigenaar</label></element>
+<element name="foaf:Agent" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent"><label>organisatie</label></element>
+<element name="foaf:name" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/foaf:name"><label>naam</label></element>
+<element name="dct:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/dct:type"><label>type</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/dct:type/skos:Concept"><label>concept</label></element>
+<element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/dct:type/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/dct:type/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/dct:type/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
+<element name="dcat:keyword" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword"><label>trefwoord</label></element>
+<element name="dcat:theme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme"><label>thema</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme/skos:Concept"><label>concept</label></element>
+<element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
+<element name="dct:accessRights" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights"><label>toegangsbeperkingen</label></element>
+<element name="dct:RightsStatement" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement"><label>rechten</label></element>
+<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement/dct:title"><label>titel</label></element>
+<element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement/dct:description"><label>beschrijving</label></element>
+<element name="dct:conformsTo" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo"><label>conform met</label></element>
+<element name="dct:Standard" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo/dct:Standard"><label>standaard</label></element>
+<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo/dct:Standard/dct:title"><label>titel</label></element>
+<element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo/dct:Standard/dct:description"><label>beschrijving</label></element>
+<element name="foaf:page" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/foaf:page"><label>documentatie</label></element>
+<element name="foaf:Document" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/foaf:page/foaf:Document"><label>document</label></element>
+<element name="foaf:name" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/foaf:page/foaf:Document/foaf:name"><label>naam</label></element>
+<element name="dct:accrualPeriodicity" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity"><label>updatefrequentie</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity/skos:Concept"><label>concept</label></element>
+<element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
+<element name="dct:hasVersion" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:hasVersion/@rdf:resource"><label>gerelateerde versie</label></element>
+<element name="dct:isVersionOf" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:isVersionOf/@rdf:resource"><label>is versie van</label></element>
+<element name="dcat:landingPage" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:landingPage/@rdf:resource"><label>bijsluiter</label></element>
+<element name="dct:language" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language"><label>taal</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language/skos:Concept"><label>concept</label></element>
+<element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
+<element name="adms:identifier" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:identifier"><label>andere identificator</label></element>
+<element name="adms:Identifier" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:identifier/adms:Identifier"><label>andere identificator</label></element>
+<element name="skos:notation" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:identifier/adms:Identifier/skos:notation"><label>notatie</label></element>
+<element name="dct:provenance" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:provenance"><label>beschrijving herkomst</label></element>
+<element name="dct:ProvenanceStatement" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:provenance/dct:ProvenanceStatement"><label>beschrijving herkomst</label></element>
+<element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:provenance/dct:ProvenanceStatement/dct:description"><label>beschrijving</label></element>
+<element name="dct:relation" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:relation/@rdf:resource"><label>verwante bron</label></element>
+<element name="dct:source" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:source"><label>0</label></element>
+<element name="dct:spatial" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial"><label>ruimtelijke begrenzing</label></element>
+<element name="dct:Location" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location"><label>locatie</label></element>
+<element name="locn:geometry" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/locn:geometry"><label>geometrie</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/skos:prefLabel"><label>label</label></element>
+<element name="dct:temporal" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal"><label>temporele begrenzing</label></element>
+<element name="dct:PeriodOfTime" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime"><label>tijdsperiode</label></element>
+<element name="schema:startDate" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime/schema:startDate"><label>eind (datum/tijd)</label></element>
+<element name="schema:endDate" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime/schema:endDate"><label>start (datum/tijd)</label></element>
+<element name="dct:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:type"><label>type</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:type/skos:Concept"><label>concept</label></element>
+<element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:type/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:type/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:type/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
+<element name="owl:versionInfo" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo"><label>versie</label></element>
+<element name="adms:versionNotes" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:versionNotes"><label>versie</label></element>
+<element name="dcat:extension" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:extension"><label>bijkomende informatie</label></element>
+<element name="rdf:Statement" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:extension/rdf:Statement"><label>toegevoegde informatie</label></element>
+<element name="rdf:subject" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:extension/rdf:Statement/rdf:subject/@rdf:resource"><label>subject</label></element>
+<element name="rdf:predicate" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:extension/rdf:Statement/rdf:predicate/@rdf:resource"><label>predicaat</label></element>
+<element name="rdf:object" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:extension/rdf:Statement/rdf:object/@rdf:resource"><label>object</label></element>
+<element name="dcat:distribution" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution"><label>distributie</label></element>
+<element name="dcat:Distribution" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution"><label>distributie</label></element>
+<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:title"><label>titel</label></element>
+<element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:description"><label>beschrijving</label></element>
+<element name="dcat:accessURL" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:accessURL/@rdf:resource"><label>URL</label></element>
+<element name="dcat:downloadURL" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:downloadURL/@rdf:resource"><label>download URL</label></element>
+<element name="dct:issued" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:issued"><label>publicatiedatum</label></element>
+<element name="dct:modified" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:modified"><label>laatst gewijzigd</label></element>
+<element name="dct:format" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:format"><label>formaat</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:format/skos:Concept"><label>concept</label></element>
+<element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:format/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:format/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:format/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
+<element name="dcat:mediaType" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType"><label>mediatype</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType/skos:Concept"><label>concept</label></element>
+<element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
+<element name="dct:language" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:language"><label>taal</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:language/skos:Concept"><label>concept</label></element>
+<element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:language/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:language/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:language/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
+<element name="dct:license" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license"><label>licentie</label></element>
+<element name="dct:LicenseDocument" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument"><label>licentie</label></element>
+<element name="dct:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type"><label>type</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept"><label>concept</label></element>
+<element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
+<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:title"><label>titel</label></element>
+<element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:description"><label>beschrijving</label></element>
+<element name="dct:identifier" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:identifier"><label>identificator</label></element>
+<element name="dct:rights" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:rights"><label>rechten</label></element>
+<element name="dct:RightsStatement" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:rights/dct:RightsStatement"><label>rechten</label></element>
+<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:rights/dct:RightsStatement/dct:title"><label>titel</label></element>
+<element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:rights/dct:RightsStatement/dct:description"><label>beschrijving</label></element>
+<element name="dcat:byteSize" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:byteSize"><label>grootte (bytes)</label></element>
+<element name="spdx:checksum" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/spdx:checksum"><label>checksom</label></element>
+<element name="spdx:Checksum" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/spdx:checksum/spdx:Checksum"><label>checksom</label></element>
+<element name="spdx:algorithm" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/spdx:checksum/spdx:Checksum/spdx:algorithm"><label>algoritme</label></element>
+<element name="spdx:checksumValue" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/spdx:checksum/spdx:Checksum/spdx:checksumValue"><label>checksom waarde</label></element>
+<element name="foaf:page" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/foaf:page"><label>documentatie</label></element>
+<element name="foaf:Document" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/foaf:page/foaf:Document"><label>document</label></element>
+<element name="foaf:name" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/foaf:page/foaf:Document/foaf:name"><label>naam</label></element>
+<element name="dct:conformsTo" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:conformsTo"><label>conform met</label></element>
+<element name="dct:Standard" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:conformsTo/dct:Standard"><label>standaard</label></element>
+<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:conformsTo/dct:Standard/dct:title"><label>titel</label></element>
+<element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:conformsTo/dct:Standard/dct:description"><label>beschrijving</label></element>
+<element name="adms:status" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/adms:status"><label>status</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/adms:status/skos:Concept"><label>concept</label></element>
+<element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/adms:status/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/adms:status/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/adms:status/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
+<element name="adms:sample" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample"><label>voorbeeld</label></element>
+<element name="dcat:Distribution" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution"><label>distributie</label></element>
+<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:title"><label>titel</label></element>
+<element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:description"><label>beschrijving</label></element>
+<element name="dcat:accessURL" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dcat:accessURL/@rdf:resource"><label>URL</label></element>
+<element name="dcat:downloadURL" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dcat:downloadURL/@rdf:resource"><label>download URL</label></element>
+<element name="dct:issued" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:issued"><label>publicatiedatum</label></element>
+<element name="dct:modified" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:modified"><label>laatst gewijzigd</label></element>
+<element name="dct:format" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:format"><label>formaat</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:format/skos:Concept"><label>concept</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:format/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:format/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
+<element name="dcat:mediaType" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dcat:mediaType"><label>mediatype</label></element>
+<element name="dct:language" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:language"><label>taal</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:language/skos:Concept"><label>concept</label></element>
+<element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:language/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:language/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:language/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
+<element name="dct:license" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license"><label>licentie</label></element>
+<element name="dct:LicenseDocument" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument"><label>licentie</label></element>
+<element name="dct:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type"><label>type</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept"><label>concept</label></element>
+<element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
+<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:title"><label>titel</label></element>
+<element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:description"><label>beschrijving</label></element>
+<element name="dct:identifier" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:identifier"><label>identificator</label></element>
+<element name="dcat:byteSize" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dcat:byteSize"><label>grootte (bytes)</label></element>
+<element name="spdx:checksum" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/spdx:checksum"><label>checksom</label></element>
+<element name="spdx:Checksum" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/spdx:checksum/spdx:Checksum"><label>checksom</label></element>
+<element name="spdx:algorithm" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/spdx:checksum/spdx:Checksum/spdx:algorithm"><label>algoritme</label></element>
+<element name="spdx:checksumValue" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/spdx:checksum/spdx:Checksum/spdx:checksumValue"><label>checksom waarde</label></element>
+<element name="foaf:page" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/foaf:page"><label>documentatie</label></element>
+<element name="foaf:Document" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/foaf:page/foaf:Document"><label>document</label></element>
+<element name="foaf:name" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/foaf:page/foaf:Document/foaf:name"><label>naam</label></element>
+<element name="dct:conformsTo" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:conformsTo"><label>conform met</label></element>
+<element name="dct:Standard" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:conformsTo/dct:Standard"><label>standaard</label></element>
+<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:conformsTo/dct:Standard/dct:title"><label>titel</label></element>
+<element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:conformsTo/dct:Standard/dct:description"><label>beschrijving</label></element>
+<element name="adms:status" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/adms:status"><label>status</label></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/adms:status/skos:Concept"><label>concept</label></element>
+<element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/adms:status/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label></element>
+<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/adms:status/skos:Concept/skos:prefLabel"><label>label</label></element>
+<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/adms:status/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label></element>
 </labels>

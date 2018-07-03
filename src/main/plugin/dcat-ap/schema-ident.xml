@@ -22,7 +22,7 @@
   ~ Rome - Italy. email: geonetwork@osgeo.org
   -->
 
-<gns:schema xmlns:gns="http://geonetwork-opensource.org/schemas/schema-ident" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://geonetwork-opensource.org/schemas/schema-ident http://geonetwork-opensource.org/schemas/schema-ident/schema-ident.xsd">
+<gns:schema xmlns:gns="http://geonetwork-opensource.org/schemas/schema-ident" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xsi:schemaLocation="http://geonetwork-opensource.org/schemas/schema-ident http://geonetwork-opensource.org/schemas/schema-ident/schema-ident.xsd">
 	<gns:name>dcat-ap</gns:name>
 	<gns:id>2785ae4c-dde3-11df-a813-001c2346de4c</gns:id>
 	<gns:version>1.0</gns:version>
@@ -31,8 +31,14 @@
   <gns:standardUrl>https://joinup.ec.europa.eu/catalogue/distribution/dcat-ap-version-11</gns:standardUrl>
 	<gns:schemaLocation/>
 	<gns:autodetect xmlns:dcat="http://www.w3.org/ns/dcat#">
+<!-- 
 		<gns:elements type="search">
 			<dcat:Dataset/>
+		</gns:elements>
+ -->
+ 	    <gns:elements type="root">
+			<rdf:RDF/>
+			<dcat:contactPoint/>
 		</gns:elements>
 	</gns:autodetect>
 </gns:schema>

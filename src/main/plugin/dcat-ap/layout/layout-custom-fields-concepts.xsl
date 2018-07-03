@@ -14,8 +14,7 @@
                 exclude-result-prefixes="#all">
 
 
-<!--  <xsl:template mode="mode-dcat-ap" priority="2000" match="dcat:theme|dct:language|foaf:Agent/dct:type|dcat:Dataset/dct:type|dcat:mediaType|dct:format|dct:license">-->
-  <xsl:template mode="mode-dcat-ap" priority="2000" match="dcat:theme|dct:language|foaf:Agent/dct:type|dcat:Dataset/dct:type|dct:format|dct:license">
+  <xsl:template mode="mode-dcat-ap" priority="2000" match="dcat:theme|dct:language|foaf:Agent/dct:type|dcat:Dataset/dct:type|dcat:mediaType|dct:format|dct:license">
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
 

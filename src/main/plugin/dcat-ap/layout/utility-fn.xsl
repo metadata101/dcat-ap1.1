@@ -45,11 +45,9 @@
 		<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'foaf:Agent'">
 			<xsl:value-of select="concat($resourceBaseUrl,'organization-type')"/>
 		</xsl:when>
-<!--
 		<xsl:when test="$elementName = 'dcat:mediaType'">
 			<xsl:value-of select="concat($resourceBaseUrl,'media-type')"/>
 		</xsl:when>
--->		
 		<xsl:when test="$elementName = 'dct:format'">
 			<xsl:value-of select="concat($resourceBaseUrl,'file-type')"/>
 		</xsl:when>

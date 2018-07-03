@@ -50,9 +50,8 @@
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
 
-    <xsl:variable name="xpath" select="gn-fn-metadata:getXPath(..)"/>
     <xsl:variable name="labelConfig"
-                  select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', $xpath)"/>
+                  select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-metadata:getXPath(.))"/>
     <xsl:variable name="dateTypeElementRef"
                   select="gn:element/@ref"/>
     <div class="form-group gn-field gn-title gn-required"

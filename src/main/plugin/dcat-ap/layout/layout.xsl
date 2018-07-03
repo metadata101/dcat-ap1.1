@@ -47,8 +47,10 @@
 
   <!-- Ignore all gn element -->
   <xsl:template mode="mode-dcat-ap"
-                match="gn:*|@gn:*|@*"
-                priority="1000"/>
+                match="gn:*|@gn:*|@*[name(.)!='rdf:about']"
+                priority="1000">
+                <xsl:message select="concat('Hiding element with name ', name(.))"/>
+  </xsl:template>
 
   <!-- Template to display non existing element ie. geonet:child element
   of the metadocument. Display in editing mode only and if
@@ -72,7 +74,7 @@
       <xsl:call-template name="render-element-to-add">
         <!-- TODO: add xpath and isoType to get label ? -->
         <xsl:with-param name="label"
-                        select="gn-fn-metadata:getLabel($schema, $name, $labels, name(..), '', '')/label"/>
+                        select="gn-fn-metadata:getLabel($schema, $name, $labels, name(..), '', gn-fn-metadata:getXPath(.))/label"/>
         <xsl:with-param name="directive" select="$directive"/>
         <xsl:with-param name="childEditInfo" select="."/>
         <xsl:with-param name="parentEditInfo" select="../gn:element"/>
@@ -197,8 +199,9 @@
   <!-- the other elements in DC. -->
   <xsl:template mode="mode-dcat-ap" priority="100" match="dc:*|dct:*|dcat:*|vcard:*|foaf:*|spdx:*|adms:*|owl:*|schema:*|skos:*">
     <xsl:variable name="name" select="name(.)"/>
+    <xsl:message select="concat('Rendering element with name ', $name)"/>
     <xsl:variable name="ref" select="gn:element/@ref"/>
-    <xsl:variable name="labelConfig" select="gn-fn-metadata:getLabel($schema, $name, $labels)"/>
+    <xsl:variable name="labelConfig" select="gn-fn-metadata:getLabel($schema, $name, $labels, name(..), '', gn-fn-metadata:getXPath(.))"/>
     <xsl:variable name="helper" select="gn-fn-metadata:getHelper($labelConfig/helper, .)"/>
 
     <xsl:variable name="added" select="parent::node()/parent::node()/@gn:addedObj"/>
@@ -265,7 +268,7 @@
   <xsl:template mode="mode-dcat-ap" priority="200" match="dc:identifier|dct:modified">
     
     <xsl:call-template name="render-element">
-      <xsl:with-param name="label" select="gn-fn-metadata:getLabel($schema, name(), $labels)"/>
+      <xsl:with-param name="label" select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), '', gn-fn-metadata:getXPath(.))"/>
       <xsl:with-param name="value" select="."/>
       <xsl:with-param name="cls" select="local-name()"/>
       <xsl:with-param name="xpath" select="gn-fn-metadata:getXPath(.)"/>
@@ -302,7 +305,7 @@
 
     <xsl:call-template name="render-boxed-element">
       <xsl:with-param name="label"
-        select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..),'','')/label"/>
+        select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), '', gn-fn-metadata:getXPath(.))/label"/>
       <xsl:with-param name="editInfo" select="gn:element"/>
       <xsl:with-param name="cls" select="local-name()"/>
       <!-- <xsl:with-param name="attributesSnippet" select="$attributes"/> -->
@@ -333,7 +336,7 @@
   <!-- Boxed the root element -->
   <xsl:template mode="mode-dcat-ap" priority="200" match="dcat:Dataset">
     <xsl:call-template name="render-boxed-element">
-      <xsl:with-param name="label" select="gn-fn-metadata:getLabel($schema, name(.), $labels)/label"/>
+      <xsl:with-param name="label" select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-metadata:getXPath(.))/label"/>
       <xsl:with-param name="cls" select="local-name()"/>
       <xsl:with-param name="xpath" select="gn-fn-metadata:getXPath(.)"/>
       <xsl:with-param name="subTreeSnippet">
