@@ -94,10 +94,6 @@
     <xsl:variable name="poundLangId"
                   select="concat('#',upper-case(java:twoCharLangCode($isoDocLangId)))"/>
 
-    <xsl:variable name="identification" select="/*[name(.)='gmd:MD_Metadata' or
-            name() = 'gmi:MI_Metadata' or
-            @gco:isoType='gmd:MD_Metadata' or
-            @gco:isoType='gmd:MI_Metadata']/gmd:identificationInfo/*"></xsl:variable>
     <xsl:variable name="docLangTitle"
                   select="dct:title[@xml:lang=$poundLangId]"/>
     <xsl:variable name="firstTitle"
