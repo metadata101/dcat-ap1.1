@@ -32,17 +32,6 @@
                 xmlns:mime="java:org.fao.geonet.util.MimeTypeFinder"              
                 version="2.0"
                 exclude-result-prefixes="#all">
-
-<!-- TODO: remove this comment
-                xmlns:java="java:org.fao.geonet.util.XslUtil?path=file:///C:/git/aiv-geonetwork-gim/core/target/classes/"
-                xmlns:joda="java:org.fao.geonet.domain.ISODate?path=file:///C:/git/aiv-geonetwork-gim/domain/target/classes/"
-                xmlns:mime="java:org.fao.geonet.util.MimeTypeFinder?path=file:///C:/git/aiv-geonetwork-gim/core/target/classes/"
-
-                xmlns:java="java:org.fao.geonet.util.XslUtil"
-                xmlns:joda="java:org.fao.geonet.domain.ISODate"
-                xmlns:mime="java:org.fao.geonet.util.MimeTypeFinder"
--->
-
   <!-- ========================================================================================= -->
   <!-- latlon coordinates indexed as numeric. -->
 
@@ -83,7 +72,7 @@
 
   <!-- ================================================================== -->
   <!-- iso3code of default index language -->
-  <xsl:variable name="defaultLang">eng</xsl:variable>
+  <xsl:variable name="defaultLang">dut</xsl:variable>
 
   <xsl:template name="langId-dcat-ap">
 	<xsl:variable name="authorityLanguage" select="/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language[1]/skos:Concept/@rdf:about" />
@@ -99,5 +88,48 @@
     <xsl:value-of select="normalize-space(string($tmp))"></xsl:value-of>
   </xsl:template>
 
+  <xsl:template name="defaultTitle">
+    <xsl:param name="isoDocLangId"/>
+
+    <xsl:variable name="poundLangId"
+                  select="concat('#',upper-case(java:twoCharLangCode($isoDocLangId)))"/>
+
+    <xsl:variable name="identification" select="/*[name(.)='gmd:MD_Metadata' or
+            name() = 'gmi:MI_Metadata' or
+            @gco:isoType='gmd:MD_Metadata' or
+            @gco:isoType='gmd:MI_Metadata']/gmd:identificationInfo/*"></xsl:variable>
+    <xsl:variable name="docLangTitle"
+                  select="dct:title[@xml:lang=$poundLangId]"/>
+    <xsl:variable name="firstTitle"
+                  select="dct:title"/>
+    <xsl:choose>
+      <xsl:when test="string-length(string($docLangTitle)) != 0">
+        <xsl:value-of select="$docLangTitle[1]"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="string($firstTitle[1])"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="defaultAbstract">
+    <xsl:param name="isoDocLangId"/>
+
+    <xsl:variable name="poundLangId"
+                  select="concat('#',upper-case(java:twoCharLangCode($isoDocLangId)))"/>
+
+    <xsl:variable name="docLangAbstract"
+                  select="dct:description[@xml:lang=$poundLangId]"/>
+    <xsl:variable name="firstAbstract"
+                  select="dct:description"/>
+    <xsl:choose>
+      <xsl:when test="string-length(string($docLangAbstract)) != 0">
+        <xsl:value-of select="$docLangAbstract[1]"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="string($firstAbstract[1])"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 
 </xsl:stylesheet>
