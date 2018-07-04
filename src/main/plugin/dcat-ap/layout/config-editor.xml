@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<editor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:schema="http://schema.org/" xsi:noNamespaceSchemaLocation="../../../../../../config-editor.xsd">
+	<!-- Define form field types per metadata element. -->
+	<fields>
+		<for name="dct:title" use="textarea"/>
+		<for name="dct:description" use="textarea"/>
+		<for name="vcard:hasEmail" use="email"/>
+		<for name="dct:format" use="data-gn-keyword-picker"/>
+		<for name="dct:license" use="data-gn-keyword-picker"/>
+		<for name="dct:language" use="data-gn-keyword-picker"/>
+		<for name="dct:issued" use="data-gn-date-picker"/>
+		<for name="dct:modified" use="data-gn-date-picker"/>
+		<for name="schema:startDate" use="data-gn-date-picker"/>
+		<for name="schema:endDate" use="data-gn-date-picker"/>
+		<for name="dcat:keyword" use="data-gn-keyword-picker"/>
+		<for name="dct:type" use="data-gn-keyword-picker"/>
+		<for name="dcat:theme" use="data-gn-keyword-picker"/>
+		<!-- <directiveAttributes data-include="external.authority.data-theme"/> 
+			<directiveAttributes data-include="-external.authority.data-theme,-external.authority.file-type,-external.authority.language,-external.authority.organzation-type,-external.authority.licence"/> 
+			<directiveAttributes data-include="xpath::string-join(//skos:inScheme[starts-with(@rdf:resource,'http://publications.europa.eu/resource/authority')]/concat('-external.authority.', 
+			substring-after(@rdf:resource[. != ''], 'http://publications.europa.eu/resource/authority/')), 
+			',')"/> <directiveAttributes data-include="xpath::string-join(//skos:inScheme[contains(@rdf:resource,'authority')]/concat('-external.authority.', 
+			substring-after(@rdf:resource[. != ''], 'authority/')), ',')"/> </for> -->
+	</fields>
+	<!-- Complex fields. -->
+	<fieldsWithFieldset>
+		<name>dcat:Dataset</name>
+	</fieldsWithFieldset>
+	<!-- View configuration -->
+	<views>
+		<view name="default">
+			<tab id="default" default="true" mode="flat">
+				<section>
+					<field name="datasetTitle-101" xpath="/dcat:Dataset/dct:title" or="title" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dct:title)=0" name="add-datasetTitle-101" or="title" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:title/>
+							</snippet>
+						</template>
+					</action>
+					<field name="datasetDescription-102" xpath="/dcat:Dataset/dct:description" or="description" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dct:description)=0" name="add-datasetDescription-102" or="description" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:description/>
+							</snippet>
+						</template>
+					</action>
+					<!-- Dataset - Contact point - Organization (Part 1) -->
+					<section name="vcard:Organization">
+						<field name="organizationFn-104" xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:fn" or="fn" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/*" del="." removable="false"/>
+						<action type="add" if="count(/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:fn)=0" name="add-organizationFn-104" or="fn" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization">
+							<template>
+								<snippet>
+									<vcard:fn/>
+								</snippet>
+							</template>
+						</action>
+						<field name="organizationOrganization-name-105" xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:organization-name" or="organization-name" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/*" del="." removable="false"/>
+						<action type="add" if="count(/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:organization-name)=0" name="add-organizationOrganization-name-105" or="organization-name" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization">
+							<template>
+								<snippet>
+									<vcard:organization-name/>
+								</snippet>
+							</template>
+						</action>
+						<!-- Dataset - Contact point - Organization - Address -->
+						<section name="vcard:Address">
+							<field name="addressStreet-address-107" xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:street-address" or="street-address" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/*" del="." removable="false"/>
+							<action type="add" if="count(/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:street-address)=0" name="add-addressStreet-address-107" or="street-address" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address">
+								<template>
+									<snippet>
+										<vcard:street-address/>
+									</snippet>
+								</template>
+							</action>
+							<field name="addressLocality-108" xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:locality" or="locality" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/*" del="." removable="false"/>
+							<action type="add" if="count(/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:locality)=0" name="add-addressLocality-108" or="locality" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address">
+								<template>
+									<snippet>
+										<vcard:locality/>
+									</snippet>
+								</template>
+							</action>
+							<field name="addressPostal-code-109" xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:postal-code" or="postal-code" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/*" del="." removable="false"/>
+							<action type="add" if="count(/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:postal-code)=0" name="add-addressPostal-code-109" or="postal-code" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address">
+								<template>
+									<snippet>
+										<vcard:postal-code/>
+									</snippet>
+								</template>
+							</action>
+							<field name="addressCountry-name-110" xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:country-name" or="country-name" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/*" del="." removable="false"/>
+							<action type="add" if="count(/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:country-name)=0" name="add-addressCountry-name-110" or="country-name" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address">
+								<template>
+									<snippet>
+										<vcard:country-name/>
+									</snippet>
+								</template>
+							</action>
+						</section>
+						<field name="organizationHasEmail-112" xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasEmail" or="hasEmail" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/*" del="." removable="false"/>
+						<action type="add" if="count(/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasEmail)=0" name="add-organizationHasEmail-112" or="hasEmail" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization">
+							<template>
+								<snippet>
+									<vcard:hasEmail/>
+								</snippet>
+							</template>
+						</action>
+						<field name="organizationHasURL-113" xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasURL" or="hasURL" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/*" del="." removable="false"/>
+						<action type="add" if="count(/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasURL)=0" name="add-organizationHasURL-113" or="hasURL" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization">
+							<template>
+								<snippet>
+									<vcard:hasURL/>
+								</snippet>
+							</template>
+						</action>
+						<field name="organizationHasTelephone-114" xpath="/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasTelephone" or="hasTelephone" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization/*" del="." removable="false"/>
+						<action type="add" if="count(/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasTelephone)=0" name="add-organizationHasTelephone-114" or="hasTelephone" in="/dcat:Dataset/dcat:contactPoint/vcard:Organization">
+							<template>
+								<snippet>
+									<vcard:hasTelephone/>
+								</snippet>
+							</template>
+						</action>
+					</section>
+					<field name="datasetKeyword-116" xpath="/dcat:Dataset/dcat:keyword" or="keyword" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dcat:keyword)=0" name="add-datasetKeyword-116" or="keyword" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<dcat:keyword/>
+							</snippet>
+						</template>
+					</action>
+					<!-- Dataset - Publisher - Agent -->
+					<section name="foaf:Agent">
+						<field name="agentName-118" xpath="/dcat:Dataset/dct:publisher/foaf:Agent/foaf:name" or="name" in="/dcat:Dataset/dct:publisher/foaf:Agent/*" del="." removable="false"/>
+						<action type="add" if="count(/dcat:Dataset/dct:publisher/foaf:Agent/foaf:name)=0" name="add-agentName-118" or="name" in="/dcat:Dataset/dct:publisher/foaf:Agent">
+							<template>
+								<snippet>
+									<foaf:name/>
+								</snippet>
+							</template>
+						</action>
+						<field name="agentType-119" xpath="/dcat:Dataset/dct:publisher/foaf:Agent/dct:type" or="type" in="/dcat:Dataset/dct:publisher/foaf:Agent/*" del="."/>
+					</section>
+					<field name="datasetTheme-121" xpath="/dcat:Dataset/dcat:theme" or="theme" in="/dcat:Dataset/*" del="."/>
+					<field name="datasetAccessRights-122" xpath="/dcat:Dataset/dct:accessRights" or="accessRights" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dct:accessRights)=0" name="add-datasetAccessRights-122" or="accessRights" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:accessRights/>
+							</snippet>
+						</template>
+					</action>
+					<field name="datasetConformsTo-123" xpath="/dcat:Dataset/dct:conformsTo" or="conformsTo" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dct:conformsTo)=0" name="add-datasetConformsTo-123" or="conformsTo" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:conformsTo/>
+							</snippet>
+						</template>
+					</action>
+					<field name="datasetAccrualPeriodicity-124" xpath="/dcat:Dataset/dct:accrualPeriodicity" or="accrualPeriodicity" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dct:accrualPeriodicity)=0" name="add-datasetAccrualPeriodicity-124" or="accrualPeriodicity" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:accrualPeriodicity/>
+							</snippet>
+						</template>
+					</action>
+					<field name="datasetHasVersion-125" xpath="/dcat:Dataset/dct:hasVersion" or="hasVersion" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dct:hasVersion)=0" name="add-datasetHasVersion-125" or="hasVersion" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:hasVersion/>
+							</snippet>
+						</template>
+					</action>
+					<field name="datasetIdentifier-126" xpath="/dcat:Dataset/dct:identifier" or="identifier" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dct:identifier)=0" name="add-datasetIdentifier-126" or="identifier" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:identifier/>
+							</snippet>
+						</template>
+					</action>
+					<field name="datasetIsVersionOf-127" xpath="/dcat:Dataset/dct:isVersionOf" or="isVersionOf" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dct:isVersionOf)=0" name="add-datasetIsVersionOf-127" or="isVersionOf" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:isVersionOf/>
+							</snippet>
+						</template>
+					</action>
+					
+					<field name="datasetLandingPage-128" templateModeOnly="true" xpath="/dcat:Dataset/dcat:landingPage">
+						<template>
+							<values>
+								<key label="landingPage" xpath="@rdf:resource" tooltip="landingPage"/>
+							</values>
+							<snippet>
+								<dcat:landingPage rdf:resource="{{landingPage}}"/>
+							</snippet>
+						</template>
+					</field>
+					
+					
+					<field name="datasetLanguage-129" xpath="/dcat:Dataset/dct:language" or="language" in="/dcat:Dataset/*" del="."/>
+					<!-- Dataset - Identifier -->
+					<section name="adms:Identifier">
+						<field name="identifierNotation-131" xpath="/dcat:Dataset/adms:identifier/adms:Identifier/skos:notation" or="notation" in="/dcat:Dataset/adms:identifier/adms:Identifier/*" del="." removable="false"/>
+						<action type="add" if="count(/dcat:Dataset/adms:identifier/adms:Identifier/skos:notation)=0" name="add-identifierNotation-131" or="notation" in="/dcat:Dataset/adms:identifier/adms:Identifier">
+							<template>
+								<snippet>
+									<skos:notation/>
+								</snippet>
+							</template>
+						</action>
+					</section>
+					<field name="datasetProvenance-133" xpath="/dcat:Dataset/dct:provenance" or="provenance" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dct:provenance)=0" name="add-datasetProvenance-133" or="provenance" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:provenance/>
+							</snippet>
+						</template>
+					</action>
+					<field name="datasetRelation-134" xpath="/dcat:Dataset/dct:relation" or="relation" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dct:relation)=0" name="add-datasetRelation-134" or="relation" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:relation/>
+							</snippet>
+						</template>
+					</action>
+					<field name="datasetIssued-135" xpath="/dcat:Dataset/dct:issued" or="issued" in="/dcat:Dataset/*" del="."/>
+					<field name="datasetSource-136" xpath="/dcat:Dataset/dct:source" or="source" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dct:source)=0" name="add-datasetSource-136" or="source" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:source/>
+							</snippet>
+						</template>
+					</action>
+					<!-- Dataset - Temporal -->
+					<section name="dct:PeriodOfTime">
+						<field name="periodOfTimeStartDate-138" xpath="/dcat:Dataset/dct:temporal/dct:PeriodOfTime/schema:startDate" or="startDate" in="/dcat:Dataset/dct:temporal/dct:PeriodOfTime/*" del="."/>
+						<field name="periodOfTimeEndDate-139" xpath="/dcat:Dataset/dct:temporal/dct:PeriodOfTime/schema:endDate" or="endDate" in="/dcat:Dataset/dct:temporal/dct:PeriodOfTime/*" del="."/>
+					</section>
+					<field name="datasetType-141" xpath="/dcat:Dataset/dct:type" or="type" in="/dcat:Dataset/*" del="."/>
+					<field name="datasetModified-142" xpath="/dcat:Dataset/dct:modified" or="modified" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dct:modified)=0" name="add-datasetModified-142" or="modified" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:modified/>
+							</snippet>
+						</template>
+					</action>
+					<field name="datasetVersionInfo-143" xpath="/dcat:Dataset/owl:versionInfo" or="versionInfo" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/owl:versionInfo)=0" name="add-datasetVersionInfo-143" or="versionInfo" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<owl:versionInfo/>
+							</snippet>
+						</template>
+					</action>
+					<field name="datasetVersionNotes-144" xpath="/dcat:Dataset/adms:versionNotes" or="versionNotes" in="/dcat:Dataset/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/adms:versionNotes)=0" name="add-datasetVersionNotes-144" or="versionNotes" in="/dcat:Dataset">
+						<template>
+							<snippet>
+								<adms:versionNotes/>
+							</snippet>
+						</template>
+					</action>
+				</section>
+			</tab>
+			<tab id="distribution">
+				<field name="distribution[1]Title-20" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:title" or="title" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="." removable="false"/>
+				<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:title)=0" name="add-distribution[1]Title-20" or="title" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+					<template>
+						<snippet>
+							<dct:title/>
+						</snippet>
+					</template>
+				</action>
+					<field name="distribution[1]Description-3" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:description" or="description" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:description)=0" name="add-distribution[1]Description-3" or="description" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+						<template>
+							<snippet>
+								<dct:description/>
+							</snippet>
+						</template>
+					</action>				
+				<section>
+					<field name="distribution[1]AccessURL-2" or="accessURL" templateModeOnly="true" xpath="/dcat:Dataset/dcat:distribution[1]/dcat:Distribution[1]/dcat:accessURL">
+						<template>
+							<values>
+								<key label="accessURL" xpath="@rdf:resource" tooltip="downloadURL"/>
+							</values>
+							<snippet>
+								<dcat:accessURL rdf:resource="{{accessURL}}"/>
+							</snippet>
+						</template>
+					</field>
+					<field name="distribution[1]DownloadURL-2" templateModeOnly="true" xpath="/dcat:Dataset/dcat:distribution[1]/dcat:Distribution[1]/dcat:downloadURL">
+						<template>
+							<values>
+								<key label="downloadURL" xpath="@rdf:resource" tooltip="downloadURL"/>
+							</values>
+							<snippet>
+								<dcat:downloadURL rdf:resource="{{download}}"/>
+							</snippet>
+						</template>
+					</field>	
+
+					<field name="distribution[1]Format-4" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:format" or="format" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="."/>
+					<field name="distribution[1]License-5" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:license" or="license" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="."/>
+					<field name="distribution[1]ByteSize-6" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dcat:byteSize" or="byteSize" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dcat:byteSize)=0" name="add-distribution[1]ByteSize-6" or="byteSize" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+						<template>
+							<snippet>
+								<dcat:byteSize/>
+							</snippet>
+						</template>
+					</action>
+					<!-- Dataset - Distribution - Checksum -->
+					<section name="spdx:CheckSum">
+						<field name="checkSumAlgorithm-8" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum/spdx:algorithm" or="algorithm" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum/*" del="." removable="false"/>
+						<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum/spdx:algorithm)=0" name="add-checkSumAlgorithm-8" or="algorithm" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum">
+							<template>
+								<snippet>
+									<spdx:algorithm/>
+								</snippet>
+							</template>
+						</action>
+						<field name="checkSumChecksumValue-9" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum/spdx:checksumValue" or="checksumValue" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum/*" del="." removable="false"/>
+						<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum/spdx:checksumValue)=0" name="add-checkSumChecksumValue-9" or="checksumValue" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/spdx:checksum/spdx:CheckSum">
+							<template>
+								<snippet>
+									<spdx:checksumValue/>
+								</snippet>
+							</template>
+						</action>
+					</section>
+					<!-- Dataset - Distribution - Page - Document -->
+					<section name="foaf:Document">
+						<field name="documentName-11" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/foaf:page/foaf:Document/foaf:name" or="name" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/foaf:page/foaf:Document/*" del="." removable="false"/>
+						<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/foaf:page/foaf:Document/foaf:name)=0" name="add-documentName-11" or="name" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/foaf:page/foaf:Document">
+							<template>
+								<snippet>
+									<foaf:name/>
+								</snippet>
+							</template>
+						</action>
+					</section>
+					<field name="distribution[1]Language-14" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:language" or="language" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="."/>
+					<field name="distribution[1]ConformsTo-15" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:conformsTo" or="conformsTo" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:conformsTo)=0" name="add-distribution[1]ConformsTo-15" or="conformsTo" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+						<template>
+							<snippet>
+								<dct:conformsTo/>
+							</snippet>
+						</template>
+					</action>
+					<field name="distribution[1]MediaType-16" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dcat:mediaType" or="mediaType" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dcat:mediaType)=0" name="add-distribution[1]MediaType-16" or="mediaType" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+						<template>
+							<snippet>
+								<dcat:mediaType/>
+							</snippet>
+						</template>
+					</action>
+					<field name="distribution[1]Issued-17" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:issued" or="issued" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="."/>
+					<field name="distribution[1]Rights-18" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:rights" or="rights" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:rights)=0" name="add-distribution[1]Rights-18" or="rights" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+						<template>
+							<snippet>
+								<dct:rights/>
+							</snippet>
+						</template>
+					</action>
+					<field name="distribution[1]Status-19" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/adms:status" or="status" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="." removable="false"/>
+					<action type="add" if="count(/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/adms:status)=0" name="add-distribution[1]Status-19" or="status" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]">
+						<template>
+							<snippet>
+								<adms:status/>
+							</snippet>
+						</template>
+					</action>
+					<field name="distribution[1]Modified-21" xpath="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/dct:modified" or="modified" in="/dcat:Dataset/dcat:distribution/dcat:Distribution[1]/*" del="."/>
+				</section>
+			</tab>
+			<flatModeExceptions>
+				<for name="dct:language"/>
+				<for name="dct:type"/>
+				<for name="dct:format"/>
+				<for name="dcat:license"/>
+				<for name="dcat:theme"/>
+				<for name="dcat:keyword"/>
+				<for name="periodOfTimeStartDate"/>
+			</flatModeExceptions>
+			<thesaurusList>
+				<thesaurus key="external.authority.data-theme" maxtags="1" transformations=""/>
+				<thesaurus key="external.authority.organization-type" maxtags="1" transformations=""/>
+				<thesaurus key="external.authority.file-type" maxtags="1" transformations=""/>
+				<thesaurus key="external.authority.language" maxtags="1" transformations=""/>
+				<thesaurus key="external.authority.license" maxtags="1" transformations=""/>
+			</thesaurusList>
+		</view>
+		<view name="xml">
+			<tab id="xml" default="true"/>
+		</view>
+	</views>
+	<batchEditing>
+		<section name="identification">
+			<field name="title" xpath="dct:title"/>
+		</section>
+	</batchEditing>
+</editor>
