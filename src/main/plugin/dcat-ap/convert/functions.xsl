@@ -91,19 +91,21 @@
   <xsl:template name="defaultTitle">
     <xsl:param name="isoDocLangId"/>
 
-    <xsl:variable name="poundLangId"
-                  select="concat('#',upper-case(java:twoCharLangCode($isoDocLangId)))"/>
+    <xsl:variable name="twoCharLangCode"
+                  select="java:twoCharLangCode($isoDocLangId)"/>
 
     <xsl:variable name="docLangTitle"
-                  select="dct:title[@xml:lang=$poundLangId]"/>
+                  select="dct:title[@xml:lang=$twoCharLangCode]"/>
     <xsl:variable name="firstTitle"
                   select="dct:title"/>
     <xsl:choose>
       <xsl:when test="string-length(string($docLangTitle)) != 0">
         <xsl:value-of select="$docLangTitle[1]"/>
+        <xsl:message select="concat('Title found in document language:',$docLangTitle[1], '(',$twoCharLangCode,')')"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="string($firstTitle[1])"/>
+        <xsl:message select="concat('Title not found in document language:',$firstTitle[1], '(',$twoCharLangCode,')')"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -111,19 +113,21 @@
   <xsl:template name="defaultAbstract">
     <xsl:param name="isoDocLangId"/>
 
-    <xsl:variable name="poundLangId"
-                  select="concat('#',upper-case(java:twoCharLangCode($isoDocLangId)))"/>
+    <xsl:variable name="twoCharLangCode"
+                  select="java:twoCharLangCode($isoDocLangId)"/>
 
     <xsl:variable name="docLangAbstract"
-                  select="dct:description[@xml:lang=$poundLangId]"/>
+                  select="dct:description[@xml:lang=$twoCharLangCode]"/>
     <xsl:variable name="firstAbstract"
                   select="dct:description"/>
     <xsl:choose>
       <xsl:when test="string-length(string($docLangAbstract)) != 0">
         <xsl:value-of select="$docLangAbstract[1]"/>
+        <xsl:message select="concat('Abstract found in document language:',$docLangAbstract[1], '(',$twoCharLangCode,')')"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="string($firstAbstract[1])"/>
+        <xsl:message select="concat('Abstract not found in document language:',$firstAbstract[1], '(',$twoCharLangCode,')')"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
