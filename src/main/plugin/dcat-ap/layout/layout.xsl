@@ -84,7 +84,7 @@
   </xsl:template>
 
   <xsl:template mode="mode-dcat-ap" priority="200"
-                match="*[name() = $editorConfig/editor/fieldsWithFieldset/name or name() = $editorConfig/editor/transparentFieldset/name]">
+                match="*[name() = $editorConfig/editor/fieldsWithFieldset/name]">
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
 
@@ -109,48 +109,24 @@
       </xsl:if>
     </xsl:variable>
 
-	<xsl:choose>
-		<xsl:when test="name() = $editorConfig/editor/transparentFieldset/name">
-		    <xsl:call-template name="render-transparent-boxed-element">
-		      <xsl:with-param name="label"
-		                      select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), $isoType, $xpath)/label"/>
-		      <xsl:with-param name="editInfo" select="gn:element"/>
-		      <xsl:with-param name="errors" select="$errors"/>
-		      <xsl:with-param name="cls" select="local-name()"/>
-		      <xsl:with-param name="xpath" select="$xpath"/>
-		      <xsl:with-param name="attributesSnippet" select="$attributes"/>
-		      <xsl:with-param name="subTreeSnippet">
-		        <!-- Process child of those element. Propagate schema
-		        and labels to all subchilds (eg. needed like iso19110 elements
-		        contains gmd:* child. -->
-		        <xsl:apply-templates mode="mode-dcat-ap" select="*">
-		          <xsl:with-param name="schema" select="$schema"/>
-		          <xsl:with-param name="labels" select="$labels"/>
-		        </xsl:apply-templates>
-		      </xsl:with-param>
-		    </xsl:call-template>
-		</xsl:when>
-		<xsl:otherwise>
-		    <xsl:call-template name="render-boxed-element">
-		      <xsl:with-param name="label"
-		                      select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), $isoType, $xpath)/label"/>
-		      <xsl:with-param name="editInfo" select="gn:element"/>
-		      <xsl:with-param name="errors" select="$errors"/>
-		      <xsl:with-param name="cls" select="local-name()"/>
-		      <xsl:with-param name="xpath" select="$xpath"/>
-		      <xsl:with-param name="attributesSnippet" select="$attributes"/>
-		      <xsl:with-param name="subTreeSnippet">
-		        <!-- Process child of those element. Propagate schema
-		        and labels to all subchilds (eg. needed like iso19110 elements
-		        contains gmd:* child. -->
-		        <xsl:apply-templates mode="mode-dcat-ap" select="*">
-		          <xsl:with-param name="schema" select="$schema"/>
-		          <xsl:with-param name="labels" select="$labels"/>
-		        </xsl:apply-templates>
-		      </xsl:with-param>
-		    </xsl:call-template>
-		</xsl:otherwise>
-	</xsl:choose>
+    <xsl:call-template name="render-boxed-element">
+      <xsl:with-param name="label"
+                      select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), $isoType, $xpath)/label"/>
+      <xsl:with-param name="editInfo" select="gn:element"/>
+      <xsl:with-param name="errors" select="$errors"/>
+      <xsl:with-param name="cls" select="local-name()"/>
+      <xsl:with-param name="xpath" select="$xpath"/>
+      <xsl:with-param name="attributesSnippet" select="$attributes"/>
+      <xsl:with-param name="subTreeSnippet">
+        <!-- Process child of those element. Propagate schema
+        and labels to all subchilds (eg. needed like iso19110 elements
+        contains gmd:* child. -->
+        <xsl:apply-templates mode="mode-dcat-ap" select="*">
+          <xsl:with-param name="schema" select="$schema"/>
+          <xsl:with-param name="labels" select="$labels"/>
+        </xsl:apply-templates>
+      </xsl:with-param>
+    </xsl:call-template>
 
   </xsl:template>
 

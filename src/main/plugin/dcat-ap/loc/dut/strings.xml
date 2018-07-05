@@ -14,19 +14,27 @@
 	<metadata-on-metadata>Metadata over metadata</metadata-on-metadata>
 	<distribution>Distributies</distribution>
 	<!-- DCAT-AP view labels and help -->
-	<Dataset>dataset</Dataset>
-	<Organization>contactpunt organisatie</Organization>
-	<Address>adres</Address>
-	<Agent>organisatie</Agent>
-	<RightsStatement>rechten</RightsStatement>
-	<Standard>standaard</Standard>
-	<Document>document</Document>
-	<Identifier>andere identificator</Identifier>
-	<ProvenanceStatement>beschrijving herkomst</ProvenanceStatement>
-	<Location>locatie</Location>
-	<PeriodOfTime>tijdsperiode</PeriodOfTime>
-	<Statement>toegevoegde informatie</Statement>
-	<Distribution>distributie</Distribution>
-	<LicenseDocument>licentie</LicenseDocument>
-	<Checksum>checksom</Checksum>
+	<SectionDataset>dataset</SectionDataset>
+	<SectionOrganization>contact organisation</SectionOrganization>
+	<SectionAddress>address</SectionAddress>
+	<SectionAgent>organisation</SectionAgent>
+	<SectionRightsStatement>rechten</SectionRightsStatement>
+	<SectionStandard>standard</SectionStandard>
+	<SectionDocument>document</SectionDocument>
+	<SectionIdentifier>other identifier</SectionIdentifier>
+	<SectionProvenanceStatement>provenance statement</SectionProvenanceStatement>
+	<SectionLocation>location</SectionLocation>
+	<SectionPeriodOfTime>period of time</SectionPeriodOfTime>
+	<SectionStatement>statement</SectionStatement>
+	<SectionDistribution>dataset distribution</SectionDistribution>
+	<SectionLicenseDocument>licentie</SectionLicenseDocument>
+	<SectionRightsStatement>rechten</SectionRightsStatement>
+	<SectionChecksum>checksum</SectionChecksum>
+	<SectionDocument>document</SectionDocument>
+	<SectionStandard>standard</SectionStandard>
+	<SectionDistribution>dataset distribution</SectionDistribution>
+	<SectionLicenseDocument>licentie</SectionLicenseDocument>
+	<SectionChecksum>checksum</SectionChecksum>
+	<SectionDocument>document</SectionDocument>
+	<SectionStandard>standard</SectionStandard>
 </strings>
