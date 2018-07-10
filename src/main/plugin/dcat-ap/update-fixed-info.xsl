@@ -39,44 +39,17 @@
 	</xsl:template>
 	<!-- ================================================================= -->
 	<xsl:template match="dcat:Dataset">
-		<dcat:Dataset rdf:about="{@rdf:about}">
+		<dcat:Dataset>
 			<dct:identifier>
 				<xsl:value-of select="/root/env/uuid"/>
 			</dct:identifier>
-			<xsl:apply-templates select="node()[name(.)!= 'dct:identifier']"/>
+			<xsl:apply-templates select="@*|node()[not(name(.) = 'dct:identifier' and ./text() = /root/env/uuid)]"/>
 		</dcat:Dataset>
 	</xsl:template>
 	<!-- Removes any surrounding gco:DateTime element (from ISO19139) that may have been inserted by the DateTime widget, keeps only the datetime value.-->
 	<xsl:template match="gco:DateTime">
 		<xsl:copy>
 			<xsl:value-of select="gco:DateTime"/>
-		</xsl:copy>
-	</xsl:template>
-	<!-- Fill empty element -->
-<!--	<xsl:template match="dcat:theme|dct:language|foaf:Agent/dct:type|dcat:Dataset/dct:type|dcat:mediaType|dct:format|dct:license" priority="10">-->
-	<xsl:template match="dcat:theme|dct:language|foaf:Agent/dct:type|dcat:Dataset/dct:type|dct:format|dct:license" priority="10">
-		<xsl:copy>
-			<xsl:apply-templates select="@*|node()"/>
-			<xsl:if test="count(*)=0">
-				<xsl:variable name="resource">
-					<xsl:choose>
-						<xsl:when test="name(.)='dcat:theme'"><xsl:value-of select="concat($resourceBaseUrl,'data-theme')"/></xsl:when>
-						<xsl:when test="name(.)='dct:language'"><xsl:value-of select="concat($resourceBaseUrl,'language')"/></xsl:when>
-						<xsl:when test="name(.)='dct:type' and name(..)='dcat:Dataset'"><xsl:value-of select="concat($resourceBaseUrl,'resource-type')"/></xsl:when>
-						<xsl:when test="name(.)='dct:type' and name(..)='foaf:Agent'"><xsl:value-of select="concat($resourceBaseUrl,'organization-type')"/></xsl:when>
-						<xsl:when test="name(.)='dcat:mediaType'"><xsl:value-of select="concat($resourceBaseUrl,'media-type')"/></xsl:when>
-						<xsl:when test="name(.)='dct:format'"><xsl:value-of select="concat($resourceBaseUrl,'file-type')"/></xsl:when>
-						<xsl:when test="name(.)='dct:license'"><xsl:value-of select="concat($resourceBaseUrl,'licence')"/></xsl:when>
-					</xsl:choose>
-				</xsl:variable>
-			    <skos:Concept rdf:about="{$resourceBaseUrl}">
-                   <skos:prefLabel xml:lang="nl"/>
-                   <skos:prefLabel xml:lang="en"/>
-                   <skos:prefLabel xml:lang="fr"/>
-                   <skos:prefLabel xml:lang="de"/>
-			       <skos:inScheme rdf:resource="{$resource}"/>
-			    </skos:Concept>
-			</xsl:if>
 		</xsl:copy>
 	</xsl:template>
 </xsl:stylesheet>

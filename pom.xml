@@ -28,7 +28,26 @@
       <artifactId>harvesters</artifactId>
       <version>${project.version}</version>
     </dependency>
+	<dependency>
+	  <groupId>org.apache.jena</groupId>
+	  <artifactId>apache-jena-libs</artifactId>
+	  <type>pom</type>
+	  <version>3.8.0</version>
+	</dependency>      
+    <dependency>
+      <groupId>xalan</groupId>
+      <artifactId>xalan</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.saxon</groupId>
+      <artifactId>saxon</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.saxon</groupId>
+      <artifactId>saxon-dom</artifactId>
+    </dependency>	
   </dependencies>
+
 
   <build>
     <plugins>

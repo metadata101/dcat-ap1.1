@@ -25,43 +25,53 @@ package org.fao.geonet.kernel.harvest.harvester.dcatap;
 
 import jeeves.server.context.ServiceContext;
 
-import org.apache.commons.lang.StringUtils;
-import org.fao.geonet.Constants;
+
 import org.fao.geonet.Logger;
 import org.fao.geonet.domain.ISODate;
-import org.fao.geonet.exceptions.BadSoapResponseEx;
-import org.fao.geonet.exceptions.BadXmlResponseEx;
 import org.fao.geonet.exceptions.OperationAbortedEx;
+import org.fao.geonet.kernel.DataManager;
 import org.fao.geonet.kernel.harvest.harvester.HarvestError;
 import org.fao.geonet.kernel.harvest.harvester.HarvestResult;
 import org.fao.geonet.kernel.harvest.harvester.IHarvester;
-import org.fao.geonet.kernel.harvest.harvester.RecordInfo;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.Aligner;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.DCATAPParams;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.Search;
-import org.fao.geonet.schema.dcatap.DCATAPNamespaces;
-import org.fao.geonet.schema.dcatap.DCATAPSchemaPlugin;
 import org.fao.geonet.utils.GeonetHttpRequestFactory;
+import org.fao.geonet.utils.HttpRequest;
 import org.fao.geonet.utils.Xml;
-import org.fao.geonet.utils.XmlRequest;
 import org.jdom.Element;
-import org.jdom.Namespace;
+import org.jdom.JDOMException;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.InputStream;
 import java.net.URL;
-import java.net.URLDecoder;
+import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
 
 //=============================================================================
 
@@ -107,12 +117,10 @@ class Harvester implements IHarvester<HarvestResult> {
     public HarvestResult harvest(Logger log) throws Exception {
 
         this.log = log;
-        //--- perform all searches
 
-//        XmlRequest request = context.getBean(GeonetHttpRequestFactory.class).createXmlRequest(new URL(params.baseUrl + "/catalog.rdf"));
-        XmlRequest request = context.getBean(GeonetHttpRequestFactory.class).createXmlRequest(new URL("http://localhost:8080/geonetwork/catalogs/catalog.rdf"));
+        HttpRequest request = context.getBean(GeonetHttpRequestFactory.class).createHttpRequest(new URL(params.baseUrl)); 
 
-        Set<RecordInfo> records = new HashSet<RecordInfo>();
+        Set<DCATAPRecordInfo> recordsInfo = new HashSet<DCATAPRecordInfo>();
 
         for (Search s : params.getSearches()) {
             if (cancelMonitor.get()) {
@@ -120,7 +128,7 @@ class Harvester implements IHarvester<HarvestResult> {
             }
 
             try {
-                records.addAll(search(request, s));
+                recordsInfo.addAll(search(request, s));
             } catch (Exception t) {
                 log.error("Unknown error trying to harvest");
                 log.error(t.getMessage());
@@ -137,7 +145,7 @@ class Harvester implements IHarvester<HarvestResult> {
         if (params.isSearchEmpty()) {
             try {
                 log.debug("Doing an empty search");
-                records.addAll(search(request, Search.createEmptySearch()));
+                recordsInfo.addAll(search(request, Search.createEmptySearch()));
             } catch (Exception t) {
                 log.error("Unknown error trying to harvest");
                 log.error(t.getMessage());
@@ -151,103 +159,85 @@ class Harvester implements IHarvester<HarvestResult> {
             }
         }
 
-        log.info("Total records processed in all searches :" + records.size());
+        
+        log.info("Total records processed in all searches :" + recordsInfo.size());
 
         //--- align local node
 
         Aligner aligner = new Aligner(cancelMonitor, log, context, params);
 
-        return aligner.align(records, errors);
+        return aligner.align(recordsInfo, errors);
     }
 
     /**
      * Does DCAT-AP search request.
+     * Executes a SPARQL query to retrieve all UUIDs and add them to a Set with RecordInfo
      */
-    private Set<RecordInfo> search(XmlRequest request, Search s) throws Exception {
-
-        Set<RecordInfo> records = new HashSet<RecordInfo>();
-        int firstPageSize = 0;
-        int startPage = 1;
+    private Set<DCATAPRecordInfo> search(HttpRequest request, Search s) throws Exception {
+    	Set<DCATAPRecordInfo> records = new HashSet<DCATAPRecordInfo>();
         int maxResults = params.maxResults;
-        while (true) {
-            request.clearParams();
-//            request.addParam("page", startPage);
-	        Element response = doSearch(request);
-	
+               
+        request.clearParams();
+
+        //Do HTTP request
+        byte[] response = doSearch(request);
+    	// Open the RDF graph
+    	InputStream in = new ByteArrayInputStream(response);	        
+
+    	// Create an empty in-memory model and populate it from the graph
+    	Model model = ModelFactory.createMemModelMaker().createModel("dcat");
+    	model.read(in,null,params.rdfSyntax);
+    	in.close();
+    	
+    	// Get all dataset URIs
+    	String queryStringIds =
+    			"PREFIX dcat: <http://www.w3.org/ns/dcat#> \n"
+    		  + "PREFIX dct: <http://purl.org/dc/terms/> \n"		    			
+    		  +	"SELECT ?datasetid ?modified \n"
+    		  + " WHERE {?datasetid a <http://www.w3.org/ns/dcat#Dataset>. \n"
+    		  + " OPTIONAL {?datasetid dcat:record ?record. \n"
+    		  + " ?record dct:modified ?modified}}";
+    	Query queryIds = QueryFactory.create(queryStringIds);
+    	QueryExecution qeIds = QueryExecutionFactory.create(queryIds, model);
+    	ResultSet resultIds = qeIds.execSelect();
+    	
+    	    	
+    	while (resultIds.hasNext()) {
+    		QuerySolution result = resultIds.nextSolution();
+    		String datasetId = result.getResource("datasetid").toString();
+    		
+    		System.out.print(datasetId);
+
 	        if (log.isDebugEnabled())
-	            log.debug("Number of child elements in response: " + response.getChildren().size());
-
-	        String rdf = response.getName();
-	        if (!rdf.equals("RDF")) {
-	            throw new OperationAbortedEx("Missing 'RDF' element in\n", Xml.getString(response));
-	        }
-	
-	        Element catalog = response.getChild("Catalog", DCATAPNamespaces.DCAT);
-	        if (catalog == null) {
-	            throw new OperationAbortedEx("Missing 'Catalog' element in \n", Xml.getString(response));
-	        }
-
-	        @SuppressWarnings("unchecked")
-	        List<Element> list = catalog.getChildren();
-	        int returnedCount = list.size();
-	
-	        if (firstPageSize==0) {
-	        	firstPageSize = returnedCount;
-	        }
+	            log.debug("Dataset in response: " + datasetId);
 	        
-	        for (Element record : list) {
-	            if (cancelMonitor.get()) {
-	                return Collections.emptySet();
-	            }
-	
-	            if (!record.getName().equals("dataset")) continue; // skip all the other crap
-	            RecordInfo recInfo = getRecordInfo((Element) record.clone());
-	            if (recInfo != null) records.add(recInfo);
-
-	        }
-            if (returnedCount != firstPageSize) {
-                break;
+            if (cancelMonitor.get()) {
+                return Collections.emptySet();
             }
-
-            // Another way to escape from an infinite loop
-
-            if (returnedCount == 0) {
-                log.warning("Forcing harvest end since numberOfRecordsReturned = 0");
-                break;
-            }
-
+            DCATAPRecordInfo recInfo = getRecordInfo(result,model);
+            if (recInfo != null) records.add(recInfo);
+            
             if (records.size() > maxResults) {
                 log.warning("Forcing harvest end since maximum records to be harvested is reached");
                 break;
-            }
-
-            // Start page of next records.
-            startPage++;
-        }
-
+            }	            
+    		
+    	}
+	
         log.info("Records added to result list : " + records.size());
 
         return records;
     }
 
-    private Element doSearch(XmlRequest request) throws OperationAbortedEx {
+    private byte[] doSearch(HttpRequest request) throws OperationAbortedEx {
         try {
             System.out.println("Sent request " + request.getSentData());
             log.info("Searching on : " + params.getName());
-            Element response = request.execute();
+            byte[] response = request.execute();
             if (log.isDebugEnabled()) {
                 log.debug("Sent request " + request.getSentData());
-                log.debug("Search results:\n" + Xml.getString(response));
             }
             return response;
-        } catch (BadSoapResponseEx e) {
-            errors.add(new HarvestError(context, e, log));
-            throw new OperationAbortedEx("Raised exception when searching: "
-                + e.getMessage(), e);
-        } catch (BadXmlResponseEx e) {
-            errors.add(new HarvestError(context, e, log));
-            throw new OperationAbortedEx("Raised exception when searching: "
-                + e.getMessage(), e);
         } catch (IOException e) {
             errors.add(new HarvestError(context, e, log));
             throw new OperationAbortedEx("Raised exception when searching: "
@@ -255,49 +245,125 @@ class Harvester implements IHarvester<HarvestResult> {
         }
     }
 
-    private RecordInfo getRecordInfo(Element record) {
-        if (log.isDebugEnabled()) log.debug("getRecordInfo : " + Xml.getString(record));
-
-        String identif = "";
-
+    private DCATAPRecordInfo getRecordInfo(QuerySolution solution, Model model) {
         // get uuid and date modified
         try {
-	        Element dataset = record.getChild("Dataset", DCATAPNamespaces.DCAT);
-	        if (dataset == null) {
-                log.warning("Missing 'Dataset' element in \n" + Xml.getString(record));
-                return null;
-	        }
-            // uuid is in <guid> child
-            String about = dataset.getAttributeValue("about", DCATAPNamespaces.RDF);
-            if (about != null) {
-                String aboutLink = URLDecoder.decode(about, Constants.ENCODING);
-                identif = StringUtils.substringAfterLast(aboutLink, "/");
-            }
-            if (identif.length() == 0) {
-                log.warning("Record doesn't have a uuid : " + Xml.getString(record));
-                return null; // skip this one
-            }
-
-            String modified = dataset.getChildText("modified", DCATAPNamespaces.DCT);
+        	String datasetId = solution.getResource("datasetid").toString();
+            String modified = "";
+            Date modDate=null;
             // convert the pubDate to a known format (ISOdate)
-            Date modDate = parseDate(modified);
+            if (solution.getResource("modified")!=null){
+            	modDate = parseDate(solution.getResource("modified").toString());
+            }
             if (modDate!=null) {
+            	
 	            modified = new ISODate(modDate.getTime(), false).toString();
             }
             if (modified != null && modified.length() == 0) modified = null;
 
             if (log.isDebugEnabled())
-                log.debug("getRecordInfo: adding " + identif + " with modification date " + modified);
-            return new RecordInfo(identif, modified);
-        } catch (UnsupportedEncodingException e) {
-            HarvestError harvestError = new HarvestError(context, e, log);
-            harvestError.setDescription(harvestError.getDescription() + "\n record: " + Xml.getString(record));
-            errors.add(harvestError);
+                log.debug("getRecordInfo: adding " + datasetId + " with modification date " + modified);
+            
+        	// Retrieve all triples about a specific dataset URI
+        	String queryStringRecord = 
+        		"PREFIX apf: <http://jena.hpl.hp.com/ARQ/property#> \n" 	
+        		+ "PREFIX afn: <http://jena.hpl.hp.com/ARQ/function#> \n"	
+        	    + "SELECT ?subject ?predicate ?pAsQName ?object \n"
+        	    + "WHERE { \n"
+        	    + "{ ?subject ?predicate ?object. \n"
+        	    + "BIND(afn:namespace(?predicate) as ?pns) \n"
+        	    + "BIND (\n"
+        	    + "			COALESCE(\n"
+        	    + "				    IF(?pns = 'http://www.w3.org/ns/dcat#', 'dcat:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://purl.org/dc/terms/', 'dct:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://spdx.org/rdf/terms#', 'spdx:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://www.w3.org/2004/02/skos/core#', 'skos:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://www.w3.org/ns/adms#', 'adms:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'rdf:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://www.w3.org/2006/vcard/ns#', 'vcard:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://xmlns.com/foaf/0.1/', 'foaf:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://www.w3.org/2002/07/owl#', 'owl:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://schema.org/', 'schema:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://www.w3.org/2000/01/rdf-schema#', 'rdfs:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://www.w3.org/ns/locn#', 'locn:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://purl.org/dc/elements/1.1/', 'dc:', 1/0), \n"
+        	    + " 				'unkown:' \n"
+        	    + "				   )AS ?pprefix \n"
+        	    + " 				)\n"
+        	    + "BIND (CONCAT(?pprefix,afn:localname(?predicate)) AS ?pAsQName) \n"
+        	    + "FILTER(?subject = <" + datasetId + "> || ?object = <" + datasetId + ">)} \n"
+        	    + "UNION {\n"
+        	    + "?s ?p ?subject. \n"
+        	    + "?subject ?predicate ?object. \n"
+        	    + "BIND(afn:namespace(?predicate) as ?pns) \n"
+        	    + "BIND (\n"
+        	    + "			COALESCE(\n"
+        	    + "				    IF(?pns = 'http://www.w3.org/ns/dcat#', 'dcat:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://purl.org/dc/terms/', 'dct:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://spdx.org/rdf/terms#', 'spdx:', 1/0),\n"
+        	    + "				    IF(?pns = 'http://www.w3.org/2004/02/skos/core#', 'skos:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://www.w3.org/ns/adms#', 'adms:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'rdf:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://www.w3.org/2006/vcard/ns#', 'vcard:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://xmlns.com/foaf/0.1/', 'foaf:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://www.w3.org/2002/07/owl#', 'owl:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://schema.org/', 'schema:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://www.w3.org/2000/01/rdf-schema#', 'rdfs:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://www.w3.org/ns/locn#', 'locn:', 1/0), \n"
+        	    + "				    IF(?pns = 'http://purl.org/dc/elements/1.1/', 'dc:', 1/0), \n"
+        	    + " 				'unkown:' \n"
+        	    + "				   )AS ?pprefix \n"
+        	    + " 				)\n"
+        	    + "BIND (CONCAT(?pprefix,afn:localname(?predicate)) AS ?pAsQName) \n"        	    
+        	    + "FILTER(?s = <" + datasetId + ">)}\n"
+        	    + "}";        	    
+        	
+        	// Execute the query and obtain results
+        	Query queryRecord = QueryFactory.create(queryStringRecord);
+        	QueryExecution qe = QueryExecutionFactory.create(queryRecord, model);
+        	ResultSet results = qe.execSelect();
+        	
+        	// Output query results 
+        	ByteArrayOutputStream outxml = new ByteArrayOutputStream();
+        	ResultSetFormatter.outputAsXML(outxml,results);
+        	
+        	// Apply XSLT transformation
+            Path xslFile = context.getApplicationContext().getBean(DataManager.class).getSchemaDir("dcat-ap").resolve("import/rdf-to-xml.xsl");
+        	Element sparqlResults = Xml.loadStream(new ByteArrayInputStream(outxml.toByteArray()));
+        	/*
+        	 * Issue: GeoNetwork works best (only?) with UUIDs as dataset identifiers.
+        	 * Therefore, URIs are converted into a (unique) UUID using generateUUID.
+        	 * UUID.nameUUIDFromBytes(aString.getBytes()).toString();
+        	 * URL encoding does not work, as the GeoNetwork URLs still clash and don't work in all situations. //java.net.URLEncoder.encode(datasetId,"utf-8"); 
+        	 */   	
+        	String datasetIdEnc = UUID.nameUUIDFromBytes(datasetId.getBytes()).toString();        	
+        	Map<String, Object> params = new HashMap<String, Object>();
+        	params.put("identifier", datasetIdEnc);
+        	Element dcatXML = Xml.transform(sparqlResults, xslFile, params);
+        	
+        	//XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
+        	//xmlOutputter.output(sparqlResults,System.out);
+        	//xmlOutputter.output(dcatXML,System.out);  
+        	
+            return new DCATAPRecordInfo(datasetIdEnc, modified,"dcat-ap","TODO: source?",dcatXML);
+            
         } catch (ParseException e) {
             HarvestError harvestError = new HarvestError(context, e, log);
-            harvestError.setDescription(harvestError.getDescription() + "\n record: " + Xml.getString(record));
+            harvestError.setDescription(harvestError.getDescription());
             errors.add(new HarvestError(context, e, log));
-        }
+        } catch (JDOMException e) {
+            HarvestError harvestError = new HarvestError(context, e, log);
+            harvestError.setDescription(harvestError.getDescription());
+            errors.add(new HarvestError(context, e, log));
+		} catch (IOException e) {
+            HarvestError harvestError = new HarvestError(context, e, log);
+            harvestError.setDescription(harvestError.getDescription());
+            errors.add(new HarvestError(context, e, log));
+		} catch (Exception e) {
+            HarvestError harvestError = new HarvestError(context, e, log);
+            harvestError.setDescription(harvestError.getDescription());
+            errors.add(new HarvestError(context, e, log));
+		}
 
         // we get here if we couldn't get the UUID or date modified
         return null;
@@ -324,6 +390,8 @@ class Harvester implements IHarvester<HarvestResult> {
     public List<HarvestError> getErrors() {
         return errors;
     }
+    
+    
 }
 
 // =============================================================================

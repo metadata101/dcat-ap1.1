@@ -49,6 +49,8 @@ import org.fao.geonet.utils.GeonetHttpRequestFactory;
 import org.fao.geonet.utils.Xml;
 import org.fao.geonet.utils.XmlRequest;
 import org.jdom.Element;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -121,7 +123,7 @@ public class Aligner extends BaseAligner {
 
     }
 
-    public HarvestResult align(Set<RecordInfo> records, List<HarvestError> errors) throws Exception {
+    public HarvestResult align(Set<DCATAPRecordInfo> recordsInfo, List<HarvestError> errors) throws Exception {
         log.info("Start of alignment for : " + params.getName());
 
         //-----------------------------------------------------------------------
@@ -135,14 +137,14 @@ public class Aligner extends BaseAligner {
         dataMan.flush();
 
         //-----------------------------------------------------------------------
-        //--- remove old metadata
+        //--- remove old metadata records that no longer occur in the harvest source
 
         for (String uuid : localUuids.getUUIDs()) {
             if (cancelMonitor.get()) {
                 return result;
             }
 
-            if (!exists(records, uuid)) {
+            if (!exists(recordsInfo, uuid)) {
                 String id = localUuids.getID(uuid);
 
                 if (log.isDebugEnabled())
@@ -158,7 +160,7 @@ public class Aligner extends BaseAligner {
         //-----------------------------------------------------------------------
         //--- insert/update new metadata
 
-        for (RecordInfo ri : records) {
+        for (DCATAPRecordInfo ri : recordsInfo) {
             if (cancelMonitor.get()) {
                 return result;
             }
@@ -188,8 +190,8 @@ public class Aligner extends BaseAligner {
         return result;
     }
 
-    private void addMetadata(RecordInfo ri) throws Exception {
-        Element md = retrieveMetadata(ri.uuid);
+    private void addMetadata(DCATAPRecordInfo ri) throws Exception {
+        Element md = ri.metadata;
 
         if (md == null) return;
 
@@ -234,9 +236,13 @@ public class Aligner extends BaseAligner {
 
         dataMan.indexMetadata(id, Math.random() < 0.01, null);
         result.addedMetadata++;
+        
+        System.out.println("metadata imported: " + ri.id);
+    	//XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
+    	//xmlOutputter.output(ri.metadata,System.out);
     }
 
-    private void updateMetadata(RecordInfo ri, String id) throws Exception {
+    private void updateMetadata(DCATAPRecordInfo ri, String id) throws Exception {
         String date = localUuids.getChangeDate(ri.uuid);
 
         if (date == null) {
@@ -256,7 +262,8 @@ public class Aligner extends BaseAligner {
                 if (log.isDebugEnabled()) {
                     log.debug("  - Updating local metadata for uuid:" + ri.uuid);
                 }
-                Element md = retrieveMetadata(ri.uuid);
+                //Here, the acutal metadata is retrieved.
+                Element md = ri.metadata;
 
                 if (md == null) return;
 
@@ -286,72 +293,15 @@ public class Aligner extends BaseAligner {
     /**
      * Returns true if the uuid is present in the remote node.
      */
-    private boolean exists(Set<RecordInfo> records, String uuid) {
-        for (RecordInfo ri : records) {
+    private boolean exists(Set<DCATAPRecordInfo> recordsInfo, String uuid) {
+        for (RecordInfo ri : recordsInfo) {
             if (uuid.equals(ri.uuid)) return true;
         }
 
         return false;
     }
 
-    /**
-     * Does REST document request. If validation is requested and the metadata does not validate,
-     * null is returned. If transformation is requested then metadata is transformed.
-     *
-     * @param uuid uuid of metadata to request
-     * @return metadata the metadata
-     * @throws MalformedURLException 
-     */
-    private Element retrieveMetadata(String uuid) throws MalformedURLException {
-    	request = context.getBean(GeonetHttpRequestFactory.class).createXmlRequest(new URL(params.baseUrl + "/dataset/" + uuid + ".rdf"));
-        try {
-            if (log.isDebugEnabled()) {
-                log.debug("Getting record from : " + request.getHost() + " (uuid:" + uuid + ")");
-            }
-            Element response = null;
-            try {
-                response = request.execute();
-            } catch (Exception e) {
-                e.printStackTrace();
-                log.error("Getting record from GeoPortal REST raised exception: " + e.getMessage());
-                log.error("Sent request " + request.getSentData());
-                throw new Exception(e);
-            }
 
-            if (log.isDebugEnabled()) {
-                log.debug("Record got:\n" + Xml.getString(response));
-            }
-
-            try {
-                params.getValidate().validate(dataMan, context, response);
-            } catch (Exception e) {
-                log.info("Ignoring invalid metadata with uuid " + uuid);
-                result.doesNotValidate++;
-                return null;
-            }
-
-            // transform it here if requested
-            if (!params.getImportXslt().equals("none")) {
-                Path thisXslt = context.getAppPath().resolve(Geonet.Path.IMPORT_STYLESHEETS).
-                    resolve(params.getImportXslt());
-                try {
-                    response = Xml.transform(response, thisXslt);
-                } catch (Exception e) {
-                    log.info("Cannot transform XML " + Xml.getString(response) + ", ignoring. Error was: " + e.getMessage());
-                    result.badFormat++;
-                    return null;
-                }
-            }
-            return response;
-        } catch (Exception e) {
-            log.warning("Raised exception while getting record : " + e);
-            e.printStackTrace();
-            result.unretrievable++;
-
-            //--- we don't raise any exception here. Just try to go on
-            return null;
-        }
-    }
 }
 
 //=============================================================================

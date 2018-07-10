@@ -79,9 +79,6 @@ public class DCATAPHarvester extends AbstractHarvester<HarvestResult> {
         //--- retrieve/initialize information
         params.create(node);
 
-        //--- force the creation of a new uuid
-        params.setUuid(UUID.randomUUID().toString());
-
         String id = harvesterSettingsManager.add("harvesting", "node", getType());
 
         storeNode(params, "id:" + id);
@@ -131,6 +128,7 @@ public class DCATAPHarvester extends AbstractHarvester<HarvestResult> {
 
         harvesterSettingsManager.add("id:" + siteId, "baseUrl", params.baseUrl);
         harvesterSettingsManager.add("id:" + siteId, "icon", params.icon);
+        harvesterSettingsManager.add("id:" + siteId, "rdfSyntax", params.rdfSyntax);
 
         //--- store search nodes
 

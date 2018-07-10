@@ -55,6 +55,14 @@ public class DCATAPParams extends AbstractParams {
     //---
     //---------------------------------------------------------------------------
     public String baseUrl;
+    
+    //---------------------------------------------------------------------------
+    //---
+    //--- See also: https://jena.apache.org/documentation/io/rdf-input.html
+    //---  	RDFXML
+    //---   TURTLE
+    //---------------------------------------------------------------------------
+    public String rdfSyntax;
 
     //---------------------------------------------------------------------------
     //---
@@ -92,6 +100,7 @@ public class DCATAPParams extends AbstractParams {
         Element searches = node.getChild("searches");
 
         baseUrl = Util.getParam(site, "baseUrl", "");
+        rdfSyntax = Util.getParam(site, "rdfSyntax", "RDFXML"); 
         maxResults = MAX_HARVEST_RESULTS;
 
         try {
@@ -99,7 +108,6 @@ public class DCATAPParams extends AbstractParams {
         } catch (UnsupportedEncodingException x) {
             System.out.println(x.getMessage());
             x.printStackTrace();
-            // TODO should not swallow
         }
         icon = Util.getParam(site, "icon", "default.gif");
 
@@ -119,14 +127,15 @@ public class DCATAPParams extends AbstractParams {
         Element searches = node.getChild("searches");
 
         baseUrl = Util.getParam(site, "baseUrl", baseUrl);
-        maxResults = MAX_HARVEST_RESULTS;
+        rdfSyntax = Util.getParam(site, "rdfSyntax", "RDFXML"); 
+        maxResults = Util.getParam(site, "maxResults", 10000); //MAX_HARVEST_RESULTS;
 
         try {
             baseUrl = URLDecoder.decode(baseUrl, Constants.ENCODING);
+            rdfSyntax = URLDecoder.decode(rdfSyntax, Constants.ENCODING);
         } catch (UnsupportedEncodingException x) {
             System.out.println(x.getMessage());
             x.printStackTrace();
-            // TODO should not swallow
         }
 
         icon = Util.getParam(site, "icon", icon);
@@ -151,6 +160,7 @@ public class DCATAPParams extends AbstractParams {
         copyTo(copy);
 
         copy.baseUrl = baseUrl;
+        copy.rdfSyntax = rdfSyntax;
         copy.icon = icon;
 
         for (Search s : alSearches)
