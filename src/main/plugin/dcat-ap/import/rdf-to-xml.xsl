@@ -42,84 +42,94 @@ Rome - Italy. email: geonetwork@osgeo.org
 	<xsl:param name="identifier" select="identifier"/>
 	<!-- dcat:Catalog -->
 	<xsl:template match="/">
-		<xsl:variable name="results" select="/sr:sparql/sr:results/sr:result"/>
-		<xsl:variable name="catalogs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' and
-																		sr:binding[@name='object']/sr:uri = 'http://www.w3.org/ns/dcat#Catalog']"/>
+		<xsl:variable name="catalogURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' and
+																		sr:binding[@name='object']/sr:uri = 'http://www.w3.org/ns/dcat#Catalog']/sr:binding[@name='subject']"/>
 		<rdf:RDF xmlns:gco="http://www.isotc211.org/2005/gco">
 			<!-- Set the xsi:schemaLocation attribute, used for validation: http://www.openarchives.org/OAI/2.0/rdf.xsd -->
-			<xsl:attribute name="xsi:schemaLocation" select="'http://www.w3.org/1999/02/22-rdf-syntax-ns# schema.xsd'"/>
-			<xsl:for-each select="$catalogs">
-				<xsl:variable name="catalogURI" select="./sr:binding[@name='subject']/sr:uri"/>
-				<dcat:Catalog rdf:about="{$catalogURI}">
+			<xsl:attribute name="xsi:schemaLocation" select="'http://www.w3.org/1999/02/22-rdf-syntax-ns# http://www.openarchives.org/OAI/2.0/rdf.xsd'"/>
+			<xsl:for-each select="$catalogURIs">
+				<xsl:variable name="catalogURI" select="./*"/>
+				<dcat:Catalog rdf:about="{./*}">
 					<!-- dct:title -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="subject" select="$catalogURI"/>
-						<!-- <xsl:with-param name="predicate" select="fn:QName('http://purl.org/dc/terms/','dct:title')"/> -->
+						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:title</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:description -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="subject" select="$catalogURI"/>
-						<!-- <xsl:with-param name="predicate" select="fn:QName('http://purl.org/dc/terms/','dct:description')"/> -->
+						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dt:description</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:publisher -->
 					<xsl:call-template name="agents">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="agentURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/publisher' and
+						<xsl:with-param name="agentURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/publisher' and
 											sr:binding[@name='subject']/* = $catalogURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:publisher</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:homepage -->
 					<xsl:call-template name="documents">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="documentURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#homepage' and
+						<xsl:with-param name="documentURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#homepage' and
 											sr:binding[@name='subject']/* = $catalogURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dcat:homepage</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:license -->
 					<xsl:call-template name="licenses">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="licenseURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/license' and
+						<xsl:with-param name="licenseURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/license' and
 											sr:binding[@name='subject']/* = $catalogURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:licenses</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:language-->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="subject" select="$catalogURI"/>
+						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:language</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:issued-->
 					<xsl:call-template name="dates">
-						<xsl:with-param name="results" select="$results"/>
+						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:issued</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:modified-->
 					<xsl:call-template name="dates">
-						<xsl:with-param name="results" select="$results"/>
+						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:modified</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:themeTaxonomy -->
 					<!-- dct:hasPart -->
+					<xsl:call-template name="urls">
+						<xsl:with-param name="subject" select="./*"/>
+						<xsl:with-param name="predicate">dct:hasPart</xsl:with-param>
+					</xsl:call-template>					
 					<!-- dct:isPartOf -->
+					<xsl:call-template name="urls">
+						<xsl:with-param name="subject" select="./*"/>
+						<xsl:with-param name="predicate">dct:isPartOf</xsl:with-param>
+					</xsl:call-template>					
 					<!-- dcat:record -->
-					<!-- dcat:dataset -->
+					<xsl:call-template name="urls">
+						<xsl:with-param name="subject" select="./*"/>
+						<xsl:with-param name="predicate">dct:isPartOf</xsl:with-param>
+					</xsl:call-template>					
 					<!-- dct:rights -->
-					<!-- dct:spatial -->
-					<xsl:call-template name="datasets">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="datasetURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#dataset' and
+					<xsl:call-template name="rightsStatements">
+						<xsl:with-param name="statementURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/rights' and
 											sr:binding[@name='subject']/* = $catalogURI]/sr:binding[@name='object']"/>
-						<!-- <xsl:with-param name="predicate" select="fn:QName('http://www.w3.org/ns/dcat#','dcat:dataset')"/> -->
+						<xsl:with-param name="predicate">dct:rights</xsl:with-param>
+					</xsl:call-template>					
+					<!-- dct:spatial -->
+					<xsl:call-template name="locations">
+						<xsl:with-param name="locationURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/spatial' and
+											sr:binding[@name='subject']/* = $catalogURI]/sr:binding[@name='object']"/>
+						<xsl:with-param name="predicate">dct:spatial</xsl:with-param>
+					</xsl:call-template>
+					<!-- dcat:dataset -->
+					<xsl:call-template name="datasets">
+						<xsl:with-param name="datasetURIs" select="//sr:result[sr:binding[@name='subject']/* = $catalogURI and sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#dataset']/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dcat:dataset</xsl:with-param>
 					</xsl:call-template>
 				</dcat:Catalog>
 			</xsl:for-each>
 			<!-- if no catalog information found -->
-			<xsl:if test="not($catalogs[1])">
+			<xsl:if test="not($catalogURIs[1])">
 				<!-- dcat:dataset -->
 				<dcat:Catalog>
 					<dct:title>catalog title</dct:title>
@@ -130,8 +140,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 						</foaf:Agent>
 					</dct:publisher>
 					<xsl:call-template name="datasets">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="datasetURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' and
+						<xsl:with-param name="datasetURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type' and
 																					  sr:binding[@name='object']/sr:uri = 'http://www.w3.org/ns/dcat#Dataset']/sr:binding[@name='subject']"/>
 						<xsl:with-param name="predicate">dcat:dataset</xsl:with-param>
 					</xsl:call-template>
@@ -141,10 +150,10 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- dcat:Dataset -->
 	<xsl:template name="datasets">
-		<xsl:param name="results"/>
 		<xsl:param name="datasetURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$datasetURIs">
+			<xsl:variable name="datasetURI" select="./*"/>
 			<xsl:element name="{$predicate}">
 				<dcat:Dataset>
 					<xsl:choose>
@@ -154,191 +163,165 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:when test="./sr:bnode">
 							<xsl:attribute name="rdf:nodeID"><xsl:value-of select="./sr:bnode"/></xsl:attribute>
 						</xsl:when>
-					</xsl:choose>		
+					</xsl:choose>
 					<!-- dct:identifier -->
 					<!-- the first dct:identifer contains the for GeoNetwork mandatory UUID -->
-					<dct:identifier><xsl:value-of select="$identifier"/></dct:identifier>
+					<dct:identifier>
+						<xsl:value-of select="$identifier"/>
+					</dct:identifier>
 					<xsl:call-template name="identifier">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:identifier</xsl:with-param>
-					</xsl:call-template>		
+					</xsl:call-template>
 					<!-- dct:title -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:title</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:description -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:description</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:contactPoint -->
 					<xsl:call-template name="organizations">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="organizationURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#contactPoint' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="organizationURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#contactPoint' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dcat:contactPoint</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:issued-->
 					<xsl:call-template name="dates">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:issued</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:modified-->
 					<xsl:call-template name="dates">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:modified</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:publisher -->
 					<xsl:call-template name="agents">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="agentURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/publisher' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="agentURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/publisher' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:publisher</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:keyword -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dcat:keyword</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:theme -->
 					<xsl:call-template name="concepts">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="conceptURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#theme' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#theme' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dcat:theme</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:accessRights -->
 					<xsl:call-template name="rightsStatements">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="statementURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/accessRights' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="statementURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/accessRights' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:accessRights</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:conformsTo -->
 					<xsl:call-template name="standards">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="standardURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/conformsTo' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="standardURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/conformsTo' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:conformsTo</xsl:with-param>
 					</xsl:call-template>
 					<!-- foaf:page -->
 					<xsl:call-template name="documents">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="documentURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://xmlns.com/foaf/0.1/page' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="documentURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://xmlns.com/foaf/0.1/page' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">foaf:page</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:accrualPeriodicity -->
 					<xsl:call-template name="concepts">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="conceptURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/accrualPeriodicity' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/accrualPeriodicity' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:accrualPeriodicity</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:hasVersion -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:hasVersion</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:isVersionOf-->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:isVersionOf</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:landingPage-->
 					<xsl:call-template name="urls">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dcat:landingPage</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:language-->
 					<xsl:call-template name="concepts">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="conceptURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/language' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/language' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:language</xsl:with-param>
 					</xsl:call-template>
 					<!-- adms:identifier -->
 					<xsl:call-template name="identifiers">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="identifierURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/adms#identifier' and
-											sr:binding[@name='subject']/* = $datasetURIs]/sr:binding[@name='object']"/>
+						<xsl:with-param name="identifierURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/adms#identifier' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">adms:identifier</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:provenance-->
 					<xsl:call-template name="provenanceStatements">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="statementURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/provenance' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="statementURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/provenance' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:provenance</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:relation-->
 					<xsl:call-template name="urls">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:relation</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:source-->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:source</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:spatial -->
 					<xsl:call-template name="locations">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="locationURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/spatial' and 
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="locationURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/spatial' and 
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:spatial</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:temporal -->
 					<xsl:call-template name="periods">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="periodURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/temporal' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="periodURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/temporal' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:temporal</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:type-->
 					<xsl:call-template name="concepts">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="conceptURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/type' and
-											sr:binding[@name='subject']/sr:uri = $datasetURIs]/sr:binding[@name='object']/*"/>
+						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/type' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']/*"/>
 						<!-- <xsl:with-param name="predicate" select="fn:QName('http://purl.org/dc/terms/','dct:type')"/>  -->
 						<xsl:with-param name="predicate">dct:type</xsl:with-param>
 					</xsl:call-template>
 					<!-- owl:versionInfo -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="."/>
 						<xsl:with-param name="predicate">owl:versionInfo</xsl:with-param>
 					</xsl:call-template>
 					<!-- adms:versionNotes -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="."/>
 						<xsl:with-param name="predicate">adms:versionNotes</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:distribution -->
 					<xsl:call-template name="distributions">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="distributionURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#distribution' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="distributionURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#distribution' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dcat:distribution</xsl:with-param>
 					</xsl:call-template>
 					<!-- adms:sample -->
 					<xsl:call-template name="distributions">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="distributionURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/adms#sample' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="distributionURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/adms#sample' and
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">adms:sample</xsl:with-param>
 					</xsl:call-template>
 				</dcat:Dataset>
@@ -347,11 +330,11 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- foaf:Agent -->
 	<xsl:template name="agents">
-		<xsl:param name="results"/>
 		<xsl:param name="agentURIs"/>
 		<xsl:param name="predicate"/>
 		<!-- for each agent -->
 		<xsl:for-each select="$agentURIs">
+			<xsl:variable name="agentURI" select="./*"/>
 			<xsl:element name="{$predicate}">
 				<foaf:Agent>
 					<xsl:choose>
@@ -364,15 +347,13 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
 					<!-- foaf:name -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">foaf:name</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:type-->
 					<xsl:call-template name="concepts">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="conceptURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/type' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/type' and
+											sr:binding[@name='subject']/* = $agentURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:type</xsl:with-param>
 					</xsl:call-template>
 				</foaf:Agent>
@@ -381,7 +362,6 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- foaf:Document -->
 	<xsl:template name="documents">
-		<xsl:param name="results"/>
 		<xsl:param name="documentURIs"/>
 		<xsl:param name="predicate"/>
 		<!-- for each document -->
@@ -398,9 +378,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
 					<!-- foaf:name -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="."/>
-						<!-- <xsl:with-param name="predicate" select="fn:QName('http://xmlns.com/foaf/0.1/','foaf:name')"/>  -->
 						<xsl:with-param name="predicate">foaf:name</xsl:with-param>
 					</xsl:call-template>
 				</foaf:Document>
@@ -409,7 +387,6 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- dct:Location -->
 	<xsl:template name="locations">
-		<xsl:param name="results"/>
 		<xsl:param name="locationURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$locationURIs">
@@ -425,7 +402,6 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
 					<!-- locn:geometry -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">locn:geometry</xsl:with-param>
 					</xsl:call-template>
@@ -439,7 +415,6 @@ Rome - Italy. email: geonetwork@osgeo.org
 -->
 					<!-- skos:prefLabel -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">skos:prefLabel</xsl:with-param>
 					</xsl:call-template>
@@ -449,10 +424,10 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- dct:PeriodOfTime -->
 	<xsl:template name="licenses">
-		<xsl:param name="results"/>
 		<xsl:param name="licenseURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$licenseURIs">
+			<xsl:variable name="licenseURI" select="./*"/>
 			<xsl:element name="{$predicate}">
 				<dct:LicenseDocument>
 					<xsl:choose>
@@ -465,26 +440,22 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
 					<!-- dct:type -->
 					<xsl:call-template name="concepts">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="conceptURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/type' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/type' and
+											sr:binding[@name='subject']/* = $licenseURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:type</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:title -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:title</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:description -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:description</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:identifier -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:identifier</xsl:with-param>
 					</xsl:call-template>
@@ -494,7 +465,6 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- dct:RightsStatement -->
 	<xsl:template name="rightsStatements">
-		<xsl:param name="results"/>
 		<xsl:param name="statementURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$statementURIs">
@@ -510,13 +480,11 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
 					<!-- dct:title -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:title</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:description -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:description</xsl:with-param>
 					</xsl:call-template>
@@ -526,7 +494,6 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- dct:Standard -->
 	<xsl:template name="standards">
-		<xsl:param name="results"/>
 		<xsl:param name="standardURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$standardURIs">
@@ -542,13 +509,11 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
 					<!-- dct:title -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:title</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:description -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:description</xsl:with-param>
 					</xsl:call-template>
@@ -558,7 +523,6 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- dct:ProvenanceStatement -->
 	<xsl:template name="provenanceStatements">
-		<xsl:param name="results"/>
 		<xsl:param name="statementURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$statementURIs">
@@ -574,13 +538,11 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
 					<!-- dct:title -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:title</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:description -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:description</xsl:with-param>
 					</xsl:call-template>
@@ -590,7 +552,6 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- skos:Concept -->
 	<xsl:template name="concepts">
-		<xsl:param name="results"/>
 		<xsl:param name="conceptURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$conceptURIs">
@@ -603,19 +564,20 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:when test="./sr:bnode">
 							<xsl:attribute name="rdf:nodeID"><xsl:value-of select="./sr:bnode"/></xsl:attribute>
 						</xsl:when>
+						<xsl:when test="./sr:literal">
+							<skos:prefLabel>
+								<xsl:value-of select="./sr:literal"/>
+							</skos:prefLabel>
+						</xsl:when>
 					</xsl:choose>
 					<!-- skos:prefLabel -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="."/>
-						<!-- <xsl:with-param name="predicate" select="fn:QName('http://www.w3.org/2004/02/skos/core#','skos:prefLabel')"/>  -->
 						<xsl:with-param name="predicate">skos:prefLabel</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:type -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="."/>
-						<!-- <xsl:with-param name="predicate" select="fn:QName('http://www.w3.org/2004/02/skos/core#','skos:inScheme')"/>  -->
 						<xsl:with-param name="predicate">skos:inScheme</xsl:with-param>
 					</xsl:call-template>
 				</skos:Concept>
@@ -624,7 +586,6 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- adms:Identifier -->
 	<xsl:template name="identifiers">
-		<xsl:param name="results"/>
 		<xsl:param name="identifierURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$identifierURIs">
@@ -640,7 +601,6 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
 					<!-- skos:notation -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="."/>
 						<xsl:with-param name="predicate">skos:notation</xsl:with-param>
 					</xsl:call-template>
@@ -650,7 +610,6 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- vcard:Address-->
 	<xsl:template name="addresses">
-		<xsl:param name="results"/>
 		<xsl:param name="addressURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$addressURIs">
@@ -666,25 +625,21 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
 					<!-- vcard:street-address -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">vcard:street-address</xsl:with-param>
 					</xsl:call-template>
 					<!-- vvcard:locality -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">vcard:locality</xsl:with-param>
 					</xsl:call-template>
 					<!-- vcard:postal-code -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">vcard:postal-code</xsl:with-param>
 					</xsl:call-template>
 					<!-- vcard:country-name -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">vcard:country-name</xsl:with-param>
 					</xsl:call-template>
@@ -694,10 +649,10 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- vcard:Organization -->
 	<xsl:template name="organizations">
-		<xsl:param name="results"/>
 		<xsl:param name="organizationURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$organizationURIs">
+			<xsl:variable name="organizationURI" select="./*"/>
 			<xsl:element name="{$predicate}">
 				<vcard:Organization>
 					<xsl:choose>
@@ -710,40 +665,33 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
 					<!-- vcard:fn -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">vcard:fn</xsl:with-param>
 					</xsl:call-template>
 					<!-- vcard:organization-name -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">vcard:organization-name</xsl:with-param>
 					</xsl:call-template>
 					<!-- vcard:hasAddress -->
 					<xsl:call-template name="addresses">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="addressURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/2006/vcard/ns#hasAddress' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="addressURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/2006/vcard/ns#hasAddress' and
+											sr:binding[@name='subject']/* = $organizationURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">vcard:hasAddress</xsl:with-param>
 					</xsl:call-template>
 					<!-- vcard:hasEmail -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">vcard:hasEmail</xsl:with-param>
 					</xsl:call-template>
 					<!-- vcard:hasTelephone -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">vcard:hasTelephone</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:type -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
-						<!-- <xsl:with-param name="predicate" select="fn:QName('http://purl.org/dc/terms/','dct:type')"/>  -->
 						<xsl:with-param name="predicate">dct:type</xsl:with-param>
 					</xsl:call-template>
 				</vcard:Organization>
@@ -752,10 +700,10 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- dcat:Distribution -->
 	<xsl:template name="distributions">
-		<xsl:param name="results"/>
 		<xsl:param name="distributionURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$distributionURIs">
+			<xsl:variable name="distributionURI" select="./*"/>
 			<xsl:element name="{$predicate}">
 				<dcat:Distribution>
 					<xsl:choose>
@@ -768,107 +716,91 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
 					<!-- dct:title -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:title</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:description -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:description</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:accessURL -->
 					<xsl:call-template name="urls">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dcat:accessURL</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:downloadURL -->
 					<xsl:call-template name="urls">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dcat:downloadURL</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:issued -->
 					<xsl:call-template name="dates">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:issued</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:modified-->
 					<xsl:call-template name="dates">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:modified</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:format -->
 					<xsl:call-template name="concepts">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="conceptURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/format' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/format' and
+											sr:binding[@name='subject']/* = $distributionURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:format</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:mediaType -->
 					<xsl:call-template name="concepts">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="conceptURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#mediaType' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#mediaType' and
+											sr:binding[@name='subject'] = .]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dcat:mediaType</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:language -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="subject" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/language' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="subject" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/language' and
+											sr:binding[@name='subject']/* = $distributionURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:language</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:license -->
 					<xsl:call-template name="licenses">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="licenseURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/license' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="licenseURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/license' and 
+											sr:binding[@name='subject']/* = $distributionURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:license</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:rights -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="subject" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/rights' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="subject" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/rights' and
+											sr:binding[@name='subject']/* = $distributionURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:rights</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:byteSize -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dcat:byteSize</xsl:with-param>
 					</xsl:call-template>
 					<!-- spdx:checksum -->
 					<xsl:call-template name="checksums">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="checksumURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://spdx.org/rdf/terms#checksum' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="checksumURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://spdx.org/rdf/terms#checksum' and
+											sr:binding[@name='subject']/* = $distributionURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">spdx:checksum</xsl:with-param>
 					</xsl:call-template>
 					<!-- foaf:page -->
 					<xsl:call-template name="documents">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="documentURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://xmlns.com/foaf/0.1/page' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="documentURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://xmlns.com/foaf/0.1/page' and
+											sr:binding[@name='subject']/* = $distributionURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">foaf:page</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:conformsTo-->
 					<xsl:call-template name="standards">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="standardURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/conformsTo' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="standardURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/conformsTo' and
+											sr:binding[@name='subject']/* = $distributionURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:conformsTo</xsl:with-param>
 					</xsl:call-template>
 					<!-- adms:status -->
 					<xsl:call-template name="concepts">
-						<xsl:with-param name="results" select="$results"/>
-						<xsl:with-param name="conceptURIs" select="$results[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/adms#status' and
-											sr:binding[@name='subject']/text() = ./text()]/sr:binding[@name='object']"/>
+						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/adms#status' and
+											sr:binding[@name='subject']/* = $distributionURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">adms:status</xsl:with-param>
 					</xsl:call-template>
 				</dcat:Distribution>
@@ -877,7 +809,6 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- dct:PeriodOfTime -->
 	<xsl:template name="periods">
-		<xsl:param name="results"/>
 		<xsl:param name="periodURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$periodURIs">
@@ -892,16 +823,12 @@ Rome - Italy. email: geonetwork@osgeo.org
 						</xsl:when>
 					</xsl:choose>
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="."/>
-						<!-- <xsl:with-param name="predicate" select="fn:QName('http://schema.org/','schema:startDate')"/>  -->
 						<xsl:with-param name="predicate">schema:startDate</xsl:with-param>
 					</xsl:call-template>
 					<!-- skos:prefLabel -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="."/>
-						<!-- <xsl:with-param name="predicate" select="fn:QName('http://schema.org/','schema:endDate')"/>  -->
 						<xsl:with-param name="predicate">schema:endDate</xsl:with-param>
 					</xsl:call-template>
 				</dct:PeriodOfTime>
@@ -910,7 +837,6 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- spdx:CheckSum -->
 	<xsl:template name="checksums">
-		<xsl:param name="results"/>
 		<xsl:param name="checksumURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$checksumURIs">
@@ -926,13 +852,11 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
 					<!-- spdx:algorithm -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="."/>
 						<xsl:with-param name="predicate">spdx:algorithm</xsl:with-param>
 					</xsl:call-template>
 					<!-- spdx:checksumValue -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="results" select="$results"/>
 						<xsl:with-param name="subject" select="."/>
 						<xsl:with-param name="predicate">spdx:checksumValue</xsl:with-param>
 					</xsl:call-template>
@@ -942,12 +866,10 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- simple properties -->
 	<xsl:template name="properties">
-		<xsl:param name="results"/>
 		<xsl:param name="subject"/>
 		<xsl:param name="predicate"/>
-		<!-- <xsl:variable name="predicateString" select="concat(fn:namespace-uri-from-QName($predicate),fn:local-name-from-QName($predicate))"/> -->
 		<!-- Select all objects matching the subject and predicate pattern -->
-		<xsl:for-each select="$results[sr:binding[@name='subject']/* = $subject and
+		<xsl:for-each select="//sr:result[sr:binding[@name='subject']/* = $subject and
 											sr:binding[@name='pAsQName']/sr:literal = $predicate]/sr:binding[@name='object']">
 			<xsl:choose>
 				<!-- plain literals -->
@@ -959,10 +881,10 @@ Rome - Italy. email: geonetwork@osgeo.org
 						</xsl:if>
 						<!-- language tag attribute -->
 						<xsl:choose>
-							<xsl:when test="./sr:literal/@lang">
-								<xsl:attribute name="xml:lang"><xsl:value-of select="./sr:literal/@lang"/></xsl:attribute>
+							<xsl:when test="./sr:literal/@xml:lang">
+								<xsl:attribute name="xml:lang"><xsl:value-of select="./sr:literal/@xml:lang"/></xsl:attribute>
 							</xsl:when>
-							<xsl:when test="contains($predicate,'title') or contains($predicate,'description') or contains($predicate, 'keyword') or contains($predicate, 'name')">
+							<xsl:when test="not(./sr:literal/@xml:lang) and (contains($predicate,'title') or contains($predicate,'description') or contains($predicate, 'keyword') or contains($predicate, 'name'))">
 								<xsl:attribute name="xml:lang"><xsl:value-of select="$defaultLang"/></xsl:attribute>
 							</xsl:when>
 						</xsl:choose>
@@ -987,12 +909,10 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- dct:identifier -->
 	<xsl:template name="identifier">
-		<xsl:param name="results"/>
 		<xsl:param name="subject"/>
 		<xsl:param name="predicate"/>
-		<!-- <xsl:variable name="predicateString" select="concat(fn:namespace-uri-from-QName($predicate),fn:local-name-from-QName($predicate))"/> -->
 		<!-- Select all objects matching the subject and predicate pattern -->
-		<xsl:for-each select="$results[sr:binding[@name='subject']/* = $subject and
+		<xsl:for-each select="//sr:result[sr:binding[@name='subject']/* = $subject and
 											sr:binding[@name='pAsQName']/sr:literal = $predicate]/sr:binding[@name='object']">
 			<xsl:choose>
 				<!-- plain literals -->
@@ -1027,11 +947,10 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- urls -->
 	<xsl:template name="urls">
-		<xsl:param name="results"/>
 		<xsl:param name="subject"/>
 		<xsl:param name="predicate"/>
 		<!-- Select all objects matching the subject and predicate pattern -->
-		<xsl:for-each select="$results[sr:binding[@name='subject']/* = $subject and
+		<xsl:for-each select="//sr:result[sr:binding[@name='subject']/* = $subject and
 											sr:binding[@name='pAsQName']/sr:literal = $predicate]/sr:binding[@name='object']">
 			<xsl:choose>
 				<!-- plain literals, make them resources - this is needed for dcat:accessURL, dcat:downloadURL, which expect a resource and not a literal -->
@@ -1057,12 +976,10 @@ Rome - Italy. email: geonetwork@osgeo.org
 	</xsl:template>
 	<!-- dates -->
 	<xsl:template name="dates">
-		<xsl:param name="results"/>
 		<xsl:param name="subject"/>
 		<xsl:param name="predicate"/>
-		<!-- <xsl:variable name="predicateString" select="concat(fn:namespace-uri-from-QName($predicate),fn:local-name-from-QName($predicate))"/> -->
 		<!-- Select all objects matching the subject and predicate pattern -->
-		<xsl:for-each select="$results[sr:binding[@name='subject']/* = $subject and
+		<xsl:for-each select="//sr:result[sr:binding[@name='subject']/* = $subject and
 											sr:binding[@name='pAsQName']/sr:literal = $predicate]/sr:binding[@name='object']">
 			<xsl:choose>
 				<xsl:when test="./sr:literal">
