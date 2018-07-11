@@ -49,8 +49,6 @@
   <xsl:template name="evaluate-dcat-ap">
     <xsl:param name="base" as="node()"/>
     <xsl:param name="in"/>
-    <xsl:message>in xml <xsl:copy-of select="$base"></xsl:copy-of></xsl:message>
-    <xsl:message>search for <xsl:copy-of select="$in"></xsl:copy-of></xsl:message>
     <xsl:variable name="nodeOrAttribute" select="saxon:evaluate(concat('$p1', $in), $base)"/>
 
     <xsl:choose>
