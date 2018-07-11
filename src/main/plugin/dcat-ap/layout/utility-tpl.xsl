@@ -31,7 +31,7 @@
   <xsl:include href="utility-tpl-multilingual.xsl"/>
 
   <xsl:template name="get-dcat-ap-title">
-    <xsl:value-of select="$metadata/dcat:Dataset/dct:title"/>
+    <xsl:value-of select="$metadata/dcat:Dataset/dct:title[1]"/>
   </xsl:template>
 
   <xsl:template name="get-dcat-ap-extents-as-json">[]</xsl:template>

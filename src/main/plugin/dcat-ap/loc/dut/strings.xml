@@ -15,26 +15,148 @@
 	<distribution>Distributies</distribution>
 	<!-- DCAT-AP view labels and help -->
 	<SectionDataset>dataset</SectionDataset>
+	<FieldId108>URI</FieldId108>
+	<FieldId109>titel</FieldId109>
+	<FieldId110>taal</FieldId110>
+	<FieldId111>beschrijving</FieldId111>
+	<FieldId112>taal</FieldId112>
+	<FieldId113>identificator</FieldId113>
 	<SectionOrganization>contact organisation</SectionOrganization>
+	<FieldId116>URI</FieldId116>
+	<FieldId117>contactnaam</FieldId117>
+	<FieldId118>naam organisatie</FieldId118>
 	<SectionAddress>address</SectionAddress>
+	<FieldId121>URI</FieldId121>
+	<FieldId122>street</FieldId122>
+	<FieldId123>gemeente</FieldId123>
+	<FieldId124>postcode</FieldId124>
+	<FieldId125>land</FieldId125>
+	<FieldId126>e-mail</FieldId126>
+	<FieldId127>website</FieldId127>
+	<FieldId128>telefoonnummer</FieldId128>
+	<FieldId129>publicatiedatum</FieldId129>
+	<FieldId131>laatst gewijzigd</FieldId131>
 	<SectionAgent>organisation</SectionAgent>
+	<FieldId135>URI</FieldId135>
+	<FieldId136>naam</FieldId136>
+	<FieldId137>taal</FieldId137>
+	<FieldId145>trefwoord</FieldId145>
+	<FieldId146>taal</FieldId146>
 	<SectionRightsStatement>rechten</SectionRightsStatement>
+	<FieldId156>URI</FieldId156>
+	<FieldId157>titel</FieldId157>
+	<FieldId158>taal</FieldId158>
+	<FieldId159>beschrijving</FieldId159>
+	<FieldId160>taal</FieldId160>
 	<SectionStandard>standard</SectionStandard>
+	<FieldId163>URI</FieldId163>
+	<FieldId164>titel</FieldId164>
+	<FieldId165>taal</FieldId165>
+	<FieldId166>beschrijving</FieldId166>
+	<FieldId167>taal</FieldId167>
 	<SectionDocument>document</SectionDocument>
+	<FieldId170>URI</FieldId170>
+	<FieldId171>naam</FieldId171>
+	<FieldId172>taal</FieldId172>
+	<FieldId180>heeft versie</FieldId180>
+	<FieldId181>is versie van</FieldId181>
+	<FieldId182>bijsluiter</FieldId182>
 	<SectionIdentifier>other identifier</SectionIdentifier>
+	<FieldId192>URI</FieldId192>
+	<FieldId193>notatie</FieldId193>
 	<SectionProvenanceStatement>provenance statement</SectionProvenanceStatement>
+	<FieldId197>URI</FieldId197>
+	<FieldId198>beschrijving</FieldId198>
+	<FieldId199>taal</FieldId199>
+	<FieldId200>verwante bron</FieldId200>
+	<FieldId201>bron</FieldId201>
 	<SectionLocation>location</SectionLocation>
+	<FieldId204>URI</FieldId204>
+	<FieldId205>geometrie</FieldId205>
+	<FieldId207>label</FieldId207>
+	<FieldId208>taal</FieldId208>
 	<SectionPeriodOfTime>period of time</SectionPeriodOfTime>
+	<FieldId211>URI</FieldId211>
+	<FieldId212>eind (datum/tijd)</FieldId212>
+	<FieldId214>start (datum/tijd)</FieldId214>
+	<FieldId223>versie</FieldId223>
+	<FieldId224>taal</FieldId224>
+	<FieldId225>versie nota's</FieldId225>
+	<FieldId226>taal</FieldId226>
 	<SectionStatement>statement</SectionStatement>
+	<FieldId229>URI</FieldId229>
+	<FieldId230>subject</FieldId230>
+	<FieldId231>predicaat</FieldId231>
+	<FieldId232>object</FieldId232>
 	<SectionDistribution>dataset distribution</SectionDistribution>
+	<FieldId236>URI</FieldId236>
+	<FieldId237>titel</FieldId237>
+	<FieldId238>taal</FieldId238>
+	<FieldId239>beschrijving</FieldId239>
+	<FieldId240>taal</FieldId240>
+	<FieldId241>URL</FieldId241>
+	<FieldId242>download URL</FieldId242>
+	<FieldId243>publicatiedatum</FieldId243>
+	<FieldId245>laatst gewijzigd</FieldId245>
 	<SectionLicenseDocument>licentie</SectionLicenseDocument>
+	<FieldId270>URI</FieldId270>
+	<FieldId278>titel</FieldId278>
+	<FieldId279>taal</FieldId279>
+	<FieldId280>beschrijving</FieldId280>
+	<FieldId281>taal</FieldId281>
+	<FieldId282>identificator</FieldId282>
 	<SectionRightsStatement>rechten</SectionRightsStatement>
+	<FieldId285>URI</FieldId285>
+	<FieldId286>titel</FieldId286>
+	<FieldId287>taal</FieldId287>
+	<FieldId288>beschrijving</FieldId288>
+	<FieldId289>taal</FieldId289>
+	<FieldId290>grootte (bytes)</FieldId290>
 	<SectionChecksum>checksum</SectionChecksum>
+	<FieldId293>URI</FieldId293>
+	<FieldId294>algoritme</FieldId294>
+	<FieldId295>checksom waarde</FieldId295>
 	<SectionDocument>document</SectionDocument>
+	<FieldId298>URI</FieldId298>
+	<FieldId299>naam</FieldId299>
+	<FieldId300>taal</FieldId300>
 	<SectionStandard>standard</SectionStandard>
+	<FieldId303>URI</FieldId303>
+	<FieldId304>titel</FieldId304>
+	<FieldId305>taal</FieldId305>
+	<FieldId306>beschrijving</FieldId306>
+	<FieldId307>taal</FieldId307>
 	<SectionDistribution>dataset distribution</SectionDistribution>
+	<FieldId317>URI</FieldId317>
+	<FieldId318>titel</FieldId318>
+	<FieldId319>taal</FieldId319>
+	<FieldId320>beschrijving</FieldId320>
+	<FieldId321>taal</FieldId321>
+	<FieldId322>URL</FieldId322>
+	<FieldId323>download URL</FieldId323>
+	<FieldId324>publicatiedatum</FieldId324>
+	<FieldId326>laatst gewijzigd</FieldId326>
+	<FieldId335>mediatype</FieldId335>
 	<SectionLicenseDocument>licentie</SectionLicenseDocument>
+	<FieldId345>URI</FieldId345>
+	<FieldId353>titel</FieldId353>
+	<FieldId354>taal</FieldId354>
+	<FieldId355>beschrijving</FieldId355>
+	<FieldId356>taal</FieldId356>
+	<FieldId357>identificator</FieldId357>
+	<FieldId358>grootte (bytes)</FieldId358>
 	<SectionChecksum>checksum</SectionChecksum>
+	<FieldId361>URI</FieldId361>
+	<FieldId362>algoritme</FieldId362>
+	<FieldId363>checksom waarde</FieldId363>
 	<SectionDocument>document</SectionDocument>
+	<FieldId366>URI</FieldId366>
+	<FieldId367>naam</FieldId367>
+	<FieldId368>taal</FieldId368>
 	<SectionStandard>standard</SectionStandard>
+	<FieldId371>URI</FieldId371>
+	<FieldId372>titel</FieldId372>
+	<FieldId373>taal</FieldId373>
+	<FieldId374>beschrijving</FieldId374>
+	<FieldId375>taal</FieldId375>
 </strings>

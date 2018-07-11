@@ -32,7 +32,7 @@
 		<xsl:apply-templates select="//rdf:RDF"/>
 	</xsl:template>
 	<!-- =================================================================  -->
-	<xsl:template match="@*|node()[name(.)!= 'gco:DateTime' and name(.)!= 'dcat:Dataset' and name(.)!= 'root']">
+	<xsl:template match="@*|node()[name(.)!= 'gco:DateTime' and name(.)!= 'root']">
 		<xsl:copy>
 			<xsl:apply-templates select="@*|node()"/>
 		</xsl:copy>

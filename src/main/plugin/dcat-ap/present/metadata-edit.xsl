@@ -142,7 +142,7 @@
 	<xsl:template mode="dcat-ap" match="*|@*">
 		<xsl:param name="schema"/>
 		<xsl:param name="edit"/>
-		
+		<xsl:message select="concat('SURPRISE: here we render element ',name(.))"/>
 		<xsl:apply-templates mode="element" select=".">
 			<xsl:with-param name="schema" select="$schema"/>
 			<xsl:with-param name="edit"   select="$edit"/>

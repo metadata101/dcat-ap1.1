@@ -137,8 +137,7 @@
                     count($editorConfig/editor/multilingualFields/exclude/name[. = $elementName and not(@*)]) > 0 or
                       $exclusionMatchesAncestor = true() or
                       $exclusionMatchesParent = true() or
-                      $exclusionMatchesChild = true() or
-                      count($element/gco:Boolean) > 0"/>
+                      $exclusionMatchesChild = true()"/>
 
     <xsl:value-of select="$excluded"/>
   </xsl:function>
