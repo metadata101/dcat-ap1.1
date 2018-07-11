@@ -23,6 +23,7 @@
 
 package org.fao.geonet.kernel.harvest.harvester.dcatap;
 
+import org.apache.jena.riot.RDFLanguages;
 import org.fao.geonet.Constants;
 import org.fao.geonet.Util;
 import org.fao.geonet.exceptions.BadInputEx;
@@ -100,8 +101,8 @@ public class DCATAPParams extends AbstractParams {
         Element searches = node.getChild("searches");
 
         baseUrl = Util.getParam(site, "baseUrl", "");
-        rdfSyntax = Util.getParam(site, "rdfSyntax", "RDFXML"); 
-        maxResults = MAX_HARVEST_RESULTS;
+        rdfSyntax = Util.getParam(site, "rdfSyntax", RDFLanguages.RDFXML.toLongString()); 
+        maxResults = Util.getParam(site, "maxResults", 10000); //MAX_HARVEST_RESULTS;
 
         try {
             baseUrl = URLDecoder.decode(baseUrl, Constants.ENCODING);
