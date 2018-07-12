@@ -28,6 +28,7 @@ import jeeves.server.context.ServiceContext;
 
 import org.fao.geonet.Logger;
 import org.fao.geonet.domain.ISODate;
+import org.fao.geonet.exceptions.BadServerResponseEx;
 import org.fao.geonet.exceptions.OperationAbortedEx;
 import org.fao.geonet.kernel.DataManager;
 import org.fao.geonet.kernel.harvest.harvester.HarvestError;
@@ -123,104 +124,94 @@ class Harvester implements IHarvester<HarvestResult> {
         
         Set<DCATAPRecordInfo> recordsInfo = new HashSet<DCATAPRecordInfo>();
 
-        for (Search s : params.getSearches()) {
-            if (cancelMonitor.get()) {
-                return new HarvestResult();
-            }
-
-            try {
-                recordsInfo.addAll(search(s));
-            } catch (Exception t) {
-                log.error("Unknown error trying to harvest");
-                log.error(t.getMessage());
-                t.printStackTrace();
-                errors.add(new HarvestError(context, t, log));
-            } catch (Throwable t) {
-                log.fatal("Something unknown and terrible happened while harvesting");
-                log.fatal(t.getMessage());
-                t.printStackTrace();
-                errors.add(new HarvestError(context, t, log));
-            }
+        try {
+        	//Retrieve all DCAT-AP records and normalize them via SPARQL+XSL transformation
+            recordsInfo.addAll(search());
+            //Create, update, delete all records
+            Aligner aligner = new Aligner(cancelMonitor, log, context, params);           
+            log.info("Total records processed in all searches :" + recordsInfo.size());            
+            return aligner.align(recordsInfo, errors);
+            
+        } catch (Exception t) {
+            log.error("Unknown error trying to harvest");
+            log.error(t.getMessage());
+            BadServerResponseEx et = new BadServerResponseEx(t.getMessage());
+            errors.add(new HarvestError(context, et, log));
+        } catch (Throwable t) {
+            log.fatal("Something unknown and terrible happened while harvesting");
+            log.fatal(t.getMessage());
+            BadServerResponseEx et = new BadServerResponseEx(t.getMessage());
+            errors.add(new HarvestError(context, et, log));
         }
-
-        if (params.isSearchEmpty()) {
-            try {
-                log.debug("Doing an empty search");
-                recordsInfo.addAll(search(Search.createEmptySearch()));
-            } catch (Exception t) {
-                log.error("Unknown error trying to harvest");
-                log.error(t.getMessage());
-                t.printStackTrace();
-                errors.add(new HarvestError(context, t, log));
-            } catch(Throwable t) {
-                log.fatal("Something unknown and terrible happened while harvesting");
-                log.fatal(t.getMessage());
-                t.printStackTrace();
-                errors.add(new HarvestError(context, t, log));
-            }
-        }
-
         
-        log.info("Total records processed in all searches :" + recordsInfo.size());
+        //return empty harvest result in case of errors
+        return new HarvestResult();
 
-        //--- align local node
-
-        Aligner aligner = new Aligner(cancelMonitor, log, context, params);
-
-        return aligner.align(recordsInfo, errors);
     }
 
     /**
      * Does DCAT-AP search request.
      * Executes a SPARQL query to retrieve all UUIDs and add them to a Set with RecordInfo
      */
-    private Set<DCATAPRecordInfo> search(Search s) throws Exception {
+    private Set<DCATAPRecordInfo> search() {
+    	
     	Set<DCATAPRecordInfo> records = new HashSet<DCATAPRecordInfo>();
-        int maxResults = params.maxResults;
-
-    	// Create an empty in-memory model and populate it from the graph
-    	Model model = ModelFactory.createMemModelMaker().createDefaultModel();
-    	RDFDataMgr.read(model, params.baseUrl) ;
-
-    	// Get all dataset URIs
-    	String queryStringIds =
-    			"PREFIX dcat: <http://www.w3.org/ns/dcat#> \n"
-    		  + "PREFIX dct: <http://purl.org/dc/terms/> \n"		    			
-    		  +	"SELECT ?datasetid ?modified \n"
-    		  + " WHERE {?datasetid a dcat:Dataset. \n"
-    		  + " OPTIONAL {?datasetid dcat:record ?record. \n"
-    		  + " ?record dct:modified ?modified}}";
-    	Query queryIds = QueryFactory.create(queryStringIds);
-    	QueryExecution qe = QueryExecutionFactory.create(queryIds, model);
-    	ResultSet resultIds = qe.execSelect();
-    	    	
-    	while (resultIds.hasNext()) {
-    		QuerySolution result = resultIds.nextSolution();
-    		String datasetId = result.getResource("datasetid").toString();
-    		
-    		//System.out.println(datasetId);
-
-	        if (log.isDebugEnabled())
-	            log.debug("Dataset in response: " + datasetId);
+    	
+    	try {
+	        int maxResults = params.maxResults;
+	
+	    	// Create an empty in-memory model and populate it from the graph
+	    	Model model = ModelFactory.createMemModelMaker().createDefaultModel();
+	    	RDFDataMgr.read(model, params.baseUrl) ;
+	
+	    	// Get all dataset URIs
+	    	String queryStringIds =
+	    			"PREFIX dcat: <http://www.w3.org/ns/dcat#> \n"
+	    		  + "PREFIX dct: <http://purl.org/dc/terms/> \n"		    			
+	    		  +	"SELECT ?datasetid ?modified \n"
+	    		  + " WHERE {?datasetid a dcat:Dataset. \n"
+	    		  + " OPTIONAL {?datasetid dcat:record ?record. \n"
+	    		  + " ?record dct:modified ?modified}}";
+	    	Query queryIds = QueryFactory.create(queryStringIds);
+	    	QueryExecution qe = QueryExecutionFactory.create(queryIds, model);
+	    	ResultSet resultIds = qe.execSelect();
+	    	    	
+	    	while (resultIds.hasNext()) {
+	    		QuerySolution result = resultIds.nextSolution();
+	    		String datasetId = result.getResource("datasetid").toString();
+	    		
+	    		//System.out.println(datasetId);
+	
+		        if (log.isDebugEnabled())
+		            log.debug("Dataset in response: " + datasetId);
+		        
+	            if (cancelMonitor.get()) {
+	                return Collections.emptySet();
+	            }
+	            DCATAPRecordInfo recInfo = getRecordInfo(result,model);
+	            if (recInfo != null) records.add(recInfo);
+	            
+	            if (records.size() > maxResults) {
+	                log.warning("Forcing harvest end since maximum records to be harvested is reached");
+	                break;
+	            }	            
+	    		
+	    	}
+	
+	    	qe.close();    	    	
+	    	model.close();
+	        log.info("Records added to result list : " + records.size());
+	
 	        
-            if (cancelMonitor.get()) {
-                return Collections.emptySet();
-            }
-            DCATAPRecordInfo recInfo = getRecordInfo(result,model);
-            if (recInfo != null) records.add(recInfo);
-            
-            if (records.size() > maxResults) {
-                log.warning("Forcing harvest end since maximum records to be harvested is reached");
-                break;
-            }	            
-    		
-    	}
-
-    	qe.close();    	    	
-    	model.close();
-        log.info("Records added to result list : " + records.size());
-
-        return records;
+    	} catch (Exception e) {
+            HarvestError harvestError = new HarvestError(context, e, log);
+            harvestError.setDescription(harvestError.getDescription());
+            BadServerResponseEx et = new BadServerResponseEx(e.getMessage());
+            errors.add(new HarvestError(context, et, log));
+		}
+    	
+    	return records;
+    	
     }
 
     private DCATAPRecordInfo getRecordInfo(QuerySolution solution, Model model) {
@@ -342,7 +333,8 @@ class Harvester implements IHarvester<HarvestResult> {
 		} catch (Exception e) {
             HarvestError harvestError = new HarvestError(context, e, log);
             harvestError.setDescription(harvestError.getDescription());
-            errors.add(new HarvestError(context, e, log));
+            BadServerResponseEx et = new BadServerResponseEx(e.getMessage());
+            errors.add(new HarvestError(context, et, log));
 		}
 
         // we get here if we couldn't get the UUID or date modified
