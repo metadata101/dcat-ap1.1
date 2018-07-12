@@ -79,8 +79,9 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="predicate">dct:licenses</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:language-->
-					<xsl:call-template name="properties">
-						<xsl:with-param name="subject" select="./*"/>
+					<xsl:call-template name="concepts">
+						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/language' and
+											sr:binding[@name='subject']/* = $catalogURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:language</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:issued-->
@@ -94,6 +95,10 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="predicate">dct:modified</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:themeTaxonomy -->
+					<xsl:call-template name="conceptSchemes">
+						<xsl:with-param name="conceptSchemeURIs" select="//sr:result[sr:binding[@name='subject']/* = $catalogURI and sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#themeTaxonomy']/sr:binding[@name='object']"/>
+						<xsl:with-param name="predicate">dcat:themeTaxonomy</xsl:with-param>
+					</xsl:call-template>					
 					<!-- dct:hasPart -->
 					<xsl:call-template name="urls">
 						<xsl:with-param name="subject" select="./*"/>
@@ -584,6 +589,35 @@ Rome - Italy. email: geonetwork@osgeo.org
 			</xsl:element>
 		</xsl:for-each>
 	</xsl:template>
+	<!-- skos:ConceptScheme -->
+	<xsl:template name="conceptSchemes">
+		<xsl:param name="conceptSchemeURIs"/>
+		<xsl:param name="predicate"/>
+		<xsl:for-each select="$conceptSchemeURIs">
+			<xsl:element name="{$predicate}">
+				<skos:ConceptScheme>
+					<xsl:choose>
+						<xsl:when test="./sr:uri">
+							<xsl:attribute name="rdf:about"><xsl:value-of select="./sr:uri"/></xsl:attribute>
+						</xsl:when>
+						<xsl:when test="./sr:bnode">
+							<xsl:attribute name="rdf:nodeID"><xsl:value-of select="./sr:bnode"/></xsl:attribute>
+						</xsl:when>
+						<xsl:when test="./sr:literal">
+							<skos:prefLabel>
+								<xsl:value-of select="./sr:literal"/>
+							</skos:prefLabel>
+						</xsl:when>
+					</xsl:choose>
+					<!-- skos:prefLabel -->
+					<xsl:call-template name="properties">
+						<xsl:with-param name="subject" select="."/>
+						<xsl:with-param name="predicate">skos:prefLabel</xsl:with-param>
+					</xsl:call-template>
+				</skos:ConceptScheme>
+			</xsl:element>
+		</xsl:for-each>
+	</xsl:template>	
 	<!-- adms:Identifier -->
 	<xsl:template name="identifiers">
 		<xsl:param name="identifierURIs"/>
