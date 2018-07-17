@@ -46,7 +46,7 @@
   -->
   <xsl:template mode="mode-dcat-ap"
                 priority="2000"
-                match="dct:modified|dct:issued|schema:startDate|schema:endDate">
+                match="schema:startDate|schema:endDate">
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
 
@@ -63,8 +63,9 @@
       <div class="col-sm-9 gn-value">
         <div data-gn-date-picker="{.}"
              data-label=""
+             data-tag-name=""
              data-element-name="{name(.)}"
-             data-element-ref="{concat('_X', gn:element/@ref)}">
+             data-element-ref="{concat('_', gn:element/@ref)}">
         </div>
         <!-- Create form for all existing attribute (not in gn namespace)
          and all non existing attributes not already present. -->

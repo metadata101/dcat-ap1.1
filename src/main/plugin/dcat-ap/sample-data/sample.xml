@@ -95,9 +95,9 @@
 		</dct:spatial>
 		<dcat:dataset>
 			<dcat:Dataset rdf:about="http://www.altova.com/">
+				<dct:identifier xml:lang="nl">String</dct:identifier>
 				<dct:title xml:lang="nl">String</dct:title>
 				<dct:description xml:lang="nl">String</dct:description>
-				<dct:identifier xml:lang="nl">String</dct:identifier>
 				<dcat:contactPoint>
 					<vcard:Organization rdf:about="http://www.altova.com/">
 						<vcard:fn>String</vcard:fn>

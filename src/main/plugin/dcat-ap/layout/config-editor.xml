@@ -61,11 +61,51 @@
 				<!-- DON'T MOVE THIS SECTION, otherwise rendering stops at a certain point in the fields list -->
 				<section>
 					<!--field name="FieldId108" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/@rdf:about"/!-->
-					<field name="FieldId109" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title" or="title" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" del="."/>
+					<field name="FieldId109" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title" or="title" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<values>
+								<key label="FieldId109"
+										 required="true"
+										 xpath="..//dct:title"
+										 tooltip="dct:title"/>
+								<key label="FieldId110"
+										 required="true"
+										 xpath="..//dct:title/@xml:lang"/>
+							</values>
+							<snippet>
+								<dct:title xml:lang="{{FieldId110}}">{{FieldId109}}</dct:title>
+							</snippet>
+						</template>
+					</field>
 					<!--field name="FieldId110" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title/@xml:lang"/!-->
 					<field name="FieldId111" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description" or="description" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
 					<!--field name="FieldId112" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description/@xml:lang"/!-->
 					<field name="FieldId113" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:identifier" or="identifier" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+					<section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" name="SectioncontactPoint"/>	
+					<field name="FieldId129" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued" or="issued" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<values>
+								<key label="FieldId129" xpath="..//dct:issued" use="gn-date-picker">
+									<directiveAttributes data-tag-name=""/>
+								</key>
+							</values>
+							<snippet>
+								<dct:issued>{{FieldId129}}</dct:issued>
+							</snippet>
+						</template>
+					</field>
+					<field name="FieldId131" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified" or="modified" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<values>
+								<key label="FieldId131" xpath="..//dct:modified" use="gn-date-picker">
+									<directiveAttributes data-tag-name=""/>
+								</key>
+							</values>
+							<snippet>
+								<dct:modified>{{FieldId131}}</dct:modified>
+							</snippet>
+						</template>
+					</field>
 					<section name="SectionOrganization" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
 					<section  name="SectionAddress">		
 						<field name="FieldId120" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address" templateModeOnly="true">	
