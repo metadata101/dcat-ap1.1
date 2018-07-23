@@ -49,7 +49,7 @@
   <xsl:template name="evaluate-dcat-ap">
     <xsl:param name="base" as="node()"/>
     <xsl:param name="in"/>
-    <xsl:variable name="nodeOrAttribute" select="saxon:evaluate(concat('$p1', $in), $base)"/>
+    <xsl:variable name="nodeOrAttribute" select="saxon:evaluate(concat('$p1', if (ends-with($in,'.')) then concat($in,'/text()') else $in), $base)"/>
 
     <xsl:choose>
       <xsl:when test="$nodeOrAttribute instance of text()+">
