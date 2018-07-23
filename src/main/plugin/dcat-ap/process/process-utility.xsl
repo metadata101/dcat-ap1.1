@@ -30,7 +30,7 @@
 
   <xsl:function name="gn-fn-dcat-ap:getThesaurusResource" as="xs:string">
 	<xsl:param name="key"/>
-	<xsl:variable name="resourceBaseUrl" select="'http://publications.europa.eu/resource/authority/'"/>
+	<xsl:variable name="resourceBaseUrl" select="'http://publications.europa.eu/resource/theme/'"/>
 	<xsl:variable name="keyPrefix" select="'external.theme.'"/>
 	<xsl:choose>
 		<xsl:when test="$key = concat($keyPrefix,'data-theme')">

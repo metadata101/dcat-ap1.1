@@ -27,16 +27,18 @@
 		xmlns:skos="http://www.w3.org/2004/02/skos/core#"
 		xmlns:adms="http://www.w3.org/ns/adms#" 
 		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-        xmlns:dc="http://purl.org/dc/elements/1.1/"
-        xmlns:dct="http://purl.org/dc/terms/"
-        xmlns:dcat="http://www.w3.org/ns/dcat#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:dcat="http://www.w3.org/ns/dcat#"
 		xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
 		xmlns:foaf="http://xmlns.com/foaf/0.1/" 
 		xmlns:owl="http://www.w3.org/2002/07/owl#"
 		xmlns:schema="http://schema.org/"
-  		xmlns:gn="http://www.fao.org/geonetwork"
+		xmlns:gn="http://www.fao.org/geonetwork"
 		xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
 		xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap"
+    xmlns:saxon="http://saxon.sf.net/"
+    extension-element-prefixes="saxon"
 		exclude-result-prefixes="#all">
 
   <xsl:include href="utility-fn.xsl"/>
@@ -63,17 +65,22 @@
     <xsl:variable name="flatModeException"
                   select="gn-fn-metadata:isFieldFlatModeException($viewConfig, $name)"/>
 
+		<xsl:message select="concat('Rendering gn:child with name ', $name, '(Flatmode=', $isFlatMode, ' and FlatModeException=',$flatModeException,')')"/>
     <!-- TODO: this should be common to all schemas -->
     <xsl:if test="$isEditing and
       (not($isFlatMode) or $flatModeException)">
 
       <xsl:variable name="directive"
                     select="gn-fn-metadata:getFieldAddDirective($editorConfig, $name)"/>
-			<xsl:message select="concat('Rendering gn:child with name ', $name, '(Flatmode=', $isFlatMode, ' and FlatModeException=',$flatModeException,')')"/>
+			<xsl:variable name="labelConfig"
+                        select="gn-fn-metadata:getLabel($schema, $name, $labels, name(..), '', concat(gn-fn-metadata:getXPath(..),'/',$name))"/>
+			<xsl:message select="concat('Button label will be ',$labelConfig/btnLabel)"/>
       <xsl:call-template name="render-element-to-add">
         <!-- TODO: add xpath and isoType to get label ? -->
         <xsl:with-param name="label"
-                        select="gn-fn-metadata:getLabel($schema, $name, $labels, name(..), '', gn-fn-metadata:getXPath(.))/label"/>
+                        select="$labelConfig/label"/>
+        <xsl:with-param name="btnLabel"
+                        select="$labelConfig/btnLabel"/>
         <xsl:with-param name="directive" select="$directive"/>
         <xsl:with-param name="childEditInfo" select="."/>
         <xsl:with-param name="parentEditInfo" select="../gn:element"/>
@@ -109,9 +116,9 @@
         <xsl:call-template name="get-errors"/>
       </xsl:if>
     </xsl:variable>
-    <xsl:variable name="label" select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), $isoType, $xpath)"/>
+    <xsl:variable name="labelConfig" select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), $isoType, $xpath)"/>
     <xsl:call-template name="render-boxed-element">
-      <xsl:with-param name="label" select="$label/label"/>
+      <xsl:with-param name="label" select="$labelConfig/label"/>
       <xsl:with-param name="editInfo" select="if ($refToDelete) then $refToDelete else gn:element"/>
       <xsl:with-param name="errors" select="$errors"/>
       <xsl:with-param name="cls" select="local-name()"/>
@@ -221,60 +228,131 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable-->
-    
+    <xsl:message select="concat('HELPERS for element with name ',name(.),': ', $helper)"/>
     <!-- Add view and edit template-->
-    <xsl:call-template name="render-element">
-      <xsl:with-param name="label" select="$labelConfig"/>
-      <xsl:with-param name="value" select="."/>
-      <xsl:with-param name="cls" select="local-name()"/>
-      <!--<xsl:with-param name="widget"/>
-            <xsl:with-param name="widgetParams"/>-->
-      <xsl:with-param name="xpath" select="gn-fn-metadata:getXPath(.)"/>
-      <xsl:with-param name="attributesSnippet" select="$attributes"/>
-      <xsl:with-param name="type" select="gn-fn-metadata:getFieldType($editorConfig, name(), '')"/>
-      <xsl:with-param name="name" select="if ($isEditing) then gn:element/@ref else ''"/>
-      <xsl:with-param name="editInfo" select="if ($refToDelete) then $refToDelete else gn:element"/>
-      <xsl:with-param name="parentEditInfo"
-                      select="if ($added) then $container/gn:element else element()"/>
-      <xsl:with-param name="listOfValues" select="$helper"/>
-      <!-- When adding an element, the element container contains
-      information about cardinality. -->
-      <xsl:with-param name="isFirst"
-                      select="if ($added) then
-                      (($container/gn:element/@down = 'true' and not($container/gn:element/@up)) or
-                      (not($container/gn:element/@down) and not($container/gn:element/@up)))
-                      else
-                      ((gn:element/@down = 'true' and not(gn:element/@up)) or
-                      (not(gn:element/@down) and not(gn:element/@up)))"/>
-    </xsl:call-template>
-
-    <!-- Add a control to add this type of element
-      if this element is the last element of its kind.
-    -->
-    <xsl:if
-      test="$isEditing and 
-            (
-              not($isFlatMode) or
-              gn-fn-metadata:isFieldFlatModeException($viewConfig, $name)
-            ) and
-            $service != 'md.element.add' and
-            count(following-sibling::node()[name() = $name]) = 0">
-
-      <!-- Create configuration to add action button for this element. -->
-      <xsl:variable name="dcConfig"
-        select="ancestor::node()/gn:child[contains(@name, 'CHOICE_ELEMENT')]"/>
-      <xsl:variable name="newElementConfig">
-        <gn:child>
-          <xsl:copy-of select="$dcConfig/@*"/>
-          <xsl:copy-of select="$dcConfig/gn:choose[@name = $name]"/>
-        </gn:child>
-      </xsl:variable>
-      <xsl:call-template name="render-element-to-add">
-        <xsl:with-param name="childEditInfo" select="$newElementConfig/gn:child"/>
-        <xsl:with-param name="parentEditInfo" select="$dcConfig/parent::node()/gn:element"/>
-        <xsl:with-param name="isFirst" select="false()"/>
-      </xsl:call-template>
-    </xsl:if>
+    <xsl:variable name="fieldNode" select="$editorConfig/editor/fields/for[@name = $name and @templateModeOnly]"/>
+    <xsl:choose>
+			<xsl:when test="count($fieldNode/*)>0 and $fieldNode/@templateModeOnly">
+       	<xsl:message select="concat('Rendering template field configured in for with name: ', $name)"/>
+				<xsl:variable name="name" select="$fieldNode/@name"/>
+				<xsl:variable name="del" select="$fieldNode/@del"/>
+				<xsl:variable name="template" select="$fieldNode/template"/>
+				<xsl:variable name="forceLabel" select="$fieldNode/@forceLabel"/>
+				<xsl:variable name="currentNode" select="." />
+				<!-- Check if template field values should be in
+				readonly mode in the editor.-->
+				<xsl:variable name="readonly">
+				  <xsl:choose>
+				    <xsl:when test="$template/values/@readonlyIf">
+				      <saxon:call-template name="{concat('evaluate-', $schema, '-boolean')}">
+				        <xsl:with-param name="base" select="$currentNode"/>
+				        <xsl:with-param name="in" select="concat('/', $template/values/@readonlyIf)"/>
+				      </saxon:call-template>
+				    </xsl:when>
+				  </xsl:choose>
+				</xsl:variable>
+		
+				<xsl:variable name="templateCombinedWithNode" as="node()">
+				  <template>
+				    <xsl:copy-of select="$template/values"/>
+				    <snippet>
+				      <xsl:apply-templates mode="gn-merge" select="$template/snippet/*">
+				        <xsl:with-param name="node-to-merge" select="$currentNode"/>
+				      </xsl:apply-templates>
+				    </snippet>
+				  </template>
+				</xsl:variable>
+		
+				<xsl:variable name="keyValues">
+				  <xsl:call-template name="build-key-value-configuration">
+				    <xsl:with-param name="template" select="$template"/>
+				    <xsl:with-param name="currentNode" select="$currentNode"/>
+				    <xsl:with-param name="readonly" select="$readonly"/>
+				  </xsl:call-template>
+				</xsl:variable>
+		
+				<xsl:variable name="originalNode"
+				              select="gn-fn-metadata:getOriginalNode($metadata, .)"/>
+		
+				<xsl:variable name="refToDelete">
+				  <xsl:call-template name="get-ref-element-to-delete">
+				    <xsl:with-param name="node" select="$originalNode"/>
+				    <xsl:with-param name="delXpath" select="$del"/>
+				  </xsl:call-template>
+				</xsl:variable>
+		
+		
+				<!-- If the element exist, use the _X<ref> mode which
+				      insert the snippet for the element if not use the
+				      XPATH mode which will create the new element at the
+				      correct location. -->
+				<xsl:variable name="id" select="concat('_X', gn:element/@ref, '_replace')"/>
+				<xsl:call-template name="render-element-template-field">
+				  <xsl:with-param name="name" select="$strings/*[name() = $name]"/>
+				  <xsl:with-param name="id" select="$id"/>
+				  <xsl:with-param name="isExisting" select="true()"/>
+				  <xsl:with-param name="template" select="$templateCombinedWithNode"/>
+				  <xsl:with-param name="keyValues" select="$keyValues"/>
+				  <xsl:with-param name="refToDelete" select="$refToDelete/gn:element"/>
+				  <xsl:with-param name="isFirst" select="$forceLabel or position() = 1"/>
+				</xsl:call-template>
+    	</xsl:when>
+			<xsl:otherwise>
+       	<xsl:message select="concat('Rendering normal field NOT configured in for with name: ', $name)"/>
+			   <xsl:call-template name="render-element">
+			    <xsl:with-param name="label" select="$labelConfig"/>
+			    <xsl:with-param name="value" select="."/>
+			    <xsl:with-param name="cls" select="local-name()"/>
+			    <!--<xsl:with-param name="widget"/>
+			          <xsl:with-param name="widgetParams"/>-->
+			    <xsl:with-param name="xpath" select="gn-fn-metadata:getXPath(.)"/>
+			    <xsl:with-param name="attributesSnippet" select="$attributes"/>
+			    <xsl:with-param name="type" select="gn-fn-metadata:getFieldType($editorConfig, name(), '')"/>
+			    <xsl:with-param name="name" select="if ($isEditing) then gn:element/@ref else ''"/>
+			    <xsl:with-param name="editInfo" select="if ($refToDelete) then $refToDelete else gn:element"/>
+			    <xsl:with-param name="parentEditInfo"
+			                    select="if ($added) then $container/gn:element else element()"/>
+			    <xsl:with-param name="listOfValues" select="$helper"/>
+			    <!-- When adding an element, the element container contains
+			    information about cardinality. -->
+			    <xsl:with-param name="isFirst"
+			                    select="if ($added) then
+			                    (($container/gn:element/@down = 'true' and not($container/gn:element/@up)) or
+			                    (not($container/gn:element/@down) and not($container/gn:element/@up)))
+			                    else
+			                    ((gn:element/@down = 'true' and not(gn:element/@up)) or
+			                    (not(gn:element/@down) and not(gn:element/@up)))"/>
+			  </xsl:call-template>
+			
+			  <!-- Add a control to add this type of element
+			    if this element is the last element of its kind.
+			  -->
+			  <xsl:if
+			    test="$isEditing and 
+			          (
+			            not($isFlatMode) or
+			            gn-fn-metadata:isFieldFlatModeException($viewConfig, $name)
+			          ) and
+			          $service != 'md.element.add' and
+			          count(following-sibling::node()[name() = $name]) = 0">
+			
+			    <!-- Create configuration to add action button for this element. -->
+			    <xsl:variable name="dcConfig"
+			      select="ancestor::node()/gn:child[contains(@name, 'CHOICE_ELEMENT')]"/>
+			    <xsl:variable name="newElementConfig">
+			      <gn:child>
+			        <xsl:copy-of select="$dcConfig/@*"/>
+			        <xsl:copy-of select="$dcConfig/gn:choose[@name = $name]"/>
+			      </gn:child>
+			    </xsl:variable>
+			    <xsl:call-template name="render-element-to-add">
+			      <xsl:with-param name="childEditInfo" select="$newElementConfig/gn:child"/>
+			      <xsl:with-param name="parentEditInfo" select="$dcConfig/parent::node()/gn:element"/>
+			      <xsl:with-param name="isFirst" select="false()"/>
+			     </xsl:call-template>
+			   </xsl:if>
+			</xsl:otherwise>
+		</xsl:choose>
   </xsl:template>
 
   <xsl:template mode="mode-dcat-ap" match="dct:spatial" priority="2000">

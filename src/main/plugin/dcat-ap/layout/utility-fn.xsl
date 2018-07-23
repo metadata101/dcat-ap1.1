@@ -27,37 +27,69 @@
 	xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap"
 	exclude-result-prefixes="#all">
 
-  <xsl:variable name="resourceBaseUrl" select="'http://publications.europa.eu/resource/authority/'"/>
-  <xsl:variable name="thesaurusIdentifierBaseKey" select="'geonetwork.thesaurus.external.authority.'"/>
+  <xsl:variable name="resourceBaseUrl" select="'http://publications.europa.eu/resource/theme/'"/>
+  <xsl:variable name="thesaurusIdentifierBaseKey" select="'geonetwork.thesaurus.external.theme.'"/>
+
   <xsl:function name="gn-fn-dcat-ap:getResourceByElementName" as="xs:string">
 	<xsl:param name="elementName"/>
 	<xsl:param name="parentElementName"/>
-	<xsl:choose>
-		<xsl:when test="$elementName = 'dcat:theme'">
-			<xsl:value-of select="concat($resourceBaseUrl,'data-theme')"/>
-		</xsl:when>
-		<xsl:when test="$elementName = 'dct:language'">
-			<xsl:value-of select="concat($resourceBaseUrl,'language')"/>
-		</xsl:when>
-		<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dcat:Dataset'">
-			<xsl:value-of select="concat($resourceBaseUrl,'resource-type')"/>
-		</xsl:when>
-		<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'foaf:Agent'">
-			<xsl:value-of select="concat($resourceBaseUrl,'organization-type')"/>
-		</xsl:when>
-		<xsl:when test="$elementName = 'dcat:mediaType'">
-			<xsl:value-of select="concat($resourceBaseUrl,'media-type')"/>
-		</xsl:when>
-		<xsl:when test="$elementName = 'dct:format'">
-			<xsl:value-of select="concat($resourceBaseUrl,'file-type')"/>
-		</xsl:when>
-  		<xsl:when test="$elementName = 'dct:license'">
-			<xsl:value-of select="concat($resourceBaseUrl,'licence')"/>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:value-of select="''"/>
-		</xsl:otherwise>
-	</xsl:choose>
+		<xsl:choose>
+			<xsl:when test="$elementName = 'dcat:theme'">
+				<xsl:value-of select="concat($resourceBaseUrl,'data-theme')"/>
+			</xsl:when>
+			<xsl:when test="$elementName = 'dct:language'">
+				<xsl:value-of select="concat($resourceBaseUrl,'language')"/>
+			</xsl:when>
+			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dcat:Dataset'">
+				<xsl:value-of select="concat($resourceBaseUrl,'resource-type')"/>
+			</xsl:when>
+			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'foaf:Agent'">
+				<xsl:value-of select="concat($resourceBaseUrl,'organization-type')"/>
+			</xsl:when>
+			<xsl:when test="$elementName = 'dcat:mediaType'">
+				<xsl:value-of select="concat($resourceBaseUrl,'media-type')"/>
+			</xsl:when>
+			<xsl:when test="$elementName = 'dct:format'">
+				<xsl:value-of select="concat($resourceBaseUrl,'file-type')"/>
+			</xsl:when>
+	  		<xsl:when test="$elementName = 'dct:license'">
+				<xsl:value-of select="concat($resourceBaseUrl,'licence')"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="''"/>
+			</xsl:otherwise>
+		</xsl:choose>
+  </xsl:function>
+
+  <xsl:function name="gn-fn-dcat-ap:getResourceTypeByElementName" as="xs:string">
+	<xsl:param name="elementName"/>
+	<xsl:param name="parentElementName"/>
+		<xsl:choose>
+			<xsl:when test="$elementName = 'dcat:theme'">
+				<xsl:value-of select="''"/>
+			</xsl:when>
+			<xsl:when test="$elementName = 'dct:language'">
+				<xsl:value-of select="'dct:LinguisticSystem'"/>
+			</xsl:when>
+			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dcat:Dataset'">
+				<xsl:value-of select="''"/>
+			</xsl:when>
+			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'foaf:Agent'">
+				<xsl:value-of select="''"/>
+			</xsl:when>
+			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dct:LicenseDocument'">
+				<xsl:value-of select="'dct:LicenseDocument'"/>
+			</xsl:when>
+			<xsl:when test="$elementName = 'dcat:mediaType'">
+				<xsl:value-of select="'dct:MediatypeOrExtent'"/>
+			</xsl:when>
+			<xsl:when test="$elementName = 'dct:format'">
+				<xsl:value-of select="''"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="''"/>
+			</xsl:otherwise>
+		</xsl:choose>
   </xsl:function>
 
   <xsl:function name="gn-fn-dcat-ap:getThesaurusTitle" as="xs:string">
@@ -82,9 +114,6 @@
 		</xsl:when>
 		<xsl:when test="$resource = concat($resourceBaseUrl,'file-type')">
 			<xsl:value-of select="'File type thesaurus'"/>
-		</xsl:when>
-		<xsl:when test="$resource = concat($resourceBaseUrl,'licence')">
-			<xsl:value-of select="'Licence thesaurus'"/>
 		</xsl:when>
 		<xsl:otherwise>
 	  		<xsl:value-of select="'Untitled thesaurus'"/>
@@ -141,4 +170,39 @@
 
     <xsl:value-of select="$excluded"/>
   </xsl:function>
+
+  <!-- Get field if templateModeOnly is true based on editor configuration.
+  Search by element name or the child element name (the one
+  containing the value).
+
+  The child element take priority if defined.
+  -->
+  <xsl:function name="gn-fn-dcat-ap:getField" as="node()">
+    <xsl:param name="configuration" as="node()"/>
+    <!-- The container element -->
+    <xsl:param name="name" as="xs:string"/>
+    <!-- The element containing the value eg. gco:Date -->
+    <xsl:param name="childName" as="xs:string?"/>
+		<xsl:message select="concat('Searching for template for field with name ',$name)"/>
+    <xsl:variable name="childNode"
+                  select="$configuration/editor/fields/for[@name = $childName and @templateModeOnly]" />
+    <xsl:variable name="node"
+                  select="$configuration/editor/fields/for[@name = $name and @templateModeOnly]" />
+
+    <xsl:choose>
+			<xsl:when test="count($childNode/*)>0">
+		<xsl:message select="'Found childNode'"/>
+	    	<xsl:value-of select="$childNode"/>
+    	</xsl:when>
+			<xsl:when test="count($node/*)>0">
+		<xsl:message select="'Found child'"/>
+	    	<xsl:value-of select="$node"/>
+    	</xsl:when>
+    	<xsl:otherwise>
+		<xsl:message select="'Found nothing'"/>
+    		<for/>
+    	</xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
+
 </xsl:stylesheet>

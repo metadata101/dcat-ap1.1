@@ -21,7 +21,7 @@
   ~ Contact: Jeroen Ticheler - FAO - Viale delle Terme di Caracalla 2,
   ~ Rome - Italy. email: geonetwork@osgeo.org
   -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:schema="http://schema.org/">
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:schema="http://schema.org/" xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap" exclude-result-prefixes="#all">
 	<!-- Tell the XSL processor to output XML. -->
 	<xsl:output method="xml" indent="yes"/>
 	<!-- =================================================================   -->
@@ -49,29 +49,32 @@
 
 	<!-- Fill empty element -->
 	<!--	<xsl:template match="dcat:theme|dct:language|foaf:Agent/dct:type|dcat:Dataset/dct:type|dcat:mediaType|dct:format|dct:license" priority="10">-->
-	<xsl:template match="dcat:theme|dct:language|foaf:Agent/dct:type|dcat:Dataset/dct:type|dct:format|dct:license" priority="10">
+	<xsl:template match="dcat:theme|dct:language|foaf:Agent/dct:type|dcat:Dataset/dct:type|dct:dct:LicenseDocument/dct:type|dct:format" priority="10">
 		<xsl:copy>
-			<xsl:apply-templates select="@*|node()"/>
-			<xsl:if test="count(*)=0">
-				<xsl:variable name="resource">
-					<xsl:choose>
-						<xsl:when test="name(.)='dcat:theme'"><xsl:value-of select="concat($resourceBaseUrl,'data-theme')"/></xsl:when>
-						<xsl:when test="name(.)='dct:language'"><xsl:value-of select="concat($resourceBaseUrl,'language')"/></xsl:when>
-						<xsl:when test="name(.)='dct:type' and name(..)='dcat:Dataset'"><xsl:value-of select="concat($resourceBaseUrl,'resource-type')"/></xsl:when>
-						<xsl:when test="name(.)='dct:type' and name(..)='foaf:Agent'"><xsl:value-of select="concat($resourceBaseUrl,'organization-type')"/></xsl:when>
-						<xsl:when test="name(.)='dcat:mediaType'"><xsl:value-of select="concat($resourceBaseUrl,'media-type')"/></xsl:when>
-						<xsl:when test="name(.)='dct:format'"><xsl:value-of select="concat($resourceBaseUrl,'file-type')"/></xsl:when>
-						<xsl:when test="name(.)='dct:license'"><xsl:value-of select="concat($resourceBaseUrl,'licence')"/></xsl:when>
-					</xsl:choose>
-				</xsl:variable>
-			    <skos:Concept rdf:about="{$resourceBaseUrl}">
-                   <skos:prefLabel xml:lang="nl"/>
-                   <skos:prefLabel xml:lang="en"/>
-                   <skos:prefLabel xml:lang="fr"/>
-                   <skos:prefLabel xml:lang="de"/>
-			       <skos:inScheme rdf:resource="{$resource}"/>
+			<xsl:apply-templates select="@*"/>
+	    <xsl:variable name="resource" select="gn-fn-dcat-ap:getResourceByElementName(name(.),name(..))"/>
+	    <xsl:variable name="resourceType" select="gn-fn-dcat-ap:getResourceTypeByElementName(name(.),name(..))"/>
+			<xsl:choose>
+				<xsl:when test="count(*)=0 or count(skos:Concept/*[name(.)='skos:prefLabel'])=0">
+			    <skos:Concept rdf:about="">
+			    	<rdf:type rdf:resource="{$resourceType}"/>
+	          <skos:prefLabel xml:lang="nl"/>
+	          <skos:prefLabel xml:lang="en"/>
+	          <skos:prefLabel xml:lang="fr"/>
+	          <skos:prefLabel xml:lang="de"/>
+						<skos:inScheme rdf:resource="{$resource}"/>
 			    </skos:Concept>
-			</xsl:if>
+				</xsl:when>
+				<xsl:otherwise>
+			    <skos:Concept rdf:about="{skos:Concept/@rdf:about}">
+			    	<rdf:type rdf:resource="{$resourceType}"/>
+			    	<xsl:for-each select="skos:Concept/*[name(.)='skos:prefLabel']">
+	          	<xsl:copy-of select="."/>
+	          </xsl:for-each>
+						<skos:inScheme rdf:resource="{$resource}"/>
+			    </skos:Concept>
+				</xsl:otherwise>
+			</xsl:choose>
 		</xsl:copy>
 	</xsl:template>
 </xsl:stylesheet>

@@ -145,11 +145,6 @@
 		    </dcat:mediaType>
 		</xsl:when>
 -->		
-     	<xsl:when test="ends-with($thesaurusKey,'licence')">
-		    <dct:license>
-		    	<xsl:copy-of select="$concept"/>
-		    </dct:license>
-		</xsl:when>
 		<xsl:otherwise>
 			<xsl:message select="concat('No concept added for a field value of thesaurus ', $thesaurusKey, '. Verify thesaurus-transformation.xsl.')"/>
 		</xsl:otherwise>

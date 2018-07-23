@@ -8,11 +8,6 @@
 			<foaf:Agent rdf:about="http://www.altova.com/">
 				<foaf:name xml:lang="nl">String</foaf:name>
 				<dct:type>
-					<skos:Concept rdf:about="http://www.altova.com/">
-						<rdf:type rdf:resource="http://www.altova.com/"/>
-						<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-						<skos:inScheme rdf:resource="http://www.altova.com/"/>
-					</skos:Concept>
 				</dct:type>
 			</foaf:Agent>
 		</dct:publisher>
@@ -24,11 +19,6 @@
 		<dct:license>
 			<dct:LicenseDocument rdf:about="http://www.altova.com/">
 				<dct:type>
-					<skos:Concept rdf:about="http://www.altova.com/">
-						<rdf:type rdf:resource="http://www.altova.com/"/>
-						<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-						<skos:inScheme rdf:resource="http://www.altova.com/"/>
-					</skos:Concept>
 				</dct:type>
 				<dct:title xml:lang="nl">String</dct:title>
 				<dct:description xml:lang="nl">String</dct:description>
@@ -36,11 +26,6 @@
 			</dct:LicenseDocument>
 		</dct:license>
 		<dct:language>
-			<skos:Concept rdf:about="http://www.altova.com/">
-				<rdf:type rdf:resource="http://www.altova.com/"/>
-				<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-				<skos:inScheme rdf:resource="http://www.altova.com/"/>
-			</skos:Concept>
 		</dct:language>
 		<dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:issued>
 		<dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:modified>
@@ -71,11 +56,6 @@
 				<dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:issued>
 				<dct:description xml:lang="nl">String</dct:description>
 				<dct:language>
-					<skos:Concept rdf:about="http://www.altova.com/">
-						<rdf:type rdf:resource="http://www.altova.com/"/>
-						<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-						<skos:inScheme rdf:resource="http://www.altova.com/"/>
-					</skos:Concept>
 				</dct:language>
 				<dct:source rdf:resource="http://www.altova.com/"/>
 				<dct:title xml:lang="nl">String</dct:title>
@@ -121,21 +101,11 @@
 					<foaf:Agent rdf:about="http://www.altova.com/">
 						<foaf:name xml:lang="nl">String</foaf:name>
 						<dct:type>
-							<skos:Concept rdf:about="http://www.altova.com/">
-								<rdf:type rdf:resource="http://www.altova.com/"/>
-								<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-								<skos:inScheme rdf:resource="http://www.altova.com/"/>
-							</skos:Concept>
 						</dct:type>
 					</foaf:Agent>
 				</dct:publisher>
 				<dcat:keyword xml:lang="nl">String</dcat:keyword>
 				<dcat:theme>
-					<skos:Concept rdf:about="http://www.altova.com/">
-						<rdf:type rdf:resource="http://www.altova.com/"/>
-						<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-						<skos:inScheme rdf:resource="http://www.altova.com/"/>
-					</skos:Concept>
 				</dcat:theme>
 				<dct:accessRights>
 					<dct:RightsStatement rdf:about="http://www.altova.com/">
@@ -165,11 +135,6 @@
 				<dct:isVersionOf rdf:resource="http://www.altova.com/"/>
 				<dcat:landingPage rdf:resource="http://www.altova.com/"/>
 				<dct:language>
-					<skos:Concept rdf:about="http://www.altova.com/">
-						<rdf:type rdf:resource="http://www.altova.com/"/>
-						<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-						<skos:inScheme rdf:resource="http://www.altova.com/"/>
-					</skos:Concept>
 				</dct:language>
 				<adms:identifier>
 					<adms:Identifier rdf:about="http://www.altova.com/">
@@ -196,11 +161,6 @@
 					</dct:PeriodOfTime>
 				</dct:temporal>
 				<dct:type>
-					<skos:Concept rdf:about="http://www.altova.com/">
-						<rdf:type rdf:resource="http://www.altova.com/"/>
-						<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-						<skos:inScheme rdf:resource="http://www.altova.com/"/>
-					</skos:Concept>
 				</dct:type>
 				<owl:versionInfo xml:lang="nl">String</owl:versionInfo>
 				<adms:versionNotes xml:lang="nl">String</adms:versionNotes>
@@ -220,34 +180,14 @@
 						<dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:issued>
 						<dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:modified>
 						<dct:format>
-							<skos:Concept rdf:about="http://www.altova.com/">
-								<rdf:type rdf:resource="http://www.altova.com/"/>
-								<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-								<skos:inScheme rdf:resource="http://www.altova.com/"/>
-							</skos:Concept>
 						</dct:format>
 						<dcat:mediaType>
-							<skos:Concept rdf:about="http://www.altova.com/">
-								<rdf:type rdf:resource="http://www.altova.com/"/>
-								<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-								<skos:inScheme rdf:resource="http://www.altova.com/"/>
-							</skos:Concept>
 						</dcat:mediaType>
 						<dct:language>
-							<skos:Concept rdf:about="http://www.altova.com/">
-								<rdf:type rdf:resource="http://www.altova.com/"/>
-								<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-								<skos:inScheme rdf:resource="http://www.altova.com/"/>
-							</skos:Concept>
 						</dct:language>
 						<dct:license>
 							<dct:LicenseDocument rdf:about="http://www.altova.com/">
 								<dct:type>
-									<skos:Concept rdf:about="http://www.altova.com/">
-										<rdf:type rdf:resource="http://www.altova.com/"/>
-										<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-										<skos:inScheme rdf:resource="http://www.altova.com/"/>
-									</skos:Concept>
 								</dct:type>
 								<dct:title xml:lang="nl">String</dct:title>
 								<dct:description xml:lang="nl">String</dct:description>
@@ -296,34 +236,14 @@
 						<dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:issued>
 						<dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:modified>
 						<dct:format>
-							<skos:Concept rdf:about="http://www.altova.com/">
-								<rdf:type rdf:resource="http://www.altova.com/"/>
-								<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-								<skos:inScheme rdf:resource="http://www.altova.com/"/>
-							</skos:Concept>
 						</dct:format>
 						<dcat:mediaType>
-							<skos:Concept rdf:about="http://www.altova.com/">
-								<rdf:type rdf:resource="http://www.altova.com/"/>
-								<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-								<skos:inScheme rdf:resource="http://www.altova.com/"/>
-							</skos:Concept>
 						</dcat:mediaType>
 						<dct:language>
-							<skos:Concept rdf:about="http://www.altova.com/">
-								<rdf:type rdf:resource="http://www.altova.com/"/>
-								<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-								<skos:inScheme rdf:resource="http://www.altova.com/"/>
-							</skos:Concept>
 						</dct:language>
 						<dct:license>
 							<dct:LicenseDocument rdf:about="http://www.altova.com/">
 								<dct:type>
-									<skos:Concept rdf:about="http://www.altova.com/">
-										<rdf:type rdf:resource="http://www.altova.com/"/>
-										<skos:prefLabel xml:lang="nl">String</skos:prefLabel>
-										<skos:inScheme rdf:resource="http://www.altova.com/"/>
-									</skos:Concept>
 								</dct:type>
 								<dct:title xml:lang="nl">String</dct:title>
 								<dct:description xml:lang="nl">String</dct:description>
