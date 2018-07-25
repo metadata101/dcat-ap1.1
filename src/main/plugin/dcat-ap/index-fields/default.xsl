@@ -13,7 +13,9 @@
 	St, Fifth Floor, Boston, MA 02110-1301, USA ~ ~ Contact: Jeroen Ticheler
 	- FAO - Viale delle Terme di Caracalla 2, ~ Rome - Italy. email: geonetwork@osgeo.org -->
 <xsl:stylesheet version="2.0" xmlns:foaf="http://xmlns.com/foaf/0.1/"
-	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:schema="http://schema.org/"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:dct="http://purl.org/dc/terms/" xmlns:spdx="http://spdx.org/rdf/terms#"
 	xmlns:adms="http://www.w3.org/ns/adms#" xmlns:locn="http://www.w3.org/ns/locn#"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:dcat="http://www.w3.org/ns/dcat#"
@@ -21,11 +23,12 @@
 	xmlns:util="java:org.fao.geonet.util.XslUtil" xmlns:geonet="http://www.fao.org/geonetwork">
 	<xsl:include href="../convert/functions.xsl" />
 	<xsl:include href="../../../../xsl/utils-fn.xsl" />
-	<!-- This file defines what parts of the metadata are indexed by Lucene 
-		Searches can be conducted on indexes defined here. The Field@name attribute 
-		defines the name of the search variable. If a variable has to be maintained 
-		in the user session, it needs to be added to the GeoNetwork constants in 
-		the Java source code. Please keep indexes consistent among metadata standards 
+  <!--<xsl:include href="../../../../../../../web/src/main/webapp/xsl/utils-fn.xsl" />-->
+	<!-- This file defines what parts of the metadata are indexed by Lucene
+		Searches can be conducted on indexes defined here. The Field@name attribute
+		defines the name of the search variable. If a variable has to be maintained
+		in the user session, it needs to be added to the GeoNetwork constants in
+		the Java source code. Please keep indexes consistent among metadata standards
 		if they should work accross different metadata resources -->
 	<!-- ========================================================================================= -->
 	<xsl:output method="xml" version="1.0" encoding="UTF-8"
@@ -210,31 +213,51 @@
       <xsl:variable name="tPosition" select="position()" />
       <xsl:variable name="title" select="dct:title" />
       <xsl:variable name="desc" select="dct:description" />
-      <xsl:variable name="downloadURLlinkage" select="dcat:downloadURL/@rdf:resource" />
-      <xsl:variable name="accessURLlinkage" select="dcat:accessURL/@rdf:resource" />
-      <xsl:variable name="formatConceptLabel" select="dct:format/skos:Concept/skos:prefLabel[@xml:lang='nl']" />
       <xsl:variable name="mediaTypeConceptLabel" select="dcat:mediaType/skos:Concept/skos:prefLabel[@xml:lang='nl']" />
-      <xsl:variable name="licenseDocumentTitle" select="dct:license/dct:LicenseDocument/dct:type/skos:Concept/skos:prefLabel[@xml:lang='nl']" />
+
+      <xsl:for-each select="dcat:downloadURL">
+        <xsl:variable name="downloadURLlinkage" select="string(@rdf:resource)" />
+        <Field name="dcat_distributionURL" string="{concat($tPosition,'|download|',$downloadURLlinkage)}"
+               store="true" index="true" />
+      </xsl:for-each>
+
+      <xsl:for-each select="dcat:accessURL">
+        <xsl:variable name="accessURLlinkage" select="string(@rdf:resource)" />
+        <Field name="dcat_distributionURL" string="{concat($tPosition,'|access|',$accessURLlinkage)}"
+               store="true" index="true" />
+      </xsl:for-each>
+
+      <xsl:for-each select="dct:format/skos:Concept/skos:prefLabel[@xml:lang='nl']">
+        <Field name="format" string="{.}" store="true" index="true"/>
+      </xsl:for-each>
+
+      <xsl:for-each
+        select="dct:license/skos:Concept/skos:prefLabel[@xml:lang='nl']">
+        <Field name="MD_LegalConstraintsUseLimitation" string="{string(.)}"
+               store="true" index="true" />
+      </xsl:for-each>
+
       <Field name="dcat_distributionTitle" string="{string($title)}"
              store="true" index="true" />
       <Field name="dcat_distributionDesc" string="{string($desc)}"
              store="true" index="true" />
-      <Field name="dcat_distributionDownloadURL" string="{string($downloadURLlinkage)}"
-             store="true" index="true" />
-      <Field name="dcat_distributionAccessURL" string="{string($accessURLlinkage)}"
-             store="true" index="true" />
-      <Field name="dcat_distributionFormatConceptLabel" string="{string($formatConceptLabel)}"
-             store="true" index="true" />
       <Field name="dcat_distributionMediaTypeConceptLabel" string="{string($mediaTypeConceptLabel)}"
-             store="true" index="true" />
-      <Field name="dcat_distributionLicenseDocumentTitle" string="{string($licenseDocumentTitle)}"
              store="true" index="true" />
 
       <Field name="dcat_distribution"
-             string="{concat($title, '|', $desc, '|', $downloadURLlinkage, '|', $accessURLlinkage, '|', $tPosition)}"
+             string="{concat($title, '|', $desc, '|', $mediaTypeConceptLabel, '|', $tPosition)}"
              store="true" index="false"/>
     </xsl:for-each>
-    <!-- dcat:ContactPoint -->
+
+    <xsl:for-each select="dcat:contactPoint">
+      <xsl:apply-templates mode="index-contact" select="vcard:Organization">
+        <xsl:with-param name="type" select="'resource'" />
+        <xsl:with-param name="fieldPrefix" select="'responsibleParty'" />
+        <xsl:with-param name="position" select="position()" />
+      </xsl:apply-templates>
+    </xsl:for-each>
+
+    <!-- dcat:ContactPoint
     <xsl:for-each select="dcat:contactPoint/vcard:Organization">
       <xsl:variable name="tPosition" select="position()" />
       <xsl:variable name="Name" select="vcard:organization-name" />
@@ -263,6 +286,7 @@
              string="{concat($Name, '|', $Fn, '|', $Address, '|', string-join($Email,','), '|', $URL, '|', string-join($Telephone,','), '|', $tPosition)}"
              store="true" index="false"/>
     </xsl:for-each>
+    -->
     <!-- This index for "coverage" requires significant expansion to work well
             for spatial searches. It now only works for very strictly formatted content -->
     <!-- TODO parse wkt string polygon with java -->
