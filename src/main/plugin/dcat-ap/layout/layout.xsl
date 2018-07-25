@@ -65,7 +65,6 @@
     <xsl:variable name="flatModeException"
                   select="gn-fn-metadata:isFieldFlatModeException($viewConfig, $name)"/>
 
-		<xsl:message select="concat('Rendering gn:child with name ', $name, '(Flatmode=', $isFlatMode, ' and FlatModeException=',$flatModeException,')')"/>
     <!-- TODO: this should be common to all schemas -->
     <xsl:if test="$isEditing and
       (not($isFlatMode) or $flatModeException)">
@@ -95,7 +94,6 @@
     <xsl:param name="labels" select="$labels" required="no"/>
     <xsl:param name="refToDelete" required="no"/>
 
-		<xsl:message select="concat('Rendering fieldset with name ',name())"/>
     <xsl:variable name="xpath" select="gn-fn-metadata:getXPath(.)"/>
     <xsl:variable name="isoType" select="''"/>
 
@@ -235,7 +233,7 @@
 			<xsl:when test="count($fieldNode/*)>0 and $fieldNode/@templateModeOnly">
        	<xsl:message select="concat('Rendering template field configured in for with name: ', $name)"/>
 				<xsl:variable name="name" select="$fieldNode/@name"/>
-				<xsl:variable name="del" select="$fieldNode/@del"/>
+				<xsl:variable name="del" select="'.'"/>
 				<xsl:variable name="template" select="$fieldNode/template"/>
 				<xsl:variable name="forceLabel" select="$fieldNode/@forceLabel"/>
 				<xsl:variable name="currentNode" select="." />
@@ -288,7 +286,8 @@
 				      correct location. -->
 				<xsl:variable name="id" select="concat('_X', gn:element/@ref, '_replace')"/>
 				<xsl:call-template name="render-element-template-field">
-				  <xsl:with-param name="name" select="$strings/*[name() = $name]"/>
+				  <xsl:with-param name="name" select="$labelConfig/label"/>
+				  <!--xsl:with-param name="name" select="$strings/*[name() = $name]" /-->
 				  <xsl:with-param name="id" select="$id"/>
 				  <xsl:with-param name="isExisting" select="true()"/>
 				  <xsl:with-param name="template" select="$templateCombinedWithNode"/>
@@ -306,6 +305,7 @@
 			    <!--<xsl:with-param name="widget"/>
 			          <xsl:with-param name="widgetParams"/>-->
 			    <xsl:with-param name="xpath" select="gn-fn-metadata:getXPath(.)"/>
+					<!--xsl:with-param name="forceDisplayAttributes" select="gn-fn-dcat-ap:isForceDisplayAttributes(name(.))"/-->
 			    <xsl:with-param name="attributesSnippet" select="$attributes"/>
 			    <xsl:with-param name="type" select="gn-fn-metadata:getFieldType($editorConfig, name(), '')"/>
 			    <xsl:with-param name="name" select="if ($isEditing) then gn:element/@ref else ''"/>

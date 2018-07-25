@@ -27,24 +27,27 @@
 	xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap"
 	exclude-result-prefixes="#all">
 
-  <xsl:variable name="resourceBaseUrl" select="'http://publications.europa.eu/resource/theme/'"/>
+  <xsl:variable name="resourceBaseUrl" select="'http://publications.europa.eu/resource/authority/'"/>
   <xsl:variable name="thesaurusIdentifierBaseKey" select="'geonetwork.thesaurus.external.theme.'"/>
 
   <xsl:function name="gn-fn-dcat-ap:getResourceByElementName" as="xs:string">
 	<xsl:param name="elementName"/>
 	<xsl:param name="parentElementName"/>
 		<xsl:choose>
+			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'foaf:Agent'">
+				<xsl:value-of select="concat($resourceBaseUrl,'organization-type')"/>
+			</xsl:when>
 			<xsl:when test="$elementName = 'dcat:theme'">
 				<xsl:value-of select="concat($resourceBaseUrl,'data-theme')"/>
+			</xsl:when>
+			<xsl:when test="$elementName = 'dct:accrualPeriodicity'">
+				<xsl:value-of select="concat($resourceBaseUrl,'frequency')"/>
 			</xsl:when>
 			<xsl:when test="$elementName = 'dct:language'">
 				<xsl:value-of select="concat($resourceBaseUrl,'language')"/>
 			</xsl:when>
 			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dcat:Dataset'">
 				<xsl:value-of select="concat($resourceBaseUrl,'resource-type')"/>
-			</xsl:when>
-			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'foaf:Agent'">
-				<xsl:value-of select="concat($resourceBaseUrl,'organization-type')"/>
 			</xsl:when>
 			<xsl:when test="$elementName = 'dcat:mediaType'">
 				<xsl:value-of select="concat($resourceBaseUrl,'media-type')"/>
@@ -65,16 +68,19 @@
 	<xsl:param name="elementName"/>
 	<xsl:param name="parentElementName"/>
 		<xsl:choose>
+			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'foaf:Agent'">
+				<xsl:value-of select="''"/>
+			</xsl:when>
 			<xsl:when test="$elementName = 'dcat:theme'">
+				<xsl:value-of select="''"/>
+			</xsl:when>
+			<xsl:when test="$elementName = 'dct:accrualPeriodicity'">
 				<xsl:value-of select="''"/>
 			</xsl:when>
 			<xsl:when test="$elementName = 'dct:language'">
 				<xsl:value-of select="'dct:LinguisticSystem'"/>
 			</xsl:when>
 			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dcat:Dataset'">
-				<xsl:value-of select="''"/>
-			</xsl:when>
-			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'foaf:Agent'">
 				<xsl:value-of select="''"/>
 			</xsl:when>
 			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dct:LicenseDocument'">
@@ -203,6 +209,19 @@
     		<for/>
     	</xsl:otherwise>
     </xsl:choose>
+  </xsl:function>
+
+  <xsl:function name="gn-fn-dcat-ap:isForceDisplayAttributes" as="xs:boolean">
+	<xsl:param name="elementName"/>
+		<xsl:choose>
+			<xsl:when test="$elementName = 'vcard:Organization' or $elementName='vcard:Address' or $elementName='dct:title'">
+				<xsl:message select="concat('Force display attributes for ' , $elementName)"/>
+				<xsl:value-of select="true()"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="false()"/>
+			</xsl:otherwise>
+		</xsl:choose>
   </xsl:function>
 
 </xsl:stylesheet>

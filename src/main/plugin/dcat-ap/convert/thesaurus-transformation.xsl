@@ -113,41 +113,46 @@
 	<xsl:variable name="thesaurusKey"
 	              select="if (thesaurus/key) then thesaurus/key else /root/request/thesaurus"/>
     <xsl:choose>
+	   	<xsl:when test="ends-with($thesaurusKey,'organization-type')">
+		    <dct:type>
+		    	<xsl:copy-of select="$concept"/>
+		    </dct:type>
+			</xsl:when>
     	<xsl:when test="ends-with($thesaurusKey,'data-theme')">
 		    <dcat:theme>
 		    	<xsl:copy-of select="$concept"/>
 		    </dcat:theme>
-		</xsl:when>
+			</xsl:when>
+	   	<xsl:when test="ends-with($thesaurusKey,'frequency')">
+		    <dct:accrualPeriodicity>
+		    	<xsl:copy-of select="$concept"/>
+		    </dct:accrualPeriodicity>
+			</xsl:when>
     	<xsl:when test="ends-with($thesaurusKey,'language')">
 		    <dct:language>
 		    	<xsl:copy-of select="$concept"/>
 		    </dct:language>
-		</xsl:when>
-    	<xsl:when test="ends-with($thesaurusKey,'organization-type')">
-		    <dct:type>
-		    	<xsl:copy-of select="$concept"/>
-		    </dct:type>
-		</xsl:when>
+			</xsl:when>
     	<xsl:when test="ends-with($thesaurusKey,'file-type')">
 		    <dct:format>
 		    	<xsl:copy-of select="$concept"/>
 		    </dct:format>
-		</xsl:when>
+			</xsl:when>
     	<xsl:when test="ends-with($thesaurusKey,'resource-type')">
 		    <dct:type>
 		    	<xsl:copy-of select="$concept"/>
 		    </dct:type>
-		</xsl:when>
+			</xsl:when>
 <!--
     	<xsl:when test="ends-with($thesaurusKey,'media-type')">
 		    <dcat:mediaType>
 		    	<xsl:copy-of select="$concept"/>
 		    </dcat:mediaType>
-		</xsl:when>
+			</xsl:when>
 -->		
-		<xsl:otherwise>
-			<xsl:message select="concat('No concept added for a field value of thesaurus ', $thesaurusKey, '. Verify thesaurus-transformation.xsl.')"/>
-		</xsl:otherwise>
+			<xsl:otherwise>
+				<xsl:message select="concat('No concept added for a field value of thesaurus ', $thesaurusKey, '. Verify thesaurus-transformation.xsl.')"/>
+			</xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 

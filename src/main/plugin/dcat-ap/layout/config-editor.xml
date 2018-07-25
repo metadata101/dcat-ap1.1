@@ -2,28 +2,98 @@
 <editor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:schema="http://schema.org/" xsi:noNamespaceSchemaLocation="../../../../../../config-editor.xsd">
 	<!-- Define form field types per metadata element. -->
 	<fields>
-		<for name="dct:title" use="textarea"/>
-		<for name="dct:description" use="textarea"/>
 		<for name="vcard:hasEmail" use="email"/>
-		<for name="dcat:mediaType" use="data-gn-keyword-picker" />
-		<for name="dct:format" use="data-gn-keyword-picker" />
-		<for name="dct:type" use="data-gn-keyword-picker" />
-		<for name="dct:license" use="data-gn-keyword-picker"/>
-		<for name="dct:language" use="data-gn-keyword-picker"/>
-		<for name="dct:issued" use="data-gn-date-picker"/>
-		<for name="dct:modified" use="data-gn-date-picker"/>
 		<for name="schema:startDate" use="data-gn-date-picker"/>
 		<for name="schema:endDate" use="data-gn-date-picker"/>
-		<!--  		<for name="dcat:keyword" use="data-gn-keyword-picker"/>-->
-		<for name="dcat:theme" use="data-gn-keyword-picker" />
-
+		<for name="dcat:byteSize" use="number"/>
+		<for name="dct:title" templateModeOnly="true">	
+			<template>
+				<values>
+					<key label="FieldId157" required="true" xpath="." use="textarea"/>
+					<key label="FieldId158" xpath="@xml:lang"><helper name="xml:lang"/></key>
+				</values>
+				<snippet>
+					<dct:title xml:lang="{{FieldId158}}">{{FieldId157}}</dct:title>
+				</snippet>
+			</template>
+		</for>
+		<for name="dct:description" templateModeOnly="true">
+			<template>
+				<values>
+					<key label="FieldId159" xpath="." use="textarea" />
+					<key label="FieldId160" xpath="@xml:lang"><helper name="xml:lang"/></key>
+				</values>
+				<snippet>
+					<dct:description xml:lang="{{FieldId160}}">{{FieldId159}}</dct:description>
+				</snippet>
+			</template>
+		</for>
+		<for name="foaf:name" templateModeOnly="true">	
+			<template>
+				<values>
+					<key label="FieldId136" required="true" xpath="." use="textarea"/>
+					<key label="FieldId137" xpath="@xml:lang"><helper name="xml:lang"/></key>
+				</values>
+				<snippet>
+					<foaf:name xml:lang="{{FieldId137}}">{{FieldId136}}</foaf:name>
+				</snippet>
+			</template>
+		</for>
+		
+		<for name="vcard:Address" templateModeOnly="true">	
+			<template>
+				<values>
+					<key label="FieldId121" xpath="@rdf:about"/>	
+					<key label="FieldId122" required="true" xpath="vcard:street-address" or="street-address" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>	
+					<key label="FieldId123" required="true" xpath="vcard:locality" or="locality" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>	
+					<key label="FieldId124" required="true" xpath="vcard:postal-code" or="postal-code" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>	
+					<key label="FieldId125" required="true" xpath="vcard:country-name" or="country-name" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>
+				</values>
+				<snippet>
+					<vcard:Address rdf:about="{{FieldId121}}">
+						<vcard:street-address>{{FieldId122}}</vcard:street-address>
+						<vcard:locality>{{FieldId123}}</vcard:locality>
+						<vcard:postal-code>{{FieldId124}}</vcard:postal-code>
+						<vcard:country-name>{{FieldId125}}</vcard:country-name>
+					</vcard:Address>
+				</snippet>
+			</template>
+		</for>
+		
 	</fields>
 	<!-- Complex fields. -->
 	<fieldsWithFieldset>
 		<name>dcat:contactPoint</name>
+		<name>dct:publisher</name>
+		<name>foaf:Agent</name>
 		<name>vcard:Organization</name>
 		<name>vcard:hasAddress</name>
-		<name>vcard:Address</name>
+		<name>dct:accessRights</name>
+		<name>adms:identifier</name>
+		<name>adms:Identifier</name>
+		<name>dct:provenance</name>
+		<name>dct:ProvenanceStatement</name>
+
+		<name>dcat:distribution</name>
+		<name>dcat:Distribution</name>
+		<name>dct:license</name>
+		<name>dct:LicenseDocument</name>
+		<name>dct:rights</name>
+		<name>dct:RightsStatement</name>
+		<name>spdx:checksum</name>
+		<name>spdx:Checksum</name>
+		<name>foaf:page</name>
+		<name>foaf:Document</name>
+		<name>dct:conformsTo</name>
+		<name>dct:Standard</name>
+		<name>adms:status</name>
+		<name>adms:sample</name>
+<!--		
+		<name>dct:format</name>
+		<name>dcat:mediaType</name>
+		<name>dct:language</name>
+		<name>dct:type</name>
+-->
 	</fieldsWithFieldset>
 	<multilingualFields>
 		<!-- In multilingual mode, define which mode
@@ -35,57 +105,80 @@
     </expanded-->
 	</multilingualFields>
 	<!--tableFields>
-    <table for="vcard:Address">
+    <table for="dct:title">
       <header>
-        <col label="vcard:street-address"/>
-        <col label="vcard:locality"/>
-        <col label="vcard:postal-code"/>
-        <col label="vcard:country-name"/>
+        <col label="dct:title"/>
+        <col label="xml:lang"/>
         <col/>
       </header>
       <row>
-        <col xpath="vcard:street-address"/>
-        <col xpath="vcard:locality"/>
-        <col xpath="vcard:postal-code"/>
-        <col xpath="vcard:country-name"/>
-        <col del=".."/>
+        <col xpath="."/>
+        <col xpath="@xml:lang"/>
+        <col del="."/>
       </row>
     </table>
   </tableFields-->
 	<views>
 		<view name="default">
 			<sidePanel>
+				<directive data-gn-onlinesrc-list="" data-types="source"/>
 				<directive data-gn-validation-report=""/>
 			</sidePanel>
 			<tab id="default" default="true">
 				<!-- DON'T MOVE THIS SECTION, otherwise rendering stops at a certain point in the fields list -->
 				<section>
-					<!--field name="FieldId108" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/@rdf:about"/!-->
-					<field name="FieldId109" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title" or="title" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+					<field name="FieldId109" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title">
 						<template>
 							<values>
-								<key label="FieldId109"
-										 required="true"
-										 xpath="..//dct:title"
-										 tooltip="dct:title"/>
-								<key label="FieldId110"
-										 required="true"
-										 xpath="..//dct:title/@xml:lang"/>
+								<key label="FieldId109" required="true" xpath="." use="textarea"/>
+								<key label="FieldId110" xpath="@xml:lang"><helper name="xml:lang"/></key>
 							</values>
 							<snippet>
 								<dct:title xml:lang="{{FieldId110}}">{{FieldId109}}</dct:title>
 							</snippet>
 						</template>
 					</field>
+          <action type="add" btnLabel="FieldId109" or="title" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:title xml:lang=""/>
+							</snippet>
+						</template>
+					</action>
 					<!--field name="FieldId110" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title/@xml:lang"/!-->
-					<field name="FieldId111" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description" or="description" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+					<field name="FieldId111" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description">
+						<template>
+							<values>
+								<key label="FieldId111" xpath="." use="textarea" />
+								<key label="FieldId112" xpath="@xml:lang"><helper name="xml:lang"/></key>
+							</values>
+							<snippet>
+								<dct:description xml:lang="{{FieldId112}}">{{FieldId111}}</dct:description>
+							</snippet>
+						</template>
+					</field>
+          <action type="add" btnLabel="FieldId111" or="description" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:description xml:lang=""/>
+							</snippet>
+						</template>
+					</action>
+
 					<!--field name="FieldId112" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description/@xml:lang"/!-->
 					<field name="FieldId113" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:identifier" or="identifier" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
 					<section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" name="SectioncontactPoint"/>	
-					<field name="FieldId129" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued" or="issued" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+          <action type="add" or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<snippet>
+								<dcat:contactPoint/>
+							</snippet>
+						</template>
+					</action>
+					<field name="FieldId129" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued" or="issued" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
 						<template>
 							<values>
-								<key label="FieldId129" xpath="..//dct:issued" use="gn-date-picker">
+								<key label="FieldId129" xpath="." use="gn-date-picker">
 									<directiveAttributes data-tag-name=""/>
 								</key>
 							</values>
@@ -94,10 +187,10 @@
 							</snippet>
 						</template>
 					</field>
-					<field name="FieldId131" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified" or="modified" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+					<field name="FieldId131" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified" or="modified" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
 						<template>
 							<values>
-								<key label="FieldId131" xpath="..//dct:modified" use="gn-date-picker">
+								<key label="FieldId131" xpath="." use="gn-date-picker">
 									<directiveAttributes data-tag-name=""/>
 								</key>
 							</values>
@@ -106,103 +199,138 @@
 							</snippet>
 						</template>
 					</field>
-					<section name="SectionOrganization" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
-					<section  name="SectionAddress">		
-						<field name="FieldId120" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address" templateModeOnly="true">	
-							<template>
-								<values>
-									<key label="FieldId121" xpath="@rdf:about"/>	
-									<key label="FieldId122" xpath="vcard:street-address" or="street-address" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>	
-									<key label="FieldId123" xpath="vcard:locality" or="locality" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>	
-									<key label="FieldId124" xpath="vcard:postal-code" or="postal-code" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>	
-									<key label="FieldId125" xpath="vcard:country-name" or="country-name" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>
-								</values>
-								<snippet>
-									<vcard:Address rdf:about="{{FieldId121}}">
-										<vcard:street-address>{{FieldId122}}</vcard:street-address>
-										<vcard:locality>{{FieldId123}}</vcard:locality>
-										<vcard:postal-code>{{FieldId124}}</vcard:postal-code>
-										<vcard:country-name>{{FieldId125}}</vcard:country-name>
-									</vcard:Address>
-								</snippet>
-							</template>
-						</field>
-					</section>
-<!-- 
-	<section  name="SectionOrganization">		
-		<field name="FieldId116" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/@rdf:about"/>	
-		<field name="FieldId117" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:fn" or="fn" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization"/>	
-		<field name="FieldId118" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:organization-name" or="organization-name" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization"/>	
-	</section>
-	<section  name="SectionAddress">		
-		<field name="FieldId121" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/@rdf:about"/>	
-		<field name="FieldId122" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:street-address" or="street-address" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>	
-		<field name="FieldId123" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:locality" or="locality" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>	
-		<field name="FieldId124" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:postal-code" or="postal-code" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>	
-		<field name="FieldId125" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address/vcard:country-name" or="country-name" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>
-	</section>
-	<field name="FieldId126" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasEmail" or="hasEmail" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization"/>	
-	<field name="FieldId127" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasURL" or="hasURL" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization"/>	
-	<field name="FieldId128" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasTelephone" or="hasTelephone" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization"/>	
-	<field name="FieldId129" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued" or="issued" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>	
-	<field name="FieldId131" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified" or="modified" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>	
-	<section  name="SectionAgent">		
-		<field name="FieldId135" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/@rdf:about"/>	
-		<field name="FieldId136" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/foaf:name" or="name" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent"/>	
-		<field name="FieldId137" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/foaf:name/@xml:lang"/>	
-	</section>
-	<section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/dct:type/skos:Concept" name="SectionConcept">		
-	</section>
-	<field name="FieldId145" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword" or="keyword" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>	
-	<field name="FieldId146" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword/@xml:lang"/>	
-	<section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme/skos:Concept" name="SectionConcept">		
-	</section>
-	<section  name="SectionRightsStatement">		
-		<field name="FieldId156" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement/@rdf:about"/>	
-		<field name="FieldId157" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement/dct:title" or="title" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement"/>	
-		<field name="FieldId158" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement/dct:title/@xml:lang"/>	
-		<field name="FieldId159" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement/dct:description" or="description" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement"/>	
-		<field name="FieldId160" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement/dct:description/@xml:lang"/>
-	</section>
-	<section  name="SectionStandard">		
-		<field name="FieldId163" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo/dct:Standard/@rdf:about"/>	
-		<field name="FieldId164" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo/dct:Standard/dct:title" or="title" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo/dct:Standard"/>	
-		<field name="FieldId165" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo/dct:Standard/dct:title/@xml:lang"/>	
-		<field name="FieldId166" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo/dct:Standard/dct:description" or="description" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo/dct:Standard"/>	
-		<field name="FieldId167" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo/dct:Standard/dct:description/@xml:lang"/>
-	</section>
-	<section  name="SectionDocument">		
-		<field name="FieldId170" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/foaf:page/foaf:Document/@rdf:about"/>	
-		<field name="FieldId171" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/foaf:page/foaf:Document/foaf:name" or="name" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/foaf:page/foaf:Document"/>	
-		<field name="FieldId172" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/foaf:page/foaf:Document/foaf:name/@xml:lang"/>
-	</section>
-	<section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity/skos:Concept" name="SectionConcept">		
-	</section>
-	<field name="FieldId180" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:hasVersion/@rdf:resource"/>	
-	<field name="FieldId181" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:isVersionOf/@rdf:resource"/>	
-	<field name="FieldId182" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:landingPage/@rdf:resource"/>	
-	<section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language/skos:Concept" name="SectionConcept">		
-	</section>
-	<section  name="SectionIdentifier">		
-		<field name="FieldId192" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:identifier/adms:Identifier/@rdf:about"/>	
-		<field name="FieldId193" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:identifier/adms:Identifier/skos:notation" or="notation" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:identifier/adms:Identifier"/>	
-	</section>
-	<section  name="SectionProvenanceStatement">		
-		<field name="FieldId197" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:provenance/dct:ProvenanceStatement/@rdf:about"/>	
-		<field name="FieldId198" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:provenance/dct:ProvenanceStatement/dct:description" or="description" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:provenance/dct:ProvenanceStatement"/>	
-		<field name="FieldId199" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:provenance/dct:ProvenanceStatement/dct:description/@xml:lang"/>
-	</section>
-	<field name="FieldId200" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:relation/@rdf:resource"/>	
-	<field name="FieldId201" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:source/@rdf:resource"/>	
+					<section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher" name="Sectionpublisher"/>
+          <action type="add" btnLabel="FieldId131" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:publisher/>
+							</snippet>
+						</template>
+					</action>
+					<field name="FieldId145" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword" or="keyword" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<values>
+								<key label="FieldId145" xpath="." />
+								<key label="FieldId146" xpath="@xml:lang"><helper name="xml:lang"/></key>
+							</values>
+							<snippet>
+								<dcat:keyword xml:lang="{{FieldId146}}">{{FieldId145}}</dcat:keyword>
+							</snippet>
+						</template>
+					</field>
+          <action type="add" btnLabel="FieldId145" or="keyword" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<snippet>
+								<dcat:keyword xml:lang="nl"/>
+							</snippet>
+						</template>
+					</action>
+					<!--field name="FieldId146" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword/@xml:lang"/-->	
+					<field name="FieldId147" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme" or="theme" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+					<field name="FieldId154" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights" or="accessRights" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+					<field name="FieldId161" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo" or="conformsTo" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+					<field name="FieldId168" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/foaf:page" or="page" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+					<field name="FieldId173" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity" or="accrualPeriodicity" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+					<field name="FieldId180" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:hasVersion">
+						<template>
+							<values>
+								<key label="FieldId180" xpath="@rdf:resource"/>
+							</values>
+							<snippet>
+								<dct:hasVersion rdf:resource="{{FieldId180}}"></dct:hasVersion>
+							</snippet>
+						</template>
+					</field>
+          <action type="add" btnLabel="FieldId180" or="hasVersion" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:hasVersion rdf:resource=""/>
+							</snippet>
+						</template>
+					</action>
+					<field name="FieldId181" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:isVersionOf">
+						<template>
+							<values>
+								<key label="FieldId181" xpath="@rdf:resource"/>
+							</values>
+							<snippet>
+								<dct:isVersionOf rdf:resource="{{FieldId181}}"/>
+							</snippet>
+						</template>
+					</field>
+          <action type="add" btnLabel="FieldId181" or="isVersionOf" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:isVersionOf rdf:resource=""/>
+							</snippet>
+						</template>
+					</action>
+					<field name="FieldId182" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:landingPage">
+						<template>
+							<values>
+								<key label="FieldId182" xpath="@rdf:resource"/>
+							</values>
+							<snippet>
+								<dcat:landingPage rdf:resource="{{FieldId182}}"/>
+							</snippet>
+						</template>
+					</field>
+          <action type="add" btnLabel="FieldId182" or="landingPage" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<snippet>
+								<dcat:landingPage rdf:resource=""/>
+							</snippet>
+						</template>
+					</action>
+					<field name="FieldId183" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language" or="language" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+					<field name="FieldId190" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:identifier" or="identifier" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+					<field name="FieldId195" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:provenance" or="provenance" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+					<field name="FieldId200" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:relation">
+						<template>
+							<values>
+								<key label="FieldId200" xpath="@rdf:resource" />
+							</values>
+							<snippet>
+								<dct:relation rdf:resource="{{FieldId200}}"/>
+							</snippet>
+						</template>
+					</field>
+          <action type="add" btnLabel="FieldId200" or="relation" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:relation rdf:resource=""/>
+							</snippet>
+						</template>
+					</action>
+					<field name="FieldId201" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:source">
+						<template>
+							<values>
+								<key label="FieldId201" xpath="@rdf:resource"/>
+							</values>
+							<snippet>
+								<dct:source rdf:resource="{{FieldId201}}"/>
+							</snippet>
+						</template>
+					</field>
+          <action type="add" btnLabel="FieldId201" or="source" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<snippet>
+								<dct:source rdf:resource=""/>
+							</snippet>
+						</template>
+					</action>
+
+					
+<!--
 	<section name="SectionLocation" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial"/>		
  -->
- 	<!--section  name="SectionLocation">		
+					<!--section  name="SectionLocation">		
 		<field name="FieldId204" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/@rdf:about"/>	
 		<field name="FieldId205" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/locn:geometry" or="geometry" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location"/>	
 		<field name="FieldId207" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/skos:prefLabel" or="prefLabel" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location"/>	
 		<field name="FieldId208" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/skos:prefLabel/@xml:lang"/>
 	</section-->
-<!-- 
+					<!-- 
 	<section  name="SectionPeriodOfTime">		
 		<field name="FieldId211" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime/@rdf:about"/>	
 		<field name="FieldId212" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime/schema:startDate" or="startDate" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime"/>	
@@ -221,7 +349,7 @@
 		<field name="FieldId232" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:extension/rdf:Statement/rdf:object/@rdf:resource"/>	
 	</section>
  -->
- 				</section>
+				</section>
 			</tab>
 			<tab id="distribution">
 				<section>
@@ -230,20 +358,14 @@
 				</section>
 			</tab>
 			<flatModeExceptions>
-				<for name="dct:language"/>
-				<for name="dct:type"/>
-				<for name="dct:format"/>
-				<for name="dcat:license"/>
-				<for name="dcat:theme"/>
-				<for name="dcat:keyword"/>
-				<for name="dcat:mediaType"/>
-				<for name="periodOfTimeStartDate"/>
 			</flatModeExceptions>
 			<thesaurusList>
-				<thesaurus key="external.theme.data-theme" maxtags="1" transformations="" fieldset="false"/>
-				<thesaurus key="external.theme.resource-type" maxtags="1" transformations="" fieldset="false"/>
 				<thesaurus key="external.theme.organization-type" maxtags="1" transformations="" fieldset="false"/>
+				<thesaurus key="external.theme.data-theme" maxtags="1" transformations="" fieldset="false"/>
+				<thesaurus key="external.theme.frequency" maxtags="1" transformations="" fieldset="false"/>
+
 				<!--				<thesaurus key="external.theme.media-type" maxtags="1" transformations="" fieldset="false"/>-->
+				<thesaurus key="external.theme.resource-type" maxtags="1" transformations="" fieldset="false"/>
 				<thesaurus key="external.theme.file-type" maxtags="1" transformations="" fieldset="false"/>
 				<thesaurus key="external.theme.language" maxtags="1" transformations="" fieldset="false"/>
 				<thesaurus key="external.theme.licence" maxtags="1" transformations="" fieldset="false"/>

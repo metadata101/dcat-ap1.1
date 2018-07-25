@@ -30,17 +30,20 @@
 
   <xsl:function name="gn-fn-dcat-ap:getThesaurusResource" as="xs:string">
 	<xsl:param name="key"/>
-	<xsl:variable name="resourceBaseUrl" select="'http://publications.europa.eu/resource/theme/'"/>
+	<xsl:variable name="resourceBaseUrl" select="'http://publications.europa.eu/resource/authority/'"/>
 	<xsl:variable name="keyPrefix" select="'external.theme.'"/>
 	<xsl:choose>
+		<xsl:when test="$key = concat($keyPrefix,'organization-type')">
+			<xsl:value-of select="concat($resourceBaseUrl,'organization-type')"/>
+		</xsl:when>
 		<xsl:when test="$key = concat($keyPrefix,'data-theme')">
 			<xsl:value-of select="concat($resourceBaseUrl,'data-theme')"/>
 		</xsl:when>
+		<xsl:when test="$key = concat($keyPrefix,'frequency')">
+			<xsl:value-of select="concat($resourceBaseUrl,'frequency')"/>
+		</xsl:when>
 		<xsl:when test="$key = concat($keyPrefix,'language')">
 			<xsl:value-of select="concat($resourceBaseUrl,'language')"/>
-		</xsl:when>
-		<xsl:when test="$key = concat($keyPrefix,'organization-type')">
-			<xsl:value-of select="concat($resourceBaseUrl,'organization-type')"/>
 		</xsl:when>
 		<xsl:when test="$key = concat($keyPrefix,'resource-type')">
 			<xsl:value-of select="concat($resourceBaseUrl,'resource-type')"/>

@@ -64,7 +64,7 @@ xmlns:schema="http://schema.org/" >
 <element name="foaf:name" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/foaf:name"><label>naam</label><btnLabel>naam</btnLabel></element>
 <element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/foaf:name/@xml:lang"><label>taal</label><btnLabel>taal</btnLabel></element>
 <element name="dct:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/dct:type"><label>type</label><btnLabel>type</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/dct:type/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/dct:type/skos:Concept"><label>type</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/dct:type/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/dct:type/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label><btnLabel>rdf klasse</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/dct:type/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>
@@ -73,7 +73,7 @@ xmlns:schema="http://schema.org/" >
 <element name="dcat:keyword" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword"><label>trefwoord</label><btnLabel>trefwoord</btnLabel></element>
 <element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword/@xml:lang"><label>taal</label><btnLabel>taal</btnLabel></element>
 <element name="dcat:theme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme"><label>thema</label><btnLabel>thema</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme/skos:Concept"><label>thema</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label><btnLabel>rdf klasse</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>
@@ -99,7 +99,7 @@ xmlns:schema="http://schema.org/" >
 <element name="foaf:name" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/foaf:page/foaf:Document/foaf:name"><label>naam</label><btnLabel>naam</btnLabel></element>
 <element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/foaf:page/foaf:Document/foaf:name/@xml:lang"><label>taal</label><btnLabel>taal</btnLabel></element>
 <element name="dct:accrualPeriodicity" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity"><label>updatefrequentie</label><btnLabel>updatefrequentie</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity/skos:Concept"><label>updatefrequentie</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label><btnLabel>rdf klasse</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>
@@ -109,7 +109,7 @@ xmlns:schema="http://schema.org/" >
 <element name="dct:isVersionOf" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:isVersionOf/@rdf:resource"><label>is versie van</label><btnLabel>is versie van</btnLabel></element>
 <element name="dcat:landingPage" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:landingPage/@rdf:resource"><label>bijsluiter</label><btnLabel>bijsluiter</btnLabel></element>
 <element name="dct:language" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language"><label>taal</label><btnLabel>taal</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language/skos:Concept"><label>taal</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label><btnLabel>rdf klasse</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>
@@ -138,7 +138,7 @@ xmlns:schema="http://schema.org/" >
 <element name="schema:startDate" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime/schema:startDate"><label>eind (datum/tijd)</label><btnLabel>eind (datum/tijd)</btnLabel></element>
 <element name="schema:endDate" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime/schema:endDate"><label>start (datum/tijd)</label><btnLabel>start (datum/tijd)</btnLabel></element>
 <element name="dct:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:type"><label>type</label><btnLabel>type</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:type/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:type/skos:Concept"><label>type</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:type/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:type/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label><btnLabel>rdf klasse</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:type/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>
@@ -166,21 +166,21 @@ xmlns:schema="http://schema.org/" >
 <element name="dct:issued" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:issued"><label>publicatiedatum</label><btnLabel>publicatiedatum</btnLabel></element>
 <element name="dct:modified" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:modified"><label>laatst gewijzigd</label><btnLabel>laatst gewijzigd</btnLabel></element>
 <element name="dct:format" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:format"><label>formaat</label><btnLabel>formaat</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:format/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:format/skos:Concept"><label>formaat</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:format/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:format/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label><btnLabel>rdf klasse</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:format/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>
 <element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:format/skos:Concept/skos:prefLabel/@xml:lang"><label>taal</label><btnLabel>taal</btnLabel></element>
 <element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:format/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label><btnLabel>in thesaurus</btnLabel></element>
 <element name="dcat:mediaType" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType"><label>mediatype</label><btnLabel>mediatype</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType/skos:Concept"><label>mediatype</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label><btnLabel>rdf klasse</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>
 <element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType/skos:Concept/skos:prefLabel/@xml:lang"><label>taal</label><btnLabel>taal</btnLabel></element>
 <element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:mediaType/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label><btnLabel>in thesaurus</btnLabel></element>
 <element name="dct:language" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:language"><label>taal</label><btnLabel>taal</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:language/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:language/skos:Concept"><label>taal</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:language/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:language/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label><btnLabel>rdf klasse</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:language/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>
@@ -190,7 +190,7 @@ xmlns:schema="http://schema.org/" >
 <element name="dct:LicenseDocument" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument"><label>licentie</label><btnLabel>licentie</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="dct:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type"><label>type</label><btnLabel>type</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept"><label>type</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label><btnLabel>rdf klasse</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>
@@ -227,7 +227,7 @@ xmlns:schema="http://schema.org/" >
 <element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:conformsTo/dct:Standard/dct:description"><label>beschrijving</label><btnLabel>beschrijving</btnLabel></element>
 <element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:conformsTo/dct:Standard/dct:description/@xml:lang"><label>taal</label><btnLabel>taal</btnLabel></element>
 <element name="adms:status" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/adms:status"><label>status</label><btnLabel>status</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/adms:status/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/adms:status/skos:Concept"><label>status</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/adms:status/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/adms:status/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label><btnLabel>rdf klasse</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/adms:status/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>
@@ -245,14 +245,14 @@ xmlns:schema="http://schema.org/" >
 <element name="dct:issued" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:issued"><label>publicatiedatum</label><btnLabel>publicatiedatum</btnLabel></element>
 <element name="dct:modified" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:modified"><label>laatst gewijzigd</label><btnLabel>laatst gewijzigd</btnLabel></element>
 <element name="dct:format" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:format"><label>formaat</label><btnLabel>formaat</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:format/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:format/skos:Concept"><label>formaat</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:format/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:format/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>
 <element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:format/skos:Concept/skos:prefLabel/@xml:lang"><label>taal</label><btnLabel>taal</btnLabel></element>
 <element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:format/skos:Concept/skos:inScheme/@rdf:resource"><label>in thesaurus</label><btnLabel>in thesaurus</btnLabel></element>
 <element name="dcat:mediaType" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dcat:mediaType"><label>mediatype</label><btnLabel>mediatype</btnLabel></element>
 <element name="dct:language" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:language"><label>taal</label><btnLabel>taal</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:language/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:language/skos:Concept"><label>taal</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:language/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:language/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label><btnLabel>rdf klasse</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:language/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>
@@ -262,7 +262,7 @@ xmlns:schema="http://schema.org/" >
 <element name="dct:LicenseDocument" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument"><label>licentie</label><btnLabel>licentie</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="dct:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type"><label>type</label><btnLabel>type</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept"><label>type</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label><btnLabel>rdf klasse</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:type/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>
@@ -292,7 +292,7 @@ xmlns:schema="http://schema.org/" >
 <element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:conformsTo/dct:Standard/dct:description"><label>beschrijving</label><btnLabel>beschrijving</btnLabel></element>
 <element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:conformsTo/dct:Standard/dct:description/@xml:lang"><label>taal</label><btnLabel>taal</btnLabel></element>
 <element name="adms:status" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/adms:status"><label>status</label><btnLabel>status</btnLabel></element>
-<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/adms:status/skos:Concept"><label>concept</label><btnLabel>concept</btnLabel></element>
+<element name="skos:Concept" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/adms:status/skos:Concept"><label>status</label><btnLabel>concept</btnLabel></element>
 <element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/adms:status/skos:Concept/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 <element name="rdf:type" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/adms:status/skos:Concept/rdf:type/@rdf:resource"><label>rdf klasse</label><btnLabel>rdf klasse</btnLabel></element>
 <element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/adms:status/skos:Concept/skos:prefLabel"><label>label</label><btnLabel>label</btnLabel></element>

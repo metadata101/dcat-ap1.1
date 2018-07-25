@@ -48,8 +48,7 @@
 	</xsl:template>
 
 	<!-- Fill empty element -->
-	<!--	<xsl:template match="dcat:theme|dct:language|foaf:Agent/dct:type|dcat:Dataset/dct:type|dcat:mediaType|dct:format|dct:license" priority="10">-->
-	<xsl:template match="dcat:theme|dct:language|foaf:Agent/dct:type|dcat:Dataset/dct:type|dct:dct:LicenseDocument/dct:type|dct:format" priority="10">
+	<xsl:template match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:LicenseDocument/dct:type|dct:format" priority="10">
 		<xsl:copy>
 			<xsl:apply-templates select="@*"/>
 	    <xsl:variable name="resource" select="gn-fn-dcat-ap:getResourceByElementName(name(.),name(..))"/>

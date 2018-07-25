@@ -99,7 +99,12 @@ public class DCATAPSchemaPlugin
     ;
 
     public Set<String> getAssociatedSourceUUIDs(Element metadata) {
-        return null;
+        ElementFilter elementFilter = new ElementFilter("relation", DCATAPNamespaces.DCT);
+        return Xml.filterElementValues(
+                metadata,
+                elementFilter,
+                null, null, "resource",
+                DCATAPNamespaces.RDF);
     }
 
     @Override
