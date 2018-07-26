@@ -49,13 +49,13 @@
 			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dcat:Dataset'">
 				<xsl:value-of select="concat($resourceBaseUrl,'resource-type')"/>
 			</xsl:when>
-			<xsl:when test="$elementName = 'dcat:mediaType'">
-				<xsl:value-of select="concat($resourceBaseUrl,'media-type')"/>
-			</xsl:when>
 			<xsl:when test="$elementName = 'dct:format'">
 				<xsl:value-of select="concat($resourceBaseUrl,'file-type')"/>
 			</xsl:when>
-	  		<xsl:when test="$elementName = 'dct:license'">
+			<xsl:when test="$elementName = 'dcat:mediaType'">
+				<xsl:value-of select="concat($resourceBaseUrl,'media-type')"/>
+			</xsl:when>
+  		<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dct:LicenseDocument'">
 				<xsl:value-of select="concat($resourceBaseUrl,'licence')"/>
 			</xsl:when>
 			<xsl:otherwise>
@@ -83,14 +83,14 @@
 			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dcat:Dataset'">
 				<xsl:value-of select="''"/>
 			</xsl:when>
-			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dct:LicenseDocument'">
-				<xsl:value-of select="'dct:LicenseDocument'"/>
+			<xsl:when test="$elementName = 'dct:format'">
+				<xsl:value-of select="''"/>
 			</xsl:when>
 			<xsl:when test="$elementName = 'dcat:mediaType'">
 				<xsl:value-of select="'dct:MediatypeOrExtent'"/>
 			</xsl:when>
-			<xsl:when test="$elementName = 'dct:format'">
-				<xsl:value-of select="''"/>
+			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dct:LicenseDocument'">
+				<xsl:value-of select="'dct:LicenseDocument'"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="''"/>
@@ -101,25 +101,29 @@
   <xsl:function name="gn-fn-dcat-ap:getThesaurusTitle" as="xs:string">
 	<xsl:param name="resource"/>
 	<xsl:choose>
+		<xsl:when test="$resource = concat($resourceBaseUrl,'organization-type')">
+			<xsl:value-of select="'Type thesaurus'"/>
+		</xsl:when>
 		<xsl:when test="$resource = concat($resourceBaseUrl,'data-theme')">
-			<xsl:value-of select="'Theme thesaurus'"/>
+			<xsl:value-of select="'Thema thesaurus'"/>
+		</xsl:when>
+		<xsl:when test="$resource = concat($resourceBaseUrl,'frequency')">
+			<xsl:value-of select="'Updatefrequentie thesaurus'"/>
 		</xsl:when>
 		<xsl:when test="$resource = concat($resourceBaseUrl,'language')">
-			<xsl:value-of select="'Language thesaurus'"/>
+			<xsl:value-of select="'Taal thesaurus'"/>
 		</xsl:when>
 		<xsl:when test="$resource = concat($resourceBaseUrl,'resource-type')">
-			<xsl:value-of select="'Resource type thesaurus'"/>
-		</xsl:when>
-<!--
-		<xsl:when test="$resource = concat($resourceBaseUrl,'media-type')">
-			<xsl:value-of select="'Media type thesaurus'"/>
-		</xsl:when>
--->
-		<xsl:when test="$resource = concat($resourceBaseUrl,'organization-type')">
-			<xsl:value-of select="'Organization type thesaurus'"/>
+			<xsl:value-of select="'Type thesaurus'"/>
 		</xsl:when>
 		<xsl:when test="$resource = concat($resourceBaseUrl,'file-type')">
-			<xsl:value-of select="'File type thesaurus'"/>
+			<xsl:value-of select="'Formaat thesaurus'"/>
+		</xsl:when>
+		<xsl:when test="$resource = concat($resourceBaseUrl,'media-type')">
+			<xsl:value-of select="'Mediatype thesaurus'"/>
+		</xsl:when>
+		<xsl:when test="$resource = concat($resourceBaseUrl,'licence')">
+			<xsl:value-of select="'Type thesaurus'"/>
 		</xsl:when>
 		<xsl:otherwise>
 	  		<xsl:value-of select="'Untitled thesaurus'"/>

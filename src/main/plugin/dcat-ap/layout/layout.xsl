@@ -34,6 +34,7 @@
 		xmlns:foaf="http://xmlns.com/foaf/0.1/" 
 		xmlns:owl="http://www.w3.org/2002/07/owl#"
 		xmlns:schema="http://schema.org/"
+		xmlns:locn="http://www.w3.org/ns/locn#"
 		xmlns:gn="http://www.fao.org/geonetwork"
 		xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
 		xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap"
@@ -355,43 +356,56 @@
 		</xsl:choose>
   </xsl:template>
 
+	<!-- Readonly elements -->
+  <xsl:template mode="mode-dcat-ap" priority="200" match="dct:identifier[count(preceding-sibling::*[name(.) = 'dct:identifier'])=0]">
+    
+    <xsl:call-template name="render-element">
+      <xsl:with-param name="label" select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), '', gn-fn-metadata:getXPath(.))/label"/>
+      <xsl:with-param name="value" select="."/>
+      <xsl:with-param name="cls" select="local-name()"/>
+      <xsl:with-param name="xpath" select="gn-fn-metadata:getXPath(.)"/>
+      <xsl:with-param name="type" select="gn-fn-metadata:getFieldType($editorConfig, name(), '')"/>
+      <xsl:with-param name="name" select="''"/>
+      <xsl:with-param name="editInfo" select="*/gn:element"/>
+      <xsl:with-param name="parentEditInfo" select="gn:element"/>
+      <xsl:with-param name="isDisabled" select="true()"/>
+    </xsl:call-template>
+    
+  </xsl:template>
+  
   <xsl:template mode="mode-dcat-ap" match="dct:spatial" priority="2000">
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
     <xsl:message>TO DO: transform dct:spatial location wkt format to bbox, now fixed bbox for each record</xsl:message>
-    <xsl:variable name="coverage" select="."/>
-<!--
-    <xsl:variable name="n" select="substring-after($coverage,'North ')"/>
-    <xsl:variable name="north" select="substring-before($n,',')"/>
-    <xsl:variable name="s" select="substring-after($coverage,'South ')"/>
-    <xsl:variable name="south" select="substring-before($s,',')"/>
-    <xsl:variable name="e" select="substring-after($coverage,'East ')"/>
-    <xsl:variable name="east" select="substring-before($e,',')"/>
-    <xsl:variable name="w" select="substring-after($coverage,'West ')"/>
-    <xsl:variable name="west" select="if (contains($w, '. '))
-                                      then substring-before($w,'. ') else $w"/>
--->
+
     <xsl:variable name="north" select="'51.4960'"/>
     <xsl:variable name="south" select="'50.6746'"/>
     <xsl:variable name="east" select="'5.9200'"/>
     <xsl:variable name="west" select="'2.5579'"/>
-    <xsl:variable name="place" select="substring-after($coverage,'. ')"/>
 
     <xsl:call-template name="render-boxed-element">
       <xsl:with-param name="label"
         select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), '', gn-fn-metadata:getXPath(.))/label"/>
       <xsl:with-param name="editInfo" select="gn:element"/>
       <xsl:with-param name="cls" select="local-name()"/>
-      <!-- <xsl:with-param name="attributesSnippet" select="$attributes"/> -->
       <xsl:with-param name="subTreeSnippet">
-        <div gn-draw-bbox="" 
+      <xsl:variable name="description" select="dct:Location/skos:prefLabel"/>
+
+        <div gn-draw-bbox=""
           data-hleft="{$west}"
           data-hright="{$east}" 
           data-hbottom="{$south}"
           data-htop="{$north}"
-          data-dc-ref="_{gn:element/@ref}"
+          data-dc-ref="_{dct:Location/locn:geometry/gn:element/@ref}"
           data-lang="lang"
-          data-location="{$place}"></div>
+          data-read-only="{false()}">
+          <xsl:if test="$description and $isFlatMode and not($metadataIsMultilingual)">
+            <xsl:attribute name="data-description"
+                           select="$description"/>
+            <xsl:attribute name="data-description-ref"
+                           select="concat('_', $description/gn:element/@ref)"/>
+          </xsl:if>
+        </div>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>

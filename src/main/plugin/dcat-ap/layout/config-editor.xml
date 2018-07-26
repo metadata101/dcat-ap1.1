@@ -3,8 +3,6 @@
 	<!-- Define form field types per metadata element. -->
 	<fields>
 		<for name="vcard:hasEmail" use="email"/>
-		<for name="schema:startDate" use="data-gn-date-picker"/>
-		<for name="schema:endDate" use="data-gn-date-picker"/>
 		<for name="dcat:byteSize" use="number"/>
 		<for name="dct:title" templateModeOnly="true">	
 			<template>
@@ -39,7 +37,6 @@
 				</snippet>
 			</template>
 		</for>
-		
 		<for name="vcard:Address" templateModeOnly="true">	
 			<template>
 				<values>
@@ -59,6 +56,30 @@
 				</snippet>
 			</template>
 		</for>
+		<for name="schema:startDate" templateModeOnly="true">
+			<template>
+				<values>
+					<key label="FieldId212" xpath="." use="gn-date-picker">
+						<directiveAttributes data-tag-name=""/>
+					</key>
+				</values>
+				<snippet>
+					<dct:modified>{{FieldId212}}</dct:modified>
+				</snippet>
+			</template>
+		</for>
+		<for name="schema:endDate" templateModeOnly="true">
+			<template>
+				<values>
+					<key label="FieldId214" xpath="." use="gn-date-picker">
+						<directiveAttributes data-tag-name=""/>
+					</key>
+				</values>
+				<snippet>
+					<dct:modified>{{FieldId214}}</dct:modified>
+				</snippet>
+			</template>
+		</for>
 		
 	</fields>
 	<!-- Complex fields. -->
@@ -73,6 +94,9 @@
 		<name>adms:Identifier</name>
 		<name>dct:provenance</name>
 		<name>dct:ProvenanceStatement</name>
+		<name>dct:temporal</name>
+		<name>dct:PeriodOfTime</name>
+		<name>dcat:extension</name>
 
 		<name>dcat:distribution</name>
 		<name>dcat:Distribution</name>
@@ -88,12 +112,6 @@
 		<name>dct:Standard</name>
 		<name>adms:status</name>
 		<name>adms:sample</name>
-<!--		
-		<name>dct:format</name>
-		<name>dcat:mediaType</name>
-		<name>dct:language</name>
-		<name>dct:type</name>
--->
 	</fieldsWithFieldset>
 	<multilingualFields>
 		<!-- In multilingual mode, define which mode
@@ -319,36 +337,77 @@
 							</snippet>
 						</template>
 					</action>
-
-					
-<!--
-	<section name="SectionLocation" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial"/>		
- -->
-					<!--section  name="SectionLocation">		
-		<field name="FieldId204" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/@rdf:about"/>	
-		<field name="FieldId205" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/locn:geometry" or="geometry" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location"/>	
-		<field name="FieldId207" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/skos:prefLabel" or="prefLabel" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location"/>	
-		<field name="FieldId208" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/skos:prefLabel/@xml:lang"/>
-	</section-->
-					<!-- 
-	<section  name="SectionPeriodOfTime">		
-		<field name="FieldId211" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime/@rdf:about"/>	
-		<field name="FieldId212" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime/schema:startDate" or="startDate" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime"/>	
-		<field name="FieldId214" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime/schema:endDate" or="endDate" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime"/>	
-	</section>
-	<section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:type/skos:Concept" name="SectionConcept">		
-	</section>
-	<field name="FieldId223" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo" or="versionInfo" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>	
-	<field name="FieldId224" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo/@xml:lang"/>	
-	<field name="FieldId225" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:versionNotes" or="versionNotes" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>	
-	<field name="FieldId226" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:versionNotes/@xml:lang"/>	
-	<section  name="SectionStatement">		
-		<field name="FieldId229" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:extension/rdf:Statement/@rdf:about"/>	
-		<field name="FieldId230" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:extension/rdf:Statement/rdf:subject/@rdf:resource"/>	
-		<field name="FieldId231" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:extension/rdf:Statement/rdf:predicate/@rdf:resource"/>	
-		<field name="FieldId232" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:extension/rdf:Statement/rdf:object/@rdf:resource"/>	
-	</section>
- -->
+					<field name="FieldId202" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial" or="spatial" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+					<field name="FieldId209" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal" or="temporal" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+					<field name="FieldId216" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:type" or="type" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+					<field name="FieldId223" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo">
+						<template>
+							<values>
+								<key label="FieldId223" xpath="." use="textarea"/>
+								<key label="FieldId224" xpath="@xml:lang"><helper name="xml:lang"/></key>
+							</values>
+							<snippet>
+								<owl:versionInfo xml:lang="{{FieldId224}}">{{FieldId223}}</owl:versionInfo>
+							</snippet>
+						</template>
+					</field>
+          <action type="add" btnLabel="FieldId223" or="versionInfo" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" if="count(/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo)=0">
+						<template>
+							<snippet>
+								<owl:versionInfo xml:lang=""/>
+							</snippet>
+						</template>
+					</action>
+					<field name="FieldId225" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:versionNotes">
+						<template>
+							<values>
+								<key label="FieldId225" xpath="." use="textarea"/>
+								<key label="FieldId226" xpath="@xml:lang"><helper name="xml:lang"/></key>
+							</values>
+							<snippet>
+								<adms:versionNotes xml:lang="{{FieldId226}}">{{FieldId225}}</adms:versionNotes>
+							</snippet>
+						</template>
+					</field>
+          <action type="add" btnLabel="FieldId225" or="versionNotes" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<snippet>
+								<adms:versionNotes xml:lang=""/>
+							</snippet>
+						</template>
+					</action>
+					<field name="FieldId227" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:extension">
+						<template>
+							<values>
+								<key label="FieldId229" xpath="rdf:Statement/@rdf:about"/>
+								<key label="FieldId230" xpath="rdf:Statement/rdf:subject/@rdf:resource"/>
+								<key label="FieldId231" xpath="rdf:Statement/rdf:predicate/@rdf:resource"/>
+								<key label="FieldId232" xpath="rdf:Statement/rdf:object/@rdf:resource"/>
+							</values>
+							<snippet>
+								<dcat:extension>
+									<rdf:Statement rdf:about="{{FieldId229}}">
+										<rdf:subject rdf:resource="{{FieldId230}}"/>
+										<rdf:predicate rdf:resource="{{FieldId231}}"/>
+										<rdf:object rdf:resource="{{FieldId232}}"/>
+									</rdf:Statement>
+								</dcat:extension>
+							</snippet>
+						</template>
+					</field>
+          <action type="add" btnLabel="FieldId227" or="extension" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+						<template>
+							<snippet>
+								<dcat:extension>
+									<rdf:Statement rdf:about="">
+										<rdf:subject rdf:resource=""/>
+										<rdf:predicate rdf:resource=""/>
+										<rdf:object rdf:resource=""/>
+									</rdf:Statement>
+								</dcat:extension>
+							</snippet>
+						</template>
+					</action>
 				</section>
 			</tab>
 			<tab id="distribution">
@@ -363,11 +422,10 @@
 				<thesaurus key="external.theme.organization-type" maxtags="1" transformations="" fieldset="false"/>
 				<thesaurus key="external.theme.data-theme" maxtags="1" transformations="" fieldset="false"/>
 				<thesaurus key="external.theme.frequency" maxtags="1" transformations="" fieldset="false"/>
-
-				<!--				<thesaurus key="external.theme.media-type" maxtags="1" transformations="" fieldset="false"/>-->
+				<thesaurus key="external.theme.language" maxtags="1" transformations="" fieldset="false"/>
 				<thesaurus key="external.theme.resource-type" maxtags="1" transformations="" fieldset="false"/>
 				<thesaurus key="external.theme.file-type" maxtags="1" transformations="" fieldset="false"/>
-				<thesaurus key="external.theme.language" maxtags="1" transformations="" fieldset="false"/>
+				<thesaurus key="external.theme.media-type" maxtags="1" transformations="" fieldset="false"/>
 				<thesaurus key="external.theme.licence" maxtags="1" transformations="" fieldset="false"/>
 			</thesaurusList>
 		</view>

@@ -168,7 +168,7 @@
 					<rdf:Statement rdf:about="http://www.altova.com/">
 						<rdf:subject rdf:resource="http://www.altova.com/"/>
 						<rdf:predicate rdf:resource="http://www.altova.com/"/>
-						<rdf:object rdf:datatype="text" rdf:resource="http://www.altova.com/">String</rdf:object>
+						<rdf:object rdf:datatype="text" rdf:resource="http://www.altova.com/"/>
 					</rdf:Statement>
 				</dcat:extension>
 				<dcat:distribution>

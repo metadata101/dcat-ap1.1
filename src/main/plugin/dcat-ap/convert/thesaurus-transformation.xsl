@@ -133,23 +133,26 @@
 		    	<xsl:copy-of select="$concept"/>
 		    </dct:language>
 			</xsl:when>
-    	<xsl:when test="ends-with($thesaurusKey,'file-type')">
-		    <dct:format>
-		    	<xsl:copy-of select="$concept"/>
-		    </dct:format>
-			</xsl:when>
     	<xsl:when test="ends-with($thesaurusKey,'resource-type')">
 		    <dct:type>
 		    	<xsl:copy-of select="$concept"/>
 		    </dct:type>
 			</xsl:when>
-<!--
+    	<xsl:when test="ends-with($thesaurusKey,'file-type')">
+		    <dct:format>
+		    	<xsl:copy-of select="$concept"/>
+		    </dct:format>
+			</xsl:when>
     	<xsl:when test="ends-with($thesaurusKey,'media-type')">
 		    <dcat:mediaType>
 		    	<xsl:copy-of select="$concept"/>
 		    </dcat:mediaType>
 			</xsl:when>
--->		
+    	<xsl:when test="ends-with($thesaurusKey,'licence')">
+		    <dcat:mediaType>
+		    	<xsl:copy-of select="$concept"/>
+		    </dcat:mediaType>
+			</xsl:when>
 			<xsl:otherwise>
 				<xsl:message select="concat('No concept added for a field value of thesaurus ', $thesaurusKey, '. Verify thesaurus-transformation.xsl.')"/>
 			</xsl:otherwise>

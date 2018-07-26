@@ -38,18 +38,22 @@
 		</xsl:copy>
 	</xsl:template>
 	<!-- ================================================================= -->
-	<xsl:template match="dcat:Dataset">
+	<xsl:template match="dcat:Dataset" priority="10">
+		<xsl:message>Updating dataset</xsl:message>
 		<dcat:Dataset>
+			<xsl:apply-templates select="@*"/>
 			<dct:identifier>
+				<xsl:message select="concat('Adding dct:identifier with value ',/root/env/uuid)" />
 				<xsl:value-of select="/root/env/uuid"/>
 			</dct:identifier>
-			<xsl:apply-templates select="@*|node()[not(name(.) = 'dct:identifier' and ./text() = /root/env/uuid)]"/>
+			<xsl:apply-templates select="node()[not(name(.) = 'dct:identifier' and ./text() = /root/env/uuid)]"/>
 		</dcat:Dataset>
 	</xsl:template>
 
-	<!-- Fill empty element -->
-	<xsl:template match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:LicenseDocument/dct:type|dct:format" priority="10">
+	<!-- Fill empty element and update existing with resourceType -->
+	<xsl:template match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:LicenseDocument/dct:type|dct:format|dcat:mediaType" priority="10">
 		<xsl:copy>
+			<xsl:message select="concat('Updating element with name ',name(.))" />
 			<xsl:apply-templates select="@*"/>
 	    <xsl:variable name="resource" select="gn-fn-dcat-ap:getResourceByElementName(name(.),name(..))"/>
 	    <xsl:variable name="resourceType" select="gn-fn-dcat-ap:getResourceTypeByElementName(name(.),name(..))"/>
@@ -74,6 +78,15 @@
 			    </skos:Concept>
 				</xsl:otherwise>
 			</xsl:choose>
+		</xsl:copy>
+	</xsl:template>
+
+	<!-- Fix value for attribute -->
+	<xsl:template match="rdf:Statement/rdf:object" priority="10">
+		<xsl:copy>
+			<xsl:message select="'Updating rdf:object with fix value'" />
+			<xsl:copy-of select="@*[not(name()='rdf:datatype')]"/>
+			<xsl:attribute name="rdf:datatype">xs:dateTime</xsl:attribute>
 		</xsl:copy>
 	</xsl:template>
 </xsl:stylesheet>
