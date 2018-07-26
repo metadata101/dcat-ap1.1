@@ -29,7 +29,7 @@
                 xmlns:date="http://exslt.org/dates-and-times"
                 xmlns:java="java:org.fao.geonet.util.XslUtil"
                 xmlns:joda="java:org.fao.geonet.domain.ISODate"
-                xmlns:mime="java:org.fao.geonet.util.MimeTypeFinder"              
+                xmlns:mime="java:org.fao.geonet.util.MimeTypeFinder"
                 version="2.0"
                 exclude-result-prefixes="#all">
   <!-- ========================================================================================= -->
@@ -73,6 +73,8 @@
   <!-- ================================================================== -->
   <!-- iso3code of default index language -->
   <xsl:variable name="defaultLang">dut</xsl:variable>
+  <xsl:variable name="defaultLang-2char">nl</xsl:variable>
+
 
   <xsl:template name="langId-dcat-ap">
 	<xsl:variable name="authorityLanguage" select="/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language[1]/skos:Concept/@rdf:about" />
@@ -84,6 +86,20 @@
 			<xsl:when test="ends-with($authorityLanguage,'DEU')">ger</xsl:when>
 			<xsl:otherwise><xsl:value-of select="$defaultLang"/></xsl:otherwise>
 		</xsl:choose>
+    </xsl:variable>
+    <xsl:value-of select="normalize-space(string($tmp))"></xsl:value-of>
+  </xsl:template>
+
+  <xsl:template name="langId-dcat-ap-2char">
+    <xsl:variable name="authorityLanguage" select="/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language[1]/skos:Concept/@rdf:about" />
+    <xsl:variable name="tmp">
+      <xsl:choose>
+        <xsl:when test="ends-with($authorityLanguage,'NLD')">nl</xsl:when>
+        <xsl:when test="ends-with($authorityLanguage,'FRA')">fr</xsl:when>
+        <xsl:when test="ends-with($authorityLanguage,'ENG')">en</xsl:when>
+        <xsl:when test="ends-with($authorityLanguage,'DEU')">de</xsl:when>
+        <xsl:otherwise><xsl:value-of select="$defaultLang-2char"/></xsl:otherwise>
+      </xsl:choose>
     </xsl:variable>
     <xsl:value-of select="normalize-space(string($tmp))"></xsl:value-of>
   </xsl:template>

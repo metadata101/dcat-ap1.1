@@ -40,6 +40,10 @@
     <xsl:call-template name="langId-dcat-ap" />
   </xsl:variable>
 
+  <xsl:variable name="langId">
+    <xsl:call-template name="langId-dcat-ap-2char" />
+  </xsl:variable>
+
 
   <xsl:template match="/">
     <xsl:apply-templates select="rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" />
@@ -94,13 +98,13 @@
 
     <!-- This is needed by the CITE test script to look for strings like 'a
             b*' strings that contain spaces -->
-    <xsl:for-each select="dct:title[@xml:lang='nl']">
+    <xsl:for-each select="dct:title[@xml:lang=$langId]">
       <Field name="title" string="{string(.)}" store="true" index="true" />
       <!-- not tokenized title for sorting -->
       <Field name="_title" string="{string(.)}" store="false" index="true" />
     </xsl:for-each>
 
-    <xsl:for-each select="dct:description">
+    <xsl:for-each select="dct:description[@xml:lang=$langId]">
       <Field name="abstract" string="{string(.)}" store="true" index="true" />
     </xsl:for-each>
 
@@ -125,7 +129,7 @@
     </xsl:for-each>
 
     <xsl:for-each
-      select="dct:language/skos:Concept/skos:prefLabel[@xml:lang='nl']">
+      select="dct:language/skos:Concept/skos:prefLabel[@xml:lang=$langId]">
       <Field name="mdLanguage" string="{string(.)}" store="true"
              index="true" />
     </xsl:for-each>
@@ -142,8 +146,8 @@
     </xsl:for-each>
 
     <xsl:for-each select="dct:accessRights/dct:RightsStatement">
-      <xsl:variable name="title" select="dct:title" />
-      <xsl:variable name="desc" select="dct:description" />
+      <xsl:variable name="title" select="dct:title[@xml:lang=$langId]" />
+      <xsl:variable name="desc" select="dct:description[@xml:lang=$langId]" />
       <Field name="dcat_accessRightsTitle" string="{string($title)}"
              store="true" index="true" />
       <Field name="dcat_accessRightsDesc" string="{string($desc)}"
@@ -154,8 +158,8 @@
     </xsl:for-each>
 
     <xsl:for-each select="dct:conformsTo/dct:Standard">
-      <xsl:variable name="title" select="dct:title" />
-      <xsl:variable name="desc" select="dct:description" />
+      <xsl:variable name="title" select="dct:title[@xml:lang=$langId]" />
+      <xsl:variable name="desc" select="dct:description[@xml:lang=$langId]" />
       <Field name="dcat_standardName" string="{string($title)}"
              store="true" index="true" />
       <Field name="dcat_standardDesc" string="{string($desc)}"
@@ -192,7 +196,7 @@
     </xsl:for-each>
 
     <!-- dcat:keyword -->
-    <xsl:for-each select="dcat:keyword[@xml:lang='nl']">
+    <xsl:for-each select="dcat:keyword[@xml:lang=$langId]">
       <xsl:variable name="keyword" select="string(.)" />
       <Field name="dcat_keyword" string="{$keyword}" store="true" index="true" />
     </xsl:for-each>
@@ -203,7 +207,7 @@
     </xsl:for-each>
 
     <!-- dcat:theme -->
-    <xsl:for-each select="dcat:theme/skos:Concept/skos:prefLabel[@xml:lang='nl']">
+    <xsl:for-each select="dcat:theme/skos:Concept/skos:prefLabel[@xml:lang=$langId]">
       <xsl:variable name="theme" select="string(.)" />
       <Field name="dcat_theme" string="{$theme}" store="true"
              index="true" />
@@ -211,9 +215,9 @@
     <!-- dcat:Distribution -->
     <xsl:for-each select="dcat:distribution/dcat:Distribution">
       <xsl:variable name="tPosition" select="position()" />
-      <xsl:variable name="title" select="dct:title" />
-      <xsl:variable name="desc" select="dct:description" />
-      <xsl:variable name="mediaTypeConceptLabel" select="dcat:mediaType/skos:Concept/skos:prefLabel[@xml:lang='nl']" />
+      <xsl:variable name="title" select="dct:title[@xml:lang=$langId]" />
+      <xsl:variable name="desc" select="dct:description[@xml:lang=$langId]" />
+      <xsl:variable name="mediaTypeConceptLabel" select="dcat:mediaType/skos:Concept/skos:prefLabel[@xml:lang=$langId]" />
 
       <xsl:for-each select="dcat:downloadURL">
         <xsl:variable name="downloadURLlinkage" select="string(@rdf:resource)" />
@@ -227,12 +231,12 @@
                store="true" index="true" />
       </xsl:for-each>
 
-      <xsl:for-each select="dct:format/skos:Concept/skos:prefLabel[@xml:lang='nl']">
+      <xsl:for-each select="dct:format/skos:Concept/skos:prefLabel[@xml:lang=$langId]">
         <Field name="format" string="{.}" store="true" index="true"/>
       </xsl:for-each>
 
       <xsl:for-each
-        select="dct:license/skos:Concept/skos:prefLabel[@xml:lang='nl']">
+        select="dct:license/skos:Concept/skos:prefLabel[@xml:lang=$langId]">
         <Field name="MD_LegalConstraintsUseLimitation" string="{string(.)}"
                store="true" index="true" />
       </xsl:for-each>
@@ -245,7 +249,7 @@
              store="true" index="true" />
 
       <Field name="dcat_distribution"
-             string="{concat($title, '|', $desc, '|', $mediaTypeConceptLabel, '|', $tPosition)}"
+             string="{concat($tPosition, '|', $title, '|', $desc, '|', $mediaTypeConceptLabel)}"
              store="true" index="false"/>
     </xsl:for-each>
 
@@ -333,10 +337,10 @@
       <Field name="dcat_publisher" string="{string(.)}"
              store="true" index="true" />
     </xsl:for-each>
-    <xsl:for-each select="dct:accrualPeriodicity">
+<!--    <xsl:for-each select="dct:accrualPeriodicity">
       <Field name="updateFrequency" string="{string(.)}" store="true"
              index="true" />
-    </xsl:for-each>
+    </xsl:for-each>-->
   </xsl:template>
   <xsl:template mode="index-contact" match="vcard:Organization">
     <xsl:param name="type" />
