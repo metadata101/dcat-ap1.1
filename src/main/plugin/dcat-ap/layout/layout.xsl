@@ -323,6 +323,7 @@
 			                    else
 			                    ((gn:element/@down = 'true' and not(gn:element/@up)) or
 			                    (not(gn:element/@down) and not(gn:element/@up)))"/>
+		      <xsl:with-param name="isDisabled" select="name(.)='dct:identifier' and count(preceding-sibling::*[name(.) = 'dct:identifier'])=0"/>
 			  </xsl:call-template>
 			
 			  <!-- Add a control to add this type of element
@@ -356,23 +357,6 @@
 		</xsl:choose>
   </xsl:template>
 
-	<!-- Readonly elements -->
-  <xsl:template mode="mode-dcat-ap" priority="200" match="dct:identifier[count(preceding-sibling::*[name(.) = 'dct:identifier'])=0]">
-    
-    <xsl:call-template name="render-element">
-      <xsl:with-param name="label" select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), '', gn-fn-metadata:getXPath(.))/label"/>
-      <xsl:with-param name="value" select="."/>
-      <xsl:with-param name="cls" select="local-name()"/>
-      <xsl:with-param name="xpath" select="gn-fn-metadata:getXPath(.)"/>
-      <xsl:with-param name="type" select="gn-fn-metadata:getFieldType($editorConfig, name(), '')"/>
-      <xsl:with-param name="name" select="''"/>
-      <xsl:with-param name="editInfo" select="*/gn:element"/>
-      <xsl:with-param name="parentEditInfo" select="gn:element"/>
-      <xsl:with-param name="isDisabled" select="true()"/>
-    </xsl:call-template>
-    
-  </xsl:template>
-  
   <xsl:template mode="mode-dcat-ap" match="dct:spatial" priority="2000">
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>

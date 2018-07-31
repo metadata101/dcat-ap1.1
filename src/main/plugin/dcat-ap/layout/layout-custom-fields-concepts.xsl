@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+				xmlns:adms="http://www.w3.org/ns/adms#"
 				xmlns:dct="http://purl.org/dc/terms/" 
 				xmlns:dcat="http://www.w3.org/ns/dcat#"
 				xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -14,7 +15,7 @@
                 exclude-result-prefixes="#all">
 
 
-  <xsl:template mode="mode-dcat-ap" priority="2000" match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:format|dcat:mediaType|dct:LicenseDocument/dct:type">
+  <xsl:template mode="mode-dcat-ap" priority="2000" match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:format|dcat:mediaType|adms:status|dct:LicenseDocument/dct:type">
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
 

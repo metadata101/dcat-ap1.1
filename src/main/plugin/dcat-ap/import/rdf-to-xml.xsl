@@ -76,7 +76,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 					<xsl:call-template name="licenses">
 						<xsl:with-param name="licenseURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/license' and
 											sr:binding[@name='subject']/* = $catalogURI]/sr:binding[@name='object']"/>
-						<xsl:with-param name="predicate">dct:licenses</xsl:with-param>
+						<xsl:with-param name="predicate">dct:license</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:language-->
 					<xsl:call-template name="concepts">

@@ -54,6 +54,9 @@
 		<xsl:when test="$key = concat($keyPrefix,'media-type')">
 			<xsl:value-of select="concat($resourceBaseUrl,'file-type')"/>
 		</xsl:when>
+		<xsl:when test="$key = concat($keyPrefix,'status')">
+			<xsl:value-of select="concat($resourceBaseUrl,'status')"/>
+		</xsl:when>
 		<xsl:when test="$key = concat($keyPrefix,'licence')">
 			<xsl:value-of select="concat($resourceBaseUrl,'licence')"/>
 		</xsl:when>

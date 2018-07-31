@@ -51,7 +51,7 @@
 	</xsl:template>
 
 	<!-- Fill empty element and update existing with resourceType -->
-	<xsl:template match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:LicenseDocument/dct:type|dct:format|dcat:mediaType" priority="10">
+	<xsl:template match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:format|dcat:mediaType|adms:status|dct:LicenseDocument/dct:type" priority="10">
 		<xsl:copy>
 			<xsl:message select="concat('Updating element with name ',name(.))" />
 			<xsl:apply-templates select="@*"/>
@@ -60,7 +60,9 @@
 			<xsl:choose>
 				<xsl:when test="count(*)=0 or count(skos:Concept/*[name(.)='skos:prefLabel'])=0">
 			    <skos:Concept rdf:about="">
-			    	<rdf:type rdf:resource="{$resourceType}"/>
+			    	<xsl:if test="$resourceType!=''">
+			    		<rdf:type rdf:resource="{$resourceType}"/>
+			    	</xsl:if>
 	          <skos:prefLabel xml:lang="nl"/>
 	          <skos:prefLabel xml:lang="en"/>
 	          <skos:prefLabel xml:lang="fr"/>
@@ -70,7 +72,9 @@
 				</xsl:when>
 				<xsl:otherwise>
 			    <skos:Concept rdf:about="{skos:Concept/@rdf:about}">
-			    	<rdf:type rdf:resource="{$resourceType}"/>
+			    	<xsl:if test="$resourceType!=''">
+			    		<rdf:type rdf:resource="{$resourceType}"/>
+			    	</xsl:if>
 			    	<xsl:for-each select="skos:Concept/*[name(.)='skos:prefLabel']">
 	          	<xsl:copy-of select="."/>
 	          </xsl:for-each>

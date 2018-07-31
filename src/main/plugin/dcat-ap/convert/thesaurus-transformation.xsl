@@ -23,6 +23,7 @@
   -->
 
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+				xmlns:adms="http://www.w3.org/ns/adms#"
 				xmlns:dct="http://purl.org/dc/terms/" 
 				xmlns:dcat="http://www.w3.org/ns/dcat#"
 				xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -148,10 +149,15 @@
 		    	<xsl:copy-of select="$concept"/>
 		    </dcat:mediaType>
 			</xsl:when>
-    	<xsl:when test="ends-with($thesaurusKey,'licence')">
-		    <dcat:mediaType>
+    	<xsl:when test="ends-with($thesaurusKey,'status')">
+		    <adms:status>
 		    	<xsl:copy-of select="$concept"/>
-		    </dcat:mediaType>
+		    </adms:status>
+			</xsl:when>
+    	<xsl:when test="ends-with($thesaurusKey,'licence')">
+		    <dct:type>
+		    	<xsl:copy-of select="$concept"/>
+		    </dct:type>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:message select="concat('No concept added for a field value of thesaurus ', $thesaurusKey, '. Verify thesaurus-transformation.xsl.')"/>

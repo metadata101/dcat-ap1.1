@@ -7,7 +7,7 @@
 		<for name="dct:title" templateModeOnly="true">	
 			<template>
 				<values>
-					<key label="FieldId157" required="true" xpath="." use="textarea"/>
+					<key label="FieldId157" required="true" xpath="."/>
 					<key label="FieldId158" xpath="@xml:lang"><helper name="xml:lang"/></key>
 				</values>
 				<snippet>
@@ -29,7 +29,7 @@
 		<for name="foaf:name" templateModeOnly="true">	
 			<template>
 				<values>
-					<key label="FieldId136" required="true" xpath="." use="textarea"/>
+					<key label="FieldId136" required="true" xpath="."/>
 					<key label="FieldId137" xpath="@xml:lang"><helper name="xml:lang"/></key>
 				</values>
 				<snippet>
@@ -148,7 +148,7 @@
 					<field name="FieldId109" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title">
 						<template>
 							<values>
-								<key label="FieldId109" required="true" xpath="." use="textarea"/>
+								<key label="FieldId109" required="true" xpath="."/>
 								<key label="FieldId110" xpath="@xml:lang"><helper name="xml:lang"/></key>
 							</values>
 							<snippet>
@@ -343,7 +343,7 @@
 					<field name="FieldId223" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo">
 						<template>
 							<values>
-								<key label="FieldId223" xpath="." use="textarea"/>
+								<key label="FieldId223" xpath="."/>
 								<key label="FieldId224" xpath="@xml:lang"><helper name="xml:lang"/></key>
 							</values>
 							<snippet>
@@ -427,6 +427,7 @@
 				<thesaurus key="external.theme.file-type" maxtags="1" transformations="" fieldset="false"/>
 				<thesaurus key="external.theme.media-type" maxtags="1" transformations="" fieldset="false"/>
 				<thesaurus key="external.theme.licence" maxtags="1" transformations="" fieldset="false"/>
+				<thesaurus key="external.theme.status" maxtags="1" transformations="" fieldset="false"/>
 			</thesaurusList>
 		</view>
 		<view name="xml">

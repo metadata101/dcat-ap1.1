@@ -55,6 +55,9 @@
 			<xsl:when test="$elementName = 'dcat:mediaType'">
 				<xsl:value-of select="concat($resourceBaseUrl,'media-type')"/>
 			</xsl:when>
+			<xsl:when test="$elementName = 'adms:status'">
+				<xsl:value-of select="concat($resourceBaseUrl,'status')"/>
+			</xsl:when>
   		<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dct:LicenseDocument'">
 				<xsl:value-of select="concat($resourceBaseUrl,'licence')"/>
 			</xsl:when>
@@ -89,8 +92,11 @@
 			<xsl:when test="$elementName = 'dcat:mediaType'">
 				<xsl:value-of select="'dct:MediatypeOrExtent'"/>
 			</xsl:when>
+			<xsl:when test="$elementName = 'adms:status'">
+				<xsl:value-of select="''"/>
+			</xsl:when>
 			<xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dct:LicenseDocument'">
-				<xsl:value-of select="'dct:LicenseDocument'"/>
+				<xsl:value-of select="''"/>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:value-of select="''"/>
@@ -121,6 +127,9 @@
 		</xsl:when>
 		<xsl:when test="$resource = concat($resourceBaseUrl,'media-type')">
 			<xsl:value-of select="'Mediatype thesaurus'"/>
+		</xsl:when>
+		<xsl:when test="$resource = concat($resourceBaseUrl,'status')">
+			<xsl:value-of select="'Status thesaurus'"/>
 		</xsl:when>
 		<xsl:when test="$resource = concat($resourceBaseUrl,'licence')">
 			<xsl:value-of select="'Type thesaurus'"/>
