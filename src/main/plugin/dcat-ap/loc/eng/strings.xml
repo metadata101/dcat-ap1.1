@@ -12,5 +12,186 @@
   <dataset>Dataset</dataset>
   <metadata-on-metadata>Metadata on metadata</metadata-on-metadata>
   <distribution>Distribution</distribution>
-  <vcardFn>Name</vcardFn>
+	<!-- DCAT-AP view labels and help -->
+	<SectionDataset>dataset</SectionDataset>
+	<FieldId108>URI</FieldId108>
+	<FieldId109>title</FieldId109>
+	<FieldId110>language</FieldId110>
+	<FieldId111>description</FieldId111>
+	<FieldId112>language</FieldId112>
+	<FieldId113>identifier</FieldId113>
+	<FieldId114>contact point</FieldId114>
+	<SectionOrganization>contact organisation</SectionOrganization>
+	<FieldId116>URI</FieldId116>
+	<FieldId117>contact name</FieldId117>
+	<FieldId118>organisation name</FieldId118>
+	<FieldId119>address</FieldId119>
+	<SectionAddress>address</SectionAddress>
+	<FieldId121>URI</FieldId121>
+	<FieldId122>street</FieldId122>
+	<FieldId123>locality</FieldId123>
+	<FieldId124>postal code</FieldId124>
+	<FieldId125>country</FieldId125>
+	<FieldId126>e-mail</FieldId126>
+	<FieldId127>website</FieldId127>
+	<FieldId128>telephone number</FieldId128>
+	<FieldId129>release date</FieldId129>
+	<FieldId131>update/ modification date</FieldId131>
+	<FieldId133>publisher</FieldId133>
+	<SectionAgent>organisation</SectionAgent>
+	<FieldId135>URI</FieldId135>
+	<FieldId136>name</FieldId136>
+	<FieldId137>language</FieldId137>
+	<FieldId138>type</FieldId138>
+	<FieldId145>keyword/ tag</FieldId145>
+	<FieldId146>language</FieldId146>
+	<FieldId147>theme/ category</FieldId147>
+	<FieldId154>access rights</FieldId154>
+	<SectionRightsStatement>rechten</SectionRightsStatement>
+	<FieldId156>URI</FieldId156>
+	<FieldId157>title</FieldId157>
+	<FieldId158>language</FieldId158>
+	<FieldId159>description</FieldId159>
+	<FieldId160>language</FieldId160>
+	<FieldId161>conforms to</FieldId161>
+	<SectionStandard>standard</SectionStandard>
+	<FieldId163>URI</FieldId163>
+	<FieldId164>title</FieldId164>
+	<FieldId165>language</FieldId165>
+	<FieldId166>description</FieldId166>
+	<FieldId167>language</FieldId167>
+	<FieldId168>documentation</FieldId168>
+	<SectionDocument>document</SectionDocument>
+	<FieldId170>URI</FieldId170>
+	<FieldId171>name</FieldId171>
+	<FieldId172>language</FieldId172>
+	<FieldId173>frequency</FieldId173>
+	<FieldId180>has version</FieldId180>
+	<FieldId181>is version of</FieldId181>
+	<FieldId182>landing page</FieldId182>
+	<FieldId183>language</FieldId183>
+	<FieldId190>other identifier</FieldId190>
+	<SectionIdentifier>other identifier</SectionIdentifier>
+	<FieldId192>URI</FieldId192>
+	<FieldId193>notation</FieldId193>
+	<FieldId195>provenance</FieldId195>
+	<SectionProvenanceStatement>provenance statement</SectionProvenanceStatement>
+	<FieldId197>URI</FieldId197>
+	<FieldId198>description</FieldId198>
+	<FieldId199>language</FieldId199>
+	<FieldId200>related resource</FieldId200>
+	<FieldId201>source</FieldId201>
+	<FieldId202>spatial / geographic extent</FieldId202>
+	<SectionLocation>location</SectionLocation>
+	<FieldId204>URI</FieldId204>
+	<FieldId205>geometry</FieldId205>
+	<FieldId207>preferred label</FieldId207>
+	<FieldId208>language</FieldId208>
+	<FieldId209>temporal coverage</FieldId209>
+	<SectionPeriodOfTime>period of time</SectionPeriodOfTime>
+	<FieldId211>URI</FieldId211>
+	<FieldId212>start date/time</FieldId212>
+	<FieldId214>end date/time</FieldId214>
+	<FieldId216>type</FieldId216>
+	<FieldId223>version</FieldId223>
+	<FieldId224>language</FieldId224>
+	<FieldId225>version notes</FieldId225>
+	<FieldId226>language</FieldId226>
+	<FieldId227>extended fields</FieldId227>
+	<SectionStatement>statement</SectionStatement>
+	<FieldId229>URI</FieldId229>
+	<FieldId230>subject</FieldId230>
+	<FieldId231>predicate</FieldId231>
+	<FieldId232>object</FieldId232>
+	<FieldId234>dataset distribution</FieldId234>
+	<SectionDistribution>dataset distribution</SectionDistribution>
+	<FieldId236>URI</FieldId236>
+	<FieldId237>title</FieldId237>
+	<FieldId238>language</FieldId238>
+	<FieldId239>description</FieldId239>
+	<FieldId240>language</FieldId240>
+	<FieldId241>access URL</FieldId241>
+	<FieldId242>download URL</FieldId242>
+	<FieldId243>release date</FieldId243>
+	<FieldId245>update/ modification date</FieldId245>
+	<FieldId247>format</FieldId247>
+	<FieldId254>media type</FieldId254>
+	<FieldId261>language</FieldId261>
+	<FieldId268>licence</FieldId268>
+	<SectionLicenseDocument>licentie</SectionLicenseDocument>
+	<FieldId270>URI</FieldId270>
+	<FieldId271>type</FieldId271>
+	<FieldId278>title</FieldId278>
+	<FieldId279>language</FieldId279>
+	<FieldId280>description</FieldId280>
+	<FieldId281>language</FieldId281>
+	<FieldId282>identifier</FieldId282>
+	<FieldId283>rights</FieldId283>
+	<SectionRightsStatement>rechten</SectionRightsStatement>
+	<FieldId285>URI</FieldId285>
+	<FieldId286>title</FieldId286>
+	<FieldId287>language</FieldId287>
+	<FieldId288>description</FieldId288>
+	<FieldId289>language</FieldId289>
+	<FieldId290>byte size</FieldId290>
+	<FieldId291>checksum</FieldId291>
+	<SectionChecksum>checksum</SectionChecksum>
+	<FieldId293>URI</FieldId293>
+	<FieldId294>algorithm</FieldId294>
+	<FieldId295>checksum value</FieldId295>
+	<FieldId296>documentation</FieldId296>
+	<SectionDocument>document</SectionDocument>
+	<FieldId298>URI</FieldId298>
+	<FieldId299>name</FieldId299>
+	<FieldId300>language</FieldId300>
+	<FieldId301>conforms to</FieldId301>
+	<SectionStandard>standard</SectionStandard>
+	<FieldId303>URI</FieldId303>
+	<FieldId304>title</FieldId304>
+	<FieldId305>language</FieldId305>
+	<FieldId306>description</FieldId306>
+	<FieldId307>language</FieldId307>
+	<FieldId308>change type</FieldId308>
+	<FieldId315>sample</FieldId315>
+	<SectionDistribution>dataset distribution</SectionDistribution>
+	<FieldId317>URI</FieldId317>
+	<FieldId318>title</FieldId318>
+	<FieldId319>language</FieldId319>
+	<FieldId320>description</FieldId320>
+	<FieldId321>language</FieldId321>
+	<FieldId322>access URL</FieldId322>
+	<FieldId323>download URL</FieldId323>
+	<FieldId324>release date</FieldId324>
+	<FieldId326>update/ modification date</FieldId326>
+	<FieldId328>format</FieldId328>
+	<FieldId335>media type</FieldId335>
+	<FieldId336>language</FieldId336>
+	<FieldId343>licence</FieldId343>
+	<SectionLicenseDocument>licentie</SectionLicenseDocument>
+	<FieldId345>URI</FieldId345>
+	<FieldId346>type</FieldId346>
+	<FieldId353>title</FieldId353>
+	<FieldId354>language</FieldId354>
+	<FieldId355>description</FieldId355>
+	<FieldId356>language</FieldId356>
+	<FieldId357>identifier</FieldId357>
+	<FieldId358>byte size</FieldId358>
+	<FieldId359>checksum</FieldId359>
+	<SectionChecksum>checksum</SectionChecksum>
+	<FieldId361>URI</FieldId361>
+	<FieldId362>algorithm</FieldId362>
+	<FieldId363>checksum value</FieldId363>
+	<FieldId364>documentation</FieldId364>
+	<SectionDocument>document</SectionDocument>
+	<FieldId366>URI</FieldId366>
+	<FieldId367>name</FieldId367>
+	<FieldId368>language</FieldId368>
+	<FieldId369>conforms to</FieldId369>
+	<SectionStandard>standard</SectionStandard>
+	<FieldId371>URI</FieldId371>
+	<FieldId372>title</FieldId372>
+	<FieldId373>language</FieldId373>
+	<FieldId374>description</FieldId374>
+	<FieldId375>language</FieldId375>
+	<FieldId376>change type</FieldId376>
 </strings>

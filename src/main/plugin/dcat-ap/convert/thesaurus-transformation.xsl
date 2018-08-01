@@ -114,7 +114,7 @@
 	<xsl:variable name="thesaurusKey"
 	              select="if (thesaurus/key) then thesaurus/key else /root/request/thesaurus"/>
     <xsl:choose>
-	   	<xsl:when test="ends-with($thesaurusKey,'organization-type')">
+	   	<xsl:when test="ends-with($thesaurusKey,'publisher-type')">
 		    <dct:type>
 		    	<xsl:copy-of select="$concept"/>
 		    </dct:type>
@@ -154,7 +154,7 @@
 		    	<xsl:copy-of select="$concept"/>
 		    </adms:status>
 			</xsl:when>
-    	<xsl:when test="ends-with($thesaurusKey,'licence')">
+    	<xsl:when test="ends-with($thesaurusKey,'licence-type')">
 		    <dct:type>
 		    	<xsl:copy-of select="$concept"/>
 		    </dct:type>

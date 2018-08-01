@@ -22,14 +22,14 @@
 	<FieldId112>taal</FieldId112>
 	<FieldId113>identificator</FieldId113>
 	<FieldId114>contactpunt</FieldId114>
-	<SectionOrganization>contact organisation</SectionOrganization>
+	<SectionOrganization>contactpunt organisatie</SectionOrganization>
 	<FieldId116>URI</FieldId116>
 	<FieldId117>contactnaam</FieldId117>
 	<FieldId118>naam organisatie</FieldId118>
 	<FieldId119>adres</FieldId119>
-	<SectionAddress>address</SectionAddress>
+	<SectionAddress>adres</SectionAddress>
 	<FieldId121>URI</FieldId121>
-	<FieldId122>street</FieldId122>
+	<FieldId122>straat</FieldId122>
 	<FieldId123>gemeente</FieldId123>
 	<FieldId124>postcode</FieldId124>
 	<FieldId125>land</FieldId125>
@@ -39,7 +39,7 @@
 	<FieldId129>publicatiedatum</FieldId129>
 	<FieldId131>laatst gewijzigd</FieldId131>
 	<FieldId133>uitgever/eigenaar</FieldId133>
-	<SectionAgent>organisation</SectionAgent>
+	<SectionAgent>organisatie</SectionAgent>
 	<FieldId135>URI</FieldId135>
 	<FieldId136>naam</FieldId136>
 	<FieldId137>taal</FieldId137>
@@ -55,7 +55,7 @@
 	<FieldId159>beschrijving</FieldId159>
 	<FieldId160>taal</FieldId160>
 	<FieldId161>conform met</FieldId161>
-	<SectionStandard>standard</SectionStandard>
+	<SectionStandard>standaard</SectionStandard>
 	<FieldId163>URI</FieldId163>
 	<FieldId164>titel</FieldId164>
 	<FieldId165>taal</FieldId165>
@@ -72,24 +72,24 @@
 	<FieldId182>bijsluiter</FieldId182>
 	<FieldId183>taal</FieldId183>
 	<FieldId190>andere identificator</FieldId190>
-	<SectionIdentifier>other identifier</SectionIdentifier>
+	<SectionIdentifier>andere identificator</SectionIdentifier>
 	<FieldId192>URI</FieldId192>
 	<FieldId193>notatie</FieldId193>
 	<FieldId195>beschrijving herkomst</FieldId195>
-	<SectionProvenanceStatement>provenance statement</SectionProvenanceStatement>
+	<SectionProvenanceStatement>beschrijving herkomst</SectionProvenanceStatement>
 	<FieldId197>URI</FieldId197>
 	<FieldId198>beschrijving</FieldId198>
 	<FieldId199>taal</FieldId199>
 	<FieldId200>verwante bron</FieldId200>
 	<FieldId201>bron</FieldId201>
 	<FieldId202>ruimtelijke dekking</FieldId202>
-	<SectionLocation>location</SectionLocation>
+	<SectionLocation>locatie</SectionLocation>
 	<FieldId204>URI</FieldId204>
 	<FieldId205>geometrie</FieldId205>
 	<FieldId207>label</FieldId207>
 	<FieldId208>taal</FieldId208>
 	<FieldId209>temporele begrenzing</FieldId209>
-	<SectionPeriodOfTime>period of time</SectionPeriodOfTime>
+	<SectionPeriodOfTime>tijdsperiode</SectionPeriodOfTime>
 	<FieldId211>URI</FieldId211>
 	<FieldId212>eind (datum/tijd)</FieldId212>
 	<FieldId214>start (datum/tijd)</FieldId214>
@@ -99,13 +99,13 @@
 	<FieldId225>versie nota's</FieldId225>
 	<FieldId226>taal</FieldId226>
 	<FieldId227>bijkomende informatie</FieldId227>
-	<SectionStatement>statement</SectionStatement>
+	<SectionStatement>toegevoegde informatie</SectionStatement>
 	<FieldId229>URI</FieldId229>
 	<FieldId230>subject</FieldId230>
 	<FieldId231>predicaat</FieldId231>
 	<FieldId232>object</FieldId232>
 	<FieldId234>distributie</FieldId234>
-	<SectionDistribution>dataset distribution</SectionDistribution>
+	<SectionDistribution>distributie</SectionDistribution>
 	<FieldId236>URI</FieldId236>
 	<FieldId237>titel</FieldId237>
 	<FieldId238>taal</FieldId238>
@@ -136,7 +136,7 @@
 	<FieldId289>taal</FieldId289>
 	<FieldId290>grootte (bytes)</FieldId290>
 	<FieldId291>checksom</FieldId291>
-	<SectionChecksum>checksum</SectionChecksum>
+	<SectionChecksum>checksom</SectionChecksum>
 	<FieldId293>URI</FieldId293>
 	<FieldId294>algoritme</FieldId294>
 	<FieldId295>checksom waarde</FieldId295>
@@ -146,7 +146,7 @@
 	<FieldId299>naam</FieldId299>
 	<FieldId300>taal</FieldId300>
 	<FieldId301>conform met</FieldId301>
-	<SectionStandard>standard</SectionStandard>
+	<SectionStandard>standaard</SectionStandard>
 	<FieldId303>URI</FieldId303>
 	<FieldId304>titel</FieldId304>
 	<FieldId305>taal</FieldId305>
@@ -154,7 +154,7 @@
 	<FieldId307>taal</FieldId307>
 	<FieldId308>status</FieldId308>
 	<FieldId315>voorbeeld</FieldId315>
-	<SectionDistribution>dataset distribution</SectionDistribution>
+	<SectionDistribution>distributie</SectionDistribution>
 	<FieldId317>URI</FieldId317>
 	<FieldId318>titel</FieldId318>
 	<FieldId319>taal</FieldId319>
@@ -178,7 +178,7 @@
 	<FieldId357>identificator</FieldId357>
 	<FieldId358>grootte (bytes)</FieldId358>
 	<FieldId359>checksom</FieldId359>
-	<SectionChecksum>checksum</SectionChecksum>
+	<SectionChecksum>checksom</SectionChecksum>
 	<FieldId361>URI</FieldId361>
 	<FieldId362>algoritme</FieldId362>
 	<FieldId363>checksom waarde</FieldId363>
@@ -188,7 +188,7 @@
 	<FieldId367>naam</FieldId367>
 	<FieldId368>taal</FieldId368>
 	<FieldId369>conform met</FieldId369>
-	<SectionStandard>standard</SectionStandard>
+	<SectionStandard>standaard</SectionStandard>
 	<FieldId371>URI</FieldId371>
 	<FieldId372>titel</FieldId372>
 	<FieldId373>taal</FieldId373>
