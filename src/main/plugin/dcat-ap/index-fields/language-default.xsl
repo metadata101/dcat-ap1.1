@@ -23,30 +23,140 @@
   ~ Rome - Italy. email: geonetwork@osgeo.org
   -->
 
-<xsl:stylesheet version="1.0" xmlns:gmd="http://www.isotc211.org/2005/gmd"
-	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-	xmlns:gco="http://www.isotc211.org/2005/gco"
-	xmlns:gml="http://www.opengis.net/gml"
-	xmlns:srv="http://www.isotc211.org/2005/srv"
-	xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet version="2.0" xmlns:foaf="http://xmlns.com/foaf/0.1/"
+                 xmlns:schema="http://schema.org/"
+                 xmlns:owl="http://www.w3.org/2002/07/owl#"
+                 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:dct="http://purl.org/dc/terms/" xmlns:spdx="http://spdx.org/rdf/terms#"
+                 xmlns:adms="http://www.w3.org/ns/adms#" xmlns:locn="http://www.w3.org/ns/locn#"
+                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:dcat="http://www.w3.org/ns/dcat#"
+                 xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+                 xmlns:util="java:org.fao.geonet.util.XslUtil" xmlns:geonet="http://www.fao.org/geonetwork">
+<xsl:include href="../convert/functions.xsl" />
+<xsl:include href="../../../../xsl/utils-fn.xsl" />
 
 	<!-- This file defines what parts of the metadata are indexed by Lucene
-	     Searches can be conducted on indexes defined here. 
+	     Searches can be conducted on indexes defined here.
 	     The Field@name attribute defines the name of the search variable.
-		 If a variable has to be maintained in the user session, it needs to be 
+		 If a variable has to be maintained in the user session, it needs to be
 		 added to the GeoNetwork constants in the Java source code.
 		 Please keep indexes consistent among metadata standards if they should
 		 work accross different metadata resources -->
 	<!-- ========================================================================================= -->
-	
-	<xsl:output method="xml" version="1.0" encoding="UTF-8" indent="yes" />
-	
+
+  <xsl:output method="xml" version="1.0" encoding="UTF-8" indent="no"/>
+
 	<!-- ========================================================================================= -->
 
-	<xsl:template match="/">
-		<Documents>
-		<!-- TODO dc:Records should use xml:lang attributes -->
-		</Documents>
-	</xsl:template>
-	
+  <xsl:variable name="isoDocLangId">
+    <xsl:call-template name="langId-dcat-ap" />
+  </xsl:variable>
+
+  <xsl:variable name="langId">
+    <xsl:call-template name="langId3to2">
+      <xsl:with-param name="langId-3char" select="$isoDocLangId" />
+    </xsl:call-template>
+  </xsl:variable>
+
+  <xsl:template match="/">
+
+    <Documents>
+
+      <xsl:message>for-each</xsl:message>
+      <xsl:for-each select="//dcat:Catalog/dct:language/@rdf:resource|//dcat:Dataset/dct:language//@rdf:about[not(.=//dcat:Catalog/dct:language/@rdf:resource)]">
+
+        <xsl:variable name="isoLangId">
+          <xsl:call-template name="interpretLanguage">
+            <xsl:with-param name="input" select="string(.)"/>
+          </xsl:call-template>
+        </xsl:variable>
+
+        <xsl:if test="not($isoLangId = $isoDocLangId)">
+          <xsl:call-template name="document">
+            <xsl:with-param name="isoLangId" select="$isoLangId"/>
+          </xsl:call-template>
+        </xsl:if>
+
+      </xsl:for-each>
+    </Documents>
+
+  </xsl:template>
+
+  <!-- ========================================================================================= -->
+
+  <xsl:template name="document">
+    <xsl:param name="isoLangId"/>
+
+    <Document locale="{$isoLangId}">
+    <Field name="_locale" string="{$isoLangId}" store="true" index="true"/>
+    <Field name="_docLocale" string="{$isoDocLangId}" store="true" index="true"/>
+
+    <xsl:apply-templates select="//dcat:Dataset">
+      <xsl:with-param name="langId" select="$langId"/>
+      <xsl:with-param name="isoLangId" select="$isoLangId"/>
+    </xsl:apply-templates>
+
+    </Document>
+
+  </xsl:template>
+
+  <xsl:template match="dcat:Dataset">
+    <xsl:param name="isoLangId"/>
+    <xsl:param name="langId"/>
+
+    <xsl:variable name="_defaultTitle">
+      <xsl:call-template name="defaultTitle">
+        <xsl:with-param name="isoDocLangId" select="$isoLangId" />
+      </xsl:call-template>
+    </xsl:variable>
+
+    <Field name="_defaultTitle" string="{string($_defaultTitle)}"
+           store="true" index="true" />
+
+    <!-- not tokenized title for sorting, needed for multilingual sorting -->
+    <xsl:if test="geonet:info/isTemplate != 's'">
+      <Field name="_title" string="{string($_defaultTitle)}" store="true"
+             index="true" />
+    </xsl:if>
+
+    <xsl:variable name="_defaultAbstract">
+      <xsl:call-template name="defaultAbstract">
+        <xsl:with-param name="isoDocLangId" select="$isoLangId" />
+      </xsl:call-template>
+    </xsl:variable>
+
+    <Field name="_defaultAbstract" string="{string($_defaultAbstract)}"
+           store="true" index="true" />
+
+    <xsl:call-template name="index-lang-tag">
+      <xsl:with-param name="tag" select="dcat:theme"/>
+      <xsl:with-param name="field" select="'dcat_theme'"/>
+      <xsl:with-param name="langId" select="$langId"/>
+    </xsl:call-template>
+
+    <xsl:for-each select="dcat:distribution/dcat:Distribution">
+
+      <xsl:variable name="mediaTypeConceptLabel">
+        <xsl:call-template name="index-lang-tag-oneval">
+          <xsl:with-param name="tag" select="dct:mediaType"/>
+          <xsl:with-param name="langId" select="$langId"/>
+        </xsl:call-template>
+      </xsl:variable>
+
+      <xsl:call-template name="index-lang-tag">
+        <xsl:with-param name="tag" select="dct:format"/>
+        <xsl:with-param name="field" select="'format'"/>
+        <xsl:with-param name="langId" select="$langId"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="index-lang-tag">
+        <xsl:with-param name="tag" select="dct:license"/>
+        <xsl:with-param name="field" select="'MD_LegalConstraintsUseLimitation'"/>
+        <xsl:with-param name="langId" select="$langId"/>
+      </xsl:call-template>
+
+    </xsl:for-each>
+
+  </xsl:template>
+
 </xsl:stylesheet>

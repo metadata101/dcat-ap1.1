@@ -75,40 +75,96 @@
   <xsl:variable name="defaultLang">dut</xsl:variable>
   <xsl:variable name="defaultLang-2char">nl</xsl:variable>
 
-
-  <xsl:template name="langId-dcat-ap">
-	<xsl:variable name="authorityLanguage" select="/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language[1]/skos:Concept/@rdf:about" />
-    <xsl:variable name="tmp">
-		<xsl:choose>
-			<xsl:when test="ends-with($authorityLanguage,'NLD')">dut</xsl:when>
-			<xsl:when test="ends-with($authorityLanguage,'FRA')">fre</xsl:when>
-			<xsl:when test="ends-with($authorityLanguage,'ENG')">eng</xsl:when>
-			<xsl:when test="ends-with($authorityLanguage,'DEU')">ger</xsl:when>
-			<xsl:otherwise><xsl:value-of select="$defaultLang"/></xsl:otherwise>
-		</xsl:choose>
-    </xsl:variable>
-    <xsl:value-of select="normalize-space(string($tmp))"></xsl:value-of>
+  <xsl:template name="interpretLanguage">
+    <xsl:param name="input"/>
+    <xsl:choose>
+      <xsl:when test="ends-with($input,'nld')">dut</xsl:when>
+      <xsl:when test="ends-with($input,'fre')">fre</xsl:when>
+      <xsl:when test="ends-with($input,'eng')">eng</xsl:when>
+      <xsl:when test="ends-with($input,'deu')">ger</xsl:when>
+    </xsl:choose>
   </xsl:template>
 
-  <xsl:template name="langId-dcat-ap-2char">
-    <xsl:variable name="authorityLanguage" select="/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language[1]/skos:Concept/@rdf:about" />
+  <xsl:template name="langId-dcat-ap">
+	  <xsl:variable name="authorityLanguage" select="/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language[1]/skos:Concept/@rdf:about" />
+    <xsl:variable name="titleLanguage" select="/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title/@xml:lang"/>
+    <xsl:variable name="firstXmlLanguage" select="/*[name(.)='rdf:RDF']//@xml:lang"/>
     <xsl:variable name="tmp">
       <xsl:choose>
-        <xsl:when test="ends-with($authorityLanguage,'NLD')">nl</xsl:when>
-        <xsl:when test="ends-with($authorityLanguage,'FRA')">fr</xsl:when>
-        <xsl:when test="ends-with($authorityLanguage,'ENG')">en</xsl:when>
-        <xsl:when test="ends-with($authorityLanguage,'DEU')">de</xsl:when>
-        <xsl:otherwise><xsl:value-of select="$defaultLang-2char"/></xsl:otherwise>
+        <xsl:when test="$titleLanguage">
+          <xsl:call-template name="langId2to3">
+            <xsl:with-param name="langId-2char" select="$titleLanguage[1]" />
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:when test="$firstXmlLanguage">
+          <xsl:value-of select="$firstXmlLanguage[1]"/>
+        </xsl:when>
+
+        <xsl:when test="$authorityLanguage">
+          <xsl:variable name="tmp2">
+            <xsl:call-template name="interpretLanguage">
+              <xsl:with-param name="input" select="$authorityLanguage[1]"/>
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:if test="$tmp2">
+            <xsl:value-of select="$tmp2"/>
+          </xsl:if>
+          <xsl:if test="not($tmp2)">
+            <xsl:value-of select="$defaultLang"/>
+          </xsl:if>
+        </xsl:when>
+
+        <xsl:otherwise>
+          <xsl:value-of select="$defaultLang"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
     <xsl:value-of select="normalize-space(string($tmp))"></xsl:value-of>
   </xsl:template>
 
+  <xsl:template name="langId2to3">
+    <xsl:param name="langId-2char"/>
+    <xsl:choose>
+      <xsl:when test="ends-with($langId-2char,'nl')">dut</xsl:when>
+      <xsl:when test="ends-with($langId-2char,'fr')">fre</xsl:when>
+      <xsl:when test="ends-with($langId-2char,'en')">eng</xsl:when>
+      <xsl:when test="ends-with($langId-2char,'de')">ger</xsl:when>
+      <xsl:otherwise><xsl:value-of select="$langId-2char"></xsl:value-of></xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="langId2toAuth">
+    <xsl:param name="langId-2char"/>
+    <xsl:choose>
+      <xsl:when test="ends-with($langId-2char,'nl')">nld</xsl:when>
+      <xsl:when test="ends-with($langId-2char,'fr')">fre</xsl:when>
+      <xsl:when test="ends-with($langId-2char,'en')">eng</xsl:when>
+      <xsl:when test="ends-with($langId-2char,'de')">deu</xsl:when>
+      <xsl:otherwise><xsl:value-of select="$langId-2char"></xsl:value-of></xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="langId3to2">
+    <xsl:param name="langId-3char"/>
+    <xsl:choose>
+      <xsl:when test="ends-with($langId-3char,'dut')">nl</xsl:when>
+      <xsl:when test="ends-with($langId-3char,'fre')">fr</xsl:when>
+      <xsl:when test="ends-with($langId-3char,'eng')">en</xsl:when>
+      <xsl:when test="ends-with($langId-3char,'ger')">de</xsl:when>
+      <xsl:otherwise><xsl:value-of select="$langId-3char"/></xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template name="defaultTitle">
     <xsl:param name="isoDocLangId"/>
 
-    <xsl:variable name="twoCharLangCode"
-                  select="java:twoCharLangCode($isoDocLangId)"/>
+
+    <xsl:variable name="twoCharLangCode">
+      <xsl:call-template name="langId3to2">
+        <xsl:with-param name="langId-3char" select="$isoDocLangId"/>
+      </xsl:call-template>
+    </xsl:variable>
+
 
     <xsl:variable name="docLangTitle"
                   select="dct:title[@xml:lang=$twoCharLangCode]"/>
@@ -129,8 +185,11 @@
   <xsl:template name="defaultAbstract">
     <xsl:param name="isoDocLangId"/>
 
-    <xsl:variable name="twoCharLangCode"
-                  select="java:twoCharLangCode($isoDocLangId)"/>
+    <xsl:variable name="twoCharLangCode">
+      <xsl:call-template name="langId3to2">
+        <xsl:with-param name="langId-3char" select="$isoDocLangId"/>
+      </xsl:call-template>
+    </xsl:variable>
 
     <xsl:variable name="docLangAbstract"
                   select="dct:description[@xml:lang=$twoCharLangCode]"/>
@@ -146,6 +205,58 @@
         <xsl:message select="concat('Abstract not found in document language:',$firstAbstract[1], '(',$twoCharLangCode,')')"/>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="index-lang-tag-oneval">
+
+    <xsl:param name="tag" />
+    <xsl:param name="langId" />
+
+    <xsl:variable name="langIdWording" select="$tag[@xml:lang=$langId]"/>
+    <xsl:variable name="langIdWordingSkos" select="$tag/skos:Concept/skos:prefLabel[@xml:lang=$langId]"/>
+    <xsl:variable name="wording" select="$tag"/>
+
+    <xsl:choose>
+      <xsl:when test="$langIdWording">
+        <xsl:value-of select="$langIdWording"/>
+      </xsl:when>
+      <xsl:when test="$langIdWordingSkos">
+        <xsl:value-of select="$langIdWordingSkos"/>
+      </xsl:when>
+      <xsl:when test="$wording">
+        <xsl:value-of select="$wording"/>
+      </xsl:when>
+    </xsl:choose>
+
+  </xsl:template>
+
+  <xsl:template name="index-lang-tag">
+    <xsl:param name="tag" />
+    <xsl:param name="field" />
+    <xsl:param name="langId" />
+
+    <xsl:variable name="langIdWording" select="$tag[@xml:lang=$langId]"/>
+    <xsl:variable name="langIdWordingSkos" select="$tag/skos:Concept/skos:prefLabel[@xml:lang=$langId]"/>
+    <xsl:variable name="wording" select="$tag"/>
+
+    <xsl:choose>
+      <xsl:when test="$langIdWording">
+        <xsl:for-each select="$langIdWording">
+          <field name="{$field}" string="{string(.)}" store="true" index="true"/>
+        </xsl:for-each>
+      </xsl:when>
+      <xsl:when test="$langIdWordingSkos">
+        <xsl:for-each select="$langIdWordingSkos">
+          <field name="{$field}" string="{string(.)}" store="true" index="true"/>
+        </xsl:for-each>
+      </xsl:when>
+      <xsl:when test="$wording">
+        <xsl:for-each select="$wording">
+          <field name="{$field}" string="{string(.)}" store="true" index="true"/>
+        </xsl:for-each>
+      </xsl:when>
+    </xsl:choose>
+
   </xsl:template>
 
 </xsl:stylesheet>
