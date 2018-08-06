@@ -55,30 +55,30 @@
 		<xsl:copy>
 			<xsl:message select="concat('Updating element with name ',name(.))" />
 			<xsl:apply-templates select="@*"/>
-	    <xsl:variable name="resource" select="gn-fn-dcat-ap:getResourceByElementName(name(.),name(..))"/>
-	    <xsl:variable name="resourceType" select="gn-fn-dcat-ap:getResourceTypeByElementName(name(.),name(..))"/>
+	    <xsl:variable name="inScheme" select="gn-fn-dcat-ap:getInSchemeURIByElementName(name(.),name(..))"/>
+	    <xsl:variable name="rdfType" select="gn-fn-dcat-ap:getRdfTypeByElementName(name(.),name(..))"/>
 			<xsl:choose>
 				<xsl:when test="count(*)=0 or count(skos:Concept/*[name(.)='skos:prefLabel'])=0">
 			    <skos:Concept rdf:about="">
-			    	<xsl:if test="$resourceType!=''">
+			    	<xsl:if test="$rdfType!=''">
 			    		<rdf:type rdf:resource="{$resourceType}"/>
 			    	</xsl:if>
 	          <skos:prefLabel xml:lang="nl"/>
 	          <skos:prefLabel xml:lang="en"/>
 	          <skos:prefLabel xml:lang="fr"/>
 	          <skos:prefLabel xml:lang="de"/>
-						<skos:inScheme rdf:resource="{$resource}"/>
+						<skos:inScheme rdf:resource="{$inScheme}"/>
 			    </skos:Concept>
 				</xsl:when>
 				<xsl:otherwise>
 			    <skos:Concept rdf:about="{skos:Concept/@rdf:about}">
-			    	<xsl:if test="$resourceType!=''">
+			    	<xsl:if test="$rdfType!=''">
 			    		<rdf:type rdf:resource="{$resourceType}"/>
 			    	</xsl:if>
 			    	<xsl:for-each select="skos:Concept/*[name(.)='skos:prefLabel']">
 	          	<xsl:copy-of select="."/>
 	          </xsl:for-each>
-						<skos:inScheme rdf:resource="{$resource}"/>
+						<skos:inScheme rdf:resource="{$inScheme}"/>
 			    </skos:Concept>
 				</xsl:otherwise>
 			</xsl:choose>

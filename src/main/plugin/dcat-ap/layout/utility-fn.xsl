@@ -31,7 +31,7 @@
   <xsl:variable name="inSchemeAdmsBaseUrl" select="'http://purl.org/adms/'"/>
   <xsl:variable name="thesaurusIdentifierBaseKey" select="'geonetwork.thesaurus.external.theme.'"/>
 
-  <xsl:function name="gn-fn-dcat-ap:getResourceByElementName" as="xs:string">
+  <xsl:function name="gn-fn-dcat-ap:getInSchemeURIByElementName" as="xs:string">
 		<xsl:param name="elementName"/>
 		<xsl:param name="parentElementName"/>
 		<xsl:choose>
@@ -68,7 +68,7 @@
 		</xsl:choose>
   </xsl:function>
 
-  <xsl:function name="gn-fn-dcat-ap:getResourceTypeByElementName" as="xs:string">
+  <xsl:function name="gn-fn-dcat-ap:getRdfTypeByElementName" as="xs:string">
 		<xsl:param name="elementName"/>
 		<xsl:param name="parentElementName"/>
 		<xsl:choose>
@@ -109,7 +109,7 @@
 		<xsl:param name="resource"/>
 		<xsl:choose>
 			<xsl:when test="$resource = concat($inSchemeAdmsBaseUrl,'publishertype/1.0')">
-				<xsl:value-of select="'Type thesaurus'"/>
+				<xsl:value-of select="'Publisher type thesaurus'"/>
 			</xsl:when>
 			<xsl:when test="$resource = concat($inSchemeAuthorityBaseUrl,'data-theme')">
 				<xsl:value-of select="'Thema thesaurus'"/>
@@ -133,7 +133,7 @@
 				<xsl:value-of select="'Status thesaurus'"/>
 			</xsl:when>
 			<xsl:when test="$resource = concat($inSchemeAdmsBaseUrl,'licencetype/1.0')">
-				<xsl:value-of select="'Type thesaurus'"/>
+				<xsl:value-of select="'Licence thesaurus'"/>
 			</xsl:when>
 			<xsl:otherwise>
 		  		<xsl:value-of select="'Untitled thesaurus'"/>

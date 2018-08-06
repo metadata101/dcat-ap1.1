@@ -41,77 +41,25 @@
   <xsl:include href="../process/process-utility.xsl"/>
 
 
-  <!-- Convert a concept to an ISO19139 keywords.
+  <!-- Surround the concept with parent based on  related parent xml element
     If no keyword is provided, only thesaurus section is adaded.
     -->
   <xsl:template name="to-dcat-ap-concept">
-    <xsl:param name="withAnchor" select="false()"/>
-    <xsl:param name="withXlink" select="false()"/>
-    <!-- Add thesaurus identifier using an Anchor which points to the download link.
-        It's recommended to use it in order to have the thesaurus widget inline editor
-        which use the thesaurus identifier for initialization. -->
-    <xsl:param name="withThesaurusAnchor" select="true()"/>
-
-
-    <!-- The lang parameter contains a list of languages
-    with the main one as the first element. If only one element
-    is provided, then CharacterString or Anchor are created.
-    If more than one language is provided, then PT_FreeText
-    with or without CharacterString can be created. -->
     <xsl:variable name="listOfLanguage" select="tokenize(/root/request/lang, ',')"/>
-    <xsl:variable name="textgroupOnly"
-                  as="xs:boolean"
-                  select="if (/root/request/textgroupOnly and normalize-space(/root/request/textgroupOnly) != '')
-                          then /root/request/textgroupOnly
-                          else false()"/>
-
-
     <xsl:apply-templates mode="to-dcat-ap-concept" select=".">
-      <xsl:with-param name="withAnchor" select="$withAnchor"/>
-      <xsl:with-param name="withXlink" select="$withXlink"/>
-      <xsl:with-param name="withThesaurusAnchor" select="$withThesaurusAnchor"/>
       <xsl:with-param name="listOfLanguage" select="$listOfLanguage"/>
-      <xsl:with-param name="textgroupOnly" select="$textgroupOnly"/>
     </xsl:apply-templates>
   </xsl:template>
 
+  <!-- Surround the skos:Concept xml element with a parent xml element on the thesaurus key -->
   <xsl:template mode="to-dcat-ap-concept" match="*[not(/root/request/skipdescriptivekeywords)]">
-    <xsl:param name="textgroupOnly"/>
     <xsl:param name="listOfLanguage"/>
-    <xsl:param name="withAnchor"/>
-    <xsl:param name="withXlink"/>
-    <xsl:param name="withThesaurusAnchor"/>
     <xsl:variable name="concept">
-      <xsl:choose>
-        <xsl:when test="$withXlink">
-          <xsl:variable name="multiple"
-                        select="if (contains(/root/request/id, ',')) then 'true' else 'false'"/>
-          <xsl:variable name="isLocalXlink"
-                        select="util:getSettingValue('system/xlinkResolver/localXlinkEnable')"/>
-          <xsl:variable name="prefixUrl"
-                        select="if ($isLocalXlink = 'true')
-                                then  concat('local://', /root/gui/language)
-                                else $serviceUrl"/>
-
-          <xsl:attribute name="xlink:href"
-                         select="concat($prefixUrl, '/xml.keyword.get?thesaurus=', thesaurus/key,
-                              '&amp;amp;id=', replace(/root/request/id, '#', '%23'),
-                              '&amp;amp;multiple=', $multiple,
-                              if (/root/request/lang) then concat('&amp;amp;lang=', /root/request/lang) else '',
-                              if ($textgroupOnly) then '&amp;amp;textgroupOnly' else '')"/>
-          <xsl:attribute name="xlink:show">replace</xsl:attribute>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:call-template name="to-md-concept">
-            <xsl:with-param name="withAnchor" select="$withAnchor"/>
-            <xsl:with-param name="withThesaurusAnchor" select="$withThesaurusAnchor"/>
-            <xsl:with-param name="listOfLanguage" select="$listOfLanguage"/>
-            <xsl:with-param name="textgroupOnly" select="$textgroupOnly"/>
-          </xsl:call-template>
-        </xsl:otherwise>
-      </xsl:choose>
-	</xsl:variable>
-	<xsl:variable name="thesaurusKey"
+         <xsl:call-template name="to-md-concept">
+           <xsl:with-param name="listOfLanguage" select="$listOfLanguage"/>
+         </xsl:call-template>
+		</xsl:variable>
+		<xsl:variable name="thesaurusKey"
 	              select="if (thesaurus/key) then thesaurus/key else /root/request/thesaurus"/>
     <xsl:choose>
 	   	<xsl:when test="ends-with($thesaurusKey,'publisher-type')">
@@ -165,47 +113,31 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template mode="to-dcat-ap-concept" match="*[/root/request/skipdescriptivekeywords]">
-    <xsl:param name="textgroupOnly"/>
-    <xsl:param name="listOfLanguage"/>
-    <xsl:param name="withAnchor"/>
-    <xsl:param name="withThesaurusAnchor"/>
-
-    <xsl:call-template name="to-md-concept">
-      <xsl:with-param name="withAnchor" select="$withAnchor"/>
-      <xsl:with-param name="withThesaurusAnchor" select="$withThesaurusAnchor"/>
-      <xsl:with-param name="listOfLanguage" select="$listOfLanguage"/>
-      <xsl:with-param name="textgroupOnly" select="$textgroupOnly"/>
-    </xsl:call-template>
-  </xsl:template>
-
+  <!-- Add inScheme xml element based on the thesaurus key -->
   <xsl:template name="to-md-concept">
-    <xsl:param name="textgroupOnly"/>
     <xsl:param name="listOfLanguage"/>
-    <xsl:param name="withAnchor"/>
-    <xsl:param name="withThesaurusAnchor"/>
 
-	<!-- Get thesaurus ID from keyword or from request parameter if no keyword found. -->
-	<xsl:variable name="currentThesaurus"
-	              select="if (thesaurus/key) then thesaurus/key else /root/request/thesaurus"/>
-    
-    <xsl:variable name="resource" select="gn-fn-dcat-ap:getThesaurusResource($currentThesaurus)"/>
-	<!-- Loop on all keyword from the same thesaurus -->
-	<xsl:for-each select="//keyword[thesaurus/key = $currentThesaurus]">
-		<skos:Concept>
-			<xsl:attribute name="rdf:about"><xsl:value-of select="uri" /></xsl:attribute>
-			<xsl:variable name="keyword" select="." />
-			<xsl:for-each select="$listOfLanguage">
-				<xsl:variable name="lang" select="." />
-				<xsl:if test="$lang!=''">
-					<skos:prefLabel>
-						<xsl:attribute name="xml:lang" select="lower-case(util:twoCharLangCode($lang))" />
-						<xsl:value-of select="$keyword/values/value[@language = $lang]/text()" />
-					</skos:prefLabel>
-				</xsl:if>
-			</xsl:for-each>
-			<skos:inScheme rdf:resource="{$resource}" />
-		</skos:Concept>
-	</xsl:for-each>
+		<!-- Get thesaurus ID from keyword or from request parameter if no keyword found. -->
+		<xsl:variable name="currentThesaurus"
+		              select="if (thesaurus/key) then thesaurus/key else /root/request/thesaurus"/>
+    <!-- Get  -->
+    <xsl:variable name="inSchemeURI" select="gn-fn-dcat-ap:getInSchemeURIByThesaurusId($currentThesaurus)"/>
+		<!-- Loop on all keyword from the same thesaurus -->
+		<xsl:for-each select="//keyword[thesaurus/key = $currentThesaurus]">
+			<skos:Concept>
+				<xsl:attribute name="rdf:about"><xsl:value-of select="uri" /></xsl:attribute>
+				<xsl:variable name="keyword" select="." />
+				<xsl:for-each select="$listOfLanguage">
+					<xsl:variable name="lang" select="." />
+					<xsl:if test="$lang!=''">
+						<skos:prefLabel>
+							<xsl:attribute name="xml:lang" select="lower-case(util:twoCharLangCode($lang))" />
+							<xsl:value-of select="$keyword/values/value[@language = $lang]/text()" />
+						</skos:prefLabel>
+					</xsl:if>
+				</xsl:for-each>
+				<skos:inScheme rdf:resource="{$inSchemeURI}" />
+			</skos:Concept>
+		</xsl:for-each>
   </xsl:template>
 </xsl:stylesheet>

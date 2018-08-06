@@ -27,17 +27,18 @@
 		xmlns:skos="http://www.w3.org/2004/02/skos/core#"
 		xmlns:adms="http://www.w3.org/ns/adms#" 
 		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-        xmlns:dc="http://purl.org/dc/elements/1.1/"
-        xmlns:dct="http://purl.org/dc/terms/"
-        xmlns:dcat="http://www.w3.org/ns/dcat#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:dcat="http://www.w3.org/ns/dcat#"
 		xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
 		xmlns:foaf="http://xmlns.com/foaf/0.1/" 
 		xmlns:owl="http://www.w3.org/2002/07/owl#"
 		xmlns:schema="http://schema.org/"
-  		xmlns:gn="http://www.fao.org/geonetwork"
-  		xmlns:saxon="http://saxon.sf.net/"
-  		extension-element-prefixes="saxon"
-  		exclude-result-prefixes="#all">
+		xmlns:locn="http://www.w3.org/ns/locn#"
+		xmlns:gn="http://www.fao.org/geonetwork"
+ 		xmlns:saxon="http://saxon.sf.net/"
+ 		extension-element-prefixes="saxon"
+ 		exclude-result-prefixes="#all">
 
   <!-- Evaluate an expression. This is schema dependant in order to properly 
         set namespaces required for evaluate.

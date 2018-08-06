@@ -27,45 +27,45 @@
 				xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap"
                 exclude-result-prefixes="#all">
 
-
-  <xsl:function name="gn-fn-dcat-ap:getThesaurusResource" as="xs:string">
-	<xsl:param name="key"/>
-  <xsl:variable name="inSchemeAuthorityBaseUrl" select="'http://publications.europa.eu/resource/authority/'"/>
-  <xsl:variable name="inSchemeAdmsBaseUrl" select="'http://purl.org/adms/'"/>
-	<xsl:variable name="keyPrefix" select="'external.theme.'"/>
-	<xsl:choose>
-		<xsl:when test="$key = concat($keyPrefix,'publisher-type')">
-			<xsl:value-of select="concat($inSchemeAdmsBaseUrl,'publishertype/1.0')"/>
-		</xsl:when>
-		<xsl:when test="$key = concat($keyPrefix,'data-theme')">
-			<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'data-theme')"/>
-		</xsl:when>
-		<xsl:when test="$key = concat($keyPrefix,'frequency')">
-			<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'frequency')"/>
-		</xsl:when>
-		<xsl:when test="$key = concat($keyPrefix,'language')">
-			<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'language')"/>
-		</xsl:when>
-		<xsl:when test="$key = concat($keyPrefix,'resource-type')">
-			<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'resource-type')"/>
-		</xsl:when>
-		<xsl:when test="$key = concat($keyPrefix,'file-type')">
-			<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'file-type')"/>
-		</xsl:when>
-		<xsl:when test="$key = concat($keyPrefix,'media-type')">
-			<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'media-type')"/>
-		</xsl:when>
-		<xsl:when test="$key = concat($keyPrefix,'status')">
-			<xsl:value-of select="concat($inSchemeAdmsBaseUrl,'status/1.0')"/>
-		</xsl:when>
-		<xsl:when test="$key = concat($keyPrefix,'licence-type')">
-			<xsl:value-of select="concat($inSchemeAdmsBaseUrl,'licencetype/1.0')"/>
-		</xsl:when>
-		<xsl:otherwise>
-			<xsl:message select="concat('Thesaurus NIET gevonden met key = ',$key, '. Voeg deze toe in process-utility.xsl bestand.')"/>
-	  		<xsl:value-of select="$key"/>
-		</xsl:otherwise>
-	</xsl:choose>
+	<!-- Function to get the inScheme URI based on the thesaurus key -->
+  <xsl:function name="gn-fn-dcat-ap:getInSchemeURIByThesaurusId" as="xs:string">
+		<xsl:param name="key"/>
+	  <xsl:variable name="inSchemeAuthorityBaseUrl" select="'http://publications.europa.eu/resource/authority/'"/>
+	  <xsl:variable name="inSchemeAdmsBaseUrl" select="'http://purl.org/adms/'"/>
+		<xsl:variable name="keyPrefix" select="'external.theme.'"/>
+		<xsl:choose>
+			<xsl:when test="$key = concat($keyPrefix,'publisher-type')">
+				<xsl:value-of select="concat($inSchemeAdmsBaseUrl,'publishertype/1.0')"/>
+			</xsl:when>
+			<xsl:when test="$key = concat($keyPrefix,'data-theme')">
+				<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'data-theme')"/>
+			</xsl:when>
+			<xsl:when test="$key = concat($keyPrefix,'frequency')">
+				<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'frequency')"/>
+			</xsl:when>
+			<xsl:when test="$key = concat($keyPrefix,'language')">
+				<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'language')"/>
+			</xsl:when>
+			<xsl:when test="$key = concat($keyPrefix,'resource-type')">
+				<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'resource-type')"/>
+			</xsl:when>
+			<xsl:when test="$key = concat($keyPrefix,'file-type')">
+				<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'file-type')"/>
+			</xsl:when>
+			<xsl:when test="$key = concat($keyPrefix,'media-type')">
+				<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'media-type')"/>
+			</xsl:when>
+			<xsl:when test="$key = concat($keyPrefix,'status')">
+				<xsl:value-of select="concat($inSchemeAdmsBaseUrl,'status/1.0')"/>
+			</xsl:when>
+			<xsl:when test="$key = concat($keyPrefix,'licence-type')">
+				<xsl:value-of select="concat($inSchemeAdmsBaseUrl,'licencetype/1.0')"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:message select="concat('Thesaurus NIET gevonden met key = ',$key, '. Voeg deze toe in process-utility.xsl bestand.')"/>
+		  		<xsl:value-of select="$key"/>
+			</xsl:otherwise>
+		</xsl:choose>
   </xsl:function>
 
 </xsl:stylesheet>

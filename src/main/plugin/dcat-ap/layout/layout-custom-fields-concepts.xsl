@@ -14,23 +14,23 @@
                 version="2.0"
                 exclude-result-prefixes="#all">
 
-
+	<!--  Template to prepare data-gn-keyword component for xml elements based on a thesaurus -->
   <xsl:template mode="mode-dcat-ap" priority="2000" match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:format|dcat:mediaType|adms:status|dct:LicenseDocument/dct:type">
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
 
     <xsl:variable name="xpath" select="gn-fn-metadata:getXPath(.)"/>
-    <xsl:variable name="existingResource" select="normalize-space(skos:Concept/skos:inScheme/@rdf:resource)"/>
-    <xsl:variable name="createdResourceByParentElementName" select="gn-fn-dcat-ap:getResourceByElementName(name(.),name(..))"/>
+    <xsl:variable name="existingInScheme" select="normalize-space(skos:Concept/skos:inScheme/@rdf:resource)"/>
+    <xsl:variable name="createdInSchemeByParentElementName" select="gn-fn-dcat-ap:getInSchemeURIByElementName(name(.),name(..))"/>
 
-    <xsl:variable name="resource">
+    <xsl:variable name="inScheme">
     	<xsl:choose>
-    		<xsl:when test="$existingResource!=''"><xsl:value-of select="$existingResource"/></xsl:when>
-    		<xsl:otherwise><xsl:value-of select="$createdResourceByParentElementName"/></xsl:otherwise>
+    		<xsl:when test="$existingInScheme!=''"><xsl:value-of select="$existingInScheme"/></xsl:when>
+    		<xsl:otherwise><xsl:value-of select="$createdInSchemeByParentElementName"/></xsl:otherwise>
     	</xsl:choose>
     </xsl:variable>
-    <xsl:variable name="thesaurusTitle" select="gn-fn-dcat-ap:getThesaurusTitle($resource)" />
-    <xsl:variable name="thesaurusIdentifier" select="gn-fn-dcat-ap:getThesaurusIdentifier($resource)" />
+    <xsl:variable name="thesaurusTitle" select="gn-fn-dcat-ap:getThesaurusTitle($inScheme)" />
+    <xsl:variable name="thesaurusIdentifier" select="gn-fn-dcat-ap:getThesaurusIdentifier($inScheme)" />
     <xsl:variable name="attributes">
       <xsl:if test="$isEditing">
         <!-- Create form for all existing attribute (not in gn namespace)
@@ -99,20 +99,20 @@
   <xsl:template mode="mode-dcat-ap" match="skos:Concept" priority="2000">
 
 
-    <xsl:variable name="existingResource" select="normalize-space(skos:inScheme/@rdf:resource)"/>
-    <xsl:variable name="createdResourceByParentElementName" select="gn-fn-dcat-ap:getResourceByElementName(name(..),name(../..))"/>
+    <xsl:variable name="existingInScheme" select="normalize-space(skos:inScheme/@rdf:resource)"/>
+    <xsl:variable name="createdInSchemeByParentElementName" select="gn-fn-dcat-ap:getInSchemeURIByElementName(name(..),name(../..))"/>
 
-    <xsl:variable name="resource">
+    <xsl:variable name="inScheme">
     	<xsl:choose>
-    		<xsl:when test="$existingResource!=''"><xsl:value-of select="$existingResource"/></xsl:when>
-    		<xsl:otherwise><xsl:value-of select="$createdResourceByParentElementName"/></xsl:otherwise>
+    		<xsl:when test="$existingInScheme!=''"><xsl:value-of select="$existingInScheme"/></xsl:when>
+    		<xsl:otherwise><xsl:value-of select="$createdInSchemeByParentElementName"/></xsl:otherwise>
     	</xsl:choose>
     </xsl:variable>
-    <xsl:variable name="thesaurusTitle" select="gn-fn-dcat-ap:getThesaurusTitle($resource)" />
+    <xsl:variable name="thesaurusTitle" select="gn-fn-dcat-ap:getThesaurusTitle($inScheme)" />
 
-    <xsl:variable name="thesaurusIdentifier" select="gn-fn-dcat-ap:getThesaurusIdentifier($resource)" />
+    <xsl:variable name="thesaurusIdentifier" select="gn-fn-dcat-ap:getThesaurusIdentifier($inScheme)" />
 	<xsl:choose>
-      <xsl:when test="$resource!=''">
+      <xsl:when test="$inScheme!=''">
 	    <xsl:variable name="thesaurusConfig"
 	                  as="element()?"
 	                  select="if ($thesaurusList/thesaurus[@key=substring-after($thesaurusIdentifier, 'geonetwork.thesaurus.')])
