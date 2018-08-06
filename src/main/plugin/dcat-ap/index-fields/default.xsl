@@ -105,6 +105,14 @@
 
   <xsl:template match="dcat:Dataset" mode="dataset">
 
+    <!-- === Free text search === -->
+
+    <Field name="any" store="false" index="true">
+      <xsl:attribute name="string">
+        <xsl:value-of select="normalize-space(string(.))"/>
+      </xsl:attribute>
+    </Field>
+
     <Field name="type" string="dataset" store="true" index="true" />
 
     <!-- This is needed by the CITE test script to look for strings like 'a
