@@ -44,7 +44,7 @@
   <!-- FIME : $url comes from a global variable. -->
   <xsl:template match="dcat:Dataset" mode="record-reference">
     <dcat:Dataset rdf:resource="{$url}/resource/{dct:identifier}"/>
-    <dcat:record rdf:resource="{$url}/metadata/{dct:identifier}"/>
+    <!-- <dcat:record rdf:resource="{$url}/metadata/{dct:identifier}"/>  -->
   </xsl:template>
   
   
@@ -63,7 +63,7 @@
       "A record in a data catalog, describing a single dataset."
     -->
     <dcat:Dataset rdf:about="{$url}/metadata/{dct:identifier}">
-      <xsl:copy-of select="dc:*|dct:*|dcat:*"/>
+      <xsl:copy-of select="*"/>
     </dcat:Dataset>
   </xsl:template>
   
