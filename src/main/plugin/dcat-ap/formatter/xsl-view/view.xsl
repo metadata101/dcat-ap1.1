@@ -22,345 +22,322 @@
   ~ Rome - Italy. email: geonetwork@osgeo.org
   -->
 
+
 <xsl:stylesheet version="2.0"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:dc="http://purl.org/dc/elements/1.1/"
-                xmlns:dct="http://purl.org/dc/terms/"
-                xmlns:dcat="http://www.w3.org/ns/dcat#"
-                xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-                xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-                xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
-                xmlns:tr="java:org.fao.geonet.api.records.formatters.SchemaLocalizations"
-                xmlns:gn-fn-render="http://geonetwork-opensource.org/xsl/functions/render"
-                xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
-                exclude-result-prefixes="#all">
+	xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:adms="http://www.w3.org/ns/adms#"
+	xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/"
+	xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:locn="http://www.w3.org/ns/locn#"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:schema="http://schema.org/"
+	xmlns:gn-fn-render="http://geonetwork-opensource.org/xsl/functions/render"
+	xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
+	exclude-result-prefixes="#all">
 
-  <!--  TODO: remove this comment
-  @Gustaaf: de klasse SchemaLocations is blijkbaar verplaatst naar een nieuwe package.
-  Er stond vroeger:
-  xmlns:tr="java:org.fao.geonet.services.metadata.format.SchemaLocalizations"
-  Nu is het:
-  xmlns:tr="java:org.fao.geonet.api.records.formatters.SchemaLocalizations"  -->
+	<!-- Load the editor configuration to be able to render the different views -->
+	<xsl:variable name="configuration"
+		select="document('../../layout/config-editor.xml')" />
 
-  <!-- Load the editor configuration to be able
-  to render the different views -->
-  <xsl:variable name="configuration"
-                select="document('../../layout/config-editor.xml')"/>
+	<!-- Some utility -->
+	<xsl:include href="../../layout/evaluate.xsl" />
 
-  <!-- Some utility -->
-  <xsl:include href="../../layout/evaluate.xsl"/>
+	<!-- The core formatter XSL layout based on the editor configuration -->
+	<xsl:include href="sharedFormatterDir/xslt/render-layout.xsl" />
 
-  <!-- The core formatter XSL layout based on the editor configuration -->
-  <xsl:include href="sharedFormatterDir/xslt/render-layout.xsl"/>
-  <!--<xsl:include href="../../../../../data/formatter/xslt/render-layout.xsl"/>-->
+	<!-- The stylesheet 'common/functions-metadata.xsl' relies on two variables 
+		'iso19139labels' and 'defaultFieldType' -->
+	<xsl:variable name="iso19139labels" select="dummy" />
+	<xsl:variable name="defaultFieldType" select="'text'" />
+	<xsl:include href="common/functions-metadata.xsl" />
 
-  <!-- Define the metadata to be loaded for this schema plugin-->
-  <xsl:variable name="metadata"
-                select="/root/rdf:RDF"/>
-  <xsl:variable name="langId"
-                select="'nl'" />
+	<!-- Define the metadata to be loaded for this schema plugin -->
+	<xsl:variable name="metadata" select="/root/rdf:RDF" />
+	<xsl:variable name="langId" select="/root/gui/language" />  
+	<xsl:variable name="nodeUrl" select="/root/gui/nodeUrl"/>
 
+	<!-- Create a SchemaLocalizations object to look up nodeLabels with function 
+		tr:node-label($schemaLocalizations, name(), name(..)). This is no longer 
+		used -->
+	<!-- xmlns:tr="java:org.fao.geonet.api.records.formatters.SchemaLocalizations" -->
+	<!-- <xsl:variable name="schemaLocalizations" select="tr:create($schema)" 
+		/> -->
 
+	<!-- The labels and their translations -->
+	<xsl:variable name="schemaInfo" select="/root/schemas/*[name(.)=$schema]" />
+	<xsl:variable name="labels" select="$schemaInfo/labels" />
 
-  <!-- Specific schema rendering -->
-  <xsl:template mode="getMetadataTitle" match="rdf:RDF">
-    <xsl:value-of select="//dcat:Dataset/dct:title"/>
-  </xsl:template>
+	<!-- Specific schema rendering -->
+	<xsl:template mode="getMetadataTitle" match="rdf:RDF">
+		<xsl:value-of select="//dcat:Dataset/dct:title[1]" />
+	</xsl:template>
 
-  <xsl:template mode="getMetadataAbstract"  match="rdf:RDF">
-    <xsl:value-of select="//dcat:Dataset/dct:description"/>
-  </xsl:template>
+	<xsl:template mode="getMetadataAbstract" match="rdf:RDF">
+		<xsl:value-of select="//dcat:Dataset/dct:description" />
+	</xsl:template>
 
-  <xsl:template mode="getMetadataHeader" match="dcat:Dataset">
-  </xsl:template>
+	<xsl:template mode="getMetadataHeader" match="rdf:RDF">
+	</xsl:template>
 
-
-  <!-- Most of the elements are ... -->
-  <xsl:template mode="render-field" match="*">
-    <xsl:param name="fieldName" select="''" as="xs:string"/>
-
-    <dl>
-      <dt>
-        <xsl:value-of select="if ($fieldName)
-                                then $fieldName
-                                else tr:node-label(tr:create($schema), name(), null)"/>
-      </dt>
-      <dd>
-        <xsl:value-of>tout:</xsl:value-of>
-        <xsl:apply-templates mode="render-value" select="."/>
-      </dd>
-    </dl>
-  </xsl:template>
-
-  <xsl:template mode="render-view"
-                match="field[template]"
-                priority="3">
-    <xsl:param name="base" select="$metadata"/>
-
-    <xsl:variable name="fieldXpath"
-                  select="@xpath"/>
-    <xsl:variable name="fields" select="template/values/key"/>
+	<xsl:template mode="getMetadataThumbnail" match="rdf:RDF">
+	</xsl:template>
 
 
-    <xsl:variable name="elements">
-      <xsl:call-template name="evaluate-dcat-ap">
-        <xsl:with-param name="base" select="$base"/>
-        <xsl:with-param name="in"
-                        select="concat('/../', $fieldXpath)"/>
-      </xsl:call-template>
-    </xsl:variable>
+	<xsl:template mode="render-view" match="field[template]"
+		priority="3">
+		<xsl:param name="base" select="$metadata" />
+
+		<xsl:variable name="fieldXpath" select="@xpath" />
+		<xsl:variable name="fields" select="template/values/key" />
+
+		<!-- Get all elements that are within a dcat-ap namespace -->
+		<xsl:variable name="elements">
+			<xsl:call-template name="evaluate-dcat-ap">
+				<xsl:with-param name="base" select="$base" />
+				<xsl:with-param name="in" select="concat('/../', $fieldXpath)" />
+			</xsl:call-template>
+		</xsl:variable>
+
+		<!-- Render fields for each dcat-ap element -->
+		<xsl:for-each select="$elements/*">
+			<xsl:variable name="element" select="." />
+			<xsl:apply-templates mode="render-field" select="$element" />
+		</xsl:for-each>
+	</xsl:template>
 
 
-    <xsl:for-each select="$elements/*">
-      <xsl:variable name="element" select="."/>
 
-      <xsl:apply-templates mode="render-field" select="$element"/>
+	<!-- ########################## -->
+	<!-- Render fields... -->
 
-    </xsl:for-each>
-  </xsl:template>
+	<xsl:template mode="render-field" match="dcat:Dataset">
+		<xsl:apply-templates mode="render-field" select="@*|*" />
+	</xsl:template>
 
-  <xsl:template mode="render-field" match="dcat:distribution">
-    <xsl:param name="fieldName" select="''" as="xs:string"/>
-    <xsl:for-each select="dcat:Distribution">
-      <h2>
-        <xsl:value-of select="gn-fn-render:get-schema-strings($schemaStrings, 'FieldId234')"/>
-      </h2>
+	<xsl:template mode="render-field"
+		match="dct:title|dct:description|dct:created|dct:issued|dct:modified|dct:identifier|foaf:name|skos:notation|schema:startDate|schema:endDate|vcard:street-address|vcard:locality|vcard:postal-code|vcard:country-name|vcard:hasEmail|vcard:hasURL|vcard:hasTelephone|vcard:fn|vcard:organization-name">
+		<dl>
+			<dt style="font-weight:bold;">
+				<xsl:value-of
+					select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), name(..), concat(dcat:getParentXPath(name(..)),gn-fn-metadata:getXPath(.)))/label" />
+				<xsl:if test="@xml:lang">
+					<xsl:value-of select="concat(' (',@xml:lang,')')" />
+				</xsl:if>
+			</dt>
+			<dd>
+				<xsl:apply-templates mode="render-value" select="." />
+			</dd>
+		</dl>
+	</xsl:template>
 
-      <xsl:variable name="title">
-        <xsl:apply-templates mode="render-value" select="dct:title" />
-      </xsl:variable>
-      <xsl:variable name="desc">
-        <xsl:apply-templates mode="render-value" select="dct:description" />
-      </xsl:variable>
-      <xsl:variable name="mediaTypeConceptLabel">
-        <xsl:apply-templates mode="render-value" select="dcat:mediaType" />
-      </xsl:variable>
+	<xsl:template mode="render-field" match="@rdf:about">
+		<dl>
+			<dt style="font-weight:bold;">
+				URI
+			</dt>
+			<dd>
+				<xsl:apply-templates mode="render-url" select="." />
+			</dd>
+		</dl>
+	</xsl:template>
 
-      <xsl:variable name="downloadURLs">
-        <xsl:for-each select="dcat:downloadURL/@rdf:resource">
-          <xsl:apply-templates mode="render-value" select="."/><xsl:if test="position() != last()">, </xsl:if>
-        </xsl:for-each>
-      </xsl:variable>
+	<xsl:template mode="render-field" match="dcat:keyword">
+		<xsl:if test="not(preceding-sibling::dcat:keyword[position()=1])">
+			<dl class="gn-keyword">
+				<dt style="font-weight:bold;">
+					<xsl:value-of
+						select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), name(..), concat(dcat:getParentXPath(name(..)),gn-fn-metadata:getXPath(.)))/label" />
 
-      <xsl:variable name="accessURLs">
-        <xsl:for-each select="dcat:accessURL/@rdf:resource">
-          <xsl:apply-templates mode="render-value" select="."/><xsl:if test="position() != last()">, </xsl:if>
-        </xsl:for-each>
-      </xsl:variable>
+				</dt>
+				<dd>
+				</dd>
+			</dl>
+		</xsl:if>
+		<div
+			style="background-color: #FFE615; border: 1px solid; border-color: #333; border-radius: 2px; text-align: center; padding: 6px 6px; display: inline-block;">
+			<a href="{concat($nodeUrl,$langId,'/catalog.search?resultType=details&amp;sortBy=relevance&amp;from=1&amp;to=20&amp;keyword=',.)}">
+				<xsl:apply-templates mode="render-value" select="." />
+				<xsl:if test="@xml:lang">
+					<xsl:value-of select="concat(' (',@xml:lang,')')" />
+				</xsl:if>
+			</a>
+		</div>
+	</xsl:template>
 
-      <xsl:if test="$title">
-        <dl><dt>
-          <xsl:value-of select="gn-fn-render:get-schema-strings($schemaStrings, 'FieldId237')"/>
-        </dt><dd>
-          <xsl:value-of select="$title" />
-        </dd></dl>
-      </xsl:if>
-      <xsl:if test="$desc">
-        <dl><dt>
-          <xsl:value-of select="gn-fn-render:get-schema-strings($schemaStrings, 'FieldId239')"/>
-        </dt><dd>
-          <xsl:value-of select="$desc" />
-        </dd></dl>
-      </xsl:if>
-      <xsl:if test="$mediaTypeConceptLabel">
-        <dl><dt>
-          <xsl:value-of select="gn-fn-render:get-schema-strings($schemaStrings, 'FieldId335')"/>
-        </dt><dd>
-          <xsl:value-of select="$mediaTypeConceptLabel" />
-        </dd></dl>
-      </xsl:if>
-      <xsl:if test="$downloadURLs">
-        <dl><dt>
-          <xsl:value-of select="gn-fn-render:get-schema-strings($schemaStrings, 'FieldId242')"/>
-        </dt><dd>
-          <xsl:value-of select="$downloadURLs" />
-        </dd></dl>
-      </xsl:if>
-      <xsl:if test="$accessURLs">
-        <dl><dt>
-          <xsl:value-of select="gn-fn-render:get-schema-strings($schemaStrings, 'FieldId241')"/>
-        </dt><dd>
-          <xsl:value-of select="$accessURLs" />
-        </dd></dl>
-      </xsl:if>
+	<xsl:template mode="render-field"
+		match="dcat:accessURL|dcat:downloadURL|dcat:landingPage">
+		<dl>
+			<dt style="font-weight:bold;">
+				<xsl:value-of
+					select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), name(..), concat(dcat:getParentXPath(name(..)),gn-fn-metadata:getXPath(.),'/@rdf:resource'))/label" />
+			</dt>
+			<dd>
+				<xsl:apply-templates mode="render-url" select="@rdf:resource" />
+			</dd>
+		</dl>
+	</xsl:template>
 
-      <!--      <xsl:for-each select="dct:format/skos:Concept/skos:prefLabel[@xml:lang=$langId]">
-              <Field name="format" string="{.}" store="true" index="true"/>
-            </xsl:for-each>
+	<xsl:template mode="render-field"
+		match="dct:format|dcat:mediaType|dct:language|dcat:theme|dct:accrualPeriodicity|dct:type">
+		<dl>
+			<dt style="font-weight:bold;">
+				<xsl:value-of
+					select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), name(..), concat(dcat:getParentXPath(name(..)),gn-fn-metadata:getXPath(.)))/label" />
+			</dt>
+			<dd>
+				<xsl:for-each select="skos:Concept/skos:prefLabel">
+					<a href="skos:Concept/@rdf:about">
+						<xsl:apply-templates mode="render-value"
+							select="." />
+					</a>
+					<xsl:if test="position() != last()">
+						,
+					</xsl:if>
+				</xsl:for-each>
+				<xsl:for-each select="skos:Concept/@rdf:about">
+					(
+					<xsl:apply-templates mode="render-url" select="." />
+					)
+				</xsl:for-each>
+			</dd>
+		</dl>
+	</xsl:template>
 
-            <xsl:for-each
-              select="dct:license/skos:Concept/skos:prefLabel[@xml:lang=$langId]">
-              <Field name="MD_LegalConstraintsUseLimitation" string="{string(.)}"
-                     store="true" index="true" />
-            </xsl:for-each>
+	<!-- Bbox is displayed with an overview and the geom displayed on it and 
+		the coordinates displayed around -->
+	<xsl:template mode="render-field" match="dct:spatial">
+		<dl>
+			<dt>
+				<h3>
+					<xsl:value-of
+						select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), name(..), concat(dcat:getParentXPath(name(..)),gn-fn-metadata:getXPath(.)))/label" />
+				</h3>
+			</dt>
+			<dd>
+				<xsl:apply-templates mode="render-field" select="@*|*" />
+				<xsl:for-each
+					select="*/locn:geometry[@rdf:datatype='http://www.opengis.net/ont/geosparql#wktLiteral' or true()]">
+					<dt>
+					</dt>
+					<dd>
+						<xsl:copy-of
+							select="gn-fn-render:bbox(
+                            xs:double(2.53),
+                            xs:double(50.67),
+                            xs:double(51.51),
+                            xs:double(5.92))" />
 
-            <Field name="dcat_distributionTitle" string="{string($title)}"
-                   store="true" index="true" />
-            <Field name="dcat_distributionDesc" string="{string($desc)}"
-                   store="true" index="true" />
-            <Field name="dcat_distributionMediaTypeConceptLabel" string="{string($mediaTypeConceptLabel)}"
-                   store="true" index="true" />
-
-            <Field name="dcat_distribution"
-                   string="{concat($tPosition, '|', $title, '|', $desc, '|', $mediaTypeConceptLabel)}"
-                   store="true" index="false"/>-->
-    </xsl:for-each>
-  </xsl:template>
-
-  <xsl:template mode="render-field" match="dcat:contactPoint">
-    <xsl:variable name="email">
-      <xsl:for-each select="vcard:Organization/vcard:hasEmail">
-        <xsl:apply-templates mode="render-value"
-                             select="."/><xsl:if test="position() != last()">, </xsl:if>
-      </xsl:for-each>
-    </xsl:variable>
-
-    <xsl:variable name="displayName">
-      <xsl:apply-templates mode="render-value"
-                           select="vcard:Organization/vcard:organization-name"/>
-    </xsl:variable>
-
-    <div class="gn-contact">
-      <div class="row">
-        <div class="col-md-6">
-          <address itemprop="author"
-                   itemscope="itemscope"
-                   itemtype="http://schema.org/Organization">
-            <strong>
-              <xsl:choose>
-                <xsl:when test="$email">
-                  <a href="mailto:{normalize-space($email)}">
-                    <xsl:value-of select="$displayName"/>&#160;
-                  </a>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:value-of select="$displayName"/>
-                </xsl:otherwise>
-              </xsl:choose>
-            </strong>
-            <br/>
-            <xsl:for-each select="vcard:Organization">
-              <xsl:for-each select="vcard:hasAddress/vcard:Address">
-                <div itemprop="address"
-                     itemscope="itemscope"
-                     itemtype="http://schema.org/PostalAddress">
-                  <xsl:for-each select="vcard:street-address">
-                    <span itemprop="streetAddress">
-                      <xsl:apply-templates mode="render-value" select="."/>
-                    </span>
-                  </xsl:for-each>
-                  <xsl:for-each select="vcard:locality">
-                    <span itemprop="addressLocality">
-                      <xsl:apply-templates mode="render-value" select="."/>
-                    </span>
-                  </xsl:for-each>
-                  <xsl:for-each select="vcard:postal-code">
-                    <span itemprop="postalCode">
-                      <xsl:apply-templates mode="render-value" select="."/>
-                    </span>
-                  </xsl:for-each>
-                  <xsl:for-each select="vcard:country-name">
-                    <span itemprop="addressCountry">
-                      <xsl:apply-templates mode="render-value" select="."/>
-                    </span>
-                  </xsl:for-each>
-                </div>
-                <br/>
-              </xsl:for-each>
-            </xsl:for-each>
-          </address>
-        </div>
-        <div class="col-md-6">
-          <address>
-            <xsl:for-each select="vcard:Organization">
-              <xsl:for-each select="vcard:hasTelephone[normalize-space(.) != '']">
-                <div itemprop="contactPoint"
-                     itemscope="itemscope"
-                     itemtype="http://schema.org/ContactPoint">
-
-                  <xsl:variable name="phoneNumber">
-                    <xsl:apply-templates mode="render-value" select="."/>
-                  </xsl:variable>
-                  <i class="fa fa-phone">&#160;</i>
-                  <a href="tel:{$phoneNumber}">
-                    <xsl:value-of select="$phoneNumber"/>&#160;
-                  </a>
-                </div>
-              </xsl:for-each>
-            </xsl:for-each>
-          </address>
-        </div>
-      </div>
-    </div>
-  </xsl:template>
+						<br />
+						<br />
+					</dd>
+				</xsl:for-each>
+			</dd>
+		</dl>
+	</xsl:template>
 
 
-  <!-- Bbox is displayed with an overview and the geom displayed on it
-  and the coordinates displayed around -->
-  <xsl:template mode="render-field"
-                match="dct:spatial">
-    <xsl:value-of>No spatial</xsl:value-of>
-    <!--<xsl:variable name="coverage" select="."/>
+	<xsl:template mode="render-field"
+		match="dcat:contactPoint|dct:publisher|dct:provenance|foaf:page|dct:temporal|dct:license|dct:rights|dct:accessRights|dct:conformsTo|dcat:distribution|adms:sample|vcard:hasAddress|adms:identifier">
+		<dl>
+			<dt>
+				<h3>
+					<xsl:value-of
+						select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), name(..), concat(dcat:getParentXPath(name(..)),gn-fn-metadata:getXPath(.)))/label" />
+					<xsl:if test="@xml:lang">
+						(
+						<xsl:value-of select="." />
+						)
+					</xsl:if>
+				</h3>
+			</dt>
+			<dd>
+				<xsl:apply-templates mode="render-field" select="@*|*" />
+			</dd>
+		</dl>
+	</xsl:template>
 
-    <xsl:variable name="n" select="substring-after($coverage,'North ')"/>
-    <xsl:variable name="north" select="substring-before($n,',')"/>
-    <xsl:variable name="s" select="substring-after($coverage,'South ')"/>
-    <xsl:variable name="south" select="substring-before($s,',')"/>
-    <xsl:variable name="e" select="substring-after($coverage,'East ')"/>
-    <xsl:variable name="east" select="substring-before($e,',')"/>
-    <xsl:variable name="w" select="substring-after($coverage,'West ')"/>
-    <xsl:variable name="west" select="if (contains($w, '. '))
-                                      then substring-before($w,'. ') else $w"/>
-    <xsl:variable name="place" select="substring-after($coverage,'. ')"/>
-
-    <dl>
-      <dt>
-        <xsl:value-of select="if ($place != '') then $place else ''"/>
-      </dt>
-      <dd>
-        <xsl:copy-of select="gn-fn-render:bbox(
-                                xs:double($west),
-                                xs:double($south),
-                                xs:double($east),
-                                xs:double($north))"/>
-      </dd>
-    </dl>-->
-  </xsl:template>
-
-  <!-- Traverse the tree -->
-  <xsl:template mode="render-field" match="dcat:Dataset">
-    <xsl:apply-templates mode="render-field"/>
-  </xsl:template>
+	<!-- Traverse the tree -->
+	<xsl:template mode="render-field" match="*">
+		<xsl:apply-templates mode="render-field" select="@*|*" />
+	</xsl:template>
 
 
 
 
 
+	<!-- ########################## -->
+	<!-- Render values for text ... -->
+	<xsl:template mode="render-value" match="*">
+		<xsl:value-of select="." />
+	</xsl:template>
+
+	<!-- Render values for URL -->
+	<xsl:template mode="render-url" match="*">
+		<u>
+			<a href="{.}" style="color=#06c; text-decoration: underline;">
+				<xsl:value-of select="." />
+				&#160;
+			</a>
+		</u>
+	</xsl:template>
+
+	<!-- ... Dates -->
+	<xsl:template mode="render-value"
+		match="*[matches(., '[0-9]{4}-[0-9]{2}-[0-9]{2}')]">
+		<span data-gn-humanize-time="{.}" data-format="DD MMM YYYY">
+			<xsl:value-of select="." />
+		</span>
+	</xsl:template>
+
+	<xsl:template mode="render-value"
+		match="*[matches(., '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}')]">
+		<span data-gn-humanize-time="{.}">
+			<xsl:value-of select="." />
+		</span>
+	</xsl:template>
 
 
-  <!-- ########################## -->
-  <!-- Render values for text ... -->
-  <xsl:template mode="render-value" match="*">
-    <xsl:value-of select="."/>
-  </xsl:template>
-
-  <!-- ... URL -->
-  <xsl:template mode="render-value" match="*[starts-with(., 'http')]">
-    <a href="{.}"><xsl:value-of select="."/></a>
-  </xsl:template>
-
-  <!-- ... Dates -->
-  <xsl:template mode="render-value" match="*[matches(., '[0-9]{4}-[0-9]{2}-[0-9]{2}')]">
-    <span data-gn-humanize-time="{.}" data-format="DD MMM YYYY">
-      <xsl:value-of select="."/>
-    </span>
-  </xsl:template>
-
-  <xsl:template mode="render-value" match="*[matches(., '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}')]">
-    <span data-gn-humanize-time="{.}">
-      <xsl:value-of select="."/>
-    </span>
-  </xsl:template>
+	<!-- Return the XPath given an element's parent name in DCAT-AP. This is 
+		quite a bit of a hack, but the full XPath is not available. -->
+	<xsl:function name="dcat:getParentXPath" as="xs:string">
+		<xsl:param name="parent" as="xs:string" />
+		<xsl:choose>
+			<xsl:when test="$parent = 'dcat:Distribution'">
+				<xsl:value-of
+					select="'/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution'" />
+			</xsl:when>
+			<xsl:when test="$parent = 'dcat:distribution'">
+				<xsl:value-of
+					select="'/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution'" />
+			</xsl:when>
+			<xsl:when test="$parent = 'foaf:Document'">
+				<xsl:value-of
+					select="'/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution'" />
+			</xsl:when>
+			<xsl:when test="$parent = 'vcard:Organization'">
+				<xsl:value-of
+					select="'/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint'" />
+			</xsl:when>
+			<xsl:when test="$parent = 'vcard:Address'">
+				<xsl:value-of
+					select="'/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint'" />
+			</xsl:when>
+			<xsl:when test="$parent = 'foaf:Agent'">
+				<xsl:value-of
+					select="'/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher'" />
+			</xsl:when>
+			<xsl:when test="$parent = 'dct:PeriodOfTime'">
+				<xsl:value-of
+					select="'/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal'" />
+			</xsl:when>
+			<xsl:when test="$parent = 'adms:Identifier'">
+				<xsl:value-of
+					select="'/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:identifier'" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="'/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset'" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:function>
 
 </xsl:stylesheet>
