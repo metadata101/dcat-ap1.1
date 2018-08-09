@@ -25,6 +25,8 @@ package org.fao.geonet.schema.dcatap;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSet;
+
+import org.fao.geonet.constants.Geonet;
 import org.fao.geonet.kernel.schema.AssociatedResource;
 import org.fao.geonet.kernel.schema.AssociatedResourcesSchemaPlugin;
 import org.fao.geonet.utils.Xml;
@@ -103,8 +105,8 @@ public class DCATAPSchemaPlugin
         return Xml.filterElementValues(
                 metadata,
                 elementFilter,
-                null, null, "resource",
-                DCATAPNamespaces.RDF);
+                null, null, "nodeId",
+                Geonet.Namespaces.GEONET);
     }
 
     @Override

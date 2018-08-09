@@ -80,6 +80,26 @@
 				</snippet>
 			</template>
 		</for>
+		<for name="dcat:accessURL" templateModeOnly="true" forceLabel="true" label="FieldId241">	
+			<template>
+				<values>
+					<key label="FieldId241" xpath="@rdf:about"/>	
+				</values>
+				<snippet>
+					<dcat:accessURL rdf:about="{{FieldId241}}"/>
+				</snippet>
+			</template>
+		</for>
+		<for name="dcat:downloadURL" templateModeOnly="true" forceLabel="true" label="FieldId242">	
+			<template>
+				<values>
+					<key label="FieldId242" xpath="@rdf:about"/>	
+				</values>
+				<snippet>
+					<dcat:downloadURL rdf:about="{{FieldId242}}"/>
+				</snippet>
+			</template>
+		</for>
 		
 	</fields>
 	<!-- Complex fields. -->
@@ -94,6 +114,7 @@
 		<name>adms:Identifier</name>
 		<name>dct:provenance</name>
 		<name>dct:ProvenanceStatement</name>
+		<name>dct:spatial</name>
 		<name>dct:temporal</name>
 		<name>dct:PeriodOfTime</name>
 		<name>dcat:extension</name>
@@ -167,7 +188,7 @@
 					<field name="FieldId111" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description">
 						<template>
 							<values>
-								<key label="FieldId111" xpath="." use="textarea" />
+								<key label="FieldId111" xpath="." required="true" use="textarea" />
 								<key label="FieldId112" xpath="@xml:lang"><helper name="xml:lang"/></key>
 							</values>
 							<snippet>
@@ -351,7 +372,7 @@
 							</snippet>
 						</template>
 					</field>
-          <action type="add" btnLabel="FieldId223" or="versionInfo" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" if="count(/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo)=0">
+          <action type=	"add" btnLabel="FieldId223" or="versionInfo" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" if="count(/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo)=0">
 						<template>
 							<snippet>
 								<owl:versionInfo xml:lang=""/>
@@ -439,7 +460,7 @@
 	</views>
 	<batchEditing>
 		<section name="identification">
-			<field name="title" xpath="dct:title"/>
+			<field name="FieldId109" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title"/>
 		</section>
 	</batchEditing>
 </editor>

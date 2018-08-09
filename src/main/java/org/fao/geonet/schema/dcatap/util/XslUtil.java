@@ -22,6 +22,9 @@
  */
 package org.fao.geonet.schema.dcatap.util;
 
+import org.fao.geonet.utils.Xml;
+import org.jdom.Element;
+
 import com.vividsolutions.jts.geom.Envelope;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.WKTReader;
@@ -34,19 +37,22 @@ import com.vividsolutions.jts.io.WKTReader;
  * @author Gustaaf Vandeboel
  */
 public final class XslUtil {
-    public static String wktGeomToBbox(Object wktGeom) throws Exception {
+    public static String wktGeomToBbox(Object geometryAsXmlString) throws Exception {
         String ret = "";
         try {
-            String wktString = (String) wktGeom;
-            if (wktString != null) {
-                WKTReader reader = new WKTReader();
-                Geometry geometry = reader.read(wktString);
-                if (geometry!=null) {
-                    final Envelope envelope = geometry.getEnvelopeInternal();
-                    return
-                        String.format("%f|%f|%f|%f",
-                            envelope.getMinX(), envelope.getMinY(),
-                            envelope.getMaxX(), envelope.getMaxY());
+            Element geometryElement = Xml.loadString((String)geometryAsXmlString, false);
+            if (geometryElement!=null) {
+                String wktString = (String) geometryElement.getValue();
+                if (wktString != null && wktString.length()>0) {
+                    WKTReader reader = new WKTReader();
+                    Geometry geometry = reader.read(wktString);
+                    if (geometry!=null) {
+                        final Envelope envelope = geometry.getEnvelopeInternal();
+                        return
+                            String.format("%f|%f|%f|%f",
+                                envelope.getMinX(), envelope.getMinY(),
+                                envelope.getMaxX(), envelope.getMaxY());
+                    }
                 }
             }
         } catch (Throwable e) {

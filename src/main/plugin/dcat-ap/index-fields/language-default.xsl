@@ -61,18 +61,18 @@
   <xsl:template match="/">
 
     <Documents>
-
-      <xsl:message>for-each</xsl:message>
-      <xsl:for-each select="//dcat:Catalog/dct:language/@rdf:resource|//dcat:Dataset/dct:language//@rdf:about[not(.=//dcat:Catalog/dct:language/@rdf:resource)]">
+			<xsl:variable name="datasets" select="//dcat:Dataset"/>
+      <xsl:for-each select="distinct-values(//dcat:Dataset//@xml:lang)">
 
         <xsl:variable name="isoLangId">
-          <xsl:call-template name="interpretLanguage">
-            <xsl:with-param name="input" select="string(.)"/>
-          </xsl:call-template>
+			    <xsl:call-template name="langId2to3">
+			      <xsl:with-param name="langId-2char" select="." />
+			    </xsl:call-template>
         </xsl:variable>
 
         <xsl:if test="not($isoLangId = $isoDocLangId)">
           <xsl:call-template name="document">
+            <xsl:with-param name="datasets" select="$datasets"/>
             <xsl:with-param name="isoLangId" select="$isoLangId"/>
           </xsl:call-template>
         </xsl:if>
@@ -85,17 +85,19 @@
   <!-- ========================================================================================= -->
 
   <xsl:template name="document">
+    <xsl:param name="datasets"/>
     <xsl:param name="isoLangId"/>
 
     <Document locale="{$isoLangId}">
-    <Field name="_locale" string="{$isoLangId}" store="true" index="true"/>
-    <Field name="_docLocale" string="{$isoDocLangId}" store="true" index="true"/>
-
-    <xsl:apply-templates select="//dcat:Dataset">
-      <xsl:with-param name="langId" select="$langId"/>
-      <xsl:with-param name="isoLangId" select="$isoLangId"/>
-    </xsl:apply-templates>
-
+	    <Field name="_locale" string="{$isoLangId}" store="true" index="true"/>
+	    <Field name="_docLocale" string="{$isoDocLangId}" store="true" index="true"/>
+			<xsl:for-each select="$datasets">
+				<xsl:message select="concat('Indexing document (', name(.), ') for isoLangId ', $isoLangId)"/>
+		    <xsl:apply-templates select=".">
+		      <xsl:with-param name="langId" select="$langId"/>
+		      <xsl:with-param name="isoLangId" select="$isoLangId"/>
+		    </xsl:apply-templates>
+			</xsl:for-each>
     </Document>
 
   </xsl:template>
@@ -127,6 +129,22 @@
 
     <Field name="_defaultAbstract" string="{string($_defaultAbstract)}"
            store="true" index="true" />
+
+    <!-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -->
+    <!-- === Free text search === -->
+    <Field name="any" store="false" index="true">
+        <xsl:attribute name="string">
+          <xsl:for-each select=".//node()[@xml:lang=$langId]">
+            <xsl:value-of select="concat(normalize-space(.), ' ')"/>
+          </xsl:for-each>
+        </xsl:attribute>
+    </Field>
+
+    <xsl:call-template name="index-lang-tag">
+      <xsl:with-param name="tag" select="dct:description"/>
+      <xsl:with-param name="field" select="'abstract'"/>
+      <xsl:with-param name="langId" select="$langId"/>
+    </xsl:call-template>
 
     <xsl:call-template name="index-lang-tag">
       <xsl:with-param name="tag" select="dcat:theme"/>

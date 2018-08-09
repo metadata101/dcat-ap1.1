@@ -45,58 +45,48 @@
     </xsl:call-template>
   </xsl:variable>
 
-  <xsl:variable name="mdLanguage">
-    <xsl:call-template name="interpretLanguage">
-      <xsl:with-param name="input" select="/*[name(.)='rdf:RDF']/dcat:Catalog/dct:language[1]/skos:Concept/@rdf:about|/*[name(.)='rdf:RDF']/dcat:Catalog/dct:language[1]/@rdf:resource"/>
-    </xsl:call-template>
-  </xsl:variable>
-
   <xsl:template match="/">
     <Document locale="{$isoLangId}">
-      <xsl:if test="$mdLanguage">
-        <Field name="mdLanguage" string="{$mdLanguage}" store="true" index="true" />
-      </xsl:if>
       <xsl:apply-templates select="rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" />
     </Document>
   </xsl:template>
 
   <xsl:template match="dcat:Dataset">
+     <Field name="_locale" string="{$isoLangId}" store="true" index="true" />
+     <Field name="_locale2" string="{$langId}" store="true" index="true" />
 
-      <Field name="_locale" string="{$isoLangId}" store="true" index="true" />
-      <Field name="_locale2" string="{$langId}" store="true" index="true" />
+     <Field name="_docLocale" string="{$isoLangId}" store="true"
+            index="true" />
 
-      <Field name="_docLocale" string="{$isoLangId}" store="true"
-             index="true" />
+     <xsl:variable name="_defaultTitle">
+       <xsl:call-template name="defaultTitle">
+         <xsl:with-param name="isoDocLangId" select="$isoLangId" />
+       </xsl:call-template>
+     </xsl:variable>
 
-      <xsl:variable name="_defaultTitle">
-        <xsl:call-template name="defaultTitle">
-          <xsl:with-param name="isoDocLangId" select="$isoLangId" />
-        </xsl:call-template>
-      </xsl:variable>
+     <Field name="_defaultTitle" string="{string($_defaultTitle)}"
+            store="true" index="true" />
 
-      <Field name="_defaultTitle" string="{string($_defaultTitle)}"
-             store="true" index="true" />
-
-      <!-- not tokenized title for sorting, needed for multilingual sorting -->
-      <xsl:if test="geonet:info/isTemplate != 's'">
-        <Field name="_title" string="{string($_defaultTitle)}" store="true"
-               index="true" />
-      </xsl:if>
-
-
-      <xsl:variable name="_defaultAbstract">
-        <xsl:call-template name="defaultAbstract">
-          <xsl:with-param name="isoDocLangId" select="$isoLangId" />
-        </xsl:call-template>
-      </xsl:variable>
-
-      <Field name="_defaultAbstract" string="{string($_defaultAbstract)}"
-             store="true" index="true" />
+     <!-- not tokenized title for sorting, needed for multilingual sorting -->
+     <xsl:if test="geonet:info/isTemplate != 's'">
+       <Field name="_title" string="{string($_defaultTitle)}" store="true"
+              index="true" />
+     </xsl:if>
 
 
-      <xsl:apply-templates select="." mode="dataset" />
+     <xsl:variable name="_defaultAbstract">
+       <xsl:call-template name="defaultAbstract">
+         <xsl:with-param name="isoDocLangId" select="$isoLangId" />
+       </xsl:call-template>
+     </xsl:variable>
 
-      <xsl:apply-templates select="*" mode="index" />
+     <Field name="_defaultAbstract" string="{string($_defaultAbstract)}"
+            store="true" index="true" />
+
+
+     <xsl:apply-templates select="." mode="dataset" />
+
+     <xsl:apply-templates select="*" mode="index" />
   </xsl:template>
 
   <xsl:template mode="index" match="*|@*">
@@ -112,6 +102,18 @@
         <xsl:value-of select="normalize-space(string(.))"/>
       </xsl:attribute>
     </Field>
+
+    <xsl:for-each select="distinct-values(//@xml:lang)">
+	    <xsl:variable name="mdLanguage">
+	      <xsl:call-template name="langId2to3">
+	        <xsl:with-param name="langId-2char" select="." />
+	      </xsl:call-template>
+	    </xsl:variable>
+	    <xsl:if test="not($mdLanguage='')">
+	      <Field name="language" string="{string($mdLanguage)}" store="true" index="true"/>
+	      <Field name="mdLanguage" string="{string($mdLanguage)}" store="true" index="true"/>
+	    </xsl:if>
+    </xsl:for-each>
 
     <Field name="type" string="dataset" store="true" index="true" />
 
@@ -153,47 +155,16 @@
                 index="true"/> -->
     </xsl:for-each>
 
-    <xsl:for-each select="dct:language/skos:Concept/@rdf:about">
-      <xsl:variable name="default">
-        <xsl:choose>
-          <xsl:when test="$mdLanguage"><xsl:value-of select="$mdLanguage"/></xsl:when>
-          <xsl:otherwise>
-            <xsl:call-template name="langId2toAuth">
-              <xsl:with-param name="langId-2char" select="$langId"/>
-            </xsl:call-template>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
-
-      <xsl:variable name="authorityLanguage">
-        <xsl:variable name="tmp2">
-          <xsl:call-template name="interpretLanguage">
-            <xsl:with-param name="input" select="string(.)"/>
-          </xsl:call-template>
-        </xsl:variable>
-        <xsl:if test="$tmp2">
-          <xsl:value-of select="$tmp2"/>
-        </xsl:if>
-        <xsl:if test="not($tmp2)">
-          <xsl:value-of select="$default"/>
-        </xsl:if>
-      </xsl:variable>
-      <Field name="datasetLang" string="{$authorityLanguage}" store="true" index="true" />
+    <xsl:for-each select="distinct-values(dct:language/skos:Concept/@rdf:about)">
+		  <xsl:variable name="datasetLanguage">
+		    <xsl:call-template name="interpretLanguage">
+		      <xsl:with-param name="input" select="."/>
+		    </xsl:call-template>
+		  </xsl:variable>
+	    <xsl:if test="not($datasetLanguage='')">
+	      <Field name="datasetLang" string="{$datasetLanguage}" store="true" index="true" />
+	     </xsl:if>
     </xsl:for-each>
-
-    <xsl:if test="not(dct:language/skos:Concept/@rdf:about)">
-      <xsl:variable name="authorityLanguage">
-        <xsl:choose>
-          <xsl:when test="$mdLanguage"><xsl:value-of select="$mdLanguage"/></xsl:when>
-          <xsl:otherwise>
-            <xsl:call-template name="langId2toAuth">
-              <xsl:with-param name="langId-2char" select="$langId"/>
-            </xsl:call-template>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
-      <Field name="datasetLang" string="{$authorityLanguage}" store="true" index="true" />
-    </xsl:if>
 
     <xsl:for-each select="dct:type">
       <Field name="type" string="{string(.)}" store="true" index="true" />

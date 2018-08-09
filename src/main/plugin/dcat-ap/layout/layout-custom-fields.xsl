@@ -36,7 +36,7 @@
 		xmlns:schema="http://schema.org/"
 		xmlns:locn="http://www.w3.org/ns/locn#"
     xmlns:gml="http://www.opengis.net/gml"
-		xmlns:java="java:org.fao.geonet.schema.util.XslUtil" 
+    xmlns:java="java:org.fao.geonet.util.XslUtil"
 		xmlns:java2="java:org.fao.geonet.schema.dcatap.util.XslUtil" 
 		xmlns:gn="http://www.fao.org/geonetwork"
 		xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
@@ -49,80 +49,73 @@
   <xsl:include href="layout-custom-fields-concepts.xsl"/>
   <xsl:include href="layout-custom-fields-sds.xsl"/>
 
-  <xsl:template mode="mode-dcat-ap" match="locn:geometry" priority="2000">
+  <xsl:template mode="mode-dcat-ap" match="dct:Location" priority="2000">
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
 
-    <xsl:variable name="north" select="'51.4960'"/>
-    <xsl:variable name="south" select="'50.6746'"/>
-    <xsl:variable name="east" select="'5.9200'"/>
-    <xsl:variable name="west" select="'2.5579'"/>
     <xsl:variable name="xpath" select="gn-fn-metadata:getXPath(.)"/>
     <xsl:variable name="labelConfig" select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), '', $xpath)"/>
 
     <xsl:call-template name="render-boxed-element">
       <xsl:with-param name="label"
                       select="$labelConfig/label"/>
-      <xsl:with-param name="editInfo" select="../gn:element"/>
+      <xsl:with-param name="editInfo" select="gn:element"/>
       <xsl:with-param name="cls" select="local-name()"/>
       <xsl:with-param name="subTreeSnippet">
 
-      <!-- xsl:variable name="identifier"
-                    select="../@rdf:about"/-->
-      <xsl:variable name="description"
-                    select="../skos:prefLabel[1]"/>
-      <xsl:variable name="readonly" select="false()"/>
-      <xsl:variable name="geometry">
-        <xsl:apply-templates select="." mode="gn-element-cleaner"/>
-      </xsl:variable>
+				<xsl:variable name="identifier"
+	                    select="@rdf:about"/>
+	      <xsl:variable name="description"
+	                    select="skos:prefLabel[1]"/>
+	      <xsl:variable name="readonly" select="false()"/>
+	      <xsl:variable name="geometry">
+	        <xsl:apply-templates select="locn:geometry" mode="gn-element-cleaner"/>
+	      </xsl:variable>
 
 <!-- 
-			<xsl:variable name="identifier"
-                      select="../@rdf:about"/>
-      <br />
-			<gn-bounding-polygon polygon-xml="{string($geometry)}"
-					identifier="{$identifier}"
-        	read-only="{$readonly}">
-      </gn-bounding-polygon>
-      <xsl:if test="$description and $isFlatMode and not($metadataIsMultilingual)">
-        <xsl:attribute name="data-description"
-                       select="$description"/>
-        <xsl:attribute name="data-description-ref"
-                       select="concat('_', $description/gn:element/@ref)"/>
-      </xsl:if>
+	      <br />
+				<gn-bounding-polygon polygon-xml="{string($geometry)}"
+						identifier="{$identifier}"
+	        	read-only="{$readonly}">
+	      </gn-bounding-polygon>
+	      <xsl:if test="$description and $isFlatMode and not($metadataIsMultilingual)">
+	        <xsl:attribute name="data-description"
+	                       select="$description"/>
+	        <xsl:attribute name="data-description-ref"
+	                       select="concat('_', $description/gn:element/@ref)"/>
+	      </xsl:if>
  -->
-	    <xsl:variable name="bbox">
-	   		<xsl:if test="@rdf:datatype='http://www.opengis.net/ont/geosparql#wktLiteral'"> 
-	      	<xsl:value-of select="java2:wktGeomToBbox(saxon:serialize($geometry,'default-serialize-mode'))"/>
-	      </xsl:if>
-	   		<xsl:if test="@rdf:datatype='http://www.opengis.net/ont/geosparql#gmlLiteral'"> 
-	      	<xsl:value-of select="java:geomToBbox(saxon:serialize($geometry,'default-serialize-mode'))"/>
-	      </xsl:if>
-	    </xsl:variable>
-	    <xsl:if test="$bbox != ''">
-	      <xsl:variable name="bboxCoordinates" select="tokenize($bbox, '\|')"/>
+		    <xsl:variable name="bbox">
+		    	<xsl:choose>
+						<xsl:when test="ends-with(locn:geometry/@rdf:datatype,'#wktLiteral')">
+			      	<xsl:value-of select="java2:wktGeomToBbox(saxon:serialize($geometry,'default-serialize-mode'))"/>
+						</xsl:when>
+						<xsl:when test="ends-with(locn:geometry/@rdf:datatype,'#gmlLiteral')">
+			      	<xsl:value-of select="java:geomToBbox(saxon:serialize($geometry,'default-serialize-mode'))"/>
+			      </xsl:when>
+		    	</xsl:choose>
+		    </xsl:variable>
+		    <!--xsl:variable name="bboxCoordinates" select="tokenize(replace($bbox,',','.'), '\|')"/-->
+		    <xsl:variable name="bboxCoordinates" select="tokenize($bbox,'\|')"/>
 	      <div gn-draw-bbox=""
-		          data-hleft="{$bboxCoordinates[1]}"
-		          data-hright="{$bboxCoordinates[3]}" 
-		          data-hbottom="{$bboxCoordinates[2]}"
-		          data-htop="{$bboxCoordinates[4]}"
-		          data-dc-ref="_{generate-id()}"
+		          data-dc-ref="{concat('_',locn:geometry/gn:element/@ref)}"
 		          data-lang="lang"
 		          data-read-only="{$readonly}">
-	          <xsl:if test="$identifier and $isFlatMode">
-	            <xsl:attribute name="data-identifier"
-	                           select="$identifier"/>
-	            <xsl:attribute name="data-identifier-ref"
-	                           select="concat('_', $identifier/gn:element/@ref)"/>
-	          </xsl:if>
-	          <xsl:if test="$description and $isFlatMode and not($metadataIsMultilingual)">
-	            <xsl:attribute name="data-description"
-	                           select="$description"/>
-	            <xsl:attribute name="data-description-ref"
-	                           select="concat('_', $description/gn:element/@ref)"/>
-	          </xsl:if>
-	        </div>
-	      </xsl:if>
+			    <xsl:if test="$bbox != ''">
+            <xsl:attribute name="data-hleft"
+                           select="$bboxCoordinates[1]"/>
+            <xsl:attribute name="data-hright"
+                           select="$bboxCoordinates[3]"/>
+            <xsl:attribute name="data-hbottom"
+                           select="$bboxCoordinates[2]"/>
+            <xsl:attribute name="data-htop"
+                           select="$bboxCoordinates[4]"/>
+          </xsl:if>
+          <xsl:attribute name="data-identifier" select="@rdf:about"/>
+          <xsl:attribute name="data-identifier-ref" select="concat('_',gn:element/@ref,'_rdfCOLONabout')"/>
+          <xsl:attribute name="data-description" select="skos:prefLabel"/>
+					<xsl:attribute name="data-description-ref" select="concat('_', skos:prefLabel/gn:element/@ref)"/>
+	      </div>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>

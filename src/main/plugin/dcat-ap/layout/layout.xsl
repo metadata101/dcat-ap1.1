@@ -228,13 +228,14 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable-->
-    <xsl:message select="concat('HELPERS for element with name ',name(.),': ', $helper)"/>
+    <!--xsl:message select="concat('HELPERS for element with name ',name(.),': ', $helper)"/-->
     <!-- Add view and edit template-->
     <xsl:variable name="fieldNode" select="$editorConfig/editor/fields/for[@name = $name and @templateModeOnly]"/>
     <xsl:choose>
 			<xsl:when test="count($fieldNode/*)>0 and $fieldNode/@templateModeOnly">
-       	<xsl:message select="concat('Rendering template field configured in for with name: ', $name)"/>
+       	<!--xsl:message select="concat('Rendering template field configured in for with name: ', $name)"/-->
 				<xsl:variable name="name" select="$fieldNode/@name"/>
+				<xsl:variable name="label" select="$fieldNode/@label"/>
 				<xsl:variable name="del" select="'.'"/>
 				<xsl:variable name="template" select="$fieldNode/template"/>
 				<xsl:variable name="forceLabel" select="$fieldNode/@forceLabel"/>
@@ -288,7 +289,7 @@
 				      correct location. -->
 				<xsl:variable name="id" select="concat('_X', gn:element/@ref, '_replace')"/>
 				<xsl:call-template name="render-element-template-field">
-				  <xsl:with-param name="name" select="$labelConfig/label"/>
+				  <xsl:with-param name="name" select="if ($label) then $strings/*[name() = $label] else $labelConfig/label"/>
 				  <!--xsl:with-param name="name" select="$strings/*[name() = $name]" /-->
 				  <xsl:with-param name="id" select="$id"/>
 				  <xsl:with-param name="isExisting" select="true()"/>
@@ -299,7 +300,7 @@
 				</xsl:call-template>
     	</xsl:when>
 			<xsl:otherwise>
-       	<xsl:message select="concat('Rendering normal field NOT configured in for with name: ', $name)"/>
+       	<!--xsl:message select="concat('Rendering normal field NOT configured in for with name: ', $name)"/-->
 			   <xsl:call-template name="render-element">
 			    <xsl:with-param name="label" select="$labelConfig"/>
 			    <xsl:with-param name="value" select="."/>
@@ -324,7 +325,7 @@
 			                    else
 			                    ((gn:element/@down = 'true' and not(gn:element/@up)) or
 			                    (not(gn:element/@down) and not(gn:element/@up)))"/>
-		      <xsl:with-param name="isDisabled" select="name(.)='dct:identifier' and count(preceding-sibling::*[name(.) = 'dct:identifier'])=0"/>
+		      <xsl:with-param name="isDisabled" select="name(.)='dct:identifier' and count(preceding-sibling::*[name(.) = 'dct:identifier'])=0 and name(..)='dcat:Dataset'"/>
 			  </xsl:call-template>
 			
 			  <!-- Add a control to add this type of element

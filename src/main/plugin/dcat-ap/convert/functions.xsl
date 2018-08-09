@@ -86,40 +86,30 @@
   </xsl:template>
 
   <xsl:template name="langId-dcat-ap">
-	  <xsl:variable name="authorityLanguage" select="/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language[1]/skos:Concept/@rdf:about" />
-    <xsl:variable name="titleLanguage" select="/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title/@xml:lang"/>
-    <xsl:variable name="firstXmlLanguage" select="/*[name(.)='rdf:RDF']//@xml:lang"/>
-    <xsl:variable name="tmp">
+    <xsl:variable name="titleLanguages" select="/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title/@xml:lang"/>
+    <xsl:variable name="allLanguages" select="distinct-values(/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset//@xml:lang)"/>
+    <xsl:variable name="foundDefaultLanguage">
       <xsl:choose>
-        <xsl:when test="$titleLanguage">
+        <xsl:when test="$titleLanguages[1]">
           <xsl:call-template name="langId2to3">
-            <xsl:with-param name="langId-2char" select="$titleLanguage[1]" />
+            <xsl:with-param name="langId-2char" select="$titleLanguages[1]" />
           </xsl:call-template>
         </xsl:when>
-        <xsl:when test="$firstXmlLanguage">
-          <xsl:value-of select="$firstXmlLanguage[1]"/>
+        <xsl:when test="$allLanguages[1]">
+          <xsl:call-template name="langId2to3">
+            <xsl:with-param name="langId-2char" select="$allLanguages[1]" />
+          </xsl:call-template>
         </xsl:when>
-
-        <xsl:when test="$authorityLanguage">
-          <xsl:variable name="tmp2">
-            <xsl:call-template name="interpretLanguage">
-              <xsl:with-param name="input" select="$authorityLanguage[1]"/>
-            </xsl:call-template>
-          </xsl:variable>
-          <xsl:if test="$tmp2">
-            <xsl:value-of select="$tmp2"/>
-          </xsl:if>
-          <xsl:if test="not($tmp2)">
-            <xsl:value-of select="$defaultLang"/>
-          </xsl:if>
-        </xsl:when>
-
         <xsl:otherwise>
-          <xsl:value-of select="$defaultLang"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:value-of select="normalize-space(string($tmp))"></xsl:value-of>
+    <xsl:if test="$foundDefaultLanguage=''">
+			<xsl:value-of select="$defaultLang"/>
+    </xsl:if>
+    <xsl:if test="not($foundDefaultLanguage='')">
+			<xsl:value-of select="$foundDefaultLanguage"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template name="langId2to3">
@@ -129,7 +119,7 @@
       <xsl:when test="ends-with($langId-2char,'fr')">fre</xsl:when>
       <xsl:when test="ends-with($langId-2char,'en')">eng</xsl:when>
       <xsl:when test="ends-with($langId-2char,'de')">ger</xsl:when>
-      <xsl:otherwise><xsl:value-of select="$langId-2char"></xsl:value-of></xsl:otherwise>
+      <xsl:otherwise><xsl:message select="concat('No mapping found in langId2to3 for langId-2char with value ', $langId-2char)"/></xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -140,7 +130,7 @@
       <xsl:when test="ends-with($langId-2char,'fr')">fre</xsl:when>
       <xsl:when test="ends-with($langId-2char,'en')">eng</xsl:when>
       <xsl:when test="ends-with($langId-2char,'de')">deu</xsl:when>
-      <xsl:otherwise><xsl:value-of select="$langId-2char"></xsl:value-of></xsl:otherwise>
+      <xsl:otherwise><xsl:message select="concat('No mapping found in langId2toAuth for langId-2char with value ', $langId-2char)"/></xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -151,7 +141,7 @@
       <xsl:when test="ends-with($langId-3char,'fre')">fr</xsl:when>
       <xsl:when test="ends-with($langId-3char,'eng')">en</xsl:when>
       <xsl:when test="ends-with($langId-3char,'ger')">de</xsl:when>
-      <xsl:otherwise><xsl:value-of select="$langId-3char"/></xsl:otherwise>
+      <xsl:otherwise><xsl:message select="concat('No mapping found in langId3to2 for langId-3char with value ', $langId-3char)"/></xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
@@ -177,7 +167,7 @@
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="string($firstTitle[1])"/>
-        <xsl:message select="concat('Title not found in document language:',$firstTitle[1], '(',$twoCharLangCode,')')"/>
+        <xsl:message select="concat('Title not found in document language (',$twoCharLangCode,'), first title of document used:',$firstTitle[1])"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

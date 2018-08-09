@@ -86,7 +86,7 @@
 						<xs:element ref="dct:accessRights" minOccurs="0" maxOccurs="1"/>
 						<xs:element ref="dct:conformsTo" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element ref="foaf:page" minOccurs="0" maxOccurs="unbounded"/>
-						<xs:element ref="dct:accrualPeriodicity" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="dct:accrualPeriodicity" minOccurs="0" maxOccurs="1"/>
 						<xs:element ref="dct:hasVersion" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element ref="dct:isVersionOf" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element name="landingPage" type="rdf:Resource" minOccurs="0" maxOccurs="unbounded"/>

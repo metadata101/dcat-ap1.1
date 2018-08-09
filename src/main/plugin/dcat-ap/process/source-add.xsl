@@ -79,7 +79,7 @@ Stylesheet used to update metadata adding a reference to a source record.
 			<xsl:variable name="rdfAbout" select="java:getIndexField(string(substring(/root/gui/url, 2)), string($sourceUuid), 'dcat_uri', string(/root/gui/language))"/>
       <xsl:copy-of
         select="dct:relation[@rdf:resource!= $rdfAbout]"/>
-      <dct:relation rdf:resource="{$rdfAbout}"/>
+      <dct:relation rdf:resource="{$rdfAbout}" geonet:nodeId="{$sourceUuid}"/>
 
       <xsl:apply-templates select="dct:source|
                 dct:spatial|
