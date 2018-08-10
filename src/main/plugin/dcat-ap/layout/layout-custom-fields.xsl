@@ -95,8 +95,7 @@
 			      </xsl:when>
 		    	</xsl:choose>
 		    </xsl:variable>
-		    <!--xsl:variable name="bboxCoordinates" select="tokenize(replace($bbox,',','.'), '\|')"/-->
-		    <xsl:variable name="bboxCoordinates" select="tokenize($bbox,'\|')"/>
+		    <xsl:variable name="bboxCoordinates" select="tokenize(replace($bbox,',','.'), '\|')"/>
 	      <div gn-draw-bbox=""
 		          data-dc-ref="{concat('_',locn:geometry/gn:element/@ref)}"
 		          data-lang="lang"
