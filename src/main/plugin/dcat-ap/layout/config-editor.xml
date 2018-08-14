@@ -64,7 +64,7 @@
 					</key>
 				</values>
 				<snippet>
-					<dct:modified>{{FieldId212}}</dct:modified>
+					<schema:startDate>{{FieldId212}}</schema:startDate>
 				</snippet>
 			</template>
 		</for>
@@ -76,7 +76,7 @@
 					</key>
 				</values>
 				<snippet>
-					<dct:modified>{{FieldId214}}</dct:modified>
+					<schema:endDate>{{FieldId214}}</schema:endDate>
 				</snippet>
 			</template>
 		</for>
@@ -97,6 +97,30 @@
 				</values>
 				<snippet>
 					<dcat:downloadURL rdf:about="{{FieldId242}}"/>
+				</snippet>
+			</template>
+		</for>
+		<for name="dct:issued" templateModeOnly="true" forceLabel="true" label="FieldId243">
+			<template>
+				<values>
+					<key label="FieldId243" xpath="." use="gn-date-picker">
+						<directiveAttributes data-tag-name=""/>
+					</key>
+				</values>
+				<snippet>
+					<dct:issued>{{FieldId243}}</dct:issued>
+				</snippet>
+			</template>
+		</for>
+		<for name="dct:modified" templateModeOnly="true" forceLabel="true" label="FieldId245">
+			<template>
+				<values>
+					<key label="FieldId245" xpath="." use="gn-date-picker">
+						<directiveAttributes data-tag-name=""/>
+					</key>
+				</values>
+				<snippet>
+					<dct:modified>{{FieldId245}}</dct:modified>
 				</snippet>
 			</template>
 		</for>

@@ -99,6 +99,15 @@
 		</xsl:copy>
 	</xsl:template>
 	
+  <!-- Fix value for attribute -->
+  <xsl:template match="dct:issued|dct:modified|schema:startDate|schema:endDate" priority="10">
+    <xsl:copy>
+      <xsl:copy-of select="@*[not(name()='rdf:datatype')]"/>
+      <xsl:attribute name="rdf:datatype"><xsl:if test="not(contains(lower-case(.),'t'))">http://www.w3.org/2001/XMLSchema#date</xsl:if><xsl:if test="contains(lower-case(.),'t')">http://www.w3.org/2001/XMLSchema#dateTime</xsl:if></xsl:attribute>
+      <xsl:value-of select="."/>
+    </xsl:copy>
+  </xsl:template>
+
 	<xsl:template match="locn:geometry" priority="10">
 		<xsl:copy>
 			<xsl:message select="concat('Incomming value for locn:geometry',.)" />
