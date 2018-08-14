@@ -118,8 +118,6 @@ public class Aligner extends BaseAligner {
         GeonetContext gc = (GeonetContext) context.getHandlerContext(Geonet.CONTEXT_NAME);
         dataMan = gc.getBean(DataManager.class);
         result = new HarvestResult();
-        
-        //request = context.getBean(GeonetHttpRequestFactory.class).createXmlRequest(new URL(params.baseUrl));
 
     }
 
