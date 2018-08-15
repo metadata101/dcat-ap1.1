@@ -80,13 +80,13 @@ xmlns:schema="http://schema.org/" >
 	<element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme/skos:Concept/skos:prefLabel/@xml:lang"><label>language</label><btnLabel>language</btnLabel></element>
 	<element name="skos:inScheme" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme/skos:Concept/skos:inScheme/@rdf:resource"><label>in scheme</label><btnLabel>in scheme</btnLabel></element>
 	<element name="dct:accessRights" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights"><label>access rights</label><btnLabel>access rights</btnLabel></element>
-	<element name="dct:RightsStatement" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement"><label>rechten</label><btnLabel>rechten</btnLabel></element>
+	<element name="dct:RightsStatement" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement"><label>statement</label><btnLabel>statement</btnLabel></element>
 	<element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 	<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement/dct:title"><label>title</label><btnLabel>title</btnLabel></element>
 	<element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement/dct:title/@xml:lang"><label>language</label><btnLabel>language</btnLabel></element>
 	<element name="dct:description" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement/dct:description"><label>description</label><btnLabel>description</btnLabel></element>
 	<element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights/dct:RightsStatement/dct:description/@xml:lang"><label>language</label><btnLabel>language</btnLabel></element>
-	<element name="dct:conformsTo" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo"><label>conforms to</label><btnLabel>conforms to</btnLabel></element>
+	<element name="dct:conformsTo" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo"><label>conforms to standard</label><btnLabel>conforms to standard</btnLabel></element>
 	<element name="dct:Standard" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo/dct:Standard"><label>standard</label><btnLabel>standard</btnLabel></element>
 	<element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo/dct:Standard/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 	<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo/dct:Standard/dct:title"><label>title</label><btnLabel>title</btnLabel></element>
@@ -128,9 +128,9 @@ xmlns:schema="http://schema.org/" >
 	<element name="dct:source" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:source/@rdf:resource"><label>source</label><btnLabel>source</btnLabel></element>
 	<element name="dct:spatial" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial"><label>spatial / geographic extent</label><btnLabel>spatial / geographic extent</btnLabel></element>
 	<element name="dct:Location" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location"><label>location</label><btnLabel>location</btnLabel></element>
-	<element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
+	<element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/@rdf:about"><label>Geographic identifier</label><btnLabel>Geographic identifier</btnLabel></element>
 	<element name="locn:geometry" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/locn:geometry"><label>geometry</label><btnLabel>geometry</btnLabel></element>
-	<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/skos:prefLabel"><label>preferred label</label><btnLabel>preferred label</btnLabel></element>
+	<element name="skos:prefLabel" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/skos:prefLabel"><label>Geographic description</label><btnLabel>Geographic description</btnLabel></element>
 	<element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial/dct:Location/skos:prefLabel/@xml:lang"><label>language</label><btnLabel>language</btnLabel></element>
 	<element name="dct:temporal" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal"><label>temporal coverage</label><btnLabel>temporal coverage</btnLabel></element>
 	<element name="dct:PeriodOfTime" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal/dct:PeriodOfTime"><label>period of time</label><btnLabel>period of time</btnLabel></element>
@@ -202,7 +202,7 @@ xmlns:schema="http://schema.org/" >
 	<element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:description/@xml:lang"><label>language</label><btnLabel>language</btnLabel></element>
 	<element name="dct:identifier" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:license/dct:LicenseDocument/dct:identifier"><label>identifier</label><btnLabel>identifier</btnLabel></element>
 	<element name="dct:rights" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:rights"><label>rights</label><btnLabel>rights</btnLabel></element>
-	<element name="dct:RightsStatement" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:rights/dct:RightsStatement"><label>rechten</label><btnLabel>rechten</btnLabel></element>
+	<element name="dct:RightsStatement" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:rights/dct:RightsStatement"><label>statement</label><btnLabel>statement</btnLabel></element>
 	<element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:rights/dct:RightsStatement/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 	<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:rights/dct:RightsStatement/dct:title"><label>title</label><btnLabel>title</btnLabel></element>
 	<element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:rights/dct:RightsStatement/dct:title/@xml:lang"><label>language</label><btnLabel>language</btnLabel></element>
@@ -219,7 +219,7 @@ xmlns:schema="http://schema.org/" >
 	<element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/foaf:page/foaf:Document/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 	<element name="foaf:name" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/foaf:page/foaf:Document/foaf:name"><label>name</label><btnLabel>name</btnLabel></element>
 	<element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/foaf:page/foaf:Document/foaf:name/@xml:lang"><label>language</label><btnLabel>language</btnLabel></element>
-	<element name="dct:conformsTo" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:conformsTo"><label>conforms to</label><btnLabel>conforms to</btnLabel></element>
+	<element name="dct:conformsTo" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:conformsTo"><label>Conforms to standard</label><btnLabel>Conforms to standard</btnLabel></element>
 	<element name="dct:Standard" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:conformsTo/dct:Standard"><label>standard</label><btnLabel>standard</btnLabel></element>
 	<element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:conformsTo/dct:Standard/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 	<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:conformsTo/dct:Standard/dct:title"><label>title</label><btnLabel>title</btnLabel></element>
@@ -280,7 +280,7 @@ xmlns:schema="http://schema.org/" >
 	<element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:description/@xml:lang"><label>language</label><btnLabel>language</btnLabel></element>
 	<element name="dct:identifier" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:license/dct:LicenseDocument/dct:identifier"><label>identifier</label><btnLabel>identifier</btnLabel></element>
 	<element name="dct:rights" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:rights"><label>rights</label><btnLabel>rights</btnLabel></element>
-	<element name="dct:RightsStatement" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:rights/dct:RightsStatement"><label>rechten</label><btnLabel>rechten</btnLabel></element>
+	<element name="dct:RightsStatement" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:rights/dct:RightsStatement"><label>statement</label><btnLabel>statement</btnLabel></element>
 	<element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:rights/dct:RightsStatement/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 	<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:rights/dct:RightsStatement/dct:title"><label>title</label><btnLabel>title</btnLabel></element>
 	<element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:rights/dct:RightsStatement/dct:title/@xml:lang"><label>language</label><btnLabel>language</btnLabel></element>
@@ -297,7 +297,7 @@ xmlns:schema="http://schema.org/" >
 	<element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/foaf:page/foaf:Document/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 	<element name="foaf:name" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/foaf:page/foaf:Document/foaf:name"><label>name</label><btnLabel>name</btnLabel></element>
 	<element name="xml:lang" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/foaf:page/foaf:Document/foaf:name/@xml:lang"><label>language</label><btnLabel>language</btnLabel></element>
-	<element name="dct:conformsTo" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:conformsTo"><label>conforms to</label><btnLabel>conforms to</btnLabel></element>
+	<element name="dct:conformsTo" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:conformsTo"><label>conforms to standard</label><btnLabel>conforms to standard</btnLabel></element>
 	<element name="dct:Standard" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:conformsTo/dct:Standard"><label>standard</label><btnLabel>standard</btnLabel></element>
 	<element name="rdf:about" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:conformsTo/dct:Standard/@rdf:about"><label>URI</label><btnLabel>URI</btnLabel></element>
 	<element name="dct:title" context="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample/dcat:Distribution/dct:conformsTo/dct:Standard/dct:title"><label>title</label><btnLabel>title</btnLabel></element>

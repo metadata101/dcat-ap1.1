@@ -10,6 +10,7 @@
   <advanced>Advanced</advanced>
   <xml>XML</xml>
   <dataset>Dataset</dataset>
+  <metadata>Metadata</metadata>
   <metadata-on-metadata>Metadata on metadata</metadata-on-metadata>
   <distribution>Distribution</distribution>
 	<!-- DCAT-AP view labels and help -->
@@ -47,13 +48,13 @@
 	<FieldId146>language</FieldId146>
 	<FieldId147>theme/ category</FieldId147>
 	<FieldId154>access rights</FieldId154>
-	<SectionRightsStatement>rechten</SectionRightsStatement>
+	<SectionRightsStatement>statement</SectionRightsStatement>
 	<FieldId156>URI</FieldId156>
 	<FieldId157>title</FieldId157>
 	<FieldId158>language</FieldId158>
 	<FieldId159>description</FieldId159>
 	<FieldId160>language</FieldId160>
-	<FieldId161>conforms to</FieldId161>
+	<FieldId161>conforms to standard</FieldId161>
 	<SectionStandard>standard</SectionStandard>
 	<FieldId163>URI</FieldId163>
 	<FieldId164>title</FieldId164>
@@ -82,10 +83,10 @@
 	<FieldId200>related resource</FieldId200>
 	<FieldId201>source</FieldId201>
 	<FieldId202>spatial / geographic extent</FieldId202>
-	<SectionLocation>location</SectionLocation>
-	<FieldId204>URI</FieldId204>
+	<FieldId203>location</FieldId203>
+	<FieldId204>Geographic identifier</FieldId204>
 	<FieldId205>geometry</FieldId205>
-	<FieldId207>preferred label</FieldId207>
+	<FieldId207>Geographic description</FieldId207>
 	<FieldId208>language</FieldId208>
 	<FieldId209>temporal coverage</FieldId209>
 	<SectionPeriodOfTime>period of time</SectionPeriodOfTime>
@@ -127,7 +128,7 @@
 	<FieldId281>language</FieldId281>
 	<FieldId282>identifier</FieldId282>
 	<FieldId283>rights</FieldId283>
-	<SectionRightsStatement>rechten</SectionRightsStatement>
+	<SectionRightsStatement>statement</SectionRightsStatement>
 	<FieldId285>URI</FieldId285>
 	<FieldId286>title</FieldId286>
 	<FieldId287>language</FieldId287>
@@ -144,7 +145,7 @@
 	<FieldId298>URI</FieldId298>
 	<FieldId299>name</FieldId299>
 	<FieldId300>language</FieldId300>
-	<FieldId301>conforms to</FieldId301>
+	<FieldId301>Conforms to standard</FieldId301>
 	<SectionStandard>standard</SectionStandard>
 	<FieldId303>URI</FieldId303>
 	<FieldId304>title</FieldId304>
@@ -165,33 +166,40 @@
 	<FieldId326>update/ modification date</FieldId326>
 	<FieldId328>format</FieldId328>
 	<FieldId335>media type</FieldId335>
-	<FieldId336>language</FieldId336>
-	<FieldId343>licence</FieldId343>
+	<FieldId342>language</FieldId342>
+	<FieldId349>licence</FieldId349>
 	<SectionLicenseDocument>licentie</SectionLicenseDocument>
-	<FieldId345>URI</FieldId345>
-	<FieldId346>type</FieldId346>
-	<FieldId353>title</FieldId353>
-	<FieldId354>language</FieldId354>
-	<FieldId355>description</FieldId355>
-	<FieldId356>language</FieldId356>
-	<FieldId357>identifier</FieldId357>
-	<FieldId358>byte size</FieldId358>
-	<FieldId359>checksum</FieldId359>
-	<SectionChecksum>checksum</SectionChecksum>
-	<FieldId361>URI</FieldId361>
-	<FieldId362>algorithm</FieldId362>
-	<FieldId363>checksum value</FieldId363>
-	<FieldId364>documentation</FieldId364>
-	<SectionDocument>document</SectionDocument>
+	<FieldId351>URI</FieldId351>
+	<FieldId352>type</FieldId352>
+	<FieldId359>title</FieldId359>
+	<FieldId360>language</FieldId360>
+	<FieldId361>description</FieldId361>
+	<FieldId362>language</FieldId362>
+	<FieldId363>identifier</FieldId363>
+	<FieldId364>rights</FieldId364>
+	<SectionRightsStatement>statement</SectionRightsStatement>
 	<FieldId366>URI</FieldId366>
-	<FieldId367>name</FieldId367>
+	<FieldId367>title</FieldId367>
 	<FieldId368>language</FieldId368>
-	<FieldId369>conforms to</FieldId369>
+	<FieldId369>description</FieldId369>
+	<FieldId370>language</FieldId370>
+	<FieldId371>byte size</FieldId371>
+	<FieldId372>checksum</FieldId372>
+	<SectionChecksum>checksum</SectionChecksum>
+	<FieldId374>URI</FieldId374>
+	<FieldId375>algorithm</FieldId375>
+	<FieldId376>checksum value</FieldId376>
+	<FieldId377>documentation</FieldId377>
+	<SectionDocument>document</SectionDocument>
+	<FieldId379>URI</FieldId379>
+	<FieldId380>name</FieldId380>
+	<FieldId381>language</FieldId381>
+	<FieldId382>conforms to standard</FieldId382>
 	<SectionStandard>standard</SectionStandard>
-	<FieldId371>URI</FieldId371>
-	<FieldId372>title</FieldId372>
-	<FieldId373>language</FieldId373>
-	<FieldId374>description</FieldId374>
-	<FieldId375>language</FieldId375>
-	<FieldId376>change type</FieldId376>
+	<FieldId384>URI</FieldId384>
+	<FieldId385>title</FieldId385>
+	<FieldId386>language</FieldId386>
+	<FieldId387>description</FieldId387>
+	<FieldId388>language</FieldId388>
+	<FieldId389>change type</FieldId389>
 </strings>

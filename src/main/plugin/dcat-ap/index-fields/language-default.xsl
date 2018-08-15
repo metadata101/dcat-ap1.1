@@ -92,7 +92,6 @@
 	    <Field name="_locale" string="{$isoLangId}" store="true" index="true"/>
 	    <Field name="_docLocale" string="{$isoDocLangId}" store="true" index="true"/>
 			<xsl:for-each select="$datasets">
-				<xsl:message select="concat('Indexing document (', name(.), ') for isoLangId ', $isoLangId)"/>
 		    <xsl:apply-templates select=".">
 		      <xsl:with-param name="langId" select="$langId"/>
 		      <xsl:with-param name="isoLangId" select="$isoLangId"/>

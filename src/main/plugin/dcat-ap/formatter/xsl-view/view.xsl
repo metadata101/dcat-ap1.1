@@ -33,6 +33,7 @@
 	xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:schema="http://schema.org/"
 	xmlns:gn-fn-render="http://geonetwork-opensource.org/xsl/functions/render"
 	xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
+  xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap"
 	exclude-result-prefixes="#all">
 
 	<!-- Load the editor configuration to be able to render the different views -->
@@ -41,6 +42,7 @@
 
 	<!-- Some utility -->
 	<xsl:include href="../../layout/evaluate.xsl" />
+  <xsl:include href="../../layout/utility-fn.xsl"/>
 
 	<!-- The core formatter XSL layout based on the editor configuration -->
 	<xsl:include href="sharedFormatterDir/xslt/render-layout.xsl" />
@@ -100,7 +102,7 @@
 
 		<!-- Render fields for each dcat-ap element -->
 		<xsl:for-each select="$elements/*">
-			<xsl:variable name="element" select="." />
+			<xsl:variable name="element" select="."/>
 			<xsl:apply-templates mode="render-field" select="$element" />
 		</xsl:for-each>
 	</xsl:template>
@@ -115,7 +117,7 @@
 	</xsl:template>
 
 	<xsl:template mode="render-field"
-		match="dct:title|dct:description|dct:created|dct:issued|dct:modified|dct:identifier|foaf:name|skos:notation|schema:startDate|schema:endDate|vcard:street-address|vcard:locality|vcard:postal-code|vcard:country-name|vcard:hasEmail|vcard:hasURL|vcard:hasTelephone|vcard:fn|vcard:organization-name">
+		match="dct:title|dct:description|dct:created|dct:issued|dct:modified|dct:identifier|foaf:name|skos:notation|schema:startDate|schema:endDate|vcard:street-address|vcard:locality|vcard:postal-code|vcard:country-name|vcard:hasEmail|vcard:hasURL|vcard:hasTelephone|vcard:fn|vcard:organization-name|skos:prefLabel">
 		<dl>
 			<dt style="font-weight:bold;">
 				<xsl:value-of
@@ -205,7 +207,7 @@
 
 	<!-- Bbox is displayed with an overview and the geom displayed on it and 
 		the coordinates displayed around -->
-	<xsl:template mode="render-field" match="dct:spatial">
+	<xsl:template mode="render-field" match="dct:Location">
 		<dl>
 			<dt>
 				<h3>
@@ -214,23 +216,22 @@
 				</h3>
 			</dt>
 			<dd>
-				<xsl:apply-templates mode="render-field" select="@*|*" />
-				<xsl:for-each
-					select="*/locn:geometry[@rdf:datatype='http://www.opengis.net/ont/geosparql#wktLiteral' or true()]">
-					<dt>
-					</dt>
-					<dd>
-						<xsl:copy-of
-							select="gn-fn-render:bbox(
-                            xs:double(2.53),
-                            xs:double(50.67),
-                            xs:double(51.51),
-                            xs:double(5.92))" />
+		    <xsl:apply-templates mode="render-field" select="@rdf:about" />
+		    <xsl:apply-templates mode="render-field" select="skos:prefLabel[1]" />
+		    <xsl:message select="locn:geometry"/>
+        <xsl:variable name="bbox" select="gn-fn-dcat-ap:getBboxCoordinates(node()[name(.)='locn:geometry'])"/>
+        <xsl:variable name="bboxCoordinates" select="tokenize(replace($bbox,',','.'), '\|')"/>
+        <xsl:if test="count($bboxCoordinates)=4">
+          <xsl:copy-of
+            select="gn-fn-render:bbox(
+                          xs:double($bboxCoordinates[1]),
+                          xs:double($bboxCoordinates[2]),
+                          xs:double($bboxCoordinates[3]),
+                          xs:double($bboxCoordinates[4]))" />
 
-						<br />
-						<br />
-					</dd>
-				</xsl:for-each>
+          <br />
+          <br />
+        </xsl:if>
 			</dd>
 		</dl>
 	</xsl:template>

@@ -36,8 +36,6 @@
 		xmlns:schema="http://schema.org/"
 		xmlns:locn="http://www.w3.org/ns/locn#"
     xmlns:gml="http://www.opengis.net/gml"
-    xmlns:java="java:org.fao.geonet.util.XslUtil"
-		xmlns:java2="java:org.fao.geonet.schema.dcatap.util.XslUtil" 
 		xmlns:gn="http://www.fao.org/geonetwork"
 		xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
 		xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap"
@@ -68,35 +66,17 @@
 	      <xsl:variable name="description"
 	                    select="skos:prefLabel[1]"/>
 	      <xsl:variable name="readonly" select="false()"/>
-	      <xsl:variable name="geometry">
-	        <xsl:apply-templates select="locn:geometry" mode="gn-element-cleaner"/>
-	      </xsl:variable>
-
-<!-- 
-	      <br />
-				<gn-bounding-polygon polygon-xml="{string($geometry)}"
-						identifier="{$identifier}"
-	        	read-only="{$readonly}">
-	      </gn-bounding-polygon>
-	      <xsl:if test="$description and $isFlatMode and not($metadataIsMultilingual)">
-	        <xsl:attribute name="data-description"
-	                       select="$description"/>
-	        <xsl:attribute name="data-description-ref"
-	                       select="concat('_', $description/gn:element/@ref)"/>
-	      </xsl:if>
- -->
-		    <xsl:variable name="bbox">
-		    	<xsl:choose>
-						<xsl:when test="ends-with(locn:geometry/@rdf:datatype,'#wktLiteral')">
-			      	<xsl:value-of select="java2:wktGeomToBbox(saxon:serialize($geometry,'default-serialize-mode'))"/>
-						</xsl:when>
-						<xsl:when test="ends-with(locn:geometry/@rdf:datatype,'#gmlLiteral')">
-			      	<xsl:value-of select="java:geomToBbox(saxon:serialize($geometry,'default-serialize-mode'))"/>
-			      </xsl:when>
-		    	</xsl:choose>
+		    <xsl:variable name="geometry" as="node()">
+		      <xsl:apply-templates select="locn:geometry" mode="gn-element-cleaner"/>
 		    </xsl:variable>
+		    <xsl:variable name="bbox" select="gn-fn-dcat-ap:getBboxCoordinates($geometry)"/>
 		    <xsl:variable name="bboxCoordinates" select="tokenize(replace($bbox,',','.'), '\|')"/>
-	      <div gn-draw-bbox=""
+		    <xsl:if test="count($bboxCoordinates)>4">
+				  <div class="alert alert-danger">
+				    <p data-translate="invalidGeometryValue"/>
+				  </div>
+        </xsl:if>
+ 	      <div gn-draw-bbox=""
 		          data-dc-ref="{concat('_',locn:geometry/gn:element/@ref)}"
 		          data-lang="lang"
 		          data-read-only="{$readonly}">
@@ -110,49 +90,24 @@
             <xsl:attribute name="data-htop"
                            select="$bboxCoordinates[4]"/>
           </xsl:if>
-          <xsl:attribute name="data-identifier" select="@rdf:about"/>
+          <xsl:variable name="identifier">
+            <xsl:choose>
+              <xsl:when test="count($bboxCoordinates)>5"><xsl:value-of select="$bboxCoordinates[6]"/></xsl:when>
+              <xsl:otherwise><xsl:value-of select="@rdf:about"/></xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:variable name="description">
+            <xsl:choose>
+              <xsl:when test="count($bboxCoordinates)>4"><xsl:value-of select="$bboxCoordinates[5]"/></xsl:when>
+              <xsl:otherwise><xsl:value-of select="skos:prefLabel[1]"/></xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:attribute name="data-identifier" select="$identifier"/>
           <xsl:attribute name="data-identifier-ref" select="concat('_',gn:element/@ref,'_rdfCOLONabout')"/>
-          <xsl:attribute name="data-description" select="skos:prefLabel"/>
-					<xsl:attribute name="data-description-ref" select="concat('_', skos:prefLabel/gn:element/@ref)"/>
+          <xsl:attribute name="data-description" select="$description"/>
+					<xsl:attribute name="data-description-ref" select="concat('_', skos:prefLabel[1]/gn:element/@ref)"/>
 	      </div>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
-  
-  <!--xsl:template name="compute-bbox-for-polygon">
-
-    <xsl:variable name="geometry">
-      <xsl:apply-templates select="."/>
-    </xsl:variable>
-    <xsl:variable name="bbox">
-   		<xsl:if test="@rdf:datatype='http://www.opengis.net/ont/geosparql#wktLiteral'"> 
-      	<xsl:value-of select="java2:wktGeomToBbox(saxon:serialize($geometry,'default-serialize-mode'))"/>
-      </xsl:if>
-   		<xsl:if test="@rdf:datatype='http://www.opengis.net/ont/geosparql#gmlLiteral'"> 
-      	<xsl:value-of select="java:geomToBbox(saxon:serialize($geometry,'default-serialize-mode'))"/>
-      </xsl:if>
-    </xsl:variable>
-    <xsl:if test="$bbox != ''">
-      <xsl:variable name="bboxCoordinates"
-                    select="tokenize($bbox, '\|')"/>
-
-      <gmd:geographicElement>
-        <gmd:EX_GeographicBoundingBox>
-          <gmd:westBoundLongitude>
-            <gco:Decimal><xsl:value-of select="$bboxCoordinates[1]"/></gco:Decimal>
-          </gmd:westBoundLongitude>
-          <gmd:eastBoundLongitude>
-            <gco:Decimal><xsl:value-of select="$bboxCoordinates[3]"/></gco:Decimal>
-          </gmd:eastBoundLongitude>
-          <gmd:southBoundLatitude>
-            <gco:Decimal><xsl:value-of select="$bboxCoordinates[2]"/></gco:Decimal>
-          </gmd:southBoundLatitude>
-          <gmd:northBoundLatitude>
-            <gco:Decimal><xsl:value-of select="$bboxCoordinates[4]"/></gco:Decimal>
-          </gmd:northBoundLatitude>
-        </gmd:EX_GeographicBoundingBox>
-      </gmd:geographicElement>
-    </xsl:if>
-  </xsl:template-->
-
 </xsl:stylesheet>

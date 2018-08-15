@@ -48,13 +48,13 @@
 	<FieldId146>taal</FieldId146>
 	<FieldId147>thema</FieldId147>
 	<FieldId154>toegangsbeperkingen</FieldId154>
-	<SectionRightsStatement>rechten</SectionRightsStatement>
+	<SectionRightsStatement>bepaling</SectionRightsStatement>
 	<FieldId156>URI</FieldId156>
 	<FieldId157>titel</FieldId157>
 	<FieldId158>taal</FieldId158>
 	<FieldId159>beschrijving</FieldId159>
 	<FieldId160>taal</FieldId160>
-	<FieldId161>conform met</FieldId161>
+	<FieldId161>conformiteit met standaard</FieldId161>
 	<SectionStandard>standaard</SectionStandard>
 	<FieldId163>URI</FieldId163>
 	<FieldId164>titel</FieldId164>
@@ -83,10 +83,10 @@
 	<FieldId200>verwante bron</FieldId200>
 	<FieldId201>bron</FieldId201>
 	<FieldId202>ruimtelijke dekking</FieldId202>
-	<SectionLocation>locatie</SectionLocation>
-	<FieldId204>URI</FieldId204>
+	<FieldId203>locatie</FieldId203>
+	<FieldId204>Geografische identificatie</FieldId204>
 	<FieldId205>geometrie</FieldId205>
-	<FieldId207>label</FieldId207>
+	<FieldId207>Geografische omschrijving</FieldId207>
 	<FieldId208>taal</FieldId208>
 	<FieldId209>temporele begrenzing</FieldId209>
 	<SectionPeriodOfTime>tijdsperiode</SectionPeriodOfTime>
@@ -128,7 +128,7 @@
 	<FieldId281>taal</FieldId281>
 	<FieldId282>identificator</FieldId282>
 	<FieldId283>rechten</FieldId283>
-	<SectionRightsStatement>rechten</SectionRightsStatement>
+	<SectionRightsStatement>bepaling</SectionRightsStatement>
 	<FieldId285>URI</FieldId285>
 	<FieldId286>titel</FieldId286>
 	<FieldId287>taal</FieldId287>
@@ -145,7 +145,7 @@
 	<FieldId298>URI</FieldId298>
 	<FieldId299>naam</FieldId299>
 	<FieldId300>taal</FieldId300>
-	<FieldId301>conform met</FieldId301>
+	<FieldId301>Conformiteit met standaard</FieldId301>
 	<SectionStandard>standaard</SectionStandard>
 	<FieldId303>URI</FieldId303>
 	<FieldId304>titel</FieldId304>
@@ -166,33 +166,40 @@
 	<FieldId326>laatst gewijzigd</FieldId326>
 	<FieldId328>formaat</FieldId328>
 	<FieldId335>mediatype</FieldId335>
-	<FieldId336>taal</FieldId336>
-	<FieldId343>licentie</FieldId343>
+	<FieldId342>taal</FieldId342>
+	<FieldId349>licentie</FieldId349>
 	<SectionLicenseDocument>licentie</SectionLicenseDocument>
-	<FieldId345>URI</FieldId345>
-	<FieldId346>type</FieldId346>
-	<FieldId353>titel</FieldId353>
-	<FieldId354>taal</FieldId354>
-	<FieldId355>beschrijving</FieldId355>
-	<FieldId356>taal</FieldId356>
-	<FieldId357>identificator</FieldId357>
-	<FieldId358>grootte (bytes)</FieldId358>
-	<FieldId359>checksom</FieldId359>
-	<SectionChecksum>checksom</SectionChecksum>
-	<FieldId361>URI</FieldId361>
-	<FieldId362>algoritme</FieldId362>
-	<FieldId363>checksom waarde</FieldId363>
-	<FieldId364>documentatie</FieldId364>
-	<SectionDocument>document</SectionDocument>
+	<FieldId351>URI</FieldId351>
+	<FieldId352>type</FieldId352>
+	<FieldId359>titel</FieldId359>
+	<FieldId360>taal</FieldId360>
+	<FieldId361>beschrijving</FieldId361>
+	<FieldId362>taal</FieldId362>
+	<FieldId363>identificator</FieldId363>
+	<FieldId364>rechten</FieldId364>
+	<SectionRightsStatement>bepaling</SectionRightsStatement>
 	<FieldId366>URI</FieldId366>
-	<FieldId367>naam</FieldId367>
+	<FieldId367>titel</FieldId367>
 	<FieldId368>taal</FieldId368>
-	<FieldId369>conform met</FieldId369>
+	<FieldId369>beschrijving</FieldId369>
+	<FieldId370>taal</FieldId370>
+	<FieldId371>grootte (bytes)</FieldId371>
+	<FieldId372>checksom</FieldId372>
+	<SectionChecksum>checksom</SectionChecksum>
+	<FieldId374>URI</FieldId374>
+	<FieldId375>algoritme</FieldId375>
+	<FieldId376>checksom waarde</FieldId376>
+	<FieldId377>documentatie</FieldId377>
+	<SectionDocument>document</SectionDocument>
+	<FieldId379>URI</FieldId379>
+	<FieldId380>naam</FieldId380>
+	<FieldId381>taal</FieldId381>
+	<FieldId382>conformiteit met standaard</FieldId382>
 	<SectionStandard>standaard</SectionStandard>
-	<FieldId371>URI</FieldId371>
-	<FieldId372>titel</FieldId372>
-	<FieldId373>taal</FieldId373>
-	<FieldId374>beschrijving</FieldId374>
-	<FieldId375>taal</FieldId375>
-	<FieldId376>status</FieldId376>
+	<FieldId384>URI</FieldId384>
+	<FieldId385>titel</FieldId385>
+	<FieldId386>taal</FieldId386>
+	<FieldId387>beschrijving</FieldId387>
+	<FieldId388>taal</FieldId388>
+	<FieldId389>status</FieldId389>
 </strings>

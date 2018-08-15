@@ -130,7 +130,7 @@
 				<xs:complexType>
 					<xs:sequence>
 						<!-- optional properties for dct:Location-->
-						<xs:element ref="locn:geometry" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element ref="locn:geometry" minOccurs="0" maxOccurs="1"/>
 						<xs:element ref="skos:prefLabel" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>

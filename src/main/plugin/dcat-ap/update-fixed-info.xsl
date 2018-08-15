@@ -21,9 +21,31 @@
   ~ Contact: Jeroen Ticheler - FAO - Viale delle Terme di Caracalla 2,
   ~ Rome - Italy. email: geonetwork@osgeo.org
   -->
-<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:schema="http://schema.org/" xmlns:locn="http://www.w3.org/ns/locn#" xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap" exclude-result-prefixes="#all">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:spdx="http://spdx.org/rdf/terms#"
+    xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+    xmlns:adms="http://www.w3.org/ns/adms#" 
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:dct="http://purl.org/dc/terms/"
+    xmlns:dcat="http://www.w3.org/ns/dcat#"
+    xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
+    xmlns:foaf="http://xmlns.com/foaf/0.1/" 
+    xmlns:owl="http://www.w3.org/2002/07/owl#"
+    xmlns:schema="http://schema.org/"
+    xmlns:locn="http://www.w3.org/ns/locn#"
+    xmlns:gml="http://www.opengis.net/gml"
+    xmlns:gn="http://www.fao.org/geonetwork"
+    xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
+    xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap"
+    xmlns:saxon="http://saxon.sf.net/"
+    extension-element-prefixes="saxon"
+    version="2.0"
+    exclude-result-prefixes="#all">
 	<!-- Tell the XSL processor to output XML. -->
 	<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
+  <xsl:output name="default-serialize-mode" indent="no"
+              omit-xml-declaration="yes"/>
 	<!-- =================================================================   -->
 	<xsl:include href="layout/utility-fn.xsl"/>
 	<xsl:variable name="serviceUrl" select="/root/env/siteURL"/>
@@ -110,7 +132,6 @@
 
 	<xsl:template match="locn:geometry" priority="10">
 		<xsl:copy>
-			<xsl:message select="concat('Incomming value for locn:geometry',.)" />
 	    <xsl:variable name="coverage" select="."/>
 	    <xsl:variable name="n" select="substring-after($coverage,'North ')"/>
 	    <xsl:if test="string-length($n)=0">
@@ -135,12 +156,10 @@
 							<xsl:when test="ends-with(@rdf:datatype,'#wktLiteral')">
 								<xsl:attribute name="rdf:datatype" select="@rdf:datatype"/>
 				      	<xsl:value-of select="$wktLiteral"/>
-				      	<xsl:message select="concat('Updated value with ',$wktLiteral)"/>
 							</xsl:when>
 							<xsl:when test="ends-with(@rdf:datatype,'#gmlLiteral')">
 								<xsl:attribute name="rdf:datatype" select="@rdf:datatype"/>
 				      	<xsl:value-of select="$gmlLiteral"/>
-				      	<xsl:message select="concat('Updated value with ',$gmlLiteral)"/>
 							</xsl:when>
 							<xsl:otherwise>
 								<xsl:attribute name="rdf:datatype">http://www.opengis.net/ont/geosparql#wktLiteral</xsl:attribute>
@@ -149,7 +168,6 @@
 					</xsl:choose>
 				</xsl:if>
 				<xsl:if test="not($isValid)">
-		     	<xsl:message select="concat('Updated value with Vlaanderen.  Could not parse value (',.,')')"/>
 					<xsl:attribute name="rdf:datatype">http://www.opengis.net/ont/geosparql#wktLiteral</xsl:attribute>
 					<xsl:value-of>POLYGON ((2.53 50.67,2.53 51.51,5.92 51.51,5.92 50.67,2.53 50.67))</xsl:value-of>
 				</xsl:if>

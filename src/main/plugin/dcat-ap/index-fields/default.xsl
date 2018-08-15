@@ -233,9 +233,14 @@
     </xsl:for-each>
     <xsl:for-each select="dct:spatial">
       <xsl:apply-templates
-        select="dct:Location/locn:geometry[@rdf:datatype='http://www.opengis.net/ont/geosparql#wktLiteral']"
+        select="dct:Location"
         mode="latLon" />
-      <Field name="spatial" string="{string(.)}" store="false" index="true" />
+	    <xsl:call-template name="index-lang-tag">
+	      <xsl:with-param name="tag" select="dct:Location/skos:prefLabel"/>
+	      <xsl:with-param name="field" select="'extentDesc'"/>
+	      <xsl:with-param name="langId" select="$langId"/>
+	    </xsl:call-template>
+      <Field name="geoDescCode" string="{string(dct:Location/@rdf:about)}" store="true" index="true"/>
     </xsl:for-each>
 
     <xsl:for-each select="dct:temporal">

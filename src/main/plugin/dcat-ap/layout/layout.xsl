@@ -52,7 +52,6 @@
   <xsl:template mode="mode-dcat-ap"
                 match="gn:*|@gn:*|@*"
                 priority="1000">
-                <xsl:message select="concat('Hiding element with name ', name(.))"/>
   </xsl:template>
 
   <!-- Template to display non existing element ie. geonet:child element
@@ -75,7 +74,6 @@
                     select="gn-fn-metadata:getFieldAddDirective($editorConfig, $name)"/>
 			<xsl:variable name="labelConfig"
                         select="gn-fn-metadata:getLabel($schema, $name, $labels, name(..), '', concat(gn-fn-metadata:getXPath(..),'/',$name))"/>
-			<xsl:message select="concat('Button label will be ',$labelConfig/btnLabel)"/>
       <xsl:call-template name="render-element-to-add">
         <!-- TODO: add xpath and isoType to get label ? -->
         <xsl:with-param name="label"
@@ -144,7 +142,6 @@
     priority="3000">
     <xsl:if test="$isEditing and 
       not($isFlatMode)">
-			<xsl:message select="concat('Rendering gn:child CHOICE_ELEMENT with name ', @name,' (Flatmode=', $isFlatMode,')')"/>
 
       <!-- Create a new configuration to only create
             a add action for non existing node. The add action for 
@@ -184,7 +181,6 @@
     <xsl:param name="overrideLabel" select="''" required="no"/>
     <xsl:param name="refToDelete" required="no"/>
     <xsl:variable name="name" select="name(.)"/>
-    <xsl:message select="concat('Rendering element with name ', $name)"/>
     <xsl:variable name="ref" select="gn:element/@ref"/>
     <xsl:variable name="labelConfig" select="gn-fn-metadata:getLabel($schema, $name, $labels, name(..), '', gn-fn-metadata:getXPath(.))"/>
     <xsl:variable name="helper" select="gn-fn-metadata:getHelper($labelConfig/helper, .)"/>
@@ -228,12 +224,10 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable-->
-    <!--xsl:message select="concat('HELPERS for element with name ',name(.),': ', $helper)"/-->
     <!-- Add view and edit template-->
     <xsl:variable name="fieldNode" select="$editorConfig/editor/fields/for[@name = $name and @templateModeOnly]"/>
     <xsl:choose>
 			<xsl:when test="count($fieldNode/*)>0 and $fieldNode/@templateModeOnly">
-       	<!--xsl:message select="concat('Rendering template field configured in for with name: ', $name)"/-->
 				<xsl:variable name="name" select="$fieldNode/@name"/>
 				<xsl:variable name="label" select="$fieldNode/@label"/>
 				<xsl:variable name="del" select="'.'"/>
@@ -300,7 +294,6 @@
 				</xsl:call-template>
     	</xsl:when>
 			<xsl:otherwise>
-       	<!--xsl:message select="concat('Rendering normal field NOT configured in for with name: ', $name)"/-->
 			   <xsl:call-template name="render-element">
 			    <xsl:with-param name="label" select="$labelConfig"/>
 			    <xsl:with-param name="value" select="."/>

@@ -26,17 +26,40 @@
 				xmlns:dcat="http://www.w3.org/ns/dcat#"
 				xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 				xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-                xmlns:date="http://exslt.org/dates-and-times"
-                xmlns:java="java:org.fao.geonet.util.XslUtil"
-                xmlns:joda="java:org.fao.geonet.domain.ISODate"
-                xmlns:mime="java:org.fao.geonet.util.MimeTypeFinder"
-                version="2.0"
-                exclude-result-prefixes="#all">
+        xmlns:locn="http://www.w3.org/ns/locn#"
+        xmlns:date="http://exslt.org/dates-and-times"
+        xmlns:joda="java:org.fao.geonet.domain.ISODate"
+        xmlns:mime="java:org.fao.geonet.util.MimeTypeFinder"
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+        xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap"
+        version="2.0"
+        exclude-result-prefixes="#all">
   <!-- ========================================================================================= -->
   <!-- latlon coordinates indexed as numeric. -->
+  <xsl:output name="default-serialize-mode" indent="no"
+              omit-xml-declaration="yes"/>
+
+  <xsl:include href="../layout/utility-fn.xsl" />
 
   <xsl:template match="*" mode="latLon">
-  	<xsl:message>TO DO: Indexing location</xsl:message>
+    <xsl:variable name="format" select="'##.00'"></xsl:variable>
+
+    <xsl:variable name="bbox" select="gn-fn-dcat-ap:getBboxCoordinates(locn:geometry)"/>
+    <xsl:variable name="bboxCoordinates" select="tokenize(replace($bbox,',','.'), '\|')"/>
+    <xsl:if test="count($bboxCoordinates)=4">
+      <Field name="westBL" string="{format-number(xs:double($bboxCoordinates[1]) , $format)}"
+             store="false" index="true"/>
+      <Field name="southBL" string="{format-number(xs:double($bboxCoordinates[2]), $format)}"
+             store="false" index="true"/>
+
+      <Field name="eastBL" string="{format-number(xs:double($bboxCoordinates[3]), $format)}"
+             store="false" index="true"/>
+      <Field name="northBL" string="{format-number(xs:double($bboxCoordinates[4]), $format)}"
+             store="false" index="true"/>
+
+      <Field name="geoBox" string="{replace($bbox,',','.')}" store="true" index="false"/>
+    </xsl:if>
+
   </xsl:template>
   <!-- ================================================================== -->
 
@@ -163,11 +186,9 @@
     <xsl:choose>
       <xsl:when test="string-length(string($docLangTitle)) != 0">
         <xsl:value-of select="$docLangTitle[1]"/>
-        <xsl:message select="concat('Title found in document language:',$docLangTitle[1], '(',$twoCharLangCode,')')"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="string($firstTitle[1])"/>
-        <xsl:message select="concat('Title not found in document language (',$twoCharLangCode,'), first title of document used:',$firstTitle[1])"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -188,11 +209,9 @@
     <xsl:choose>
       <xsl:when test="string-length(string($docLangAbstract)) != 0">
         <xsl:value-of select="$docLangAbstract[1]"/>
-        <xsl:message select="concat('Abstract found in document language:',$docLangAbstract[1], '(',$twoCharLangCode,')')"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="string($firstAbstract[1])"/>
-        <xsl:message select="concat('Abstract not found in document language:',$firstAbstract[1], '(',$twoCharLangCode,')')"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
