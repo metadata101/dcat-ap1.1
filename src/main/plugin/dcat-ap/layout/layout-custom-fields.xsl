@@ -66,10 +66,23 @@
 	      <xsl:variable name="description"
 	                    select="skos:prefLabel[1]"/>
 	      <xsl:variable name="readonly" select="false()"/>
-		    <xsl:variable name="geometry" as="node()">
-		      <xsl:apply-templates select="locn:geometry" mode="gn-element-cleaner"/>
-		    </xsl:variable>
-		    <xsl:variable name="bbox" select="gn-fn-dcat-ap:getBboxCoordinates($geometry)"/>
+        <xsl:variable name="geometry" as="node()">
+          <xsl:choose>
+            <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#wktLiteral')])>0">
+              <xsl:copy-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#wktLiteral')][1]" />
+            </xsl:when>
+            <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#gmlLiteral')])>0">
+              <xsl:copy-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#gmlLiteral')][1]" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:copy-of select="locn:geometry[1]"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="cleanedGeometry" as="node()">
+          <xsl:apply-templates select="$geometry" mode="gn-element-cleaner"/>
+        </xsl:variable>
+		    <xsl:variable name="bbox" select="gn-fn-dcat-ap:getBboxCoordinates($cleanedGeometry)"/>
 		    <xsl:variable name="bboxCoordinates" select="tokenize(replace($bbox,',','.'), '\|')"/>
 		    <xsl:if test="count($bboxCoordinates)>4">
 				  <div class="alert alert-danger">
@@ -77,7 +90,7 @@
 				  </div>
         </xsl:if>
  	      <div gn-draw-bbox=""
-		          data-dc-ref="{concat('_',locn:geometry/gn:element/@ref)}"
+		          data-dc-ref="{concat('_',$geometry/gn:element/@ref)}"
 		          data-lang="lang"
 		          data-read-only="{$readonly}">
 			    <xsl:if test="$bbox != ''">

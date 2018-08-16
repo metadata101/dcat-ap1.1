@@ -49,7 +49,6 @@
 	<!-- =================================================================   -->
 	<xsl:include href="layout/utility-fn.xsl"/>
 	<xsl:variable name="serviceUrl" select="/root/env/siteURL"/>
-	<xsl:variable name="publicationBaseUrl" select="gn-fn-dcat-ap:getPublicationBaseUrl()"/>
 	<xsl:template match="/root">
 		<xsl:apply-templates select="//rdf:RDF"/>
 	</xsl:template>
@@ -63,21 +62,34 @@
 	<xsl:template match="dcat:Dataset" priority="10">
 		<dcat:Dataset>
 			<xsl:apply-templates select="@*[not(name(.) = 'rdf:about')]"/>
-			<xsl:choose>
-				<xsl:when test="@rdf:about='' or (@rdf:about!='' and starts-with(@rdf:about,$publicationBaseUrl))">
-					<xsl:attribute name="rdf:about" select="concat($publicationBaseUrl,'/',/root/env/uuid)"/> 
-				</xsl:when>
-				<xsl:otherwise> 
-					<xsl:attribute name="rdf:about" select="@rdf:about"/> 
-				</xsl:otherwise>
-			</xsl:choose>
+      <xsl:variable name="rdfAbout" select="replace(@rdf:about,'([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}){1}',/root/env/uuid)"/>
+      <xsl:attribute name="rdf:about" select="$rdfAbout"/> 
 			<dct:identifier>
-				<xsl:message select="concat('Adding dct:identifier with value ',/root/env/uuid)" />
 				<xsl:value-of select="/root/env/uuid"/>
 			</dct:identifier>
-			<xsl:apply-templates select="node()[not(name(.) = 'dct:identifier' and ./text() = /root/env/uuid)]"/>
+			<!--
+			Copy all dct:identifier elements except the first. We could use position() to check the position
+			of the next dct:identifier elements, but when schema change and dct:identifier is not the first
+			element in the dcat:Dataset sequence anymore, the next will continue to work.
+  		-->
+			<xsl:for-each select="dct:identifier">
+	      <xsl:variable name="previousIdentifierSiblingsCount" select="count(preceding-sibling::*[name(.) = 'dct:identifier'])" />
+        <xsl:if test="$previousIdentifierSiblingsCount>0">
+          <xsl:apply-templates select="."/>
+        </xsl:if>
+			</xsl:for-each>
+			<xsl:apply-templates select="node()[not(name(.) = 'dct:identifier')]"/>
 		</dcat:Dataset>
 	</xsl:template>
+
+  <!--xsl:template match="dcat:Dataset/dct:title" priority="10">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:if test="root/env/id">
+        <xsl:value-of select="."/>
+      </xsl:if>
+    </xsl:copy>
+  </xsl:template-->
 
 	<!-- Fill empty element and update existing with resourceType -->
 	<xsl:template match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:format|dcat:mediaType|adms:status|dct:LicenseDocument/dct:type" priority="10">
@@ -130,15 +142,27 @@
     </xsl:copy>
   </xsl:template>
 
-	<xsl:template match="locn:geometry" priority="10">
+	<xsl:template match="dct:Location" priority="10">
 		<xsl:copy>
-	    <xsl:variable name="coverage" select="."/>
+      <xsl:apply-templates select="@*"/>
+	    <xsl:variable name="coverage">
+        <xsl:choose>
+          <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#wktLiteral')])>0">
+            <xsl:value-of select="locn:geometry[ends-with(@rdf:datatype,'#wktLiteral')][1]"/>
+          </xsl:when>
+          <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#gmlLiteral')])>0">
+            <xsl:value-of select="locn:geometry[ends-with(@rdf:datatype,'#gmlLiteral')][1]"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="locn:geometry[1]" />
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
 	    <xsl:variable name="n" select="substring-after($coverage,'North ')"/>
 	    <xsl:if test="string-length($n)=0">
-				<xsl:copy-of select="@*|node()"/>
+				<xsl:copy-of select="node()"/>
 	    </xsl:if>
 	    <xsl:if test="string-length($n)>0">
-				<xsl:copy-of select="@*[not(name()='rdf:datatype')]"/>
 		    <xsl:variable name="north" select="substring-before($n,',')"/>
 		    <xsl:variable name="s" select="substring-after($coverage,'South ')"/>
 		    <xsl:variable name="south" select="substring-before($s,',')"/>
@@ -150,27 +174,26 @@
 		    <xsl:variable name="place" select="substring-after($coverage,'. ')"/>
 	     	<xsl:variable name="isValid" select="number($west) and number($east) and number($south) and number($north)"/>
 	      <xsl:if test="$isValid">
-						<xsl:variable name="wktLiteral" select="concat('POLYGON ((',$west,' ',$south,',',$west,' ',$north,',',$east,' ',$north,',', $east,' ', $south,',', $west,' ',$south,'))')"/>
-			     	<xsl:variable name="gmlLiteral" select="concat('&lt;gml:Polygon&gt;&lt;gml:exterior&gt;&lt;gml:LinearRing&gt;&lt;gml:posList&gt;',$west,' ',$south,' ',$west,' ', $north, ' ', $east, ' ', $north, ' ', $east, ' ', $south,' ', $west, ' ', $south, '&lt;/gml:posList&gt;&lt;/gml:LinearRing&gt;&lt;/gml:exterior&gt;&lt;/gml:Polygon&gt;')"/>
-						<xsl:choose>
-							<xsl:when test="ends-with(@rdf:datatype,'#wktLiteral')">
-								<xsl:attribute name="rdf:datatype" select="@rdf:datatype"/>
-				      	<xsl:value-of select="$wktLiteral"/>
-							</xsl:when>
-							<xsl:when test="ends-with(@rdf:datatype,'#gmlLiteral')">
-								<xsl:attribute name="rdf:datatype" select="@rdf:datatype"/>
-				      	<xsl:value-of select="$gmlLiteral"/>
-							</xsl:when>
-							<xsl:otherwise>
-								<xsl:attribute name="rdf:datatype">http://www.opengis.net/ont/geosparql#wktLiteral</xsl:attribute>
-				      	<xsl:value-of select="$wktLiteral"/>
-							</xsl:otherwise>
-					</xsl:choose>
+					<xsl:variable name="wktLiteral" select="concat('POLYGON ((',$west,' ',$south,',',$west,' ',$north,',',$east,' ',$north,',', $east,' ', $south,',', $west,' ',$south,'))')"/>
+		     	<xsl:variable name="gmlLiteral" select="concat('&lt;gml:Polygon&gt;&lt;gml:exterior&gt;&lt;gml:LinearRing&gt;&lt;gml:posList&gt;',$south,' ',$west,' ',$north,' ', $west, ' ', $north, ' ', $east, ' ', $south, ' ', $east,' ', $south, ' ', $west, '&lt;/gml:posList&gt;&lt;/gml:LinearRing&gt;&lt;/gml:exterior&gt;&lt;/gml:Polygon&gt;')"/>
+          <xsl:element name="locn:geometry">
+            <xsl:attribute name="rdf:datatype">http://www.opengis.net/ont/geosparql#wktLiteral</xsl:attribute>
+            <xsl:value-of select="$wktLiteral"/>
+          </xsl:element>
+          <xsl:element name="locn:geometry">
+            <xsl:attribute name="rdf:datatype">http://www.opengis.net/ont/geosparql#gmlLiteral</xsl:attribute>
+            <xsl:value-of select="$gmlLiteral"/>
+          </xsl:element>
 				</xsl:if>
 				<xsl:if test="not($isValid)">
-					<xsl:attribute name="rdf:datatype">http://www.opengis.net/ont/geosparql#wktLiteral</xsl:attribute>
-					<xsl:value-of>POLYGON ((2.53 50.67,2.53 51.51,5.92 51.51,5.92 50.67,2.53 50.67))</xsl:value-of>
+          <xsl:element name="locn:geometry">
+            <xsl:attribute name="rdf:datatype">http://www.opengis.net/ont/geosparql#wktLiteral</xsl:attribute>
+          </xsl:element>
+          <xsl:element name="locn:geometry">
+            <xsl:attribute name="rdf:datatype">http://www.opengis.net/ont/geosparql#gmlLiteral</xsl:attribute>
+          </xsl:element>
 				</xsl:if>
+        <xsl:apply-templates select="node()[not(name(.) = 'locn:geometry')]"/>
 			</xsl:if>
 		</xsl:copy>
 	</xsl:template>

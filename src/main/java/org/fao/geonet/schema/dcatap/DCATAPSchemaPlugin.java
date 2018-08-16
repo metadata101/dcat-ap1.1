@@ -23,10 +23,12 @@
 
 package org.fao.geonet.schema.dcatap;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.ImmutableSet;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import org.fao.geonet.constants.Geonet;
 import org.fao.geonet.kernel.schema.AssociatedResource;
 import org.fao.geonet.kernel.schema.AssociatedResourcesSchemaPlugin;
 import org.fao.geonet.utils.Xml;
@@ -34,8 +36,8 @@ import org.jdom.Element;
 import org.jdom.Namespace;
 import org.jdom.filter.ElementFilter;
 
-import java.util.Map;
-import java.util.Set;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.ImmutableSet;
 
 /**
  * 
@@ -102,11 +104,21 @@ public class DCATAPSchemaPlugin
 
     public Set<String> getAssociatedSourceUUIDs(Element metadata) {
         ElementFilter elementFilter = new ElementFilter("relation", DCATAPNamespaces.DCT);
-        return Xml.filterElementValues(
+        Set<String> rdfAboutAttributes = Xml.filterElementValues(
                 metadata,
                 elementFilter,
-                null, null, "nodeId",
-                Geonet.Namespaces.GEONET);
+                null, null, "resource",
+                DCATAPNamespaces.RDF);
+        Set<String> uuids = new HashSet<String>();
+        for (String rdfAboutAttribute : rdfAboutAttributes) {
+            Pattern pattern = Pattern
+                    .compile("([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}){1}");
+            Matcher matcher = pattern.matcher(rdfAboutAttribute);
+            if (matcher.find()) {
+                uuids.add(rdfAboutAttribute.substring(matcher.start(), matcher.end()));
+            }
+        }
+        return uuids;
     }
 
     @Override

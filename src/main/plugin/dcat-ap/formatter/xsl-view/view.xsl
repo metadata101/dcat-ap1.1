@@ -218,8 +218,20 @@
 			<dd>
 		    <xsl:apply-templates mode="render-field" select="@rdf:about" />
 		    <xsl:apply-templates mode="render-field" select="skos:prefLabel[1]" />
-		    <xsl:message select="locn:geometry"/>
-        <xsl:variable name="bbox" select="gn-fn-dcat-ap:getBboxCoordinates(node()[name(.)='locn:geometry'])"/>
+        <xsl:variable name="geometry" as="node()">
+          <xsl:choose>
+            <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#wktLiteral')])>0">
+              <xsl:copy-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#wktLiteral')][1]" />
+            </xsl:when>
+            <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#gmlLiteral')])>0">
+              <xsl:copy-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#gmlLiteral')][1]" />
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:copy-of select="locn:geometry[1]"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="bbox" select="gn-fn-dcat-ap:getBboxCoordinates($geometry)"/>
         <xsl:variable name="bboxCoordinates" select="tokenize(replace($bbox,',','.'), '\|')"/>
         <xsl:if test="count($bboxCoordinates)=4">
           <xsl:copy-of

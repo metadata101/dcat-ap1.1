@@ -293,8 +293,4 @@
 	  </xsl:choose>
   </xsl:function>
 
-  <xsl:function name="gn-fn-dcat-ap:getPublicationBaseUrl" as="xs:string">
-    <xsl:value-of select="'https://data.vlaanderen.be/dataset'"/>
-  </xsl:function>
-
 </xsl:stylesheet>

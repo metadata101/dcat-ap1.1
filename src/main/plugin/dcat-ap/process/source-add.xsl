@@ -38,7 +38,6 @@ Stylesheet used to update metadata adding a reference to a source record.
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 	xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:java="java:org.fao.geonet.util.XslUtil"
   xmlns:geonet="http://www.fao.org/geonetwork"
   version="2.0" exclude-result-prefixes="#all">
 
@@ -76,11 +75,10 @@ Stylesheet used to update metadata adding a reference to a source record.
                 dct:language|
                 adms:identifier|
                 dct:provenance"/>
-			<xsl:variable name="rdfAbout" select="java:getIndexField(string(substring(/root/gui/url, 2)), string($sourceUuid), 'dcat_uri', string(/root/gui/language))"/>
-      <xsl:copy-of
-        select="dct:relation[@rdf:resource!= $rdfAbout]"/>
-      <dct:relation rdf:resource="{$rdfAbout}" geonet:nodeId="{$sourceUuid}"/>
-
+      <xsl:variable name="rdfResource" select="replace(@rdf:about,'([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}){1}',$sourceUuid)"/>
+      <xsl:message select="concat('Adding dct:relation with $rdfResource value ',$rdfResource)"/>
+      <xsl:copy-of select="dct:relation[@rdf:resource!= $rdfResource]"/>
+      <dct:relation rdf:resource="{$rdfResource}"/>
       <xsl:apply-templates select="dct:source|
                 dct:spatial|
                 dct:temporal|

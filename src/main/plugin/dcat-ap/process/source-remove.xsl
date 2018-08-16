@@ -42,5 +42,5 @@ Stylesheet used to remove a reference to a source record.
   </xsl:template>
 
   <!-- Remove geonet:* elements and the target source. -->
-  <xsl:template match="geonet:*|dct:relation[@rdf:resource=$sourceUuid]" priority="2"/>
+  <xsl:template match="geonet:*|dct:relation[ends-with(@rdf:resource, $sourceUuid)]" priority="2"/>
 </xsl:stylesheet>
