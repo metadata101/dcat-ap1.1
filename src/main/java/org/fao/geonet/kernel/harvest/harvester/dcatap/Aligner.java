@@ -23,9 +23,9 @@
 
 package org.fao.geonet.kernel.harvest.harvester.dcatap;
 
+import jeeves.server.UserSession;
 import jeeves.server.context.ServiceContext;
 
-import org.apache.commons.lang3.StringUtils;
 import org.fao.geonet.GeonetContext;
 import org.fao.geonet.Logger;
 import org.fao.geonet.constants.Geonet;
@@ -33,7 +33,9 @@ import org.fao.geonet.domain.ISODate;
 import org.fao.geonet.domain.Metadata;
 import org.fao.geonet.domain.MetadataType;
 import org.fao.geonet.domain.OperationAllowedId_;
+import org.fao.geonet.domain.Schematron;
 import org.fao.geonet.kernel.DataManager;
+import org.fao.geonet.kernel.GeonetworkDataDirectory;
 import org.fao.geonet.kernel.UpdateDatestamp;
 import org.fao.geonet.kernel.harvest.BaseAligner;
 import org.fao.geonet.kernel.harvest.harvester.CategoryMapper;
@@ -43,265 +45,392 @@ import org.fao.geonet.kernel.harvest.harvester.HarvestResult;
 import org.fao.geonet.kernel.harvest.harvester.RecordInfo;
 import org.fao.geonet.kernel.harvest.harvester.UUIDMapper;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.DCATAPParams;
+import org.fao.geonet.kernel.schema.MetadataSchema;
 import org.fao.geonet.repository.MetadataRepository;
 import org.fao.geonet.repository.OperationAllowedRepository;
-import org.fao.geonet.utils.GeonetHttpRequestFactory;
+import org.fao.geonet.repository.SchematronRepository;
+import org.fao.geonet.utils.IO;
 import org.fao.geonet.utils.Xml;
-import org.fao.geonet.utils.XmlRequest;
+import org.jdom.Document;
 import org.jdom.Element;
+import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
 import org.jdom.output.XMLOutputter;
+import org.jdom.transform.JDOMSource;
 
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
+import static org.fao.geonet.api.records.formatters.XsltFormatter.getSchemaLocalization;
+import static org.fao.geonet.api.records.MetadataValidateApi.restructureReportToHavePatternRuleHierarchy;
 
 //=============================================================================
 
 public class Aligner extends BaseAligner {
-    //--------------------------------------------------------------------------
-    //---
-    //--- Constructor
-    //---
-    //--------------------------------------------------------------------------
+	// --------------------------------------------------------------------------
+	// ---
+	// --- Constructor
+	// ---
+	// --------------------------------------------------------------------------
 
-    private Logger log;
+	private Logger log;
 
-    //--------------------------------------------------------------------------
-    //---
-    //--- Alignment method
-    //---
-    //--------------------------------------------------------------------------
-    private ServiceContext context;
+	// --------------------------------------------------------------------------
+	// ---
+	// --- Alignment method
+	// ---
+	// --------------------------------------------------------------------------
+	private ServiceContext context;
 
-    //--------------------------------------------------------------------------
-    //---
-    //--- Private methods : addMetadata
-    //---
-    //--------------------------------------------------------------------------
-    private XmlRequest request;
 
-    //--------------------------------------------------------------------------
-    //---
-    //--- Private methods : updateMetadata
-    //---
-    //--------------------------------------------------------------------------
-    private DCATAPParams params;
+	// --------------------------------------------------------------------------
+	// ---
+	// --- Private methods : updateMetadata
+	// ---
+	// --------------------------------------------------------------------------
+	private DCATAPParams params;
 
-    //--------------------------------------------------------------------------
-    //---
-    //--- Private methods
-    //---
-    //--------------------------------------------------------------------------
-    private DataManager dataMan;
+	// --------------------------------------------------------------------------
+	// ---
+	// --- Private methods
+	// ---
+	// --------------------------------------------------------------------------
+	private DataManager dataMan;
 
-    //--------------------------------------------------------------------------
-    private CategoryMapper localCateg;
+	// --------------------------------------------------------------------------
+	private CategoryMapper localCateg;
 
-    //--------------------------------------------------------------------------
-    //---
-    //--- Variables
-    //---
-    //--------------------------------------------------------------------------
-    private GroupMapper localGroups;
-    private UUIDMapper localUuids;
-    private HarvestResult result;
-    public Aligner(AtomicBoolean cancelMonitor, Logger log, ServiceContext sc, DCATAPParams params) throws Exception {
-        super(cancelMonitor);
-        this.log = log;
-        this.context = sc;
-        this.params = params;
+	// --------------------------------------------------------------------------
+	// ---
+	// --- Variables
+	// ---
+	// --------------------------------------------------------------------------
+	private GroupMapper localGroups;
+	private UUIDMapper localUuids;
+	private HarvestResult result;
+	private Path xslFile;
 
-        GeonetContext gc = (GeonetContext) context.getHandlerContext(Geonet.CONTEXT_NAME);
-        dataMan = gc.getBean(DataManager.class);
-        result = new HarvestResult();
+	public Aligner(AtomicBoolean cancelMonitor, Logger log, ServiceContext sc, DCATAPParams params) throws Exception {
+		super(cancelMonitor);
+		this.log = log;
+		this.context = sc;
+		this.params = params;
+		this.xslFile = context.getApplicationContext().getBean(DataManager.class).getSchemaDir("dcat-ap")
+				.resolve("import/validation-report-to-text.xsl");
 
-    }
+		GeonetContext gc = (GeonetContext) context.getHandlerContext(Geonet.CONTEXT_NAME);
+		dataMan = gc.getBean(DataManager.class);
+		result = new HarvestResult();
 
-    public HarvestResult align(Set<DCATAPRecordInfo> recordsInfo, List<HarvestError> errors) throws Exception {
-        log.info("Start of alignment for : " + params.getName());
+	}
 
-        //-----------------------------------------------------------------------
-        //--- retrieve all local categories and groups
-        //--- retrieve harvested uuids for given harvesting node
+	public HarvestResult align(Set<DCATAPRecordInfo> recordsInfo, List<HarvestError> errors) throws Exception {
+		log.info("Start of alignment for : " + params.getName());
 
-        localCateg = new CategoryMapper(context);
-        localGroups = new GroupMapper(context);
-        localUuids = new UUIDMapper(context.getBean(MetadataRepository.class), params.getUuid());
+		// -----------------------------------------------------------------------
+		// --- retrieve all local categories and groups
+		// --- retrieve harvested uuids for given harvesting node
 
-        dataMan.flush();
+		localCateg = new CategoryMapper(context);
+		localGroups = new GroupMapper(context);
+		localUuids = new UUIDMapper(context.getBean(MetadataRepository.class), params.getUuid());
 
-        //-----------------------------------------------------------------------
-        //--- remove old metadata records that no longer occur in the harvest source
+		dataMan.flush();
 
-        for (String uuid : localUuids.getUUIDs()) {
-            if (cancelMonitor.get()) {
-                return result;
-            }
+		// -----------------------------------------------------------------------
+		// --- remove old metadata records that no longer occur in the harvest
+		// source
 
-            if (!exists(recordsInfo, uuid)) {
-                String id = localUuids.getID(uuid);
+		for (String uuid : localUuids.getUUIDs()) {
+			if (cancelMonitor.get()) {
+				return result;
+			}
 
-                if (log.isDebugEnabled())
-                    log.debug("  - Removing old metadata with local id:" + id);
-                dataMan.deleteMetadata(context, id);
+			if (!exists(recordsInfo, uuid)) {
+				String id = localUuids.getID(uuid);
 
-                dataMan.flush();
+				if (log.isDebugEnabled())
+					log.debug("  - Removing old metadata with local id:" + id);
+				dataMan.deleteMetadata(context, id);
 
-                result.locallyRemoved++;
-            }
-        }
+				dataMan.flush();
 
-        //-----------------------------------------------------------------------
-        //--- insert/update new metadata
+				result.locallyRemoved++;
+			}
+		}
 
-        for (DCATAPRecordInfo ri : recordsInfo) {
-            if (cancelMonitor.get()) {
-                return result;
-            }
+		// -----------------------------------------------------------------------
+		// --- insert/update new metadata
 
-            try {
-                String id = dataMan.getMetadataId(ri.uuid);
+		for (DCATAPRecordInfo ri : recordsInfo) {
+			if (cancelMonitor.get()) {
+				return result;
+			}
 
-                if (id == null) {
-                	addMetadata(ri);
-                } else {
-                	updateMetadata(ri, id);
-                }
+			try {
+				log.info("Importing record: " + ri.uri);
+				String id = dataMan.getMetadataId(ri.uuid);
 
-                result.totalMetadata++;
+				if (id == null) {
+					addMetadata(ri);
+				} else {
+					ri.id = id;
+					updateMetadata(ri, id);
+				}
 
-            }catch (Throwable t) {
-                errors.add(new HarvestError(context, t, log));
-                log.error("Unable to process record from csw (" + this.params.getName() + ")");
-                log.error("   Record failed: " + ri.uuid);
-            }
-        }
+				result.totalMetadata++;
 
-        dataMan.forceIndexChanges();
+			} catch (Throwable t) {
+				errors.add(new HarvestError(context, t, log));
+				log.error("Unable to process record from (" + this.params.getName() + ")");
+				log.error("   Record failed: " + ri.uuid);
+			}
+		}
 
-        log.info("End of alignment for : " + params.getName());
+		dataMan.forceIndexChanges();
 
-        return result;
-    }
+		log.info("End of alignment for : " + params.getName());
+		log.info("Number of records that did not fully validate: " + result.doesNotValidate);
 
-    private void addMetadata(DCATAPRecordInfo ri) throws Exception {
-        Element md = ri.metadata;
+		return result;
+	}
 
-        if (md == null) return;
+	private void addMetadata(DCATAPRecordInfo ri) throws Exception {
+		Element md = ri.metadata;
 
-        String schema = dataMan.autodetectSchema(md, null);
+		if (md == null)
+			return;
 
-        if (schema == null) {
-            if (log.isDebugEnabled()) {
-                log.debug("  - Metadata skipped due to unknown schema. uuid:" + ri.uuid);
-            }
-            result.unknownSchema++;
-            return;
-        }
+		String schema = dataMan.autodetectSchema(md, null);
 
-        if (log.isDebugEnabled())
-            log.debug("  - Adding metadata with remote uuid:" + ri.uuid + " schema:" + schema);
+		if (schema == null) {
+			if (log.isDebugEnabled()) {
+				log.debug("  - Metadata skipped due to unknown schema. uuid:" + ri.uuid);
+			}
+			result.unknownSchema++;
+			return;
+		}
 
-        //
-        // insert metadata
-        //
-        int userid = 1;
-        Metadata metadata = new Metadata().setUuid(ri.uuid);
-        metadata.getDataInfo().
-            setSchemaId(schema).
-            setRoot(md.getQualifiedName()).
-            setType(MetadataType.METADATA).
-            setChangeDate(new ISODate(ri.changeDate)).
-            setCreateDate(new ISODate(ri.changeDate));
-        metadata.getSourceInfo().
-            setSourceId(params.getUuid()).
-            setOwner(userid);
-        metadata.getHarvestInfo().
-            setHarvested(true).
-            setUuid(params.getUuid());
+		if (log.isDebugEnabled())
+			log.debug("  - Adding metadata with remote uuid:" + ri.uuid + " schema:" + schema);
 
-        addCategories(metadata, params.getCategories(), localCateg, context, log, null, false);
+		// insert metadata
+		int userid = 1;
+		Metadata metadata = new Metadata().setUuid(ri.uuid);
+		metadata.getDataInfo().setSchemaId(schema).setRoot(md.getQualifiedName()).setType(MetadataType.METADATA)
+				.setChangeDate(new ISODate(ri.changeDate)).setCreateDate(new ISODate(ri.changeDate));
+		metadata.getSourceInfo().setSourceId(params.getUuid()).setOwner(userid);
+		metadata.getHarvestInfo().setHarvested(true).setUuid(params.getUuid());
 
-        metadata = dataMan.insertMetadata(context, metadata, md, true, false, false, UpdateDatestamp.NO, false, false);
+		addCategories(metadata, params.getCategories(), localCateg, context, log, null, false);
 
-        String id = String.valueOf(metadata.getId());
+		metadata = dataMan.insertMetadata(context, metadata, md, true, false, false, UpdateDatestamp.NO, false, false);
 
-        addPrivileges(id, params.getPrivileges(), localGroups, dataMan, context, log);
+		String id = String.valueOf(metadata.getId());
 
-        dataMan.indexMetadata(id, Math.random() < 0.01, null);
-        result.addedMetadata++;
-        
-        System.out.println("metadata imported: " + ri.id);
-    	//XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
-    	//xmlOutputter.output(ri.metadata,System.out);
-    }
+		addPrivileges(id, params.getPrivileges(), localGroups, dataMan, context, log);
 
-    private void updateMetadata(DCATAPRecordInfo ri, String id) throws Exception {
-        String date = localUuids.getChangeDate(ri.uuid);
+		dataMan.indexMetadata(id, Math.random() < 0.01, null);
+		result.addedMetadata++;
 
-        if (date == null) {
-            if (log.isDebugEnabled()) {
-                log.debug("  - Skipped metadata managed by another harvesting node. uuid:" + ri.uuid + ", name:" + params.getName());
-            }
-        } else {
-            if (log.isDebugEnabled()) {
-                log.debug("  - Comparing date " + date + " with harvested date " + ri.changeDate + " Comparison: " + ri.isMoreRecentThan(date));
-            }
-            if (!ri.isMoreRecentThan(date)) {
-                if (log.isDebugEnabled()) {
-                    log.debug("  - Metadata XML not changed for uuid:" + ri.uuid);
-                }
-                result.unchangedMetadata++;
-            } else {
-                if (log.isDebugEnabled()) {
-                    log.debug("  - Updating local metadata for uuid:" + ri.uuid);
-                }
-                //Here, the acutal metadata is retrieved.
-                Element md = ri.metadata;
+		System.out.println("metadata imported: " + ri.id);
+		// XMLOutputter xmlOutputter = new
+		// XMLOutputter(Format.getPrettyFormat());
+		// xmlOutputter.output(ri.metadata,System.out);
 
-                if (md == null) return;
+		Element validationReport = validateMetadata(ri, metadata);
+		log.info("VALIDATION REPORT for dataset with UUID: " + ri.uuid + " and with URI: " + ri.uri + transformReportToString(validationReport));
+		//XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
+		//log.info(xmlOutputter.outputString(validationReport));
+	}
 
-                //
-                // update metadata
-                //
-                boolean validate = false;
-                boolean ufo = false;
-                boolean index = false;
-                String language = context.getLanguage();
-                final Metadata metadata = dataMan.updateMetadata(context, id, md, validate, ufo, index, language, ri.changeDate, false);
+	private void updateMetadata(DCATAPRecordInfo ri, String id) throws Exception {
+		String date = localUuids.getChangeDate(ri.uuid);
 
-                OperationAllowedRepository repository = context.getBean(OperationAllowedRepository.class);
-                repository.deleteAllByIdAttribute(OperationAllowedId_.metadataId, Integer.parseInt(id));
-                addPrivileges(id, params.getPrivileges(), localGroups, dataMan, context, log);
+		if (date == null) {
+			if (log.isDebugEnabled()) {
+				log.debug("  - Skipped metadata managed by another harvesting node. uuid:" + ri.uuid + ", name:"
+						+ params.getName());
+			}
+		} else {
+			if (log.isDebugEnabled()) {
+				log.debug("  - Comparing date " + date + " with harvested date " + ri.changeDate + " Comparison: "
+						+ ri.isMoreRecentThan(date));
+			}
+			if (!ri.isMoreRecentThan(date)) {
+				if (log.isDebugEnabled()) {
+					log.debug("  - Metadata XML not changed for uuid:" + ri.uuid);
+				}
+				result.unchangedMetadata++;
+			} else {
+				if (log.isDebugEnabled()) {
+					log.debug("  - Updating local metadata for uuid:" + ri.uuid);
+				}
+				// Here, the acutal metadata is retrieved.
+				Element md = ri.metadata;
 
-                metadata.getMetadataCategories().clear();
-                addCategories(metadata, params.getCategories(), localCateg, context, log, null, true);
-                dataMan.flush();
+				if (md == null)
+					return;
 
-                dataMan.indexMetadata(id, Math.random() < 0.01, null);
-                result.updatedMetadata++;
-            }
-        }
-    }
+				//
+				// update metadata
+				//
+				boolean validate = false;
+				boolean ufo = false;
+				boolean index = false;
+				String language = context.getLanguage();
+				final Metadata metadata = dataMan.updateMetadata(context, id, md, validate, ufo, index, language,
+						ri.changeDate, false);
 
-    /**
-     * Returns true if the uuid is present in the remote node.
-     */
-    private boolean exists(Set<DCATAPRecordInfo> recordsInfo, String uuid) {
-        for (RecordInfo ri : recordsInfo) {
-            if (uuid.equals(ri.uuid)) return true;
-        }
+				OperationAllowedRepository repository = context.getBean(OperationAllowedRepository.class);
+				repository.deleteAllByIdAttribute(OperationAllowedId_.metadataId, Integer.parseInt(id));
+				addPrivileges(id, params.getPrivileges(), localGroups, dataMan, context, log);
 
-        return false;
-    }
+				metadata.getMetadataCategories().clear();
+				addCategories(metadata, params.getCategories(), localCateg, context, log, null, true);
+				dataMan.flush();
 
+				dataMan.indexMetadata(id, Math.random() < 0.01, null);
+				result.updatedMetadata++;
+
+				Element validationReport = validateMetadata(ri, metadata);
+				log.info("VALIDATION REPORT for dataset with UUID: " + ri.uuid + " and with URI: " + ri.uri + transformReportToString(validationReport));
+				//XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
+				//log.info(xmlOutputter.outputString(validationReport));
+			}
+		}
+	}
+
+	/**
+	 * Validate a record after import. 
+	 * 
+	 * @param ri
+	 * @param metadata
+	 * @return
+	 * @throws Exception
+	 */
+	private Element validateMetadata(DCATAPRecordInfo ri, Metadata metadata) throws Exception {
+		DataManager dataManager = context.getBean(DataManager.class);
+
+		// --- validate metadata
+		UserSession session = context.getUserSession();
+		Element errorReport = dataManager
+				.doValidate(session, ri.schema, ri.id, ri.metadata, context.getLanguage(), true).one();
+		restructureReportToHavePatternRuleHierarchy(errorReport);
+		
+		Element elResp = new Element("root");
+		elResp.addContent(new Element(Geonet.Elem.ID).setText(ri.uuid));
+		elResp.addContent(new Element("language").setText(context.getLanguage()));
+		elResp.addContent(new Element("schema").setText(ri.schema));
+		elResp.addContent(errorReport);
+		Element schematronTranslations = new Element("schematronTranslations");
+
+		final SchematronRepository schematronRepository = context.getBean(SchematronRepository.class);
+		// --- add translations for schematrons
+		final List<Schematron> schematrons = schematronRepository.findAllBySchemaName(ri.schema);
+
+		MetadataSchema metadataSchema = dataManager.getSchema(ri.schema);
+		Path schemaDir = metadataSchema.getSchemaDir();
+		SAXBuilder builder = new SAXBuilder();
+
+		for (Schematron schematron : schematrons) {
+			// it contains absolute path to the xsl file
+			String rule = schematron.getRuleName();
+
+			Path file = schemaDir.resolve("loc").resolve(context.getLanguage()).resolve(rule + ".xml");
+
+			Document document;
+			if (Files.isRegularFile(file)) {
+				try (InputStream in = IO.newInputStream(file)) {
+					document = builder.build(in);
+				}
+				Element element = document.getRootElement();
+
+				Element s = new Element(rule);
+				element.detach();
+				s.addContent(element);
+				schematronTranslations.addContent(s);
+			}
+		}
+		elResp.addContent(schematronTranslations);
+
+		// TODO: Avoid XSL
+		GeonetworkDataDirectory dataDirectory = context.getBean(GeonetworkDataDirectory.class);
+		Path validateXsl = dataDirectory.getWebappDir().resolve("xslt/services/metadata/validate.xsl");
+		Map<String, Object> params = new HashMap<>();
+		params.put("rootTag", "reports");
+
+		List<Element> elementList = getSchemaLocalization(metadata.getDataInfo().getSchemaId(), context.getLanguage());
+		for (Element e : elementList) {
+			elResp.addContent(e);
+		}
+
+		final Element validationReport = Xml.transform(elResp, validateXsl, params);
+		
+		//calculate the total number of validation errors in the report
+		int errors = 0;
+		for (Object report : validationReport.getChildren("report") ) {			
+			String errorText = ((Element) report).getChild("error").getText();
+			if (errorText != ""){
+				errors =+ Integer.parseInt(errorText);
+			}
+		}
+		if (errors > 0){
+			result.doesNotValidate++;
+			}
+		
+		return validationReport;
+	}
+
+	/**
+	 * Transforms the GeoNetwork validation report to a text version
+	 * 
+	 * @param validationReport An XML version of the validation report
+	 * @return A text-version of the validation report
+	 */
+	private String transformReportToString(Element validationReport) {
+		try {
+			StreamResult validationReportAsText = new StreamResult(new StringWriter());
+			Source validationReportSource = new JDOMSource(new Document((Element) validationReport.detach()));
+			Source xslSource = new StreamSource(IO.newInputStream(xslFile), xslFile.toUri().toASCIIString());
+			Transformer transformer = TransformerFactory.newInstance().newTransformer(xslSource);
+			transformer.transform(validationReportSource, validationReportAsText);
+			return validationReportAsText.getWriter().toString();
+		} catch (TransformerException e) {
+			log.error("Error writing XML Validation report: " + e.getMessage());
+		} catch (IOException e) {
+			log.error("Error writing XML Validation report: " + e.getMessage());
+		}
+		return "";
+	}
+
+	/**
+	 * Returns true if the uuid is present in the remote node.
+	 */
+	private boolean exists(Set<DCATAPRecordInfo> recordsInfo, String uuid) {
+		for (RecordInfo ri : recordsInfo) {
+			if (uuid.equals(ri.uuid))
+				return true;
+		}
+
+		return false;
+	}
 
 }
 
-//=============================================================================
-
-
+// =============================================================================

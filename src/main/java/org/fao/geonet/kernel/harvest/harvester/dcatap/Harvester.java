@@ -35,6 +35,9 @@ import org.fao.geonet.kernel.harvest.harvester.HarvestResult;
 import org.fao.geonet.kernel.harvest.harvester.IHarvester;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.Aligner;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.DCATAPParams;
+import org.fao.geonet.kernel.setting.SettingManager;
+import org.fao.geonet.services.harvesting.notifier.SendNotification;
+import org.fao.geonet.util.MailUtil;
 import org.fao.geonet.utils.Xml;
 import org.jdom.Element;
 import org.jdom.JDOMException;
@@ -101,6 +104,8 @@ class Harvester implements IHarvester<HarvestResult> {
 	 * harvest.
 	 */
 	private List<HarvestError> errors = new LinkedList<HarvestError>();
+	
+	private Path xslFile;
 
 	public Harvester(AtomicBoolean cancelMonitor, Logger log, ServiceContext context, DCATAPParams params) {
 
@@ -108,7 +113,8 @@ class Harvester implements IHarvester<HarvestResult> {
 		this.log = log;
 		this.context = context;
 		this.params = params;
-
+		this.xslFile = context.getApplicationContext().getBean(DataManager.class).getSchemaDir("dcat-ap")
+				.resolve("import/rdf-to-xml.xsl");
 	}
 
 	public HarvestResult harvest(Logger log) throws Exception {
@@ -142,7 +148,7 @@ class Harvester implements IHarvester<HarvestResult> {
 		return new HarvestResult();
 
 	}
-
+	
 	/**
 	 * Does DCAT-AP search request. Executes a SPARQL query to retrieve all
 	 * UUIDs and add them to a Set with RecordInfo
@@ -271,14 +277,12 @@ class Harvester implements IHarvester<HarvestResult> {
 			ResultSetFormatter.outputAsXML(outxml, results);
 
 			// Apply XSLT transformation
-			Path xslFile = context.getApplicationContext().getBean(DataManager.class).getSchemaDir("dcat-ap")
-					.resolve("import/rdf-to-xml.xsl");
 			Element sparqlResults = Xml.loadStream(new ByteArrayInputStream(outxml.toByteArray()));
 			/*
 			 * Issue: GeoNetwork works best (only?) with UUIDs as dataset
 			 * identifiers. The following lines of code extract a uuid from the
 			 * dataset URI. If no UUID is found, the dataset URIs are converted
-			 * into a (unique) UUID using generateUUID. Not that URL encoding
+			 * into a (unique) UUID using generateUUID. Note that URL encoding
 			 * does not work, as the GeoNetwork URLs still clash and don't work
 			 * in all situations.
 			 * //java.net.URLEncoder.encode(datasetId,"utf-8");
@@ -306,7 +310,7 @@ class Harvester implements IHarvester<HarvestResult> {
 			 * xmlOutputter.output(dcatXML,System.out);
 			 */
 
-			return new DCATAPRecordInfo(datasetUuid, modified, "dcat-ap", "TODO: source?", dcatXML);
+			return new DCATAPRecordInfo(datasetUuid, datasetId, modified, "dcat-ap", "TODO: source?", dcatXML);
 
 		} catch (ParseException e) {
 			HarvestError harvestError = new HarvestError(context, e, log);

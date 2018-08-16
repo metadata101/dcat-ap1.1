@@ -29,10 +29,12 @@ import org.jdom.Element;
 public class DCATAPRecordInfo extends RecordInfo {
 	
 	public Element metadata;
+	public String uri;
 
-	public DCATAPRecordInfo(String uuid, String changeDate, String schema, String source, Element metadata) {
+	public DCATAPRecordInfo(String uuid, String uri, String changeDate, String schema, String source, Element metadata) {
 		super(uuid, changeDate, schema, source);
 		this.metadata = metadata;
+		this.uri = uri;
 	}
 
 }

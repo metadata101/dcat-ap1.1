@@ -27,7 +27,12 @@
       <groupId>org.geonetwork-opensource</groupId>
       <artifactId>harvesters</artifactId>
       <version>${project.version}</version>
-    </dependency>
+    </dependency>  
+    <dependency>
+      <groupId>org.geonetwork-opensource</groupId>
+      <artifactId>services</artifactId>
+      <version>${project.version}</version>
+    </dependency> 
 	<dependency>
 	  <groupId>org.apache.jena</groupId>
 	  <artifactId>apache-jena-libs</artifactId>
