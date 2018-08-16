@@ -134,7 +134,7 @@ Source:
 			<sch:let name="noTitle" value="not(dct:title)"/>
 			<sch:assert test="$noTitle = false()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:title.
 			</sch:assert>
-			<sch:report test="$noTitle = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:title "<sch:value-of select="dct:title[0]/text()"/>".
+			<sch:report test="$noTitle = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:title "<sch:value-of select="dct:title[0]/string()"/>".
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>

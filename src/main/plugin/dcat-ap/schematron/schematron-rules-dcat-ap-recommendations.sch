@@ -69,7 +69,7 @@ Source:
 			<sch:let name="noPublisher" value="not(dct:publisher)"/>
 			<sch:assert test="$noPublisher = false()">WHARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:publisher.
 			</sch:assert>
-			<sch:report test="$noPublisher = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:publisher with id "<sch:value-of select="dct:publisher/*/@rdf:about/text()"/>".
+			<sch:report test="$noPublisher = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:publisher with id "<sch:value-of select="dct:publisher/*/@rdf:about/string()"/>".
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -146,7 +146,7 @@ Source:
 			<sch:let name="noContactPoint" value="not(dcat:contactPoint)"/>
 			<sch:assert test="$noContactPoint = false()">WARNING: The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dcat:contactPoint.
 			</sch:assert>
-			<sch:report test="$noContactPoint = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:contactPoint "<sch:value-of select="dcat:contactPoint/*/@rdf:about/text()"/>".
+			<sch:report test="$noContactPoint = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:contactPoint "<sch:value-of select="dcat:contactPoint/*/@rdf:about/string()"/>".
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -157,7 +157,7 @@ Source:
 			<sch:let name="noDistribution" value="not(dcat:distribution )"/>
 			<sch:assert test="$noDistribution = false()">WARNING: The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dcat:distribution.
 			</sch:assert>
-			<sch:report test="$noDistribution = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:distribution with id  "<sch:value-of select="dcat:distribution/*/@rdf:about/text()"/>".			</sch:report>
+			<sch:report test="$noDistribution = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:distribution with id  "<sch:value-of select="dcat:distribution/*/@rdf:about/string()"/>".			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<!-- ISSUE: VODAP Validator is wrong... it is not a mandatory but a recommended property for a dataset (but according to DCAT-AP v1.1 and VODAP bijlage 3)

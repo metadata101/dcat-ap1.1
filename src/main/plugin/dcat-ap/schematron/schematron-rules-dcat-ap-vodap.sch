@@ -58,7 +58,7 @@ Source:
 			<sch:let name="noPublisher" value="not(dct:publisher)"/>
 			<sch:assert test="$noPublisher = false()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:publisher.
 			</sch:assert>
-			<sch:report test="$noPublisher = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:publisher with id "<sch:value-of select="dct:publisher/*/@rdf:about/text()"/>".
+			<sch:report test="$noPublisher = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:publisher with id "<sch:value-of select="dct:publisher/*/@rdf:about/string()"/>".
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -69,7 +69,7 @@ Source:
 			<sch:let name="noContactPoint" value="not(dcat:contactPoint)"/>
 			<sch:assert test="$noContactPoint = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dcat:contactPoint.
 			</sch:assert>
-			<sch:report test="$noContactPoint = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:contactPoint "<sch:value-of select="dcat:contactPoint/*/@rdf:about/text()"/>".
+			<sch:report test="$noContactPoint = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:contactPoint "<sch:value-of select="dcat:contactPoint/*/@rdf:about/string()"/>".
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -80,7 +80,7 @@ Source:
 			<sch:let name="noDistribution" value="not(dcat:distribution )"/>
 			<sch:assert test="$noDistribution = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dcat:distribution.
 			</sch:assert>
-			<sch:report test="$noDistribution = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:distribution with id  "<sch:value-of select="dcat:distribution/*/@rdf:about/text()"/>".			</sch:report>
+			<sch:report test="$noDistribution = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:distribution with id  "<sch:value-of select="dcat:distribution/*/@rdf:about/string()"/>".			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -125,7 +125,7 @@ Source:
 			<sch:assert test="$noDistribution = false()">ERROR: No dcat:Distribution resource exists for dcat:Dataset with URI <sch:value-of select="$id"/>.
 			</sch:assert>
 			<sch:report test="$noDistribution = false()">A dcat:Distribution resource exists for dcat:Dataset with URI <sch:value-of select="$id"/>.
-			</sch:report>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -137,14 +137,14 @@ Source:
 			<sch:assert test="$noLicenseType = false()">ERROR: The licence <sch:value-of select="$id"/> has no dct:type property. 
 			</sch:assert>
 			<sch:report test="$noLicenseType = false()">The licence <sch:value-of select="$id"/> has a dct:type property. 
-			</sch:report>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
 		<sch:title>200. Mandatory dct:title for a dcat:Distribution</sch:title>
 		<sch:rule context="//dcat:Distribution">
 			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noTitle" value="not(dct:title)"/>
+			<sch:let name="noTitle" value="not(dct:title) or dct:title/string() = ''"/>
 			<sch:assert test="$noTitle = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" does not have a dct:title property.
 			</sch:assert>
 			<sch:report test="$noTitle = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:title property with value  "<sch:value-of select="dct:title"/>".
@@ -156,11 +156,11 @@ Source:
 		<sch:title>411. vcard:hasEmail is a mandatory property for a contactpoint of a Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset/dcat:contactPoint">
 			<sch:let name="id" value="*/@rdf:about/string()"/>
-			<sch:let name="noEmail" value="not(*/vcard:hasEmail/text())"/>
+			<sch:let name="noEmail" value="not(*/vcard:hasEmail)"/>
 			<sch:assert test="$noEmail = false()">ERROR: The vcard:Organization with URI "<sch:value-of select="$id"/>" does not have a vcard:hasEmail property.
 			</sch:assert>
 			<sch:report test="$noEmail = false()">The vcard:Organization with URI "<sch:value-of select="$id"/>" has a vcard:hasEmail property.
-			</sch:report>			
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 </sch:schema>
