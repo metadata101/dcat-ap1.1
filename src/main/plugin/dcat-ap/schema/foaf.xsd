@@ -17,6 +17,7 @@
 						<xs:element name="name" type="rdf:PlainLiteral" minOccurs="1" maxOccurs="unbounded"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
+					<xs:attribute ref="rdf:nodeID"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -28,11 +29,12 @@
 				<xs:complexType>
 					<xs:sequence>
 						<!-- mandatory properties for foaf:Agent-->
-						<xs:element ref="foaf:name" minOccurs="1"/>
+						<xs:element ref="foaf:name" minOccurs="1" maxOccurs="unbounded"/>
 						<!-- recommended properties for foaf:Agent-->
 						<xs:element ref="dct:type" minOccurs="0" maxOccurs="1"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
+					<xs:attribute ref="rdf:nodeID"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>

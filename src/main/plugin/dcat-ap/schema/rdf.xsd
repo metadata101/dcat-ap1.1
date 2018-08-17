@@ -30,15 +30,34 @@ The Resource Description Framework [RDF] is defined to have an extensible system
 		</xs:simpleContent>
 	</xs:complexType>
 	<!-- rdf:TypedLiteral dateTime -->
+	<xs:simpleType name="dateOrDateTime">
+		<xs:union memberTypes="xs:date xs:dateTime"/>
+	</xs:simpleType>
 	<xs:complexType name="DateTimeLiteral">
-		<xs:annotation>
-			<xs:documentation xml:lang="en">
-Date in 
-      </xs:documentation>
-		</xs:annotation>
 		<xs:simpleContent>
 			<xs:extension base="xs:dateTime">
 				<xs:attribute name="datatype" type="xs:anyURI" fixed="http://www.w3.org/2001/XMLSchema#dateTime"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="DateLiteral">
+		<xs:simpleContent>
+			<xs:extension base="xs:date">
+				<xs:attribute name="datatype" type="xs:anyURI" fixed="http://www.w3.org/2001/XMLSchema#date"/>
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="DateOrDateTimeLiteral">
+		<xs:simpleContent>
+			<xs:extension base="rdf:dateOrDateTime">
+				<xs:attribute name="datatype">
+					<xs:simpleType>
+						<xs:restriction base="xs:anyURI">
+							<xs:enumeration value="http://www.w3.org/2001/XMLSchema#date"/>
+							<xs:enumeration value="http://www.w3.org/2001/XMLSchema#dateTime"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:attribute>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>

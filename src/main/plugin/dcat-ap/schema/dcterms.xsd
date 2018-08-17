@@ -17,14 +17,14 @@
 	<xs:element name="tableOfContents" type="rdf:PlainLiteral"/>
 	<xs:element name="abstract" type="rdf:PlainLiteral"/>
 	<xs:element name="description" type="rdf:PlainLiteral"/>
-	<xs:element name="created" type="rdf:DateTimeLiteral"/>
-	<xs:element name="valid" type="rdf:DateTimeLiteral"/>
-	<xs:element name="available" type="rdf:DateTimeLiteral"/>
-	<xs:element name="issued" type="rdf:DateTimeLiteral"/>
-	<xs:element name="modified" type="rdf:DateTimeLiteral"/>
-	<xs:element name="dateAccepted" type="rdf:DateTimeLiteral"/>
-	<xs:element name="dateCopyrighted" type="rdf:DateTimeLiteral"/>
-	<xs:element name="dateSubmitted" type="rdf:DateTimeLiteral"/>
+	<xs:element name="created" type="rdf:DateOrDateTimeLiteral"/>
+	<xs:element name="valid" type="rdf:DateOrDateTimeLiteral"/>
+	<xs:element name="available" type="rdf:DateOrDateTimeLiteral"/>
+	<xs:element name="issued" type="rdf:DateOrDateTimeLiteral"/>
+	<xs:element name="modified" type="rdf:DateOrDateTimeLiteral"/>
+	<xs:element name="dateAccepted" type="rdf:DateOrDateTimeLiteral"/>
+	<xs:element name="dateCopyrighted" type="rdf:DateOrDateTimeLiteral"/>
+	<xs:element name="dateSubmitted" type="rdf:DateOrDateTimeLiteral"/>
 	<xs:element name="format" type="skos:Concept"/>
 	<xs:element name="extent" type="rdf:Resource"/>
 	<xs:element name="medium" type="xs:anyURI"/>
@@ -76,6 +76,7 @@
 						<xs:element ref="dct:identifier" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
+					<xs:attribute ref="rdf:nodeID"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -90,10 +91,11 @@
 						<xs:element ref="dct:description" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
+					<xs:attribute ref="rdf:nodeID"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
-	</xs:complexType>		
+	</xs:complexType>
 	<!-- dct:Standard -->
 	<xs:complexType name="Standard">
 		<xs:sequence>
@@ -104,6 +106,7 @@
 						<xs:element ref="dct:description" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
+					<xs:attribute ref="rdf:nodeID"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -119,6 +122,7 @@
 						<xs:element ref="schema:endDate" minOccurs="0" maxOccurs="1"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
+					<xs:attribute ref="rdf:nodeID"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -134,6 +138,7 @@
 						<xs:element ref="skos:prefLabel" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
+					<xs:attribute ref="rdf:nodeID"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -147,6 +152,7 @@
 						<xs:element ref="dct:description" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
+					<xs:attribute ref="rdf:nodeID"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>

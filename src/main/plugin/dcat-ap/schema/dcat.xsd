@@ -64,6 +64,7 @@
 						<xs:element ref="dct:title" minOccurs="0" maxOccurs="1"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
+					<xs:attribute ref="rdf:nodeID"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -133,6 +134,7 @@
 						<xs:element ref="adms:status" minOccurs="0" maxOccurs="1"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
+					<xs:attribute ref="rdf:nodeID"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>

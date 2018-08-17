@@ -25,6 +25,7 @@
 						<xs:element name="hasTelephone" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
+					<xs:attribute ref="rdf:nodeID"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -42,6 +43,7 @@
 						<xs:element name="country-name" type="xs:string" maxOccurs="1"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
+					<xs:attribute ref="rdf:nodeID"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>

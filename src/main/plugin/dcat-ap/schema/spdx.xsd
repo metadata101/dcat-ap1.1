@@ -18,6 +18,7 @@
 						<xs:element name="checksumValue" type="xs:hexBinary" minOccurs="1" maxOccurs="1"/>
 					</xs:sequence>
 					<xs:attribute ref="rdf:about"/>
+					<xs:attribute ref="rdf:nodeID"/>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
