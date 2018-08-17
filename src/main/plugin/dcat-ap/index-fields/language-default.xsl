@@ -52,12 +52,6 @@
     <xsl:call-template name="langId-dcat-ap" />
   </xsl:variable>
 
-  <xsl:variable name="langId">
-    <xsl:call-template name="langId3to2">
-      <xsl:with-param name="langId-3char" select="$isoDocLangId" />
-    </xsl:call-template>
-  </xsl:variable>
-
   <xsl:template match="/">
 
     <Documents>
@@ -91,6 +85,11 @@
     <Document locale="{$isoLangId}">
 	    <Field name="_locale" string="{$isoLangId}" store="true" index="true"/>
 	    <Field name="_docLocale" string="{$isoDocLangId}" store="true" index="true"/>
+		  <xsl:variable name="langId">
+		    <xsl:call-template name="langId3to2">
+		      <xsl:with-param name="langId-3char" select="$isoLangId" />
+		    </xsl:call-template>
+		  </xsl:variable>
 			<xsl:for-each select="$datasets">
 		    <xsl:apply-templates select=".">
 		      <xsl:with-param name="langId" select="$langId"/>
@@ -137,6 +136,47 @@
             <xsl:value-of select="concat(normalize-space(.), ' ')"/>
           </xsl:for-each>
         </xsl:attribute>
+    </Field>
+
+    <Field name="anylight" store="false" index="true">
+      <xsl:attribute name="string">
+        <xsl:for-each select=".//dct:title[@xml:lang=$langId]|
+                              .//dct:description[@xml:lang=$langId]|
+                              .//dcat:keyword[@xml:lang=$langId]|
+                              .//foaf:name[@xml:lang=$langId]">
+          <xsl:variable name="value">
+            <xsl:call-template name="index-lang-tag-oneval">
+              <xsl:with-param name="tag" select="."/>
+              <xsl:with-param name="langId" select="$langId"/>
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:if test="$value!=''">
+            <xsl:value-of select="concat($value, ' ')"/>
+          </xsl:if>
+        </xsl:for-each>
+        <xsl:for-each select=".//dct:type[name(..)='foaf:Agent']|
+                              .//dcat:theme|
+                              .//dct:accrualPeriodicity|
+                              .//dct:language|
+                              .//dct:type[name(..)='dcat:Dataset']|
+                              .//dct:format|
+                              .//dcat:mediaType|
+                              .//adms:status|
+                              .//dct:type[name(..)='dct:LicenseDocument']">
+          <xsl:if test="skos:Concept/skos:prefLabel/@xml:lang=$langId">                              
+	          <xsl:variable name="prefLabel">
+	            <xsl:call-template name="index-lang-tag-oneval">
+	              <xsl:with-param name="tag" select="."/>
+	              <xsl:with-param name="langId" select="$langId"/>
+	            </xsl:call-template>
+	          </xsl:variable>
+	          <xsl:if test="$prefLabel!=''">
+	            <xsl:value-of select="concat($prefLabel, ' ')"/>
+	          </xsl:if>
+	        </xsl:if>
+        </xsl:for-each>
+      </xsl:attribute>
+      
     </Field>
 
     <xsl:call-template name="index-lang-tag">

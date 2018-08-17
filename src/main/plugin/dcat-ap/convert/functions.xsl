@@ -47,13 +47,13 @@
     <xsl:variable name="geometry" as="node()">
       <xsl:choose>
         <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#wktLiteral')])>0">
-          <xsl:value-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#wktLiteral')][1]" />
+          <xsl:copy-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#wktLiteral')][1]" />
         </xsl:when>
         <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#gmlLiteral')])>0">
-          <xsl:value-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#gmlLiteral')][1]" />
+          <xsl:copy-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#gmlLiteral')][1]" />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="locn:geometry[1]"/>
+          <xsl:copy-of select="locn:geometry[1]"/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
@@ -237,7 +237,6 @@
     <xsl:variable name="langIdWording" select="$tag[@xml:lang=$langId]"/>
     <xsl:variable name="langIdWordingSkos" select="$tag/skos:Concept/skos:prefLabel[@xml:lang=$langId]"/>
     <xsl:variable name="wording" select="$tag"/>
-
     <xsl:choose>
       <xsl:when test="$langIdWording">
         <xsl:value-of select="$langIdWording"/>

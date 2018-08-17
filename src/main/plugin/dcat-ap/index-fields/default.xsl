@@ -103,6 +103,50 @@
       </xsl:attribute>
     </Field>
 
+    <Field name="anylight" store="false" index="true">
+      <xsl:attribute name="string">
+        <xsl:for-each select=".//dct:title|
+                              .//dct:description|
+                              .//dcat:keyword|
+                              .//foaf:name">
+          <xsl:variable name="value">
+		        <xsl:call-template name="index-lang-tag-oneval">
+		          <xsl:with-param name="tag" select="."/>
+		          <xsl:with-param name="langId" select="$langId"/>
+		        </xsl:call-template>
+          </xsl:variable>
+          <xsl:if test="$value!=''">
+            <xsl:value-of select="concat($value, ' ')"/>
+          </xsl:if>
+        </xsl:for-each>
+        <xsl:for-each select=".//vcard:organization-name">
+          <xsl:value-of select="concat(., ' ')"/>
+        </xsl:for-each>
+        <xsl:for-each select=".//dct:type[name(..)='foaf:Agent']|
+                              .//dcat:theme|
+                              .//dct:accrualPeriodicity|
+                              .//dct:language|
+                              .//dct:type[name(..)='dcat:Dataset']|
+                              .//dct:format|
+                              .//dcat:mediaType|
+                              .//adms:status|
+                              .//dct:type[name(..)='dct:LicenseDocument']">
+          <xsl:if test="skos:Concept/skos:prefLabel/@xml:lang=$langId">                              
+	          <xsl:variable name="prefLabel">
+	            <xsl:call-template name="index-lang-tag-oneval">
+	              <xsl:with-param name="tag" select="."/>
+	              <xsl:with-param name="langId" select="$langId"/>
+	            </xsl:call-template>
+	          </xsl:variable>
+	          <xsl:if test="$prefLabel!=''">
+	            <xsl:value-of select="concat($prefLabel, ' ')"/>
+	          </xsl:if>
+	        </xsl:if>
+        </xsl:for-each>
+      </xsl:attribute>
+      
+    </Field>
+
     <xsl:for-each select="distinct-values(//@xml:lang)">
 	    <xsl:variable name="mdLanguage">
 	      <xsl:call-template name="langId2to3">
