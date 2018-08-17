@@ -138,6 +138,18 @@ public class DCATAPHarvester extends AbstractHarvester<HarvestResult> {
             harvesterSettingsManager.add("id:" + searchID, "freeText", s.freeText);
         }
     }
+    
+    /**
+     * Override this method with an empty body to avoid privileges storage.
+     *
+     * @param params
+     * @param path
+     * @throws SQLException
+     */
+    @Override
+    protected void storePrivileges(AbstractParams params, String path){
+    	
+    }
 
     //---------------------------------------------------------------------------
     //---

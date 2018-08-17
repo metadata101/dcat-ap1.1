@@ -129,7 +129,7 @@ class Harvester implements IHarvester<HarvestResult> {
 			recordsInfo.addAll(search());
 			// Create, update, delete all records
 			Aligner aligner = new Aligner(cancelMonitor, log, context, params);
-			log.info("Total records processed in all searches :" + recordsInfo.size());
+			log.info("Total records processed in all searches: " + recordsInfo.size());
 			return aligner.align(recordsInfo, errors);
 
 		} catch (Exception t) {

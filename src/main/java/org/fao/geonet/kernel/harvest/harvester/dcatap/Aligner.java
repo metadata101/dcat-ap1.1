@@ -33,6 +33,8 @@ import org.fao.geonet.domain.ISODate;
 import org.fao.geonet.domain.Metadata;
 import org.fao.geonet.domain.MetadataType;
 import org.fao.geonet.domain.OperationAllowedId_;
+import org.fao.geonet.domain.ReservedGroup;
+import org.fao.geonet.domain.ReservedOperation;
 import org.fao.geonet.domain.Schematron;
 import org.fao.geonet.kernel.DataManager;
 import org.fao.geonet.kernel.GeonetworkDataDirectory;
@@ -242,6 +244,7 @@ public class Aligner extends BaseAligner {
 		metadata = dataMan.insertMetadata(context, metadata, md, true, false, false, UpdateDatestamp.NO, false, false);
 
 		String id = String.valueOf(metadata.getId());
+		ri.id = id;
 
 		addPrivileges(id, params.getPrivileges(), localGroups, dataMan, context, log);
 
@@ -325,12 +328,11 @@ public class Aligner extends BaseAligner {
 	 * @throws Exception
 	 */
 	private Element validateMetadata(DCATAPRecordInfo ri, Metadata metadata) throws Exception {
-		DataManager dataManager = context.getBean(DataManager.class);
 
 		// --- validate metadata
 		UserSession session = context.getUserSession();
-		Element errorReport = dataManager
-				.doValidate(session, ri.schema, ri.id, ri.metadata, context.getLanguage(), true).one();
+		Element errorReport = dataMan
+				.doValidate(session, ri.schema, ri.id, metadata.getXmlData(false), context.getLanguage(), false).one();
 		restructureReportToHavePatternRuleHierarchy(errorReport);
 		
 		Element elResp = new Element("root");
@@ -344,7 +346,7 @@ public class Aligner extends BaseAligner {
 		// --- add translations for schematrons
 		final List<Schematron> schematrons = schematronRepository.findAllBySchemaName(ri.schema);
 
-		MetadataSchema metadataSchema = dataManager.getSchema(ri.schema);
+		MetadataSchema metadataSchema = dataMan.getSchema(ri.schema);
 		Path schemaDir = metadataSchema.getSchemaDir();
 		SAXBuilder builder = new SAXBuilder();
 
@@ -382,17 +384,27 @@ public class Aligner extends BaseAligner {
 
 		final Element validationReport = Xml.transform(elResp, validateXsl, params);
 		
-		//calculate the total number of validation errors in the report
+		//calculate the total number of validation errors in the report against DCAT-AP v1.1
+		int iId = Integer.parseInt(ri.id);
 		int errors = 0;
 		for (Object report : validationReport.getChildren("report") ) {			
 			String errorText = ((Element) report).getChild("error").getText();
-			if (errorText != ""){
-				errors =+ Integer.parseInt(errorText);
-			}
+			Element reportLabel = ((Element) report).getChild("label");
+			if (errorText != "" && reportLabel != null && reportLabel.getText() == "DCAT-AP Rules v1.1"){
+				errors =+ Integer.parseInt(errorText);					
+				}
 		}
-		if (errors > 0){
+		if (errors > 0 ){
 			result.doesNotValidate++;
+			dataMan.unsetOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.view.getId());
+			dataMan.unsetOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.download.getId());
+			dataMan.unsetOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.dynamic.getId());			
 			}
+		else {			
+			dataMan.setOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.view.getId());
+			dataMan.setOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.download.getId());
+			dataMan.setOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.dynamic.getId());
+		}
 		
 		return validationReport;
 	}

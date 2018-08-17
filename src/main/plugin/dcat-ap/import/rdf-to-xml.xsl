@@ -60,6 +60,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dt:description</xsl:with-param>
 					</xsl:call-template>
+					<dct:description xml:lang="en">This catalog was harvested by GeoNetwork.</dct:description>
 					<!-- dct:publisher -->
 					<xsl:call-template name="agents">
 						<xsl:with-param name="agentURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/publisher' and
@@ -83,6 +84,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/language' and
 											sr:binding[@name='subject']/* = $catalogURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:language</xsl:with-param>
+						<xsl:with-param name="rdfType">dct:LinguisticSystem</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:issued-->
 					<xsl:call-template name="dates">
@@ -94,32 +96,32 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:modified</xsl:with-param>
 					</xsl:call-template>
-					<!-- dcat:themeTaxonomy -->
+					<!-- dcat:themeTaxonomy 
 					<xsl:call-template name="conceptSchemes">
 						<xsl:with-param name="conceptSchemeURIs" select="//sr:result[sr:binding[@name='subject']/* = $catalogURI and sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#themeTaxonomy']/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dcat:themeTaxonomy</xsl:with-param>
-					</xsl:call-template>					
+					</xsl:call-template> -->
 					<!-- dct:hasPart -->
 					<xsl:call-template name="urls">
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:hasPart</xsl:with-param>
-					</xsl:call-template>					
+					</xsl:call-template>
 					<!-- dct:isPartOf -->
 					<xsl:call-template name="urls">
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:isPartOf</xsl:with-param>
-					</xsl:call-template>					
+					</xsl:call-template>
 					<!-- dcat:record -->
 					<xsl:call-template name="urls">
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:isPartOf</xsl:with-param>
-					</xsl:call-template>					
+					</xsl:call-template>
 					<!-- dct:rights -->
 					<xsl:call-template name="rightsStatements">
 						<xsl:with-param name="statementURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/rights' and
 											sr:binding[@name='subject']/* = $catalogURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:rights</xsl:with-param>
-					</xsl:call-template>					
+					</xsl:call-template>
 					<!-- dct:spatial -->
 					<xsl:call-template name="locations">
 						<xsl:with-param name="locationURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/spatial' and
@@ -220,6 +222,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#theme' and
 											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dcat:theme</xsl:with-param>
+						<xsl:with-param name="rdfType"></xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:accessRights -->
 					<xsl:call-template name="rightsStatements">
@@ -244,6 +247,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/accrualPeriodicity' and
 											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:accrualPeriodicity</xsl:with-param>
+						<xsl:with-param name="rdfType">dct:Frequency</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:hasVersion -->
 					<xsl:call-template name="properties">
@@ -265,6 +269,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/language' and
 											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:language</xsl:with-param>
+						<xsl:with-param name="rdfType">dct:LinguisticSystem</xsl:with-param>
 					</xsl:call-template>
 					<!-- adms:identifier -->
 					<xsl:call-template name="identifiers">
@@ -306,6 +311,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']/*"/>
 						<!-- <xsl:with-param name="predicate" select="fn:QName('http://purl.org/dc/terms/','dct:type')"/>  -->
 						<xsl:with-param name="predicate">dct:type</xsl:with-param>
+						<xsl:with-param name="rdfType"></xsl:with-param>
 					</xsl:call-template>
 					<!-- owl:versionInfo -->
 					<xsl:call-template name="properties">
@@ -360,6 +366,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/type' and
 											sr:binding[@name='subject']/* = $agentURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:type</xsl:with-param>
+						<xsl:with-param name="rdfType"></xsl:with-param>
 					</xsl:call-template>
 				</foaf:Agent>
 			</xsl:element>
@@ -448,6 +455,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/type' and
 											sr:binding[@name='subject']/* = $licenseURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:type</xsl:with-param>
+						<xsl:with-param name="rdfType"></xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:title -->
 					<xsl:call-template name="properties">
@@ -559,6 +567,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 	<xsl:template name="concepts">
 		<xsl:param name="conceptURIs"/>
 		<xsl:param name="predicate"/>
+		<xsl:param name="rdfType"/>
 		<xsl:for-each select="$conceptURIs">
 			<xsl:element name="{$predicate}">
 				<skos:Concept>
@@ -575,6 +584,10 @@ Rome - Italy. email: geonetwork@osgeo.org
 							</skos:prefLabel>
 						</xsl:when>
 					</xsl:choose>
+					<!-- rdf:tpe -->
+					<xsl:if test="$rdfType != ''">
+						<rdf:type rdf:resource="{$rdfType}"/>
+					</xsl:if>
 					<!-- skos:prefLabel -->
 					<xsl:call-template name="properties">
 						<xsl:with-param name="subject" select="."/>
@@ -617,7 +630,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 				</skos:ConceptScheme>
 			</xsl:element>
 		</xsl:for-each>
-	</xsl:template>	
+	</xsl:template>
 	<!-- adms:Identifier -->
 	<xsl:template name="identifiers">
 		<xsl:param name="identifierURIs"/>
@@ -783,12 +796,14 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/format' and
 											sr:binding[@name='subject']/* = $distributionURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:format</xsl:with-param>
+						<xsl:with-param name="rdfType">dct:MediaTypeOrExtent</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:mediaType -->
 					<xsl:call-template name="concepts">
 						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#mediaType' and
 											sr:binding[@name='subject'] = .]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dcat:mediaType</xsl:with-param>
+						<xsl:with-param name="rdfType">dct:MediaTypeOrExtent</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:language -->
 					<xsl:call-template name="properties">
@@ -836,6 +851,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/adms#status' and
 											sr:binding[@name='subject']/* = $distributionURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">adms:status</xsl:with-param>
+						<xsl:with-param name="rdfType"></xsl:with-param>
 					</xsl:call-template>
 				</dcat:Distribution>
 			</xsl:element>
