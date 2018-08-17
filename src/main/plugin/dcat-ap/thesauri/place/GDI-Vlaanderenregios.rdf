@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:fn="http://www.w3.org/2005/02/xpath-functions" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:gml="http://www.opengis.net/gml#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xdt="http://www.w3.org/2005/02/xpath-datatypes" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- Scheme -->
+  <skos:ConceptScheme rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios">
+    <dc:title>Vlaamse regio&apos;s</dc:title>
+    <dc:description>Vlaamse regio&apos;s.</dc:description>
+    <dc:creator>
+      <foaf:Organization>
+        <foaf:name>AGIV</foaf:name>
+      </foaf:Organization>
+    </dc:creator>
+    <dc:rights>Vrij gebruik</dc:rights>
+    <dcterms:issued>2013-04-18</dcterms:issued>
+    <dcterms:modified>2013-09-25</dcterms:modified>
+    <skos:hasTopConcept rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen"/>
+  </skos:ConceptScheme>
+
+  <!-- Main Concept-->
+  <skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen">
+    <skos:prefLabel xml:lang="nl">Vlaanderen</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Vlaanderen</skos:prefLabel>
+    <skos:prefLabel xml:lang="du">Vlaanderen</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Vlaanderen</skos:prefLabel>
+    <skos:narrower rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Antwerpen" />
+    <skos:narrower rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/VlaamsBrabant" />
+    <skos:narrower rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/WestVlaanderen" />
+    <skos:narrower rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/OostVlaanderen" />
+    <skos:narrower rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Limburg" />
+    <gml:BoundedBy>
+      <gml:Envelope gml:srsName="http://www.opengis.net/gml/srs/epsg.xml#epsg:4326">
+        <gml:lowerCorner>2.5456398 50.687428500000003</gml:lowerCorner>
+        <gml:upperCorner>5.9111042999999999 51.505080700000001</gml:upperCorner>
+      </gml:Envelope>
+    </gml:BoundedBy>
+    </skos:Concept>
+  <!-- Concept list -->
+  <skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Antwerpen">
+    <skos:prefLabel xml:lang="nl">Provincie Antwerpen</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Provincie Antwerpen</skos:prefLabel>
+    <skos:prefLabel xml:lang="du">Provincie Antwerpen</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Provincie Antwerpen</skos:prefLabel>
+    <gml:BoundedBy>
+      <gml:Envelope gml:srsName="http://www.opengis.net/gml/srs/epsg.xml#epsg:4326">
+        <gml:lowerCorner>4.1722929999999998 50.9901275</gml:lowerCorner>
+        <gml:upperCorner>5.2625014999999999 51.505080700000001</gml:upperCorner>
+      </gml:Envelope>
+    </gml:BoundedBy>
+    <skos:broader rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen" />
+  </skos:Concept>
+  <skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/VlaamsBrabant">
+    <skos:prefLabel xml:lang="nl">Provincie Vlaams-Brabant</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Provincie Vlaams-Brabant</skos:prefLabel>
+    <skos:prefLabel xml:lang="du">Provincie Vlaams-Brabant</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Provincie Vlaams-Brabant</skos:prefLabel>
+    <gml:BoundedBy>
+      <gml:Envelope gml:srsName="http://www.opengis.net/gml/srs/epsg.xml#epsg:4326">
+        <gml:lowerCorner>3.8894057000000002 50.687428500000003</gml:lowerCorner>
+        <gml:upperCorner>5.188078 51.049929200000001</gml:upperCorner>
+      </gml:Envelope>
+    </gml:BoundedBy>
+    <skos:broader rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen" />
+  </skos:Concept>
+  <skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/WestVlaanderen">
+    <skos:prefLabel xml:lang="nl">Provincie West-Vlaanderen</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Provincie West-Vlaanderen</skos:prefLabel>
+    <skos:prefLabel xml:lang="du">Provincie West-Vlaanderen</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Provincie West-Vlaanderen</skos:prefLabel>
+    <gml:BoundedBy>
+      <gml:Envelope gml:srsName="http://www.opengis.net/gml/srs/epsg.xml#epsg:4326">
+        <gml:lowerCorner>2.5456398 50.708131999999999</gml:lowerCorner>
+        <gml:upperCorner>3.5234399999999999 51.370213900000003</gml:upperCorner>
+      </gml:Envelope>
+    </gml:BoundedBy>
+    <skos:broader rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen" />
+  </skos:Concept>
+  <skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/OostVlaanderen">
+    <skos:prefLabel xml:lang="nl">Provincie Oost-Vlaanderen</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Provincie Oost-Vlaanderen</skos:prefLabel>
+    <skos:prefLabel xml:lang="du">Provincie Oost-Vlaanderen</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Provincie Oost-Vlaanderen</skos:prefLabel>
+    <gml:BoundedBy>
+      <gml:Envelope gml:srsName="http://www.opengis.net/gml/srs/epsg.xml#epsg:4326">
+        <gml:lowerCorner>3.3312984999999999 50.720881900000002</gml:lowerCorner>
+        <gml:upperCorner>4.3300910999999997 51.352943799999998</gml:upperCorner>
+      </gml:Envelope>
+    </gml:BoundedBy>
+    <skos:broader rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen" />
+  </skos:Concept>
+  <skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Limburg">
+    <skos:prefLabel xml:lang="nl">Provincie Limburg</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Provincie Limburg</skos:prefLabel>
+    <skos:prefLabel xml:lang="du">Provincie Limburg</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Provincie Limburg</skos:prefLabel>
+    <gml:BoundedBy>
+      <gml:Envelope gml:srsName="http://www.opengis.net/gml/srs/epsg.xml#epsg:4326">
+        <gml:lowerCorner>4.9801884000000003 50.695422499999999</gml:lowerCorner>
+        <gml:upperCorner>5.9111042999999999 51.300248400000001</gml:upperCorner>
+      </gml:Envelope>
+    </gml:BoundedBy>
+    <skos:broader rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen" />
+  </skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaams Gewest"><skos:prefLabel xml:lang="nl">Vlaams Gewest</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Brussels Hoofdstedelijk Gewest"><skos:prefLabel xml:lang="nl">Brussels Hoofdstedelijk Gewest</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Boutersem"><skos:prefLabel xml:lang="nl">Gemeente Boutersem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Bonheiden"><skos:prefLabel xml:lang="nl">Gemeente Bonheiden</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Bertem"><skos:prefLabel xml:lang="nl">Gemeente Bertem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Heusden-Zolder"><skos:prefLabel xml:lang="nl">Gemeente Heusden-Zolder</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Dendermonde"><skos:prefLabel xml:lang="nl">Gemeente Dendermonde</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Eeklo"><skos:prefLabel xml:lang="nl">Gemeente Eeklo</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zutendaal"><skos:prefLabel xml:lang="nl">Gemeente Zutendaal</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Bekkevoort"><skos:prefLabel xml:lang="nl">Gemeente Bekkevoort</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wellen"><skos:prefLabel xml:lang="nl">Gemeente Wellen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Hemiksem"><skos:prefLabel xml:lang="nl">Gemeente Hemiksem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Bocholt"><skos:prefLabel xml:lang="nl">Gemeente Bocholt</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Alveringem"><skos:prefLabel xml:lang="nl">Gemeente Alveringem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Hoeselt"><skos:prefLabel xml:lang="nl">Gemeente Hoeselt</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zingem"><skos:prefLabel xml:lang="nl">Gemeente Zingem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Opwijk"><skos:prefLabel xml:lang="nl">Gemeente Opwijk</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wichelen"><skos:prefLabel xml:lang="nl">Gemeente Wichelen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Sint-Amands"><skos:prefLabel xml:lang="nl">Gemeente Sint-Amands</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Niel"><skos:prefLabel xml:lang="nl">Gemeente Niel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Waregem"><skos:prefLabel xml:lang="nl">Gemeente Waregem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Holsbeek"><skos:prefLabel xml:lang="nl">Gemeente Holsbeek</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lokeren"><skos:prefLabel xml:lang="nl">Gemeente Lokeren</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Affligem"><skos:prefLabel xml:lang="nl">Gemeente Affligem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Westerlo"><skos:prefLabel xml:lang="nl">Gemeente Westerlo</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Buggenhout"><skos:prefLabel xml:lang="nl">Gemeente Buggenhout</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Scherpenheuvel-Zichem"><skos:prefLabel xml:lang="nl">Gemeente Scherpenheuvel-Zichem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Meise"><skos:prefLabel xml:lang="nl">Gemeente Meise</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Tienen"><skos:prefLabel xml:lang="nl">Gemeente Tienen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Nazareth"><skos:prefLabel xml:lang="nl">Gemeente Nazareth</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Borsbeek"><skos:prefLabel xml:lang="nl">Gemeente Borsbeek</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Destelbergen"><skos:prefLabel xml:lang="nl">Gemeente Destelbergen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Edegem"><skos:prefLabel xml:lang="nl">Gemeente Edegem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Koekelare"><skos:prefLabel xml:lang="nl">Gemeente Koekelare</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kortemark"><skos:prefLabel xml:lang="nl">Gemeente Kortemark</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Maldegem"><skos:prefLabel xml:lang="nl">Gemeente Maldegem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Ranst"><skos:prefLabel xml:lang="nl">Gemeente Ranst</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Hooglede"><skos:prefLabel xml:lang="nl">Gemeente Hooglede</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lierde"><skos:prefLabel xml:lang="nl">Gemeente Lierde</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Denderleeuw"><skos:prefLabel xml:lang="nl">Gemeente Denderleeuw</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wetteren"><skos:prefLabel xml:lang="nl">Gemeente Wetteren</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kruishoutem"><skos:prefLabel xml:lang="nl">Gemeente Kruishoutem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zaventem"><skos:prefLabel xml:lang="nl">Gemeente Zaventem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Alken"><skos:prefLabel xml:lang="nl">Gemeente Alken</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zoutleeuw"><skos:prefLabel xml:lang="nl">Gemeente Zoutleeuw</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/As"><skos:prefLabel xml:lang="nl">Gemeente As</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Moerbeke"><skos:prefLabel xml:lang="nl">Gemeente Moerbeke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Sint-Niklaas"><skos:prefLabel xml:lang="nl">Gemeente Sint-Niklaas</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Gingelom"><skos:prefLabel xml:lang="nl">Gemeente Gingelom</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Horebeke"><skos:prefLabel xml:lang="nl">Gemeente Horebeke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Poperinge"><skos:prefLabel xml:lang="nl">Gemeente Poperinge</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Oudenaarde"><skos:prefLabel xml:lang="nl">Gemeente Oudenaarde</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Dessel"><skos:prefLabel xml:lang="nl">Gemeente Dessel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Bornem"><skos:prefLabel xml:lang="nl">Gemeente Bornem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Heers"><skos:prefLabel xml:lang="nl">Gemeente Heers</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Sint-Lievens-Houtem"><skos:prefLabel xml:lang="nl">Gemeente Sint-Lievens-Houtem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Roosdaal"><skos:prefLabel xml:lang="nl">Gemeente Roosdaal</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Sint-Pieters-Leeuw"><skos:prefLabel xml:lang="nl">Gemeente Sint-Pieters-Leeuw</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Steenokkerzeel"><skos:prefLabel xml:lang="nl">Gemeente Steenokkerzeel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Haaltert"><skos:prefLabel xml:lang="nl">Gemeente Haaltert</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kraainem"><skos:prefLabel xml:lang="nl">Gemeente Kraainem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kluisbergen"><skos:prefLabel xml:lang="nl">Gemeente Kluisbergen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Begijnendijk"><skos:prefLabel xml:lang="nl">Gemeente Begijnendijk</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/De Panne"><skos:prefLabel xml:lang="nl">Gemeente De Panne</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Berlaar"><skos:prefLabel xml:lang="nl">Gemeente Berlaar</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Sint-Gillis-Waas"><skos:prefLabel xml:lang="nl">Gemeente Sint-Gillis-Waas</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Galmaarden"><skos:prefLabel xml:lang="nl">Gemeente Galmaarden</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Rumst"><skos:prefLabel xml:lang="nl">Gemeente Rumst</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wijnegem"><skos:prefLabel xml:lang="nl">Gemeente Wijnegem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Waasmunster"><skos:prefLabel xml:lang="nl">Gemeente Waasmunster</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Hasselt"><skos:prefLabel xml:lang="nl">Gemeente Hasselt</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Landen"><skos:prefLabel xml:lang="nl">Gemeente Landen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Merchtem"><skos:prefLabel xml:lang="nl">Gemeente Merchtem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Veurne"><skos:prefLabel xml:lang="nl">Gemeente Veurne</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Hechtel-Eksel"><skos:prefLabel xml:lang="nl">Gemeente Hechtel-Eksel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Schoten"><skos:prefLabel xml:lang="nl">Gemeente Schoten</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Langemark-Poelkapelle"><skos:prefLabel xml:lang="nl">Gemeente Langemark-Poelkapelle</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Willebroek"><skos:prefLabel xml:lang="nl">Gemeente Willebroek</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kampenhout"><skos:prefLabel xml:lang="nl">Gemeente Kampenhout</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Tremelo"><skos:prefLabel xml:lang="nl">Gemeente Tremelo</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Moorslede"><skos:prefLabel xml:lang="nl">Gemeente Moorslede</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Dilsen-Stokkem"><skos:prefLabel xml:lang="nl">Gemeente Dilsen-Stokkem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Knokke-Heist"><skos:prefLabel xml:lang="nl">Gemeente Knokke-Heist</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kapelle-op-den-Bos"><skos:prefLabel xml:lang="nl">Gemeente Kapelle-op-den-Bos</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Heuvelland"><skos:prefLabel xml:lang="nl">Gemeente Heuvelland</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Dentergem"><skos:prefLabel xml:lang="nl">Gemeente Dentergem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Oud-Heverlee"><skos:prefLabel xml:lang="nl">Gemeente Oud-Heverlee</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vorselaar"><skos:prefLabel xml:lang="nl">Gemeente Vorselaar</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wielsbeke"><skos:prefLabel xml:lang="nl">Gemeente Wielsbeke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Sint-Truiden"><skos:prefLabel xml:lang="nl">Gemeente Sint-Truiden</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kortenaken"><skos:prefLabel xml:lang="nl">Gemeente Kortenaken</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lochristi"><skos:prefLabel xml:lang="nl">Gemeente Lochristi</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Deinze"><skos:prefLabel xml:lang="nl">Gemeente Deinze</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Diksmuide"><skos:prefLabel xml:lang="nl">Gemeente Diksmuide</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Nevele"><skos:prefLabel xml:lang="nl">Gemeente Nevele</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Leuven"><skos:prefLabel xml:lang="nl">Gemeente Leuven</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Boortmeerbeek"><skos:prefLabel xml:lang="nl">Gemeente Boortmeerbeek</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Ardooie"><skos:prefLabel xml:lang="nl">Gemeente Ardooie</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Bever"><skos:prefLabel xml:lang="nl">Gemeente Bever</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Balen"><skos:prefLabel xml:lang="nl">Gemeente Balen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Drogenbos"><skos:prefLabel xml:lang="nl">Gemeente Drogenbos</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Ieper"><skos:prefLabel xml:lang="nl">Gemeente Ieper</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zwevegem"><skos:prefLabel xml:lang="nl">Gemeente Zwevegem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Sint-Katelijne-Waver"><skos:prefLabel xml:lang="nl">Gemeente Sint-Katelijne-Waver</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Aalter"><skos:prefLabel xml:lang="nl">Gemeente Aalter</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Hulshout"><skos:prefLabel xml:lang="nl">Gemeente Hulshout</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kruibeke"><skos:prefLabel xml:lang="nl">Gemeente Kruibeke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wervik"><skos:prefLabel xml:lang="nl">Gemeente Wervik</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Herentals"><skos:prefLabel xml:lang="nl">Gemeente Herentals</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lovendegem"><skos:prefLabel xml:lang="nl">Gemeente Lovendegem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Gavere"><skos:prefLabel xml:lang="nl">Gemeente Gavere</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kuurne"><skos:prefLabel xml:lang="nl">Gemeente Kuurne</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Sint-Genesius-Rode"><skos:prefLabel xml:lang="nl">Gemeente Sint-Genesius-Rode</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Antwerpen"><skos:prefLabel xml:lang="nl">Gemeente Antwerpen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Koksijde"><skos:prefLabel xml:lang="nl">Gemeente Koksijde</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Beernem"><skos:prefLabel xml:lang="nl">Gemeente Beernem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Overijse"><skos:prefLabel xml:lang="nl">Gemeente Overijse</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Voeren"><skos:prefLabel xml:lang="nl">Gemeente Voeren</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Herstappe"><skos:prefLabel xml:lang="nl">Gemeente Herstappe</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/De Haan"><skos:prefLabel xml:lang="nl">Gemeente De Haan</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zomergem"><skos:prefLabel xml:lang="nl">Gemeente Zomergem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Dilbeek"><skos:prefLabel xml:lang="nl">Gemeente Dilbeek</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Knesselare"><skos:prefLabel xml:lang="nl">Gemeente Knesselare</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Nieuwpoort"><skos:prefLabel xml:lang="nl">Gemeente Nieuwpoort</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Schelle"><skos:prefLabel xml:lang="nl">Gemeente Schelle</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Brecht"><skos:prefLabel xml:lang="nl">Gemeente Brecht</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vleteren"><skos:prefLabel xml:lang="nl">Gemeente Vleteren</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Aarschot"><skos:prefLabel xml:lang="nl">Gemeente Aarschot</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Malle"><skos:prefLabel xml:lang="nl">Gemeente Malle</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wevelgem"><skos:prefLabel xml:lang="nl">Gemeente Wevelgem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Brakel"><skos:prefLabel xml:lang="nl">Gemeente Brakel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Avelgem"><skos:prefLabel xml:lang="nl">Gemeente Avelgem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lendelede"><skos:prefLabel xml:lang="nl">Gemeente Lendelede</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Sint-Martens-Latem"><skos:prefLabel xml:lang="nl">Gemeente Sint-Martens-Latem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Bilzen"><skos:prefLabel xml:lang="nl">Gemeente Bilzen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Aalst"><skos:prefLabel xml:lang="nl">Gemeente Aalst</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Oostrozebeke"><skos:prefLabel xml:lang="nl">Gemeente Oostrozebeke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Spiere-Helkijn"><skos:prefLabel xml:lang="nl">Gemeente Spiere-Helkijn</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Essen"><skos:prefLabel xml:lang="nl">Gemeente Essen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kortenberg"><skos:prefLabel xml:lang="nl">Gemeente Kortenberg</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Maarkedal"><skos:prefLabel xml:lang="nl">Gemeente Maarkedal</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Berlare"><skos:prefLabel xml:lang="nl">Gemeente Berlare</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wemmel"><skos:prefLabel xml:lang="nl">Gemeente Wemmel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Herselt"><skos:prefLabel xml:lang="nl">Gemeente Herselt</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Grobbendonk"><skos:prefLabel xml:lang="nl">Gemeente Grobbendonk</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wommelgem"><skos:prefLabel xml:lang="nl">Gemeente Wommelgem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Hoeilaart"><skos:prefLabel xml:lang="nl">Gemeente Hoeilaart</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kortessem"><skos:prefLabel xml:lang="nl">Gemeente Kortessem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lede"><skos:prefLabel xml:lang="nl">Gemeente Lede</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Bredene"><skos:prefLabel xml:lang="nl">Gemeente Bredene</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Ruiselede"><skos:prefLabel xml:lang="nl">Gemeente Ruiselede</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Arendonk"><skos:prefLabel xml:lang="nl">Gemeente Arendonk</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zwalm"><skos:prefLabel xml:lang="nl">Gemeente Zwalm</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Oostkamp"><skos:prefLabel xml:lang="nl">Gemeente Oostkamp</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Meerhout"><skos:prefLabel xml:lang="nl">Gemeente Meerhout</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Tongeren"><skos:prefLabel xml:lang="nl">Gemeente Tongeren</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lubbeek"><skos:prefLabel xml:lang="nl">Gemeente Lubbeek</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Herk-de-Stad"><skos:prefLabel xml:lang="nl">Gemeente Herk-de-Stad</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Borgloon"><skos:prefLabel xml:lang="nl">Gemeente Borgloon</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Rotselaar"><skos:prefLabel xml:lang="nl">Gemeente Rotselaar</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Halen"><skos:prefLabel xml:lang="nl">Gemeente Halen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Melle"><skos:prefLabel xml:lang="nl">Gemeente Melle</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Beveren"><skos:prefLabel xml:lang="nl">Gemeente Beveren</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Herenthout"><skos:prefLabel xml:lang="nl">Gemeente Herenthout</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Asse"><skos:prefLabel xml:lang="nl">Gemeente Asse</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Leopoldsburg"><skos:prefLabel xml:lang="nl">Gemeente Leopoldsburg</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Genk"><skos:prefLabel xml:lang="nl">Gemeente Genk</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Duffel"><skos:prefLabel xml:lang="nl">Gemeente Duffel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Boom"><skos:prefLabel xml:lang="nl">Gemeente Boom</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zuienkerke"><skos:prefLabel xml:lang="nl">Gemeente Zuienkerke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Houthalen-Helchteren"><skos:prefLabel xml:lang="nl">Gemeente Houthalen-Helchteren</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Merelbeke"><skos:prefLabel xml:lang="nl">Gemeente Merelbeke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Herzele"><skos:prefLabel xml:lang="nl">Gemeente Herzele</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zonhoven"><skos:prefLabel xml:lang="nl">Gemeente Zonhoven</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Neerpelt"><skos:prefLabel xml:lang="nl">Gemeente Neerpelt</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vilvoorde"><skos:prefLabel xml:lang="nl">Gemeente Vilvoorde</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Menen"><skos:prefLabel xml:lang="nl">Gemeente Menen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Oosterzele"><skos:prefLabel xml:lang="nl">Gemeente Oosterzele</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Oudenburg"><skos:prefLabel xml:lang="nl">Gemeente Oudenburg</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Nijlen"><skos:prefLabel xml:lang="nl">Gemeente Nijlen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Tervuren"><skos:prefLabel xml:lang="nl">Gemeente Tervuren</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kaprijke"><skos:prefLabel xml:lang="nl">Gemeente Kaprijke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Ichtegem"><skos:prefLabel xml:lang="nl">Gemeente Ichtegem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Herent"><skos:prefLabel xml:lang="nl">Gemeente Herent</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lo-Reninge"><skos:prefLabel xml:lang="nl">Gemeente Lo-Reninge</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Maasmechelen"><skos:prefLabel xml:lang="nl">Gemeente Maasmechelen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Baarle-Hertog"><skos:prefLabel xml:lang="nl">Gemeente Baarle-Hertog</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Mol"><skos:prefLabel xml:lang="nl">Gemeente Mol</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Bierbeek"><skos:prefLabel xml:lang="nl">Gemeente Bierbeek</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Hoogstraten"><skos:prefLabel xml:lang="nl">Gemeente Hoogstraten</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zoersel"><skos:prefLabel xml:lang="nl">Gemeente Zoersel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Heist-op-den-Berg"><skos:prefLabel xml:lang="nl">Gemeente Heist-op-den-Berg</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Nieuwerkerken"><skos:prefLabel xml:lang="nl">Gemeente Nieuwerkerken</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lier"><skos:prefLabel xml:lang="nl">Gemeente Lier</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Rijkevorsel"><skos:prefLabel xml:lang="nl">Gemeente Rijkevorsel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Brasschaat"><skos:prefLabel xml:lang="nl">Gemeente Brasschaat</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Linter"><skos:prefLabel xml:lang="nl">Gemeente Linter</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/De Pinte"><skos:prefLabel xml:lang="nl">Gemeente De Pinte</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Grimbergen"><skos:prefLabel xml:lang="nl">Gemeente Grimbergen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zwijndrecht"><skos:prefLabel xml:lang="nl">Gemeente Zwijndrecht</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Pepingen"><skos:prefLabel xml:lang="nl">Gemeente Pepingen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lennik"><skos:prefLabel xml:lang="nl">Gemeente Lennik</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Erpe-Mere"><skos:prefLabel xml:lang="nl">Gemeente Erpe-Mere</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Oud-Turnhout"><skos:prefLabel xml:lang="nl">Gemeente Oud-Turnhout</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kapellen"><skos:prefLabel xml:lang="nl">Gemeente Kapellen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Laakdal"><skos:prefLabel xml:lang="nl">Gemeente Laakdal</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Anzegem"><skos:prefLabel xml:lang="nl">Gemeente Anzegem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Olen"><skos:prefLabel xml:lang="nl">Gemeente Olen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Putte"><skos:prefLabel xml:lang="nl">Gemeente Putte</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wachtebeke"><skos:prefLabel xml:lang="nl">Gemeente Wachtebeke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Ledegem"><skos:prefLabel xml:lang="nl">Gemeente Ledegem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Bree"><skos:prefLabel xml:lang="nl">Gemeente Bree</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Sint-Laureins"><skos:prefLabel xml:lang="nl">Gemeente Sint-Laureins</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zemst"><skos:prefLabel xml:lang="nl">Gemeente Zemst</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Temse"><skos:prefLabel xml:lang="nl">Gemeente Temse</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Halle"><skos:prefLabel xml:lang="nl">Gemeente Halle</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Izegem"><skos:prefLabel xml:lang="nl">Gemeente Izegem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Staden"><skos:prefLabel xml:lang="nl">Gemeente Staden</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Meulebeke"><skos:prefLabel xml:lang="nl">Gemeente Meulebeke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Tielt-Winge"><skos:prefLabel xml:lang="nl">Gemeente Tielt-Winge</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Gent"><skos:prefLabel xml:lang="nl">Gemeente Gent</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Roeselare"><skos:prefLabel xml:lang="nl">Gemeente Roeselare</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Pittem"><skos:prefLabel xml:lang="nl">Gemeente Pittem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wingene"><skos:prefLabel xml:lang="nl">Gemeente Wingene</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Hoegaarden"><skos:prefLabel xml:lang="nl">Gemeente Hoegaarden</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Hove"><skos:prefLabel xml:lang="nl">Gemeente Hove</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Damme"><skos:prefLabel xml:lang="nl">Gemeente Damme</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Ravels"><skos:prefLabel xml:lang="nl">Gemeente Ravels</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Aartselaar"><skos:prefLabel xml:lang="nl">Gemeente Aartselaar</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zonnebeke"><skos:prefLabel xml:lang="nl">Gemeente Zonnebeke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Tessenderlo"><skos:prefLabel xml:lang="nl">Gemeente Tessenderlo</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Stekene"><skos:prefLabel xml:lang="nl">Gemeente Stekene</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wezembeek-Oppem"><skos:prefLabel xml:lang="nl">Gemeente Wezembeek-Oppem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Maaseik"><skos:prefLabel xml:lang="nl">Gemeente Maaseik</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Brugge"><skos:prefLabel xml:lang="nl">Gemeente Brugge</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Assenede"><skos:prefLabel xml:lang="nl">Gemeente Assenede</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Middelkerke"><skos:prefLabel xml:lang="nl">Gemeente Middelkerke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Geraardsbergen"><skos:prefLabel xml:lang="nl">Gemeente Geraardsbergen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Keerbergen"><skos:prefLabel xml:lang="nl">Gemeente Keerbergen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Beerse"><skos:prefLabel xml:lang="nl">Gemeente Beerse</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Machelen"><skos:prefLabel xml:lang="nl">Gemeente Machelen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Herne"><skos:prefLabel xml:lang="nl">Gemeente Herne</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lichtervelde"><skos:prefLabel xml:lang="nl">Gemeente Lichtervelde</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Deerlijk"><skos:prefLabel xml:lang="nl">Gemeente Deerlijk</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Meeuwen-Gruitrode"><skos:prefLabel xml:lang="nl">Gemeente Meeuwen-Gruitrode</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vosselaar"><skos:prefLabel xml:lang="nl">Gemeente Vosselaar</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lummen"><skos:prefLabel xml:lang="nl">Gemeente Lummen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Hamont-Achel"><skos:prefLabel xml:lang="nl">Gemeente Hamont-Achel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Linkebeek"><skos:prefLabel xml:lang="nl">Gemeente Linkebeek</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Torhout"><skos:prefLabel xml:lang="nl">Gemeente Torhout</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zottegem"><skos:prefLabel xml:lang="nl">Gemeente Zottegem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Houthulst"><skos:prefLabel xml:lang="nl">Gemeente Houthulst</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Haacht"><skos:prefLabel xml:lang="nl">Gemeente Haacht</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Mesen"><skos:prefLabel xml:lang="nl">Gemeente Mesen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Tielt"><skos:prefLabel xml:lang="nl">Gemeente Tielt</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Geetbets"><skos:prefLabel xml:lang="nl">Gemeente Geetbets</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Mechelen"><skos:prefLabel xml:lang="nl">Gemeente Mechelen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Ronse"><skos:prefLabel xml:lang="nl">Gemeente Ronse</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Ham"><skos:prefLabel xml:lang="nl">Gemeente Ham</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Puurs"><skos:prefLabel xml:lang="nl">Gemeente Puurs</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kinrooi"><skos:prefLabel xml:lang="nl">Gemeente Kinrooi</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Beersel"><skos:prefLabel xml:lang="nl">Gemeente Beersel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Gooik"><skos:prefLabel xml:lang="nl">Gemeente Gooik</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Diepenbeek"><skos:prefLabel xml:lang="nl">Gemeente Diepenbeek</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Londerzeel"><skos:prefLabel xml:lang="nl">Gemeente Londerzeel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zele"><skos:prefLabel xml:lang="nl">Gemeente Zele</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Jabbeke"><skos:prefLabel xml:lang="nl">Gemeente Jabbeke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Boechout"><skos:prefLabel xml:lang="nl">Gemeente Boechout</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Overpelt"><skos:prefLabel xml:lang="nl">Gemeente Overpelt</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Mortsel"><skos:prefLabel xml:lang="nl">Gemeente Mortsel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Evergem"><skos:prefLabel xml:lang="nl">Gemeente Evergem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kasterlee"><skos:prefLabel xml:lang="nl">Gemeente Kasterlee</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Huldenberg"><skos:prefLabel xml:lang="nl">Gemeente Huldenberg</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Retie"><skos:prefLabel xml:lang="nl">Gemeente Retie</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kalmthout"><skos:prefLabel xml:lang="nl">Gemeente Kalmthout</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Ingelmunster"><skos:prefLabel xml:lang="nl">Gemeente Ingelmunster</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lommel"><skos:prefLabel xml:lang="nl">Gemeente Lommel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Blankenberge"><skos:prefLabel xml:lang="nl">Gemeente Blankenberge</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wuustwezel"><skos:prefLabel xml:lang="nl">Gemeente Wuustwezel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Diest"><skos:prefLabel xml:lang="nl">Gemeente Diest</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zelzate"><skos:prefLabel xml:lang="nl">Gemeente Zelzate</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Beringen"><skos:prefLabel xml:lang="nl">Gemeente Beringen</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Opglabbeek"><skos:prefLabel xml:lang="nl">Gemeente Opglabbeek</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lint"><skos:prefLabel xml:lang="nl">Gemeente Lint</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Riemst"><skos:prefLabel xml:lang="nl">Gemeente Riemst</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Liedekerke"><skos:prefLabel xml:lang="nl">Gemeente Liedekerke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Glabbeek"><skos:prefLabel xml:lang="nl">Gemeente Glabbeek</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Waarschoot"><skos:prefLabel xml:lang="nl">Gemeente Waarschoot</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Merksplas"><skos:prefLabel xml:lang="nl">Gemeente Merksplas</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Harelbeke"><skos:prefLabel xml:lang="nl">Gemeente Harelbeke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lanaken"><skos:prefLabel xml:lang="nl">Gemeente Lanaken</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Schilde"><skos:prefLabel xml:lang="nl">Gemeente Schilde</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Geel"><skos:prefLabel xml:lang="nl">Gemeente Geel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zandhoven"><skos:prefLabel xml:lang="nl">Gemeente Zandhoven</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lebbeke"><skos:prefLabel xml:lang="nl">Gemeente Lebbeke</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Ternat"><skos:prefLabel xml:lang="nl">Gemeente Ternat</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Turnhout"><skos:prefLabel xml:lang="nl">Gemeente Turnhout</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Stabroek"><skos:prefLabel xml:lang="nl">Gemeente Stabroek</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zedelgem"><skos:prefLabel xml:lang="nl">Gemeente Zedelgem</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Laarne"><skos:prefLabel xml:lang="nl">Gemeente Laarne</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kortrijk"><skos:prefLabel xml:lang="nl">Gemeente Kortrijk</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Zulte"><skos:prefLabel xml:lang="nl">Gemeente Zulte</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Peer"><skos:prefLabel xml:lang="nl">Gemeente Peer</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Hamme"><skos:prefLabel xml:lang="nl">Gemeente Hamme</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Lille"><skos:prefLabel xml:lang="nl">Gemeente Lille</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Gistel"><skos:prefLabel xml:lang="nl">Gemeente Gistel</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Kontich"><skos:prefLabel xml:lang="nl">Gemeente Kontich</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Ninove"><skos:prefLabel xml:lang="nl">Gemeente Ninove</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Oostende"><skos:prefLabel xml:lang="nl">Gemeente Oostende</skos:prefLabel></skos:Concept>
+<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Wortegem-Petegem"><skos:prefLabel xml:lang="nl">Gemeente Wortegem-Petegem</skos:prefLabel></skos:Concept>
+
+</rdf:RDF>
+

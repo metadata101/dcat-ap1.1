@@ -24,6 +24,7 @@
 package org.fao.geonet.schema.dcatap;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -31,8 +32,10 @@ import java.util.regex.Pattern;
 
 import org.fao.geonet.kernel.schema.AssociatedResource;
 import org.fao.geonet.kernel.schema.AssociatedResourcesSchemaPlugin;
+import org.fao.geonet.kernel.schema.MultilingualSchemaPlugin;
 import org.fao.geonet.utils.Xml;
 import org.jdom.Element;
+import org.jdom.JDOMException;
 import org.jdom.Namespace;
 import org.jdom.filter.ElementFilter;
 
@@ -44,7 +47,7 @@ import com.google.common.collect.ImmutableSet;
  */
 public class DCATAPSchemaPlugin
         extends org.fao.geonet.kernel.schema.SchemaPlugin
-        implements AssociatedResourcesSchemaPlugin {
+        implements AssociatedResourcesSchemaPlugin, MultilingualSchemaPlugin {
     public static final String IDENTIFIER = "dcat-ap";
 
     private static ImmutableSet<Namespace> allNamespaces;
@@ -124,6 +127,23 @@ public class DCATAPSchemaPlugin
     @Override
     public Map<String, Namespace> getCswTypeNames() {
         return allTypenames;
+    }
+
+
+    @Override
+    public List<Element> getTranslationForElement(Element element, String languageIdentifier) {
+        return null;          
+    }
+
+
+    @Override
+    public void addTranslationToElement(Element element, String languageIdentifier, String value) {
+    }
+
+
+    @Override
+    public Element removeTranslationFromElement(Element element, List<String> mdLang) throws JDOMException {
+        return null;
     }
 
 }

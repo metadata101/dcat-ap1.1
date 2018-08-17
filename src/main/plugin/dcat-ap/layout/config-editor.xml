@@ -4,6 +4,14 @@
   <fields>
     <for name="vcard:hasEmail" use="email"/>
     <for name="dcat:byteSize" use="number"/>
+    <for name="dct:license" addDirective="data-gn-directory-entry-selector">
+      <directiveAttributes
+        data-template-add-action="true"
+        data-search-action="true"
+        data-popup-action="false"
+        data-filter='{"_root": "dct:LicenseDocument"}'
+        data-insert-modes=""/>
+    </for>
     <for name="dct:title" templateModeOnly="true">  
       <template>
         <values>
