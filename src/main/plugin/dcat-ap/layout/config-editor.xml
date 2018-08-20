@@ -136,32 +136,31 @@
   </fields>
   <!-- Complex fields. -->
   <fieldsWithFieldset>
-    <name>dcat:contactPoint</name>
-    <name>dct:publisher</name>
+    <name isSupportingSlideToggle="true">dcat:contactPoint</name>
+    <name isSupportingSlideToggle="true">dct:publisher</name>
     <name>foaf:Agent</name>
     <name>vcard:Organization</name>
     <name>vcard:hasAddress</name>
-    <name>dct:accessRights</name>
-    <name>adms:identifier</name>
+    <name isSupportingSlideToggle="true">dct:accessRights</name>
+    <name isSupportingSlideToggle="true">adms:identifier</name>
     <name>adms:Identifier</name>
-    <name>dct:provenance</name>
+    <name isSupportingSlideToggle="true">dct:provenance</name>
     <name>dct:ProvenanceStatement</name>
-    <name>dct:spatial</name>
-    <name>dct:temporal</name>
+    <name isSupportingSlideToggle="true">dct:spatial</name>
+    <name isSupportingSlideToggle="true">dct:temporal</name>
     <name>dct:PeriodOfTime</name>
-    <name>dcat:extension</name>
-
+    <name isSupportingSlideToggle="true">dcat:extension</name>
     <name>dcat:distribution</name>
     <name>dcat:Distribution</name>
-    <name>dct:license</name>
+    <name isSupportingSlideToggle="true">dct:license</name>
     <name>dct:LicenseDocument</name>
-    <name>dct:rights</name>
+    <name isSupportingSlideToggle="true">dct:rights</name>
     <name>dct:RightsStatement</name>
-    <name>spdx:checksum</name>
+    <name isSupportingSlideToggle="true">spdx:checksum</name>
     <name>spdx:Checksum</name>
-    <name>foaf:page</name>
+    <name isSupportingSlideToggle="true">foaf:page</name>
     <name>foaf:Document</name>
-    <name>dct:conformsTo</name>
+    <name isSupportingSlideToggle="true">dct:conformsTo</name>
     <name>dct:Standard</name>
     <name>adms:status</name>
     <name>adms:sample</name>
@@ -270,8 +269,8 @@
               </snippet>
             </template>
           </field>
-          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher" name="Sectionpublisher"/>
-          <action type="add" btnLabel="FieldId131" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher" name="Sectionpublisher"/>
+          <action type="add" btnLabel="FieldId133" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <snippet>
                 <dct:publisher/>

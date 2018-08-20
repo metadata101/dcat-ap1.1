@@ -93,7 +93,8 @@
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
     <xsl:param name="refToDelete" required="no"/>
-
+    <xsl:variable name="name" select="name(.)"/>
+    <xsl:variable name="isSupportingSlideToggle" select="$editorConfig/editor/fieldsWithFieldset/name[.=$name]/@isSupportingSlideToggle='true'"/>
     <xsl:variable name="xpath" select="gn-fn-metadata:getXPath(.)"/>
     <xsl:variable name="isoType" select="''"/>
 
@@ -122,6 +123,7 @@
       <xsl:with-param name="cls" select="local-name()"/>
       <xsl:with-param name="xpath" select="$xpath"/>
       <xsl:with-param name="attributesSnippet" select="$attributes"/>
+      <xsl:with-param name="isSlideToggle" select="if ($isSupportingSlideToggle and $isDisplayingSections = false()) then 'true' else 'false'"/>
       <xsl:with-param name="subTreeSnippet">
         <xsl:apply-templates mode="mode-dcat-ap" select="*">
           <xsl:with-param name="schema" select="$schema"/>

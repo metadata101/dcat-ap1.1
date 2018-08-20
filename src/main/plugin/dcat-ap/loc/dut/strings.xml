@@ -14,7 +14,7 @@
 	<metadata-on-metadata>Metadata over metadata</metadata-on-metadata>
 	<distribution>Distributies</distribution>
 	<!-- DCAT-AP view labels and help -->
-	<SectionDataset>dataset</SectionDataset>
+	<FieldId107>dataset</FieldId107>
 	<FieldId108>URI</FieldId108>
 	<FieldId109>titel</FieldId109>
 	<FieldId110>taal</FieldId110>
@@ -22,12 +22,12 @@
 	<FieldId112>taal</FieldId112>
 	<FieldId113>identificator</FieldId113>
 	<FieldId114>contactpunt</FieldId114>
-	<SectionOrganization>contactpunt organisatie</SectionOrganization>
+	<FieldId115>contactpunt organisatie</FieldId115>
 	<FieldId116>URI</FieldId116>
 	<FieldId117>contactnaam</FieldId117>
 	<FieldId118>naam organisatie</FieldId118>
 	<FieldId119>adres</FieldId119>
-	<SectionAddress>adres</SectionAddress>
+	<FieldId120>adres</FieldId120>
 	<FieldId121>URI</FieldId121>
 	<FieldId122>straat</FieldId122>
 	<FieldId123>gemeente</FieldId123>
@@ -39,44 +39,68 @@
 	<FieldId129>publicatiedatum</FieldId129>
 	<FieldId131>laatst gewijzigd</FieldId131>
 	<FieldId133>uitgever/eigenaar</FieldId133>
-	<SectionAgent>organisatie</SectionAgent>
+	<FieldId134>organisatie</FieldId134>
 	<FieldId135>URI</FieldId135>
 	<FieldId136>naam</FieldId136>
 	<FieldId137>taal</FieldId137>
 	<FieldId138>type</FieldId138>
+	<FieldId139>concept</FieldId139>
+	<FieldId140>URI</FieldId140>
+	<FieldId141>rdf klasse</FieldId141>
+	<FieldId142>label</FieldId142>
+	<FieldId143>taal</FieldId143>
+	<FieldId144>in thesaurus</FieldId144>
 	<FieldId145>trefwoord</FieldId145>
 	<FieldId146>taal</FieldId146>
 	<FieldId147>thema</FieldId147>
+	<FieldId148>concept</FieldId148>
+	<FieldId149>URI</FieldId149>
+	<FieldId150>rdf klasse</FieldId150>
+	<FieldId151>label</FieldId151>
+	<FieldId152>taal</FieldId152>
+	<FieldId153>in thesaurus</FieldId153>
 	<FieldId154>toegangsbeperkingen</FieldId154>
-	<SectionRightsStatement>bepaling</SectionRightsStatement>
+	<FieldId155>bepaling</FieldId155>
 	<FieldId156>URI</FieldId156>
 	<FieldId157>titel</FieldId157>
 	<FieldId158>taal</FieldId158>
 	<FieldId159>beschrijving</FieldId159>
 	<FieldId160>taal</FieldId160>
 	<FieldId161>conformiteit met standaard</FieldId161>
-	<SectionStandard>standaard</SectionStandard>
+	<FieldId162>standaard</FieldId162>
 	<FieldId163>URI</FieldId163>
 	<FieldId164>titel</FieldId164>
 	<FieldId165>taal</FieldId165>
 	<FieldId166>beschrijving</FieldId166>
 	<FieldId167>taal</FieldId167>
 	<FieldId168>documentatie</FieldId168>
-	<SectionDocument>document</SectionDocument>
+	<FieldId169>document</FieldId169>
 	<FieldId170>URI</FieldId170>
 	<FieldId171>naam</FieldId171>
 	<FieldId172>taal</FieldId172>
 	<FieldId173>updatefrequentie</FieldId173>
+	<FieldId174>concept</FieldId174>
+	<FieldId175>URI</FieldId175>
+	<FieldId176>rdf klasse</FieldId176>
+	<FieldId177>label</FieldId177>
+	<FieldId178>taal</FieldId178>
+	<FieldId179>in thesaurus</FieldId179>
 	<FieldId180>heeft versie</FieldId180>
 	<FieldId181>is versie van</FieldId181>
 	<FieldId182>bijsluiter</FieldId182>
 	<FieldId183>taal</FieldId183>
+	<FieldId184>concept</FieldId184>
+	<FieldId185>URI</FieldId185>
+	<FieldId186>rdf klasse</FieldId186>
+	<FieldId187>label</FieldId187>
+	<FieldId188>taal</FieldId188>
+	<FieldId189>in thesaurus</FieldId189>
 	<FieldId190>andere identificator</FieldId190>
-	<SectionIdentifier>andere identificator</SectionIdentifier>
+	<FieldId191>andere identificator</FieldId191>
 	<FieldId192>URI</FieldId192>
 	<FieldId193>notatie</FieldId193>
 	<FieldId195>beschrijving herkomst</FieldId195>
-	<SectionProvenanceStatement>beschrijving herkomst</SectionProvenanceStatement>
+	<FieldId196>beschrijving herkomst</FieldId196>
 	<FieldId197>URI</FieldId197>
 	<FieldId198>beschrijving</FieldId198>
 	<FieldId199>taal</FieldId199>
@@ -89,23 +113,29 @@
 	<FieldId207>Geografische omschrijving</FieldId207>
 	<FieldId208>taal</FieldId208>
 	<FieldId209>temporele begrenzing</FieldId209>
-	<SectionPeriodOfTime>tijdsperiode</SectionPeriodOfTime>
+	<FieldId210>tijdsperiode</FieldId210>
 	<FieldId211>URI</FieldId211>
 	<FieldId212>eind (datum/tijd)</FieldId212>
 	<FieldId214>start (datum/tijd)</FieldId214>
 	<FieldId216>type</FieldId216>
+	<FieldId217>concept</FieldId217>
+	<FieldId218>URI</FieldId218>
+	<FieldId219>rdf klasse</FieldId219>
+	<FieldId220>label</FieldId220>
+	<FieldId221>taal</FieldId221>
+	<FieldId222>in thesaurus</FieldId222>
 	<FieldId223>versie</FieldId223>
 	<FieldId224>taal</FieldId224>
 	<FieldId225>versie nota's</FieldId225>
 	<FieldId226>taal</FieldId226>
 	<FieldId227>bijkomende informatie</FieldId227>
-	<SectionStatement>toegevoegde informatie</SectionStatement>
+	<FieldId228>toegevoegde informatie</FieldId228>
 	<FieldId229>URI</FieldId229>
 	<FieldId230>subject</FieldId230>
 	<FieldId231>predicaat</FieldId231>
 	<FieldId232>object</FieldId232>
 	<FieldId234>distributie</FieldId234>
-	<SectionDistribution>distributie</SectionDistribution>
+	<FieldId235>distributie</FieldId235>
 	<FieldId236>URI</FieldId236>
 	<FieldId237>titel</FieldId237>
 	<FieldId238>taal</FieldId238>
@@ -116,19 +146,43 @@
 	<FieldId243>publicatiedatum</FieldId243>
 	<FieldId245>laatst gewijzigd</FieldId245>
 	<FieldId247>formaat</FieldId247>
+	<FieldId248>concept</FieldId248>
+	<FieldId249>URI</FieldId249>
+	<FieldId250>rdf klasse</FieldId250>
+	<FieldId251>label</FieldId251>
+	<FieldId252>taal</FieldId252>
+	<FieldId253>in thesaurus</FieldId253>
 	<FieldId254>mediatype</FieldId254>
+	<FieldId255>concept</FieldId255>
+	<FieldId256>URI</FieldId256>
+	<FieldId257>rdf klasse</FieldId257>
+	<FieldId258>label</FieldId258>
+	<FieldId259>taal</FieldId259>
+	<FieldId260>in thesaurus</FieldId260>
 	<FieldId261>taal</FieldId261>
+	<FieldId262>concept</FieldId262>
+	<FieldId263>URI</FieldId263>
+	<FieldId264>rdf klasse</FieldId264>
+	<FieldId265>label</FieldId265>
+	<FieldId266>taal</FieldId266>
+	<FieldId267>in thesaurus</FieldId267>
 	<FieldId268>licentie</FieldId268>
-	<SectionLicenseDocument>licentie</SectionLicenseDocument>
+	<FieldId269>licentie</FieldId269>
 	<FieldId270>URI</FieldId270>
 	<FieldId271>type</FieldId271>
+	<FieldId272>concept</FieldId272>
+	<FieldId273>URI</FieldId273>
+	<FieldId274>rdf klasse</FieldId274>
+	<FieldId275>label</FieldId275>
+	<FieldId276>taal</FieldId276>
+	<FieldId277>in thesaurus</FieldId277>
 	<FieldId278>titel</FieldId278>
 	<FieldId279>taal</FieldId279>
 	<FieldId280>beschrijving</FieldId280>
 	<FieldId281>taal</FieldId281>
 	<FieldId282>identificator</FieldId282>
 	<FieldId283>rechten</FieldId283>
-	<SectionRightsStatement>bepaling</SectionRightsStatement>
+	<FieldId284>bepaling</FieldId284>
 	<FieldId285>URI</FieldId285>
 	<FieldId286>titel</FieldId286>
 	<FieldId287>taal</FieldId287>
@@ -136,25 +190,31 @@
 	<FieldId289>taal</FieldId289>
 	<FieldId290>grootte (bytes)</FieldId290>
 	<FieldId291>checksom</FieldId291>
-	<SectionChecksum>checksom</SectionChecksum>
+	<FieldId292>checksom</FieldId292>
 	<FieldId293>URI</FieldId293>
 	<FieldId294>algoritme</FieldId294>
 	<FieldId295>checksom waarde</FieldId295>
 	<FieldId296>documentatie</FieldId296>
-	<SectionDocument>document</SectionDocument>
+	<FieldId297>document</FieldId297>
 	<FieldId298>URI</FieldId298>
 	<FieldId299>naam</FieldId299>
 	<FieldId300>taal</FieldId300>
 	<FieldId301>Conformiteit met standaard</FieldId301>
-	<SectionStandard>standaard</SectionStandard>
+	<FieldId302>standaard</FieldId302>
 	<FieldId303>URI</FieldId303>
 	<FieldId304>titel</FieldId304>
 	<FieldId305>taal</FieldId305>
 	<FieldId306>beschrijving</FieldId306>
 	<FieldId307>taal</FieldId307>
 	<FieldId308>status</FieldId308>
+	<FieldId309>concept</FieldId309>
+	<FieldId310>URI</FieldId310>
+	<FieldId311>rdf klasse</FieldId311>
+	<FieldId312>label</FieldId312>
+	<FieldId313>taal</FieldId313>
+	<FieldId314>in thesaurus</FieldId314>
 	<FieldId315>voorbeeld</FieldId315>
-	<SectionDistribution>distributie</SectionDistribution>
+	<FieldId316>distributie</FieldId316>
 	<FieldId317>URI</FieldId317>
 	<FieldId318>titel</FieldId318>
 	<FieldId319>taal</FieldId319>
@@ -165,19 +225,42 @@
 	<FieldId324>publicatiedatum</FieldId324>
 	<FieldId326>laatst gewijzigd</FieldId326>
 	<FieldId328>formaat</FieldId328>
+	<FieldId329>concept</FieldId329>
+	<FieldId330>URI</FieldId330>
+	<FieldId332>label</FieldId332>
+	<FieldId333>taal</FieldId333>
+	<FieldId334>in thesaurus</FieldId334>
 	<FieldId335>mediatype</FieldId335>
+	<FieldId336>concept</FieldId336>
+	<FieldId337>URI</FieldId337>
+	<FieldId338>rdf klasse</FieldId338>
+	<FieldId339>label</FieldId339>
+	<FieldId340>taal</FieldId340>
+	<FieldId341>in thesaurus</FieldId341>
 	<FieldId342>taal</FieldId342>
+	<FieldId343>concept</FieldId343>
+	<FieldId344>URI</FieldId344>
+	<FieldId345>rdf klasse</FieldId345>
+	<FieldId346>label</FieldId346>
+	<FieldId347>taal</FieldId347>
+	<FieldId348>in thesaurus</FieldId348>
 	<FieldId349>licentie</FieldId349>
-	<SectionLicenseDocument>licentie</SectionLicenseDocument>
+	<FieldId350>licentie</FieldId350>
 	<FieldId351>URI</FieldId351>
 	<FieldId352>type</FieldId352>
+	<FieldId353>concept</FieldId353>
+	<FieldId354>URI</FieldId354>
+	<FieldId355>rdf klasse</FieldId355>
+	<FieldId356>label</FieldId356>
+	<FieldId357>taal</FieldId357>
+	<FieldId358>in thesaurus</FieldId358>
 	<FieldId359>titel</FieldId359>
 	<FieldId360>taal</FieldId360>
 	<FieldId361>beschrijving</FieldId361>
 	<FieldId362>taal</FieldId362>
 	<FieldId363>identificator</FieldId363>
 	<FieldId364>rechten</FieldId364>
-	<SectionRightsStatement>bepaling</SectionRightsStatement>
+	<FieldId365>bepaling</FieldId365>
 	<FieldId366>URI</FieldId366>
 	<FieldId367>titel</FieldId367>
 	<FieldId368>taal</FieldId368>
@@ -185,21 +268,27 @@
 	<FieldId370>taal</FieldId370>
 	<FieldId371>grootte (bytes)</FieldId371>
 	<FieldId372>checksom</FieldId372>
-	<SectionChecksum>checksom</SectionChecksum>
+	<FieldId373>checksom</FieldId373>
 	<FieldId374>URI</FieldId374>
 	<FieldId375>algoritme</FieldId375>
 	<FieldId376>checksom waarde</FieldId376>
 	<FieldId377>documentatie</FieldId377>
-	<SectionDocument>document</SectionDocument>
+	<FieldId378>document</FieldId378>
 	<FieldId379>URI</FieldId379>
 	<FieldId380>naam</FieldId380>
 	<FieldId381>taal</FieldId381>
 	<FieldId382>conformiteit met standaard</FieldId382>
-	<SectionStandard>standaard</SectionStandard>
+	<FieldId383>standaard</FieldId383>
 	<FieldId384>URI</FieldId384>
 	<FieldId385>titel</FieldId385>
 	<FieldId386>taal</FieldId386>
 	<FieldId387>beschrijving</FieldId387>
 	<FieldId388>taal</FieldId388>
 	<FieldId389>status</FieldId389>
+	<FieldId390>concept</FieldId390>
+	<FieldId391>URI</FieldId391>
+	<FieldId392>rdf klasse</FieldId392>
+	<FieldId393>label</FieldId393>
+	<FieldId394>taal</FieldId394>
+	<FieldId395>in thesaurus</FieldId395>
 </strings>
