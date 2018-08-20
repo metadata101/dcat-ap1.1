@@ -150,7 +150,7 @@
     <name isSupportingSlideToggle="true">dct:temporal</name>
     <name>dct:PeriodOfTime</name>
     <name isSupportingSlideToggle="true">dcat:extension</name>
-    <name>dcat:distribution</name>
+    <name isSupportingSlideToggle="true">dcat:distribution</name>
     <name>dcat:Distribution</name>
     <name isSupportingSlideToggle="true">dct:license</name>
     <name>dct:LicenseDocument</name>
@@ -163,7 +163,7 @@
     <name isSupportingSlideToggle="true">dct:conformsTo</name>
     <name>dct:Standard</name>
     <name>adms:status</name>
-    <name>adms:sample</name>
+    <name isSupportingSlideToggle="true">adms:sample</name>
   </fieldsWithFieldset>
   <multilingualFields>
     <!-- In multilingual mode, define which mode

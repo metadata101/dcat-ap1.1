@@ -82,14 +82,14 @@
 		</dcat:Dataset>
 	</xsl:template>
 
-  <!--xsl:template match="dcat:Dataset/dct:title" priority="10">
+  <xsl:template match="dcat:Dataset/dct:title" priority="10">
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
-      <xsl:if test="root/env/id">
+      <xsl:if test="/root/env/id!=''">
         <xsl:value-of select="."/>
       </xsl:if>
     </xsl:copy>
-  </xsl:template-->
+  </xsl:template>
 
 	<!-- Fill empty element and update existing with resourceType -->
 	<xsl:template match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:format|dcat:mediaType|adms:status|dct:LicenseDocument/dct:type" priority="10">
