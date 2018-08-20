@@ -278,22 +278,6 @@
                 <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/language" />
               </skos:Concept>
             </dct:language>
-            <dct:license>
-              <dct:LicenseDocument rdf:about="">
-                <dct:type>
-                  <skos:Concept rdf:about="">
-                    <skos:prefLabel xml:lang="nl" />
-                    <skos:prefLabel xml:lang="en" />
-                    <skos:prefLabel xml:lang="fr" />
-                    <skos:prefLabel xml:lang="de" />
-                    <skos:inScheme rdf:resource="http://purl.org/adms/licencetype/1.0" />
-                  </skos:Concept>
-                </dct:type>
-                <dct:title xml:lang="nl" />
-                <dct:description xml:lang="nl" />
-                <dct:identifier/>
-              </dct:LicenseDocument>
-            </dct:license>
             <dct:rights>
               <dct:RightsStatement rdf:about="">
                 <dct:title xml:lang="nl" />
