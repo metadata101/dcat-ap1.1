@@ -390,7 +390,7 @@ public class Aligner extends BaseAligner {
 		for (Object report : validationReport.getChildren("report") ) {			
 			String errorText = ((Element) report).getChild("error").getText();
 			Element reportLabel = ((Element) report).getChild("label");
-			if (errorText != "" && reportLabel != null && reportLabel.getText() == "DCAT-AP Rules v1.1"){
+			if (reportLabel != null && reportLabel.getText().equalsIgnoreCase("DCAT-AP Rules v1.1")){
 				errors =+ Integer.parseInt(errorText);					
 				}
 		}
