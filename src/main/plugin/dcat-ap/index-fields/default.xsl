@@ -131,7 +131,7 @@
                               .//dcat:mediaType|
                               .//adms:status|
                               .//dct:type[name(..)='dct:LicenseDocument']">
-          <xsl:if test="skos:Concept/skos:prefLabel/@xml:lang=$langId">                              
+          <xsl:if test="skos:Concept/skos:prefLabel/@xml:lang=$langId">
 	          <xsl:variable name="prefLabel">
 	            <xsl:call-template name="index-lang-tag-oneval">
 	              <xsl:with-param name="tag" select="."/>
@@ -144,10 +144,10 @@
 	        </xsl:if>
         </xsl:for-each>
       </xsl:attribute>
-      
+
     </Field>
 
-    <xsl:for-each select="distinct-values(//@xml:lang)">
+    <xsl:for-each select="distinct-values(//dcat:dataset/dcat:Dataset/dct:title/@xml:lang)">
 	    <xsl:variable name="mdLanguage">
 	      <xsl:call-template name="langId2to3">
 	        <xsl:with-param name="langId-2char" select="." />
@@ -167,20 +167,25 @@
       <xsl:call-template name="index-lang-tag-oneval">
         <xsl:with-param name="tag" select="dct:title"/>
         <xsl:with-param name="langId" select="$langId"/>
+        <xsl:with-param name="isoLangId" select="$isoLangId"/>
       </xsl:call-template>
     </xsl:variable>
     <Field name="title" string="{string($tmp_title)}" store="true" index="true" />
     <!-- not tokenized title for sorting -->
     <Field name="_title" string="{string($tmp_title)}" store="false" index="true" />
 
-    <xsl:call-template name="index-lang-tag">
-      <xsl:with-param name="tag" select="dct:description"/>
-      <xsl:with-param name="field" select="'abstract'"/>
-      <xsl:with-param name="langId" select="$langId"/>
-    </xsl:call-template>
+    <xsl:variable name="tmp_abstract">
+      <xsl:call-template name="index-lang-tag-oneval">
+        <xsl:with-param name="tag" select="dct:description"/>
+        <xsl:with-param name="langId" select="$langId"/>
+        <xsl:with-param name="isoLangId" select="$isoLangId"/>
+      </xsl:call-template>
+    </xsl:variable>
+    <Field name="abstract" string="{string($tmp_abstract)}" store="true" index="true" />
+    <Field name="_abstract" string="{string($tmp_abstract)}" store="false" index="true" />
 
     <xsl:for-each select="dct:identifier">
-      <Field name="identifier" string="{string(.)}" store="false"
+      <Field name="identifier" string="{string(.)}" store="true"
              index="true" />
       <Field name="fileId" string="{string(.)}" store="false" index="true" />
     </xsl:for-each>
@@ -226,12 +231,14 @@
         <xsl:call-template name="index-lang-tag-oneval">
           <xsl:with-param name="tag" select="dct:title"/>
           <xsl:with-param name="langId" select="$langId"/>
+          <xsl:with-param name="isoLangId" select="$isoLangId"/>
         </xsl:call-template>
       </xsl:variable>
       <xsl:variable name="desc">
         <xsl:call-template name="index-lang-tag-oneval">
           <xsl:with-param name="tag" select="dct:description"/>
           <xsl:with-param name="langId" select="$langId"/>
+          <xsl:with-param name="isoLangId" select="$isoLangId"/>
         </xsl:call-template>
       </xsl:variable>
       <Field name="dcat_accessRightsTitle" string="{string($title)}"
@@ -248,21 +255,23 @@
         <xsl:call-template name="index-lang-tag-oneval">
           <xsl:with-param name="tag" select="dct:title"/>
           <xsl:with-param name="langId" select="$langId"/>
+          <xsl:with-param name="isoLangId" select="$isoLangId"/>
         </xsl:call-template>
       </xsl:variable>
       <xsl:variable name="desc">
         <xsl:call-template name="index-lang-tag-oneval">
           <xsl:with-param name="tag" select="dct:description"/>
           <xsl:with-param name="langId" select="$langId"/>
+          <xsl:with-param name="isoLangId" select="$isoLangId"/>
         </xsl:call-template>
       </xsl:variable>
       <Field name="dcat_standardName" string="{string($title)}"
-             store="true" index="true" />
+             store="false" index="true" />
       <Field name="dcat_standardDesc" string="{string($desc)}"
-             store="true" index="true" />
+             store="false" index="true" />
 
       <Field name="dcat_standard" string="{concat($title, '|',$desc)}"
-             store="true" index="false" />
+             store="true" index="true" />
     </xsl:for-each>
 
     <xsl:for-each select="dcat:landingPage/@rdf:resource">
@@ -321,6 +330,7 @@
         <xsl:call-template name="index-lang-tag-oneval">
           <xsl:with-param name="tag" select="dct:title"/>
           <xsl:with-param name="langId" select="$langId"/>
+          <xsl:with-param name="isoLangId" select="$isoLangId"/>
         </xsl:call-template>
       </xsl:variable>
 
@@ -328,6 +338,7 @@
         <xsl:call-template name="index-lang-tag-oneval">
           <xsl:with-param name="tag" select="dct:description"/>
           <xsl:with-param name="langId" select="$langId"/>
+          <xsl:with-param name="isoLangId" select="$isoLangId"/>
         </xsl:call-template>
       </xsl:variable>
 
@@ -335,6 +346,7 @@
         <xsl:call-template name="index-lang-tag-oneval">
           <xsl:with-param name="tag" select="dct:mediaType"/>
           <xsl:with-param name="langId" select="$langId"/>
+          <xsl:with-param name="isoLangId" select="$isoLangId"/>
         </xsl:call-template>
       </xsl:variable>
 
@@ -364,11 +376,17 @@
         <xsl:with-param name="langId" select="$langId"/>
       </xsl:call-template>
 
-      <xsl:call-template name="index-lang-tag">
-        <xsl:with-param name="tag" select="dct:license"/>
-        <xsl:with-param name="field" select="'MD_LegalConstraintsUseLimitation'"/>
-        <xsl:with-param name="langId" select="$langId"/>
-      </xsl:call-template>
+      <xsl:for-each select="dct:license/dct:LicenseDocument">
+        <xsl:variable name="tmp_license">
+        <xsl:call-template name="index-lang-tag-oneval">
+          <xsl:with-param name="tag" select="dct:title"/>
+          <xsl:with-param name="langId" select="$langId"/>
+          <xsl:with-param name="isoLangId" select="$isoLangId"/>
+        </xsl:call-template>
+        </xsl:variable>
+        <Field name="MD_LegalConstraintsUseLimitation" string="{string($tmp_license)}" store="true" index="true"/>
+      </xsl:for-each>
+
 
       <!--<xsl:for-each select="dct:license/dct:LicenseDocument">
         <xsl:call-template name="index-lang-tag">
@@ -420,9 +438,16 @@
       <Field name="image" string="{concat($thumbnailType, '|', ., '|')}"
              store="true" index="false" />
     </xsl:for-each>
-    <xsl:for-each select="dct:publisher/foaf:Agent/foaf:name">
-      <Field name="dcat_publisher" string="{string(.)}"
-             store="true" index="true" />
+
+    <xsl:for-each select="dct:publisher/foaf:Agent">
+      <xsl:variable name="tmp_dcat_publisher">
+        <xsl:call-template name="index-lang-tag-oneval">
+          <xsl:with-param name="tag" select="foaf:name"/>
+          <xsl:with-param name="langId" select="$langId"/>
+          <xsl:with-param name="isoLangId" select="$isoLangId"/>
+        </xsl:call-template>
+      </xsl:variable>
+      <Field name="dcat_publisher" string="{string($tmp_dcat_publisher)}" store="true" index="true" />
     </xsl:for-each>
 <!--    <xsl:for-each select="dct:accrualPeriodicity">
       <Field name="updateFrequency" string="{string(.)}" store="true"

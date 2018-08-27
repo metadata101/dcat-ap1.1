@@ -197,7 +197,7 @@
     <xsl:variable name="firstTitle"
                   select="dct:title"/>
     <xsl:choose>
-      <xsl:when test="string-length(string($docLangTitle)) != 0">
+      <xsl:when test="string-length(string($docLangTitle[1])) != 0">
         <xsl:value-of select="$docLangTitle[1]"/>
       </xsl:when>
       <xsl:otherwise>
@@ -220,7 +220,7 @@
     <xsl:variable name="firstAbstract"
                   select="dct:description"/>
     <xsl:choose>
-      <xsl:when test="string-length(string($docLangAbstract)) != 0">
+      <xsl:when test="string-length(string($docLangAbstract[1])) != 0">
         <xsl:value-of select="$docLangAbstract[1]"/>
       </xsl:when>
       <xsl:otherwise>
@@ -233,20 +233,29 @@
 
     <xsl:param name="tag" />
     <xsl:param name="langId" />
+    <xsl:param name="isoLangId" />
 
     <xsl:variable name="langIdWording" select="$tag[@xml:lang=$langId]"/>
     <xsl:variable name="langIdWordingSkos" select="$tag/skos:Concept/skos:prefLabel[@xml:lang=$langId]"/>
-    <xsl:variable name="wording" select="$tag"/>
+    <xsl:variable name="default" select="$tag[@xml:lang=$isoLangId]"/>
+    <xsl:variable name="defaultSkos" select="$tag/skos:Concept/skos:prefLabel[@xml:lang=$isoLangId]"/>
+    <xsl:variable name="first" select="$tag[1]"/>
     <xsl:choose>
       <xsl:when test="$langIdWording">
-        <xsl:value-of select="$langIdWording"/>
+        <xsl:value-of select="$langIdWording[1]"/>
       </xsl:when>
       <xsl:when test="$langIdWordingSkos">
-        <xsl:value-of select="$langIdWordingSkos"/>
+        <xsl:value-of select="$langIdWordingSkos[1]"/>
       </xsl:when>
-      <xsl:when test="$wording">
-        <xsl:value-of select="$wording"/>
+      <xsl:when test="$default">
+        <xsl:value-of select="$default[1]"/>
       </xsl:when>
+      <xsl:when test="$defaultSkos">
+        <xsl:value-of select="$defaultSkos[1]"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$first"/>
+      </xsl:otherwise>
     </xsl:choose>
 
   </xsl:template>
