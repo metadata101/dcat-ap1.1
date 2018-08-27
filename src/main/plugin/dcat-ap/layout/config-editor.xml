@@ -91,20 +91,20 @@
     <for name="dcat:accessURL" templateModeOnly="true" forceLabel="true" label="FieldId241">  
       <template>
         <values>
-          <key label="FieldId241" xpath="@rdf:about"/>  
+          <key label="FieldId241" xpath="@rdf:resource"/>  
         </values>
         <snippet>
-          <dcat:accessURL rdf:about="{{FieldId241}}"/>
+          <dcat:accessURL rdf:resource="{{FieldId241}}"/>
         </snippet>
       </template>
     </for>
     <for name="dcat:downloadURL" templateModeOnly="true" forceLabel="true" label="FieldId242">  
       <template>
         <values>
-          <key label="FieldId242" xpath="@rdf:about"/>  
+          <key label="FieldId242" xpath="@rdf:resource"/>  
         </values>
         <snippet>
-          <dcat:downloadURL rdf:about="{{FieldId242}}"/>
+          <dcat:downloadURL rdf:resource="{{FieldId242}}"/>
         </snippet>
       </template>
     </for>

@@ -49,7 +49,7 @@
   
   
   <!--
-    Convert DC record to DCAT
+    Convert DCAT-AP XML record to DCAT-AP RDF
     -->
   <xsl:template match="dcat:Dataset" mode="to-dcat">
     <!-- Catalogue records
