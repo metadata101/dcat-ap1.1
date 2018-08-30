@@ -350,6 +350,15 @@
         </xsl:call-template>
       </xsl:variable>
 
+      <xsl:variable name="format">
+        <xsl:call-template name="index-lang-tag-oneval">
+          <xsl:with-param name="tag" select="dct:format"/>
+          <xsl:with-param name="langId" select="$langId"/>
+          <xsl:with-param name="isoLangId" select="$isoLangId"/>
+        </xsl:call-template>
+      </xsl:variable>
+      <Field name="format" string="{string($format)}" store="true" index="true"/>
+
       <xsl:for-each select="dcat:downloadURL">
         <xsl:variable name="downloadURLlinkage" select="string(@rdf:resource)" />
         <Field name="dcat_distributionURL" string="{concat($tPosition,'|download|',$downloadURLlinkage)}"
@@ -369,12 +378,6 @@
                string="{concat($title, '|', $desc, '|', $accessURLlinkage,'|WWW:DOWNLOAD-1.0-http--download|WWW:DOWNLOAD-1.0-http--download|', $tPosition, '2', position())}"
                store="true" index="true"/>
       </xsl:for-each>
-
-      <xsl:call-template name="index-lang-tag">
-        <xsl:with-param name="tag" select="dct:format"/>
-        <xsl:with-param name="field" select="'format'"/>
-        <xsl:with-param name="langId" select="$langId"/>
-      </xsl:call-template>
 
       <xsl:for-each select="dct:license/dct:LicenseDocument">
         <xsl:variable name="tmp_license">
@@ -404,7 +407,7 @@
              store="true" index="true" />
 
       <Field name="dcat_distribution"
-             string="{concat($tPosition, '|', $title, '|', $desc, '|', $mediaTypeConceptLabel)}"
+             string="{concat($tPosition, '|', $title, '|', $desc, '|', $mediaTypeConceptLabel, '|', $format)}"
              store="true" index="false"/>
     </xsl:for-each>
 
