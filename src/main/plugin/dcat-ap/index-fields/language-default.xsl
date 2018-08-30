@@ -480,9 +480,10 @@
     <xsl:variable name="role" select="'Contact'" />
     <!--<xsl:variable name="roleTranslation" select="util:getCodelistTranslation('gmd:CI_RoleCode',
             string($role), string($isoLangId))"/> -->
-    <xsl:variable name="email" select="vcard:hasEmail" />
+    <xsl:variable name="email" select="(vcard:hasEmail|vcard:hasEmail/@rdf:resource)[last()]" />
+    <xsl:variable name="url" select="(vcard:hasURL|vcard:hasURL/@rdf:resource)[last()]" />
     <xsl:variable name="phone"
-                  select="vcard:hasTelephone[normalize-space(.) != '']/*/text()" />
+                  select="vcard:hasTelephone/text()" />
     <xsl:variable name="individualName" select="vcard:fn/text()" />
     <xsl:variable name="address"
                   select="string-join(vcard:hasAddress/vcard:Address/(
@@ -498,7 +499,7 @@
                              $address, '|',
                              string-join($phone, ','), '|',
                              'uuid', '|',
-                             $position)}"
+                             $position, '|', $url)}"
            store="true" index="false" />
     <xsl:for-each select="$email">
       <Field name="{$fieldPrefix}Email" string="{string(.)}" store="true"
@@ -506,7 +507,6 @@
       <!-- <Field name="{$fieldPrefix}RoleAndEmail" string="{$role}|{string(.)}"
                 store="true" index="true"/> -->
     </xsl:for-each>
-
   </xsl:template>
 
 </xsl:stylesheet>

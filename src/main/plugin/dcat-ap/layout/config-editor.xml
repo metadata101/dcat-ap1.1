@@ -2,7 +2,6 @@
 <editor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:schema="http://schema.org/" xmlns:locn="http://www.w3.org/ns/locn#" xsi:noNamespaceSchemaLocation="../../../../../../config-editor.xsd">
   <!-- Define form field types per metadata element. -->
   <fields>
-    <for name="vcard:hasEmail" use="email"/>
     <for name="dcat:byteSize" use="number"/>
     <for name="dct:license" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
@@ -12,7 +11,7 @@
         data-filter='{"_root": "dct:LicenseDocument"}'
         data-insert-modes=""/>
     </for>
-    <for name="dct:title" templateModeOnly="true">  
+    <for name="dct:title" templateModeOnly="true">
       <template>
         <values>
           <key label="FieldId157" required="true" xpath="."/>
@@ -34,7 +33,7 @@
         </snippet>
       </template>
     </for>
-    <for name="foaf:name" templateModeOnly="true">  
+    <for name="foaf:name" templateModeOnly="true">
       <template>
         <values>
           <key label="FieldId136" required="true" xpath="."/>
@@ -45,13 +44,13 @@
         </snippet>
       </template>
     </for>
-    <for name="vcard:Address" templateModeOnly="true">  
+    <for name="vcard:Address" templateModeOnly="true">
       <template>
         <values>
-          <key label="FieldId121" xpath="@rdf:about"/>  
-          <key label="FieldId122" required="true" xpath="vcard:street-address" or="street-address" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/> 
-          <key label="FieldId123" required="true" xpath="vcard:locality" or="locality" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/> 
-          <key label="FieldId124" required="true" xpath="vcard:postal-code" or="postal-code" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/> 
+          <key label="FieldId121" xpath="@rdf:about"/>
+          <key label="FieldId122" required="true" xpath="vcard:street-address" or="street-address" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>
+          <key label="FieldId123" required="true" xpath="vcard:locality" or="locality" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>
+          <key label="FieldId124" required="true" xpath="vcard:postal-code" or="postal-code" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>
           <key label="FieldId125" required="true" xpath="vcard:country-name" or="country-name" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasAddress/vcard:Address"/>
         </values>
         <snippet>
@@ -61,6 +60,26 @@
             <vcard:postal-code>{{FieldId124}}</vcard:postal-code>
             <vcard:country-name>{{FieldId125}}</vcard:country-name>
           </vcard:Address>
+        </snippet>
+      </template>
+    </for>
+    <for name="vcard:hasEmail" templateModeOnly="true" forceLabel="true" label="FieldId126">
+      <template>
+        <values>
+          <key label="FieldId126" required="true" xpath="(.|@rdf:resource)[last()]"/>
+        </values>
+        <snippet>
+          <vcard:hasEmail rdf:resource="{{FieldId126}}"/>
+        </snippet>
+      </template>
+    </for>
+    <for name="vcard:hasURL" templateModeOnly="true" forceLabel="true" label="FieldId127">
+      <template>
+        <values>
+          <key label="FieldId127" required="true" xpath="(.|@rdf:resource)[last()]"/>
+        </values>
+        <snippet>
+          <vcard:hasURL rdf:resource="{{FieldId127}}"/>
         </snippet>
       </template>
     </for>
@@ -88,20 +107,20 @@
         </snippet>
       </template>
     </for>
-    <for name="dcat:accessURL" templateModeOnly="true" forceLabel="true" label="FieldId241">  
+    <for name="dcat:accessURL" templateModeOnly="true" forceLabel="true" label="FieldId241">
       <template>
         <values>
-          <key label="FieldId241" xpath="@rdf:resource"/>  
+          <key label="FieldId241" xpath="@rdf:resource"/>
         </values>
         <snippet>
           <dcat:accessURL rdf:resource="{{FieldId241}}"/>
         </snippet>
       </template>
     </for>
-    <for name="dcat:downloadURL" templateModeOnly="true" forceLabel="true" label="FieldId242">  
+    <for name="dcat:downloadURL" templateModeOnly="true" forceLabel="true" label="FieldId242">
       <template>
         <values>
-          <key label="FieldId242" xpath="@rdf:resource"/>  
+          <key label="FieldId242" xpath="@rdf:resource"/>
         </values>
         <snippet>
           <dcat:downloadURL rdf:resource="{{FieldId242}}"/>
@@ -132,7 +151,7 @@
         </snippet>
       </template>
     </for>
-    
+
   </fields>
   <!-- Complex fields. -->
   <fieldsWithFieldset>
@@ -335,7 +354,7 @@
             </template>
           </action>
           <field name="FieldId168" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/foaf:page" or="page" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
-          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" name="SectioncontactPoint"/>  
+          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" name="SectioncontactPoint"/>
           <action type="add" or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <snippet>
@@ -493,7 +512,7 @@
     <view name="xml">
       <sidePanel>
         <directive data-gn-validation-report=""/>
-      </sidePanel>    
+      </sidePanel>
       <tab id="xml" default="true"/>
     </view>
   </views>
