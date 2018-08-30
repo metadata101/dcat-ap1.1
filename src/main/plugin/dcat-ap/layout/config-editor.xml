@@ -240,17 +240,16 @@
             <template>
               <values>
                 <key label="FieldId223" xpath="."/>
-                <key label="FieldId224" xpath="@xml:lang"><helper name="xml:lang"/></key>
               </values>
               <snippet>
-                <owl:versionInfo xml:lang="{{FieldId224}}">{{FieldId223}}</owl:versionInfo>
+                <owl:versionInfo>{{FieldId223}}</owl:versionInfo>
               </snippet>
             </template>
           </field>
           <action type= "add" btnLabel="FieldId223" or="versionInfo" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" if="count(/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo)=0">
             <template>
               <snippet>
-                <owl:versionInfo xml:lang=""/>
+                <owl:versionInfo/>
               </snippet>
             </template>
           </action>
