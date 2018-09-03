@@ -42,6 +42,7 @@
 	<!-- foaf:Agent-->
 	<xs:element name="primaryTopic" type="xs:anyURI"/>
 	<xs:element name="page" type="foaf:Document"/>
+	<xs:element name="homepage" type="foaf:Document"/>
 	<xs:element name="mbox" type="xs:anyURI"/>
 	<xs:element name="name" type="rdf:PlainLiteral"/>
 </xs:schema>
