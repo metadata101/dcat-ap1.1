@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+         xmlns:spdx="http://spdx.org/rdf/terms#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:adms="http://www.w3.org/ns/adms#"
+         xmlns:locn="http://www.w3.org/ns/locn#"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:dct="http://purl.org/dc/terms/"
+         xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
+         xmlns:dcat="http://www.w3.org/ns/dcat#"
+         xmlns:schema="http://schema.org/"
+         xsi:schemaLocation="http://www.w3.org/1999/02/22-rdf-syntax-ns# http://www.openarchives.org/OAI/2.0/rdf.xsd">
+  <dcat:Catalog rdf:about="">
+      <dct:title xml:lang="nl"/>
+      <dct:description xml:lang="nl"/>
+      <dct:publisher>
+         <foaf:Agent rdf:about="">
+            <foaf:name xml:lang="nl">Agent name</foaf:name>
+         </foaf:Agent>
+      </dct:publisher>
+      <dcat:homepage>
+         <foaf:Document rdf:about="">
+            <foaf:name xml:lang="nl"/>
+         </foaf:Document>
+      </dcat:homepage>
+      <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:issued>
+      <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47Z</dct:modified>
+      <dcat:themeTaxonomy>
+         <skos:ConceptScheme rdf:about="">
+            <dct:title xml:lang="nl"/>
+         </skos:ConceptScheme>
+      </dcat:themeTaxonomy>
+      <dct:hasPart rdf:resource=""/>
+      <dct:isPartOf rdf:resource=""/>
+      <dct:rights>
+         <dct:RightsStatement rdf:about="">
+            <dct:title xml:lang="nl"/>
+            <dct:description xml:lang="nl"/>
+         </dct:RightsStatement>
+      </dct:rights>
+      <dct:spatial>
+         <dct:Location rdf:about="">
+            <locn:geometry rdf:datatype=""/>
+            <skos:prefLabel xml:lang="nl"/>
+         </dct:Location>
+      </dct:spatial>
+      <dcat:dataset>
+         <dcat:Dataset rdf:about="https://metadata.vlaanderen.be/doc/dataset/69705bd3-2e59-415a-8118-7c74a1367379">
+            <dct:identifier>69705bd3-2e59-415a-8118-7c74a1367379</dct:identifier>
+            <dct:title xml:lang="nl">DCAT-AP template versie 1.0.2</dct:title>
+            <dct:description xml:lang="nl">beschrijving nl</dct:description>
+            <dcat:contactPoint>
+               <vcard:Organization rdf:about="">
+                  <vcard:fn>contactnaam</vcard:fn>
+                  <vcard:organization-name>contact organisatie</vcard:organization-name>
+                  <vcard:hasAddress>
+                     <vcard:Address rdf:about="">
+                        <vcard:street-address/>
+                        <vcard:locality/>
+                        <vcard:postal-code/>
+                        <vcard:country-name/>
+                     </vcard:Address>
+                  </vcard:hasAddress>
+                  <vcard:hasEmail rdf:resource=""/>
+                  <vcard:hasURL rdf:resource=""/>
+                  <vcard:hasTelephone/>
+               </vcard:Organization>
+            </dcat:contactPoint>
+            <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2018-08-28</dct:issued>
+            <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2018-08-27</dct:modified>
+            <dct:publisher>
+               <foaf:Agent rdf:about="">
+                  <foaf:name xml:lang="nl">publisher name</foaf:name>
+               </foaf:Agent>
+            </dct:publisher>
+            <dcat:keyword xml:lang="nl">Vlaamse open data</dcat:keyword>
+            <dcat:theme>
+               <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/data-theme/GOVE">
+                  <skos:prefLabel xml:lang="nl">Overheid en publieke sector</skos:prefLabel>
+                  <skos:prefLabel xml:lang="en">Government and public sector</skos:prefLabel>
+                  <skos:prefLabel xml:lang="fr">Gouvernement et secteur public</skos:prefLabel>
+                  <skos:prefLabel xml:lang="de">Regierung und öffentlicher Sektor</skos:prefLabel>
+                  <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/data-theme"/>
+               </skos:Concept>
+            </dcat:theme>
+            <dct:accessRights>
+               <dct:RightsStatement rdf:about="">
+                  <dct:title xml:lang="nl">Toegangsbeperking</dct:title>
+                  <dct:description xml:lang="nl"/>
+               </dct:RightsStatement>
+            </dct:accessRights>
+            <dct:conformsTo>
+               <dct:Standard rdf:about="">
+                  <dct:title xml:lang="nl">Standaard naam</dct:title>
+                  <dct:description xml:lang="nl">Standaard beschrijving</dct:description>
+               </dct:Standard>
+            </dct:conformsTo>
+            <foaf:page>
+               <foaf:Document rdf:about="http://geonetwork30.gim.be/geonetwork">
+                  <foaf:name xml:lang="nl">gebruikshandleiding</foaf:name>
+               </foaf:Document>
+            </foaf:page>
+            <dct:accrualPeriodicity>
+               <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/frequency/ANNUAL">
+                  <skos:prefLabel xml:lang="nl">jaarlijks</skos:prefLabel>
+                  <skos:prefLabel xml:lang="en">annual</skos:prefLabel>
+                  <skos:prefLabel xml:lang="fr">annuel</skos:prefLabel>
+                  <skos:prefLabel xml:lang="de">jährlich</skos:prefLabel>
+                  <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/frequency"/>
+               </skos:Concept>
+            </dct:accrualPeriodicity>
+            <dcat:landingPage rdf:resource=""/>
+            <dct:language>
+               <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/language/NLD">
+                  <skos:prefLabel xml:lang="nl">Nederlands</skos:prefLabel>
+                  <skos:prefLabel xml:lang="en">Dutch</skos:prefLabel>
+                  <skos:prefLabel xml:lang="fr">néerlandais</skos:prefLabel>
+                  <skos:prefLabel xml:lang="de">Niederländisch</skos:prefLabel>
+                  <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/language"/>
+               </skos:Concept>
+            </dct:language>
+            <dct:provenance>
+               <dct:ProvenanceStatement rdf:about="">
+                  <dct:description xml:lang="nl">beschrijving herkomst</dct:description>
+               </dct:ProvenanceStatement>
+            </dct:provenance>
+            <dct:spatial xmlns:dc="http://purl.org/dc/elements/1.1/">
+               <dct:Location rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen">
+                  <locn:geometry rdf:datatype="http://www.opengis.net/ont/geosparql#wktLiteral">North 51.51, South 50.67, East 2.53, West 5.92</locn:geometry>
+                  <skos:prefLabel xml:lang="nl">Vlaams Gewest</skos:prefLabel>
+               </dct:Location>
+            </dct:spatial>
+            <dct:temporal>
+               <dct:PeriodOfTime rdf:about="">
+                  <schema:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47</schema:startDate>
+                  <schema:endDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47</schema:endDate>
+               </dct:PeriodOfTime>
+            </dct:temporal>
+            <owl:versionInfo>versie</owl:versionInfo>
+            <adms:versionNotes xml:lang="nl">versie nota's</adms:versionNotes>
+            <dcat:distribution>
+               <dcat:Distribution rdf:about="">
+                  <dct:title xml:lang="nl">distributie titel</dct:title>
+                  <dct:description xml:lang="nl">distributiebeschrijving</dct:description>
+                  <dcat:accessURL rdf:resource="http://geonetwork30.gim.be"/>
+                  <dcat:downloadURL rdf:resource="http://geonetwork30.gim.be"/>
+                  <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47</dct:issued>
+                  <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47</dct:modified>
+                  <dct:format>
+                     <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/file-type/CSV">
+                        <skos:prefLabel xml:lang="nl">CSV</skos:prefLabel>
+                        <skos:prefLabel xml:lang="en">CSV</skos:prefLabel>
+                        <skos:prefLabel xml:lang="fr"/>
+                        <skos:prefLabel xml:lang="de"/>
+                        <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/file-type"/>
+                     </skos:Concept>
+                  </dct:format>
+                  <dct:license>
+                     <dct:LicenseDocument rdf:about="https://data.vlaanderen.be/doc/licentie/creative-commons-zero-verklaring/v1.0">
+                        <dct:type>
+                           <skos:Concept rdf:about="http://purl.org/adms/licencetype/PublicDomain">
+                              <skos:prefLabel xml:lang="nl">Public domain</skos:prefLabel>
+                              <skos:prefLabel xml:lang="en">Public domain</skos:prefLabel>
+                              <skos:prefLabel xml:lang="fr">Public domain</skos:prefLabel>
+                              <skos:prefLabel xml:lang="de">Public domain</skos:prefLabel>
+                              <skos:inScheme rdf:resource="http://purl.org/adms/licencetype/1.0"/>
+                           </skos:Concept>
+                        </dct:type>
+                        <dct:title xml:lang="nl">creative-commons-zero-verklaring</dct:title>
+                        <dct:description xml:lang="nl">creative-commons-zero-verklaring</dct:description>
+                        <dct:identifier xml:lang="nl">https://data.vlaanderen.be/doc/licentie/creative-commons-zero-verklaring/v1.0</dct:identifier>
+                     </dct:LicenseDocument>
+                  </dct:license>
+                  <dct:rights>
+                     <dct:RightsStatement rdf:about="">
+                        <dct:title xml:lang="nl"/>
+                        <dct:description xml:lang="nl"/>
+                     </dct:RightsStatement>
+                  </dct:rights>
+                  <dcat:byteSize>0</dcat:byteSize>
+                  <spdx:checksum>
+                     <spdx:Checksum rdf:about="">
+                        <spdx:algorithm>SHA256</spdx:algorithm>
+                        <spdx:checksumValue>41394644363445313243</spdx:checksumValue>
+                     </spdx:Checksum>
+                  </spdx:checksum>
+                  <foaf:page>
+                     <foaf:Document rdf:about="documentatie URL">
+                        <foaf:name xml:lang="nl">documentatie naam - URL slechts zichtbaar in "meer details" view</foaf:name>
+                     </foaf:Document>
+                  </foaf:page>
+                  <adms:status>
+                     <skos:Concept rdf:about="http://purl.org/adms/status/Completed">
+                        <skos:prefLabel xml:lang="nl">Completed</skos:prefLabel>
+                        <skos:prefLabel xml:lang="en">Completed</skos:prefLabel>
+                        <skos:prefLabel xml:lang="fr">Completed</skos:prefLabel>
+                        <skos:prefLabel xml:lang="de">Completed</skos:prefLabel>
+                        <skos:inScheme rdf:resource="http://purl.org/adms/status/1.0"/>
+                     </skos:Concept>
+                  </adms:status>
+               </dcat:Distribution>
+            </dcat:distribution>
+         </dcat:Dataset>
+      </dcat:dataset>
+  </dcat:Catalog>
+</rdf:RDF>
