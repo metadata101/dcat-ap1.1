@@ -17,11 +17,11 @@
         </dct:type>
       </foaf:Agent>
     </dct:publisher>
-    <dcat:homepage>
+    <foaf:homepage>
       <foaf:Document rdf:about="">
         <foaf:name xml:lang="nl" />
       </foaf:Document>
-    </dcat:homepage>
+    </foaf:homepage>
     <dct:license>
       <dct:LicenseDocument rdf:about="">
         <dct:type>
@@ -121,8 +121,8 @@
                 <vcard:country-name />
               </vcard:Address>
             </vcard:hasAddress>
-            <vcard:hasEmail />
-            <vcard:hasURL />
+            <vcard:hasEmail rdf:resource=""/>
+            <vcard:hasURL rdf:resource=""/>
             <vcard:hasTelephone />
           </vcard:Organization>
         </dcat:contactPoint>
@@ -232,7 +232,7 @@
             <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/resource-type" />
           </skos:Concept>
         </dct:type>
-        <owl:versionInfo xml:lang="nl" />
+        <owl:versionInfo />
         <adms:versionNotes xml:lang="nl" />
         <dcat:extension>
           <rdf:Statement rdf:about="">

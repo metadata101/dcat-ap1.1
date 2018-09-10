@@ -13,6 +13,9 @@
   <metadata>Metadata</metadata>
   <metadata-on-metadata>Metadata on metadata</metadata-on-metadata>
   <distribution>Distribution</distribution>
+  <defaultDistribution>Distributies</defaultDistribution>
+  <advancedDataset>Dataset</advancedDataset>
+  <advancedDistribution>Distributies</advancedDistribution>
 	<!-- DCAT-AP view labels and help -->
 	<FieldId107>dataset</FieldId107>
 	<FieldId108>URI</FieldId108>

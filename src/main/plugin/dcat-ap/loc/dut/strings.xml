@@ -5,14 +5,16 @@
 	<xml_dublin-core>Save this metadata as a Dublin Core XML file
 	</xml_dublin-core>
 	<xml_dcat-ap>Save this metadata as a DCAT-AP XML file</xml_dcat-ap>
-	<default>Dataset</default>
+  <default>Dataset</default>
 	<defaultMenu>Standaard</defaultMenu>
 	<advanced>Geavanceerd</advanced>
 	<xml>XML</xml>
 	<dataset>Dataset</dataset>
 	<metadata>Metadata</metadata>
 	<metadata-on-metadata>Metadata over metadata</metadata-on-metadata>
-	<distribution>Distributies</distribution>
+  <defaultDistribution>Distributies</defaultDistribution>
+  <advancedDataset>Dataset</advancedDataset>
+  <advancedDistribution>Distributies</advancedDistribution>
 	<!-- DCAT-AP view labels and help -->
 	<FieldId107>dataset</FieldId107>
 	<FieldId108>URI</FieldId108>

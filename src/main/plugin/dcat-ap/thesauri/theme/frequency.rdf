@@ -75,7 +75,7 @@
     <skos:prefLabel xml:lang="de">halbjährlich</skos:prefLabel>
     <skos:prefLabel xml:lang="en">semiannual</skos:prefLabel>
     <skos:prefLabel xml:lang="fr">semestriel</skos:prefLabel>
-    <skos:prefLabel xml:lang="nl">halfjaarlĳks</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">halfjaarlijks</skos:prefLabel>
     <skos:exactMatch rdf:resource="http://purl.org/cld/freq/semiannual" />
     <at:op-mapped-code>
       <at:MappedCode>
@@ -295,7 +295,7 @@
     <skos:prefLabel xml:lang="de">täglich</skos:prefLabel>
     <skos:prefLabel xml:lang="en">daily</skos:prefLabel>
     <skos:prefLabel xml:lang="fr">quotidien</skos:prefLabel>
-    <skos:prefLabel xml:lang="nl">dagelĳks</skos:prefLabel>
+    <skos:prefLabel xml:lang="nl">dagelijks</skos:prefLabel>
     <skos:exactMatch rdf:resource="http://purl.org/cld/freq/daily" />
     <at:op-mapped-code>
       <at:MappedCode>

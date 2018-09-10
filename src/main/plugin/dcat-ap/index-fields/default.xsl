@@ -469,8 +469,8 @@
     <xsl:variable name="role" select="'Contact'" />
     <!--<xsl:variable name="roleTranslation" select="util:getCodelistTranslation('gmd:CI_RoleCode',
             string($role), string($isoLangId))"/> -->
-    <xsl:variable name="email" select="(vcard:hasEmail|vcard:hasEmail/@rdf:resource)[last()]" />
-    <xsl:variable name="url" select="(vcard:hasURL|vcard:hasURL/@rdf:resource)[last()]" />
+    <xsl:variable name="email" select="vcard:hasEmail/@rdf:resource" />
+    <xsl:variable name="url" select="vcard:hasURL/@rdf:resource" />
     <xsl:variable name="phone"
                   select="vcard:hasTelephone/text()" />
     <xsl:variable name="individualName" select="vcard:fn/text()" />
