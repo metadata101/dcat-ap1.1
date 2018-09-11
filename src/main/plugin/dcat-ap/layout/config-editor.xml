@@ -208,7 +208,7 @@
     </table>
   </tableFields-->
   <views>
-    <view name="default" upAndDownControlHidden="true">
+    <view name="default" displayTooltips="true" upAndDownControlHidden="true">
       <sidePanel>
         <directive data-gn-onlinesrc-list="" data-types="source"/>
         <directive data-gn-validation-report=""/>
@@ -390,7 +390,7 @@
         <thesaurus key="external.theme.status" maxtags="1" transformations="" fieldset="false"/>
       </thesaurusList>
     </view>
-    <view name="advanced" upAndDownControlHidden="true">
+    <view name="advanced" displayTooltips="true" upAndDownControlHidden="true">
       <sidePanel>
         <directive data-gn-onlinesrc-list="" data-types="source"/>
         <directive data-gn-validation-report=""/>
