@@ -1,10 +1,10 @@
 <dct:LicenseDocument rdf:about="https://data.vlaanderen.be/doc/licentie/modellicentie-hergebruik-tegen-vergoeding/v1.0" xmlns:dct="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#">
   <dct:type>
     <skos:Concept rdf:about="http://purl.org/adms/licencetype/Attribution">
-      <skos:prefLabel xml:lang="nl">Naamsvermelding</skos:prefLabel>
+      <skos:prefLabel xml:lang="nl">Attribution</skos:prefLabel>
       <skos:prefLabel xml:lang="en">Attribution</skos:prefLabel>
       <skos:prefLabel xml:lang="fr">Attribution</skos:prefLabel>
-      <skos:prefLabel xml:lang="de">Zuschreibung</skos:prefLabel>
+      <skos:prefLabel xml:lang="de">Attribution</skos:prefLabel>
       <skos:inScheme rdf:resource="http://purl.org/adms/licencetype/1.0" />
     </skos:Concept>
   </dct:type>
