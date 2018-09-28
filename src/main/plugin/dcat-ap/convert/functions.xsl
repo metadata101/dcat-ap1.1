@@ -148,6 +148,14 @@
     </xsl:if>
   </xsl:template>
 
+  <!-- TODO: refactor language code conversions by using the functions in XslUtil.java 
+  
+  xmlns:java="java:org.fao.geonet.util.XslUtil"
+      <xsl:value-of select="lower-case(java:twoCharLangCode($langId-2char))"/>
+      			                       java:threeCharLangCode(String)
+      
+  -->
+
   <xsl:template name="langId2to3">
     <xsl:param name="langId-2char"/>
     <xsl:choose>
