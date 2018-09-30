@@ -39,6 +39,7 @@
     xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
     xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap"
     xmlns:saxon="http://saxon.sf.net/"
+    xmlns:java="java:org.fao.geonet.util.XslUtil"
     extension-element-prefixes="saxon"
     version="2.0"
     exclude-result-prefixes="#all">
@@ -49,6 +50,25 @@
 	<!-- =================================================================   -->
 	<xsl:include href="layout/utility-fn.xsl"/>
 	<xsl:variable name="serviceUrl" select="/root/env/siteURL"/>
+	<xsl:variable name="env" select="/root/env"/>
+	<xsl:variable name="iso2letterLanguageCode" select="lower-case(java:twoCharLangCode(/root/gui/language))"/>
+	<xsl:variable name="port">
+		<xsl:choose>
+			<xsl:when test="$env/system/server/protocol = 'https'">
+				<xsl:value-of select="$env/system/server/securePort" />
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$env/system/server/port" />
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:variable>	
+    <xsl:variable name="resourcePrefix" select="$env/metadata/resourceIdentifierPrefix"/>	
+    <xsl:variable name="url"
+                select="concat($env/system/server/protocol, '://',
+                          $env/system/server/host,
+                          if ($port='80') then '' else concat(':', $port),
+                          /root/gui/url)"/>
+	
 	<xsl:template match="/root">
 		<xsl:apply-templates select="//rdf:RDF"/>
 	</xsl:template>
@@ -58,6 +78,60 @@
 			<xsl:apply-templates select="@*|node()"/>
 		</xsl:copy>
 	</xsl:template>
+	<!-- ================================================================= -->
+	<xsl:template match="dcat:Catalog" priority="10">
+		<dcat:Catalog>
+			<xsl:choose>
+				<xsl:when test="not(@rdf:about) or @rdf:about=''">
+					<xsl:attribute name="rdf:about">
+						<xsl:value-of select="concat($resourcePrefix,'/catalogs/',$env/system/site/siteId)"/>
+					</xsl:attribute>
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates select="@*" />
+				</xsl:otherwise>
+			</xsl:choose>
+			<xsl:choose>
+				<xsl:when test="(not(dct:title) or dct:title='') and (not(dct:description) or dct:description='') and not(foaf:homepage)">
+					<dct:title xml:lang="{$iso2letterLanguageCode}">
+						<xsl:value-of select="$env/system/site/name" />
+					</dct:title>
+					<dct:description xml:lang="{$iso2letterLanguageCode}">
+						<xsl:value-of select="$env/system/site/name" />(<xsl:value-of select="$env/system/site/organization" />)
+					</dct:description>
+				     <dct:publisher>
+					    <foaf:Agent rdf:about="{$resourcePrefix}/organizations/{encode-for-uri($env/system/site/organization)}">
+					      <foaf:name xml:lang="{$iso2letterLanguageCode}">
+					        <xsl:value-of select="$env/system/site/organization"></xsl:value-of>
+					      </foaf:name>
+					    </foaf:Agent>
+				     </dct:publisher>
+				    <foaf:homepage>
+						<foaf:Document rdf:about="{$url}">
+							<foaf:name xml:lang="{$iso2letterLanguageCode}"><xsl:value-of select="$env/system/site/name"/></foaf:name>
+						</foaf:Document>
+				    </foaf:homepage>				     
+				     <xsl:for-each select="/root/gui/thesaurus/thesauri/thesaurus">
+				       <dcat:themeTaxonomy>
+					      <skos:ConceptScheme rdf:about="{$resourcePrefix}/registries/vocabularies/{key}">
+					        <dct:title xml:lang="{$iso2letterLanguageCode}">
+					          <xsl:value-of select="title"/>
+					        </dct:title>
+					        <foaf:isPrimaryTopicOf><xsl:value-of select="$url"/>/srv/eng/thesaurus.download?ref=<xsl:value-of
+					          select="key"/>
+					        </foaf:isPrimaryTopicOf>
+					      </skos:ConceptScheme>
+				       </dcat:themeTaxonomy>     
+				     </xsl:for-each>					
+					<xsl:apply-templates select="node()[not(name(.) = 'dct:title' or name(.) = 'dct:description' or name(.) = 'foaf:homepage' or name(.) = 'dct:publisher' or name(.) = 'dcat:themeTaxonomy')]" />				
+				</xsl:when>
+				<xsl:otherwise>
+					<xsl:apply-templates
+						select="node()" />
+				</xsl:otherwise>
+			</xsl:choose>
+		</dcat:Catalog>
+	</xsl:template>	
 	<!-- ================================================================= -->
 	<xsl:template match="dcat:Dataset" priority="10">
 		<dcat:Dataset>
