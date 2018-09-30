@@ -22,16 +22,10 @@ Contact: Jeroen Ticheler - FAO - Viale delle Terme di Caracalla 2,
 Rome - Italy. email: geonetwork@osgeo.org
 -->
 <!--
-	DCAT-AP 1.1 XML Schema
+	rdf-to-xml.xsl
 	XML Schema for http://www.w3.org/ns/dcat# namespace
 	
-	Description: This is an XML Schema for the DCAT-AP specification. The schema is used by GeoNetwork for storing GeoNetwork data internally. The schema is intended to adhere to a 'normalized' RDF syntax.
-	
-	Created 2016-05-31
-	Modified 2016-11-30
-	
-	Author
-	Stijn Goedertier (stijn.goedertier@gim.be)
+	Description: Converts a SPARQL SELECT result (XML) into an XML record that conforms to the DCAT-AP XML Schema.
       -->
 <xsl:stylesheet xmlns:sr="http://www.w3.org/2005/sparql-results#" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:schema="http://schema.org/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:locn="http://www.w3.org/ns/locn#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:fn-rdf="http://geonetwork-opensource.org/xsl/functions/rdf" version="2.0">
 	<!-- Tell the XSL processor to output XML. -->
@@ -67,11 +61,11 @@ Rome - Italy. email: geonetwork@osgeo.org
 											sr:binding[@name='subject']/* = $catalogURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:publisher</xsl:with-param>
 					</xsl:call-template>
-					<!-- dcat:homepage -->
+					<!-- foaf:homepage -->
 					<xsl:call-template name="documents">
-						<xsl:with-param name="documentURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#homepage' and
+						<xsl:with-param name="documentURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://xmlns.com/foaf/0.1/homepage' and
 											sr:binding[@name='subject']/* = $catalogURI]/sr:binding[@name='object']"/>
-						<xsl:with-param name="predicate">dcat:homepage</xsl:with-param>
+						<xsl:with-param name="predicate">foaf:homepage</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:license -->
 					<xsl:call-template name="licenses">
