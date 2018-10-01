@@ -48,7 +48,7 @@
       </dct:spatial>
       <dcat:dataset>
          <dcat:Dataset rdf:about="https://metadata.vlaanderen.be/doc/dataset/69705bd3-2e59-415a-8118-7c74a1367379">
-            <dct:identifier>69705bd3-2e59-415a-8118-7c74a1367379</dct:identifier>
+            <dct:identifier>61c7857d-9916-4f33-95ea-73f5e076c5b9</dct:identifier>
             <dct:title xml:lang="nl">DCAT-AP template versie 1.0.2</dct:title>
             <dct:description xml:lang="nl">beschrijving nl</dct:description>
             <dcat:contactPoint>

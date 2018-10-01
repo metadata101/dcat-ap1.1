@@ -293,4 +293,17 @@
 	  </xsl:choose>
   </xsl:function>
 
+  <xsl:function name="gn-fn-dcat-ap:concatXPaths" as="xs:string">
+    <xsl:param name="parentXPath" as="xs:string"/>
+    <xsl:param name="childXPath" as="xs:string"/>
+    <xsl:param name="childNodeName" as="xs:string"/>
+    <xsl:choose>
+      <xsl:when test="ends-with($parentXPath, $childNodeName)">
+        <xsl:value-of select="$parentXPath"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="concat($parentXPath, $childXPath)"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:function>
 </xsl:stylesheet>
