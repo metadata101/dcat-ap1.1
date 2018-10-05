@@ -15,7 +15,7 @@
                 exclude-result-prefixes="#all">
 
 	<!--  Template to prepare data-gn-keyword component for xml elements based on a thesaurus -->
-  <xsl:template mode="mode-dcat-ap" priority="2000" match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:format|dcat:mediaType|adms:status|dct:LicenseDocument/dct:type">
+  <xsl:template mode="mode-dcat-ap" priority="2000" match="foaf:Agent/dct:type[not($isFlatMode)]|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:format|dcat:mediaType|adms:status|dct:LicenseDocument/dct:type">
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
 

@@ -259,9 +259,9 @@
   </xsl:function>
 
   <xsl:function name="gn-fn-dcat-ap:isForceDisplayAttributes" as="xs:boolean">
-    <xsl:param name="elementName"/>
+    <xsl:param name="element" as="node()"/>
     <xsl:choose>
-      <xsl:when test="$elementName = 'vcard:Organization' or $elementName='vcard:Address' or $elementName='dct:title'">
+      <xsl:when test="$element[@xml:lang or @rdf:about or @rdf:resource]">
         <xsl:value-of select="true()"/>
       </xsl:when>
       <xsl:otherwise>

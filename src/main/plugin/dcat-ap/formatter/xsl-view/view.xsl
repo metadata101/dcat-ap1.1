@@ -190,12 +190,12 @@
 	<xsl:template mode="render-field"
 		match="dcat:accessURL|dcat:downloadURL|dcat:landingPage">
     <xsl:param name="xpath"/>
-    <xsl:variable name="stringValue" select="string()"/>
+    <xsl:variable name="stringValue" select="string(@rdf:resource)"/>
     <xsl:if test="normalize-space($stringValue) != ''">
       <dl>
         <dt style="font-weight:bold;">
           <xsl:value-of
-            select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', concat(gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)), '/@rdf:resource'))/label" />
+            select="gn-fn-metadata:getLabel($schema, 'rdf:resource', $labels, name(..), '', concat(gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)), '/@rdf:resource'))/label" />
 
         </dt>
         <dd>
