@@ -123,4 +123,13 @@
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
+
+  <xsl:template mode="mode-dcat-ap" match="dct:spatial" priority="2000">
+    <xsl:param name="schema" select="$schema" required="no"/>
+    <xsl:param name="labels" select="$labels" required="no"/>
+    <xsl:apply-templates mode="mode-dcat-ap" select="*">
+      <xsl:with-param name="labels" select="$labels"/>
+      <xsl:with-param name="schema" select="$schema"/>
+    </xsl:apply-templates>
+  </xsl:template>
 </xsl:stylesheet>

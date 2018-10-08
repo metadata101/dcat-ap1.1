@@ -111,14 +111,22 @@
       <xsl:with-param name="xpath" select="$xpath"/>
       <xsl:with-param name="isSlideToggle" select="if ($isSupportingSlideToggle and $isDisplayingSections = false()) then 'true' else 'false'"/>
       <xsl:with-param name="subTreeSnippet">
-		    <xsl:if test="$isEditing">
+        <xsl:variable name="needSubtitle" select="name() != 'dct:spatial'
+                                              and name() != 'dct:temporal'
+                                              and name() != 'dct:accessRights'
+                                              and name() != 'dcat:contactPoint'
+                                              and name() != 'vcard:hasAddress'
+                                              and name() != 'dct:publisher'
+                                              and name() != 'dcat:distribution'"/>
+
+        <xsl:if test="$isEditing">
 		      <!-- Render attributes as fields and overwrite the normal behavior -->
 		      <xsl:apply-templates mode="render-for-field-for-attribute"
-		                           select="@*|gn:attribute[not(@name = parent::node()/@*/name())]">
+		                           select="if ($needSubtitle) then @*|gn:attribute[not(@name = parent::node()/@*/name())] else */@*|gn:attribute[not(@name = parent::node()/@*/name())]">
 		        <xsl:with-param name="ref" select="gn:element/@ref"/>
 		      </xsl:apply-templates>
 		    </xsl:if>
-        <xsl:apply-templates mode="mode-dcat-ap" select="*">
+        <xsl:apply-templates mode="mode-dcat-ap" select="if ($needSubtitle) then * else */*">
           <xsl:with-param name="schema" select="$schema"/>
           <xsl:with-param name="labels" select="$labels"/>
         </xsl:apply-templates>
