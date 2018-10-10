@@ -41,6 +41,8 @@ import org.fao.geonet.util.MailUtil;
 import org.fao.geonet.utils.Xml;
 import org.jdom.Element;
 import org.jdom.JDOMException;
+import org.jdom.output.Format;
+import org.jdom.output.XMLOutputter;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -301,14 +303,14 @@ class Harvester implements IHarvester<HarvestResult> {
 			Element dcatXML = Xml.transform(sparqlResults, xslFile, params);
 			qe.close();
 
-			/*
-			 * XMLOutputter xmlOutputter = new
-			 * XMLOutputter(Format.getPrettyFormat());
-			 * System.out.println("SPARQL result:");
-			 * xmlOutputter.output(sparqlResults,System.out);
-			 * System.out.println("DCAT result:");
-			 * xmlOutputter.output(dcatXML,System.out);
-			 */
+			
+			  XMLOutputter xmlOutputter = new
+			  XMLOutputter(Format.getPrettyFormat());
+			  System.out.println("SPARQL result:");
+			  xmlOutputter.output(sparqlResults,System.out);
+			  //System.out.println("DCAT result:");
+			  //xmlOutputter.output(dcatXML,System.out);
+			 
 
 			return new DCATAPRecordInfo(datasetUuid, datasetId, modified, "dcat-ap", "TODO: source?", dcatXML);
 
