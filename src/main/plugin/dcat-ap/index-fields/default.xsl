@@ -321,8 +321,11 @@
       <xsl:with-param name="field" select="'dcat_theme'"/>
       <xsl:with-param name="langId" select="$langId"/>
     </xsl:call-template>
+    
+    <xsl:for-each select="dcat:keyword">
+      <Field name="keyword" string="{.}" store="true" index="true" />
+    </xsl:for-each>
 
-    <!-- dcat:Distribution -->
     <xsl:for-each select="dcat:distribution/dcat:Distribution">
       <xsl:variable name="tPosition" select="position()" />
 
@@ -380,12 +383,24 @@
       </xsl:for-each>
 
       <xsl:for-each select="dct:license/dct:LicenseDocument">
+        <xsl:variable name="tag">
+        	<xsl:choose>
+        		<xsl:when test="dct:title and dct:title!=''">
+        			<xsl:value-of select="dct:title"/>
+        		</xsl:when>
+        		<xsl:when test="@rdf:about and @rdf:about!=''">
+        			<xsl:value-of select="@rdf:about"/>
+        		</xsl:when>        		
+        		<xsl:otherwise>
+        		</xsl:otherwise>
+        	</xsl:choose>
+        </xsl:variable> 
         <xsl:variable name="tmp_license">
-        <xsl:call-template name="index-lang-tag-oneval">
-          <xsl:with-param name="tag" select="dct:title"/>
-          <xsl:with-param name="langId" select="$langId"/>
-          <xsl:with-param name="isoLangId" select="$isoLangId"/>
-        </xsl:call-template>
+	        <xsl:call-template name="index-lang-tag-oneval">
+	          <xsl:with-param name="tag" select="$tag"/>
+	          <xsl:with-param name="langId" select="$langId"/>
+	          <xsl:with-param name="isoLangId" select="$isoLangId"/>
+	        </xsl:call-template>
         </xsl:variable>
         <Field name="MD_LegalConstraintsUseLimitation" string="{string($tmp_license)}" store="true" index="true"/>
       </xsl:for-each>
@@ -420,8 +435,7 @@
     </xsl:for-each>
 
     <xsl:for-each select="dct:isPartOf">
-      <Field name="parentUuid" string="{string(.)}" store="true"
-             index="true" />
+      <Field name="parentUuid" string="{string(.)}" store="true" index="true" />
     </xsl:for-each>
     <xsl:for-each select="(dcat:landingPage)[normalize-space(.) != '']">
       <xsl:variable name="name" select="tokenize(., '/')[last()]" />
@@ -451,6 +465,7 @@
         </xsl:call-template>
       </xsl:variable>
       <Field name="dcat_publisher" string="{string($tmp_dcat_publisher)}" store="true" index="true" />
+      <Field name="orgName" string="{string($tmp_dcat_publisher)}" store="true" index="true" />      
     </xsl:for-each>
 <!--    <xsl:for-each select="dct:accrualPeriodicity">
       <Field name="updateFrequency" string="{string(.)}" store="true"
