@@ -117,7 +117,8 @@
                                               and name() != 'dcat:contactPoint'
                                               and name() != 'vcard:hasAddress'
                                               and name() != 'dct:publisher'
-                                              and name() != 'dcat:distribution'"/>
+                                              and name() != 'dcat:distribution'
+                                              and name() != 'dct:license'"/>
 
         <xsl:if test="$isEditing">
 		      <!-- Render attributes as fields and overwrite the normal behavior -->
