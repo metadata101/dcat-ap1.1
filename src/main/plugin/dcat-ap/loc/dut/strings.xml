@@ -117,8 +117,8 @@
 	<FieldId209>Temporele begrenzing</FieldId209>
 	<FieldId210>Geldigheidsperiode</FieldId210>
 	<FieldId211>URI</FieldId211>
-	<FieldId212>Tot (datum/tijd)</FieldId212>
-	<FieldId214>Vanaf (datum/tijd)</FieldId214>
+	<FieldId212>Vanaf (datum/tijd)</FieldId212>
+	<FieldId214>Tot (datum/tijd)</FieldId214>
 	<FieldId216>Type</FieldId216>
 	<FieldId217>Concept</FieldId217>
 	<FieldId218>URI</FieldId218>
