@@ -118,12 +118,17 @@
                                               and name() != 'vcard:hasAddress'
                                               and name() != 'dct:publisher'
                                               and name() != 'dcat:distribution'
-                                              and name() != 'dct:license'"/>
+                                              and name() != 'dct:license'
+                                              and name() != 'spdx:checksum'
+                                              and name() != 'dct:rights'
+                                              and name() != 'foaf:page'
+                                              and name() != 'dct:provenance'
+                                              and name() != 'dct:conformsTo'"/>
 
         <xsl:if test="$isEditing">
 		      <!-- Render attributes as fields and overwrite the normal behavior -->
 		      <xsl:apply-templates mode="render-for-field-for-attribute"
-		                           select="if ($needSubtitle) then @*|gn:attribute[not(@name = parent::node()/@*/name())] else */@*|gn:attribute[not(@name = parent::node()/@*/name())]">
+		                           select="@*|gn:attribute[not(@name = parent::node()/@*/name())]">
 		        <xsl:with-param name="ref" select="gn:element/@ref"/>
 		      </xsl:apply-templates>
 		    </xsl:if>
