@@ -215,6 +215,7 @@
         </section>
       </tab>
       <flatModeExceptions>
+        <for name="dct:license"/>
       </flatModeExceptions>
       <thesaurusList>
         <thesaurus key="external.theme.publisher-type" maxtags="1" transformations="" fieldset="false"/>

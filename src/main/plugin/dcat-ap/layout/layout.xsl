@@ -325,9 +325,6 @@
                           (name(.) = 'dct:issued' and name(..)='dcat:Distribution') or
                           (name(.) = 'dct:modified' and name(..)='dcat:Distribution') or
                           (name(.) = 'dct:language' and name(..)='dcat:Distribution') or
-                          (name(.) = 'dct:type' and name(..)='dct:LicenseDocument') or
-                          (name(.) = 'dct:description' and name(..)='dct:LicenseDocument') or
-                          (name(.) = 'dct:identifier' and name(..)='dct:LicenseDocument') or
                           (name(.) = 'dct:rights' and name(..)='dcat:Distribution') or
                           (name(.) = 'dcat:byteSize' and name(..)='dcat:Distribution') or
                           (name(.) = 'spdx:checksum' and name(..)='dcat:Distribution') or
