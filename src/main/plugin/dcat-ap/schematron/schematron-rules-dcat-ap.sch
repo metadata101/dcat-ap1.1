@@ -56,12 +56,23 @@ Source:
 		<sch:rule context="//foaf:Agent">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="noName" value="not(foaf:name)"/>
-			<sch:assert test="$noName = false()">The foaf:Agent "<sch:value-of select="$id"/>" does not have a foaf:name property.
+			<sch:assert test="$noName = false()">ERROR: The foaf:Agent "<sch:value-of select="$id"/>" does not have a foaf:name property.
 			</sch:assert>
 			<sch:report test="$noName = false()">The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name property.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
+	<sch:pattern>
+		<sch:title>0. foaf:name for Agent cannot be an empty string.</sch:title>
+		<sch:rule context="//foaf:Agent/foaf:name">
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="emptyString" value="normalize-space(.)=''"/>
+			<sch:assert test="$emptyString = false()">ERROR: The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name that is an empty string.
+			</sch:assert>
+			<sch:report test="$emptyString = false()">The foaf:Agent '<sch:value-of select="$id"/>' has a foaf:name '<sch:value-of select="./string()"/>' which is a non-empty string.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>		
 	<sch:pattern>
 		<sch:title>1. The foaf:name property should be a literal.</sch:title>
 		<sch:rule context="//foaf:Agent/foaf:name">
@@ -69,7 +80,7 @@ Source:
 			<sch:let name="noNameLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
 			<sch:assert test="$noNameLiteral = false()">ERROR: The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is not a literal.
 			</sch:assert>
-			<sch:report test="$noNameLiteral = false()">The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name property which is a literal "<sch:value-of select="."/>".</sch:report>
+			<sch:report test="$noNameLiteral = false()">The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name property which is a literal "<sch:value-of select="./string()"/>".</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -86,12 +97,12 @@ Source:
 	<sch:pattern>
 		<sch:title>5. dcat:dataset should be a dcat:Dataset.</sch:title>
 		<sch:rule context="//dcat:Catalog/dcat:dataset">
-			<sch:let name="Catalogid" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="id" value="*/@rdf:about/string()"/>
 			<sch:let name="noDatasetType" value="not(dcat:Dataset | */dct:type[resolve-QName(@rdf:resource, /*) = QName('http://www.w3.org/ns/dcat#','Dataset')])"/>
-			<sch:assert test="$noDatasetType = false()">ERROR: The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a member  "<sch:value-of select="$id"/>" which is not a dcat:Dataset.
+			<sch:assert test="$noDatasetType = false()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" has a member  "<sch:value-of select="$id"/>" which is not a dcat:Dataset.
 			</sch:assert>
-			<sch:report test="$noDatasetType = false()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a member  "<sch:value-of select="$id"/>" which is a dcat:Dataset.
+			<sch:report test="$noDatasetType = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a member  "<sch:value-of select="$id"/>" which is a dcat:Dataset.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -107,16 +118,27 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
-		<sch:title>7. dct:description should be a literal.</sch:title>
+		<sch:title>6. dct:description for Catalog cannot be an empty string.</sch:title>
+		<sch:rule context="//dcat:Catalog/dct:description">
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="emptyString" value="normalize-space(.)=''"/>
+			<sch:assert test="$emptyString = false()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:description that is an empty string.
+			</sch:assert>
+			<sch:report test="$emptyString = false()">The dcat:Catalog '<sch:value-of select="$id"/>' has a dct:description '<sch:value-of select="./string()"/>' which is a non-empty string.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>	
+	<sch:pattern>
+		<sch:title>7. dct:description should be a literal for Catalog.</sch:title>
 		<sch:rule context="//dcat:Catalog/dct:description">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="noDescriptionLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
 			<sch:assert test="$noDescriptionLiteral = false()">ERROR: In dcat:Catalog "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
-			<sch:report test="$noDescriptionLiteral = false()">In dcat:Catalog "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="."/>," is a literal.</sch:report>
+			<sch:report test="$noDescriptionLiteral = false()">In dcat:Catalog "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="./string()"/>," is a literal.</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
-		<sch:title>11. dct:publisher should be a foaf:Agent.</sch:title>
+		<sch:title>11. dct:publisher should be a foaf:Agent for Catalog.</sch:title>
 		<sch:rule context="//dcat:Catalog/dct:publisher">
 			<sch:let name="Catalogid" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="id" value="*/@rdf:about/string()"/>
@@ -139,14 +161,25 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
+		<sch:title>12. dct:title should be a non-empty string.</sch:title>
+		<sch:rule context="//dcat:Catalog/dct:title">
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="emptyString" value="normalize-space(.)=''"/>
+			<sch:assert test="$emptyString = false()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:title that is an empty string.
+			</sch:assert>
+			<sch:report test="$emptyString = false()">The dcat:Catalog '<sch:value-of select="$id"/>' has a dct:title '<sch:value-of select="./string()"/>' which is a non-empty string.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>		
+	<sch:pattern>
 		<sch:title>13. dct:title should be a literal.</sch:title>
 		<sch:rule context="//dcat:Catalog/dct:title">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="noTitleLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
 			<sch:assert test="$noTitleLiteral = false()">ERROR: In dcat:Catalog "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
-			<sch:report test="$noTitleLiteral = false()">In dcat:Catalog "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="."/>," is a literal.</sch:report>
+			<sch:report test="$noTitleLiteral = false()">In dcat:Catalog "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="./string()"/>," is a literal.</sch:report>
 		</sch:rule>
-	</sch:pattern>
+	</sch:pattern>	
 	<sch:pattern>
 		<sch:title>15. foaf:homepage has a maximum cardinality of 1 for Catalog.</sch:title>
 		<sch:rule context="//dcat:Catalog">
@@ -250,12 +283,23 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
-		<sch:title>38. dct:description should be a literal.</sch:title>
+		<sch:title>37. dct:description should be a non-empty string for Dataset.</sch:title>
+		<sch:rule context="//dcat:Dataset/dct:description">
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="emptyString" value="normalize-space(.)=''"/>
+			<sch:assert test="$emptyString = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:description that is an empty string.
+			</sch:assert>
+			<sch:report test="$emptyString = false()">The dcat:Dataset '<sch:value-of select="$id"/>' has a dct:description '<sch:value-of select="./string()"/>' which is a non-empty string.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>		
+	<sch:pattern>
+		<sch:title>38. dct:description should be a literal for Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:description">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="noDescriptionLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
 			<sch:assert test="$noDescriptionLiteral = false()">ERROR: In dcat:Dataset "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
-			<sch:report test="$noDescriptionLiteral = false()">In dcat:Dataset "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="."/>," is a literal.</sch:report>
+			<sch:report test="$noDescriptionLiteral = false()">In dcat:Dataset "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="./string()"/>," is a literal.</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -270,12 +314,23 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
-		<sch:title>40. dct:title should be a literal.</sch:title>
+		<sch:title>39. dct:title should be a non-empty string for Dataset.</sch:title>
+		<sch:rule context="//dcat:Dataset/dct:title">
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="emptyString" value="normalize-space(.)=''"/>
+			<sch:assert test="$emptyString = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:title that is an empty string.
+			</sch:assert>
+			<sch:report test="$emptyString = false()">The dcat:Dataset '<sch:value-of select="$id"/>' has a dct:title '<sch:value-of select="./string()"/>' which is a non-empty string.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>		
+	<sch:pattern>
+		<sch:title>40. dct:title should be a literal for Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:title">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="noTitleLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
 			<sch:assert test="$noTitleLiteral = false()">ERROR: In dcat:Dataset "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="string-join(//dct:title[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
-			<sch:report test="$noTitleLiteral = false()">In dcat:Dataset "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="."/>," is a literal.</sch:report>
+			<sch:report test="$noTitleLiteral = false()">In dcat:Dataset "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="./string()"/>," is a literal.</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>

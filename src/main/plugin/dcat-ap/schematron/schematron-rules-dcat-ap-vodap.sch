@@ -80,7 +80,8 @@ Source:
 			<sch:let name="noDistribution" value="not(dcat:distribution )"/>
 			<sch:assert test="$noDistribution = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dcat:distribution.
 			</sch:assert>
-			<sch:report test="$noDistribution = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:distribution with id  "<sch:value-of select="dcat:distribution/*/@rdf:about/string()"/>".			</sch:report>
+			<sch:report test="$noDistribution = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:distribution with id  "<sch:value-of select="dcat:distribution/*/@rdf:about/string()"/>".
+			</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
@@ -105,6 +106,17 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
+	<sch:pattern>
+		<sch:title>81. dct:description should be a non-empty string for dcat:Distribution.</sch:title>
+		<sch:rule context="//dcat:Distribution/dct:description">
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="emptyString" value="normalize-space(.)=''"/>
+			<sch:assert test="$emptyString = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:description that is an empty string.
+			</sch:assert>
+			<sch:report test="$emptyString = false()">The dcat:Distribution '<sch:value-of select="$id"/>' has a dct:description '<sch:value-of select="./string()"/>' which is a non-empty string.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>		
 	<sch:pattern>
 		<sch:title>86. dct:license is a required property for Distribution.</sch:title>
 		<sch:rule context="//dcat:Distribution">
@@ -152,7 +164,17 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
-		<!-- What is this based on? It is not explicitly written in the 'Bijlage 3' -->
+		<sch:title>200. dct:title should be a non-empty string for dcat:Distribution.</sch:title>
+		<sch:rule context="//dcat:Distribution/dct:title">
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="emptyString" value="normalize-space(.)=''"/>
+			<sch:assert test="$emptyString = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:title that is an empty string.
+			</sch:assert>
+			<sch:report test="$emptyString = false()">The dcat:Distribution '<sch:value-of select="$id"/>' has a dct:title '<sch:value-of select="./string()"/>' which is a non-empty string.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>		
+	<sch:pattern>
 		<sch:title>411. vcard:hasEmail is a mandatory property for a contactpoint of a Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset/dcat:contactPoint">
 			<sch:let name="id" value="*/@rdf:about/string()"/>
@@ -163,4 +185,15 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
+	<sch:pattern>
+		<sch:title>411. vcard:hasEmail must be a non-empty string.</sch:title>
+		<sch:rule context="//vcard:hasEmail/@rdf:resource">
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="emptyString" value="normalize-space(.)=''"/>
+			<sch:assert test="$emptyString = false()">ERROR: The contact point "<sch:value-of select="$id"/>" has a vcard:hasEmail that is an empty string.
+			</sch:assert>
+			<sch:report test="$emptyString = false()">The dcontact point '<sch:value-of select="$id"/>' has a vcard:hasEmail '<sch:value-of select="./string()"/>' which is a non-empty string.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>	
 </sch:schema>

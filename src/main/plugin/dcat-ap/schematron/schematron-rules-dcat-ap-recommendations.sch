@@ -196,6 +196,17 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
+		<sch:title>81. dct:description should be a a non-empty string for dcat:Distribution.</sch:title>
+		<sch:rule context="//dcat:Distribution/dct:description">
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="emptyString" value="normalize-space(.)=''"/>
+			<sch:assert test="$emptyString = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:description that is an empty string.
+			</sch:assert>
+			<sch:report test="$emptyString = false()">The dcat:Distribution '<sch:value-of select="$id"/>' has a dct:description '<sch:value-of select="./string()"/>' which is a non-empty string.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>	
+	<sch:pattern>
 		<sch:title>86. dct:license is a recommended property for Distribution.</sch:title>
 		<sch:rule context="//dcat:Distribution">
 			<sch:let name="id" value="@rdf:about/string()"/>
@@ -212,7 +223,7 @@ Source:
 			<sch:let name="noLicenseDocument" value="not(//dct:LicenseDocument)"/>
 			<sch:assert test="$noLicenseDocument = false()">WARNING: The recommended class dct:LicenseDocument does not exist.
 			</sch:assert>
-			<sch:report test="$noLicenseDocument = false()">WARNING: The recommended class dct:LicenseDocument does exist.
+			<sch:report test="$noLicenseDocument = false()">The recommended class dct:LicenseDocument exists.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
