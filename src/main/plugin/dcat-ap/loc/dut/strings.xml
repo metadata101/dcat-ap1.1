@@ -10,6 +10,7 @@
 	<advanced>Volledige weergave</advanced>
 	<xml>XML weergave</xml>
 	<dataset>Dataset</dataset>
+	<distribution>Distributie</distribution>
 	<metadata>Metadata</metadata>
 	<metadata-on-metadata>Metadata over metadata</metadata-on-metadata>
   <defaultDistribution>Distributies</defaultDistribution>

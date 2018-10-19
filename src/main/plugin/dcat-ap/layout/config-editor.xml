@@ -165,12 +165,35 @@
             </template>
           </action>
           <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher" name="Sectionpublisher"/>
+          <action type="add" name="Sectionpublisher" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+            <template>
+              <snippet>
+                <dct:publisher>
+                  <foaf:Agent rdf:about="">
+                    <foaf:name xml:lang="nl"/>
+                  </foaf:Agent>
+                </dct:publisher>
+              </snippet>
+            </template>
+          </action>
           <field name="FieldId145" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword" or="keyword" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
           <field name="FieldId147" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:theme" or="theme" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
           <field name="FieldId183" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language" or="language" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
           <field name="FieldId113" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:identifier" or="identifier" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
           <field name="FieldId223" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo" or="versionInfo" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
-          <field name="FieldId209" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal" or="temporal" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+          <field name="FieldId209" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal"/>
+          <action type="add" name="FieldId209" or="temporal" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+            <template>
+              <snippet>
+                <dct:temporal>
+                  <dct:PeriodOfTime rdf:about="">
+                    <schema:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
+                    <schema:endDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
+                  </dct:PeriodOfTime>
+                </dct:temporal>
+              </snippet>
+            </template>
+          </action>
           <field name="FieldId131" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified" or="modified" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <values>
@@ -195,7 +218,19 @@
               </snippet>
             </template>
           </field>
-          <field name="FieldId154" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights" or="accessRights" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+          <field name="FieldId154" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights"/>
+          <action type="add" name="FieldId154"  or="accessRights" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+            <template>
+              <snippet>
+                <dct:rights>
+                  <dct:RightsStatement rdf:about="">
+                    <dct:title xml:lang="nl"/>
+                    <dct:description xml:lang="nl"/>
+                  </dct:RightsStatement>
+                </dct:rights>
+              </snippet>
+            </template>
+          </action>
           <field name="FieldId182" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:landingPage">
             <template>
               <values>
@@ -206,16 +241,127 @@
               </snippet>
             </template>
           </field>
-          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" name="SectioncontactPoint"/>
+          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" name="SectioncontactPoint"/>
+          <action type="add" or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" name="SectioncontactPoint">
+            <template>
+              <snippet>
+                <dcat:contactPoint>
+                  <vcard:Organization rdf:about="">
+                    <vcard:fn/>
+                    <vcard:organization-name/>
+                    <vcard:hasAddress>
+                      <vcard:Address rdf:about="">
+                        <vcard:street-address/>
+                        <vcard:locality/>
+                        <vcard:postal-code/>
+                        <vcard:country-name/>
+                      </vcard:Address>
+                    </vcard:hasAddress>
+                    <vcard:hasEmail rdf:resource=""/>
+                    <vcard:hasURL rdf:resource=""/>
+                    <vcard:hasTelephone/>
+                  </vcard:Organization>
+                </dcat:contactPoint>
+              </snippet>
+            </template>
+          </action>
           <field name="FieldId202" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:spatial" />
+          <action type="add" name="FieldId202" or="spatial" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+            <template>
+              <snippet>
+                <dct:spatial xmlns:dc="http://purl.org/dc/elements/1.1/">
+                  <dct:Location rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen">
+                    <locn:geometry rdf:datatype="http://www.opengis.net/ont/geosparql#wktLiteral">POLYGON ((5.92 50.67,5.92 51.51,2.53 51.51,2.53 50.67,5.92 50.67))</locn:geometry>
+                    <locn:geometry rdf:datatype="http://www.opengis.net/ont/geosparql#gmlLiteral">&lt;gml:Polygon&gt;&lt;gml:exterior&gt;&lt;gml:LinearRing&gt;&lt;gml:posList&gt;50.67 5.92 51.51 5.92 51.51 2.53 50.67 2.53 50.67 5.92&lt;/gml:posList&gt;&lt;/gml:LinearRing&gt;&lt;/gml:exterior&gt;&lt;/gml:Polygon&gt;</locn:geometry>
+                    <skos:prefLabel xml:lang="nl">Vlaams Gewest</skos:prefLabel>
+                  </dct:Location>
+                </dct:spatial>
+              </snippet>
+            </template>
+          </action>
         </section>
       </tab>
       <tab id="defaultDistribution" mode="flat">
         <section>
-          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution" or="distribution" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" name="distribution"/>
+          <field xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution" name="distribution">
+            <template>
+              <snippet>
+                <dcat:distribution>
+                  <dcat:Distribution rdf:about="">
+                    <dct:title xml:lang=""/>
+                    <dct:description/>
+                    <dcat:accessURL rdf:ressource=""/>
+                    <dcat:downloadURL rdf:resource=""/>
+                    <dct:format>
+                      <skos:Concept rdf:about="">
+                        <skos:prefLabel xml:lang="nl"/>
+                        <skos:prefLabel xml:lang="en"/>
+                        <skos:prefLabel xml:lang="fr"/>
+                        <skos:prefLabel xml:lang="de"/>
+                        <skos:inScheme rdf:resource=""/>
+                      </skos:Concept>
+                    </dct:format>
+                  </dcat:Distribution>
+                </dcat:distribution>
+              </snippet>
+            </template>
+          </field>
+          <action type="add" name="distribution" or="distribution" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+            <template>
+              <snippet>
+                <dcat:distribution>
+                  <dcat:Distribution rdf:about="">
+                    <dct:title xml:lang=""/>
+                    <dct:description/>
+                    <dcat:accessURL rdf:ressource=""/>
+                    <dcat:downloadURL rdf:resource=""/>
+                    <dct:format>
+                      <skos:Concept rdf:about="">
+                        <skos:prefLabel xml:lang="nl"/>
+                        <skos:prefLabel xml:lang="en"/>
+                        <skos:prefLabel xml:lang="fr"/>
+                        <skos:prefLabel xml:lang="de"/>
+                        <skos:inScheme rdf:resource=""/>
+                      </skos:Concept>
+                    </dct:format>
+                  </dcat:Distribution>
+                </dcat:distribution>
+              </snippet>
+            </template>
+          </action>
         </section>
       </tab>
       <flatModeExceptions>
+        <!-- Publisher -->
+        <for name="foaf:Agent"/>
+        <for name="foaf:name"/>
+
+        <!-- Temporal -->
+        <for name="dct:PeriodOfTime"/>
+        <for name="schema:startDate"/>
+        <for name="schema:endDate"/>
+
+        <!-- Access right -->
+        <for name="dct:RightsStatement"/>
+        <for name="dct:title"/>
+        <for name="dct:description"/>
+
+        <!-- Contact Point -->
+        <for name="vcard:Organization"/>
+        <for name="vcard:fn"/>
+        <for name="vcard:organization-name"/>
+        <for name="vcard:hasAddress"/>
+        <for name="vcard:hasEmail"/>
+        <for name="vcard:hasURL"/>
+        <for name="vcard:hasTelephone"/>
+
+        <!-- Distribution -->
+        <for name="dcat:Distribution"/>
+        <!--<for name="dct:title"/> No need since already declared for Access right-->
+        <for name="dct:description"/>
+        <for name="dcat:accessURL"/>
+        <for name="dcat:downloadURL"/>
+        <for name="dct:format"/>
         <for name="dct:license"/>
       </flatModeExceptions>
       <thesaurusList>
@@ -266,7 +412,19 @@
               </snippet>
             </template>
           </action>
-          <field name="FieldId209" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal" or="temporal" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+          <field name="FieldId209" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal"/>
+          <action type="add" name="FieldId209" or="temporal" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+            <template>
+              <snippet>
+                <dct:temporal>
+                  <dct:PeriodOfTime rdf:about="">
+                    <schema:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
+                    <schema:endDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
+                  </dct:PeriodOfTime>
+                </dct:temporal>
+              </snippet>
+            </template>
+          </action>
           <field name="FieldId131" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified" or="modified" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <values>
@@ -329,12 +487,39 @@
               </snippet>
             </template>
           </action>
-          <field name="FieldId168" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/foaf:page" or="page" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
-          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" name="SectioncontactPoint"/>
-          <action type="add" or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+          <field name="FieldId168" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/foaf:page"/>
+          <action type="add" name="FieldId168" or="page" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <snippet>
-                <dcat:contactPoint/>
+                <foaf:page>
+                  <foaf:Document rdf:about="">
+                    <foaf:name xml:lang="nl"/>
+                  </foaf:Document>
+                </foaf:page>
+              </snippet>
+            </template>
+          </action>
+          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" name="SectioncontactPoint"/>
+          <action type="add"  or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" name="SectioncontactPoint">
+            <template>
+              <snippet>
+                <dcat:contactPoint>
+                  <vcard:Organization rdf:about="">
+                    <vcard:fn/>
+                    <vcard:organization-name/>
+                    <vcard:hasAddress>
+                      <vcard:Address rdf:about="">
+                        <vcard:street-address/>
+                        <vcard:locality/>
+                        <vcard:postal-code/>
+                        <vcard:country-name/>
+                      </vcard:Address>
+                    </vcard:hasAddress>
+                    <vcard:hasEmail rdf:resource=""/>
+                    <vcard:hasURL rdf:resource=""/>
+                    <vcard:hasTelephone/>
+                  </vcard:Organization>
+                </dcat:contactPoint>
               </snippet>
             </template>
           </action>
@@ -350,16 +535,28 @@
           <action type="add" btnLabel="FieldId202" or="spatial" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <snippet>
-                <dct:spatial>
-                  <dct:Location rdf:about="">
-                    <locn:geometry rdf:datatype="http://www.opengis.net/ont/geosparql#wktLiteral"></locn:geometry>
-                    <skos:prefLabel xml:lang="nl"/>
+                <dct:spatial xmlns:dc="http://purl.org/dc/elements/1.1/">
+                  <dct:Location rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen">
+                    <locn:geometry rdf:datatype="http://www.opengis.net/ont/geosparql#wktLiteral">POLYGON ((5.92 50.67,5.92 51.51,2.53 51.51,2.53 50.67,5.92 50.67))</locn:geometry>
+                    <locn:geometry rdf:datatype="http://www.opengis.net/ont/geosparql#gmlLiteral">&lt;gml:Polygon&gt;&lt;gml:exterior&gt;&lt;gml:LinearRing&gt;&lt;gml:posList&gt;50.67 5.92 51.51 5.92 51.51 2.53 50.67 2.53 50.67 5.92&lt;/gml:posList&gt;&lt;/gml:LinearRing&gt;&lt;/gml:exterior&gt;&lt;/gml:Polygon&gt;</locn:geometry>
+                    <skos:prefLabel xml:lang="nl">Vlaams Gewest</skos:prefLabel>
                   </dct:Location>
                 </dct:spatial>
               </snippet>
             </template>
           </action>
-          <field name="FieldId195" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:provenance" or="provenance" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+          <field name="FieldId195" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:provenance"/>
+          <action type="add" name="FieldId195" or="provenance" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+            <template>
+              <snippet>
+                <dct:provenance>
+                  <dct:ProvenanceStatement rdf:about="">
+                    <dct:description xml:lang="nl"/>
+                  </dct:ProvenanceStatement>
+                </dct:provenance>
+              </snippet>
+            </template>
+          </action>
           <field name="FieldId201" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:source">
             <template>
               <values>
@@ -428,7 +625,19 @@
               </snippet>
             </template>
           </action>
-          <field name="FieldId161" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo" or="conformsTo" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+          <field name="FieldId161" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:conformsTo"/>
+          <action type="add" name="FieldId161" or="conformsTo" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+            <template>
+              <snippet>
+                <dct:conformsTo>
+                  <dct:Standard rdf:about="">
+                    <dct:title xml:lang="nl"/>
+                    <dct:description xml:lang="nl"/>
+                  </dct:Standard>
+                </dct:conformsTo>
+              </snippet>
+            </template>
+          </action>
           <field name="FieldId183" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language" or="language" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
           <field name="FieldId190" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:identifier" or="identifier" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
           <field name="FieldId227" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:extension">
@@ -467,7 +676,30 @@
       </tab>
       <tab id="advancedDistribution">
         <section>
-          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution" or="distribution" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" name="distribution"/>
+          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution" name="distribution"/>
+          <action type="add" name="distribution" or="distribution" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+            <template>
+              <snippet>
+                <dcat:distribution>
+                  <dcat:Distribution rdf:about="">
+                    <dct:title xml:lang=""/>
+                    <dct:description/>
+                    <dcat:accessURL rdf:ressource=""/>
+                    <dcat:downloadURL rdf:resource=""/>
+                    <dct:format>
+                      <skos:Concept rdf:about="">
+                        <skos:prefLabel xml:lang="nl"/>
+                        <skos:prefLabel xml:lang="en"/>
+                        <skos:prefLabel xml:lang="fr"/>
+                        <skos:prefLabel xml:lang="de"/>
+                        <skos:inScheme rdf:resource=""/>
+                      </skos:Concept>
+                    </dct:format>
+                  </dcat:Distribution>
+                </dcat:distribution>
+              </snippet>
+            </template>
+          </action>
           <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:sample" or="sample" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" name="sample"/>
         </section>
       </tab>

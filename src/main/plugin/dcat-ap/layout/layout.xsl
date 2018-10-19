@@ -111,8 +111,7 @@
       <xsl:with-param name="xpath" select="$xpath"/>
       <xsl:with-param name="isSlideToggle" select="if ($isSupportingSlideToggle and $isDisplayingSections = false()) then 'true' else 'false'"/>
       <xsl:with-param name="subTreeSnippet">
-        <xsl:variable name="needSubtitle" select="name() != 'dct:spatial'
-                                              and name() != 'dct:temporal'
+        <xsl:variable name="needSubtitle" select="name() != 'dct:temporal'
                                               and name() != 'dct:accessRights'
                                               and name() != 'dcat:contactPoint'
                                               and name() != 'vcard:hasAddress'
@@ -123,7 +122,8 @@
                                               and name() != 'dct:rights'
                                               and name() != 'foaf:page'
                                               and name() != 'dct:provenance'
-                                              and name() != 'dct:conformsTo'"/>
+                                              and name() != 'dct:conformsTo'
+                                              and name() != 'adms:identifier'"/>
 
         <xsl:if test="$isEditing">
 		      <!-- Render attributes as fields and overwrite the normal behavior -->
