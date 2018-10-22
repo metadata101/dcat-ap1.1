@@ -219,15 +219,15 @@
             </template>
           </field>
           <field name="FieldId154" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accessRights"/>
-          <action type="add" name="FieldId154"  or="accessRights" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+          <action type="add" name="FieldId154" or="accessRights" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <snippet>
-                <dct:rights>
+                <dct:accessRights>
                   <dct:RightsStatement rdf:about="">
                     <dct:title xml:lang="nl"/>
                     <dct:description xml:lang="nl"/>
                   </dct:RightsStatement>
-                </dct:rights>
+                </dct:accessRights>
               </snippet>
             </template>
           </action>
@@ -247,7 +247,6 @@
               <snippet>
                 <dcat:contactPoint>
                   <vcard:Organization rdf:about="">
-                    <vcard:fn/>
                     <vcard:organization-name/>
                     <vcard:hasAddress>
                       <vcard:Address rdf:about="">
@@ -348,9 +347,9 @@
 
         <!-- Contact Point -->
         <for name="vcard:Organization"/>
-        <for name="vcard:fn"/>
         <for name="vcard:organization-name"/>
         <for name="vcard:hasAddress"/>
+        <for name="vcard:Address"/>
         <for name="vcard:hasEmail"/>
         <for name="vcard:hasURL"/>
         <for name="vcard:hasTelephone"/>
@@ -363,6 +362,7 @@
         <for name="dcat:downloadURL"/>
         <for name="dct:format"/>
         <for name="dct:license"/>
+        <for name="dct:LicenseDocument"/>
       </flatModeExceptions>
       <thesaurusList>
         <thesaurus key="external.theme.publisher-type" maxtags="1" transformations="" fieldset="false"/>
