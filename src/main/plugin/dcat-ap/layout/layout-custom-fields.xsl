@@ -47,35 +47,35 @@
   <xsl:include href="layout-custom-fields-concepts.xsl"/>
   <xsl:include href="layout-custom-fields-sds.xsl"/>
 
-  <xsl:template mode="mode-dcat-ap" match="dct:Location" priority="2000">
+  <xsl:template mode="mode-dcat-ap" match="dct:spatial" priority="2000">
     <xsl:param name="schema" select="$schema" required="no"/>
     <xsl:param name="labels" select="$labels" required="no"/>
+    <xsl:param name="refToDelete" required="no"/>
 
     <xsl:variable name="xpath" select="gn-fn-metadata:getXPath(.)"/>
     <xsl:variable name="labelConfig" select="gn-fn-metadata:getLabel($schema, name(), $labels, name(..), '', $xpath)"/>
 
     <xsl:call-template name="render-boxed-element">
-      <xsl:with-param name="label"
-                      select="$labelConfig/label"/>
-      <xsl:with-param name="editInfo" select="gn:element"/>
+      <xsl:with-param name="label" select="$labelConfig/label"/>
+      <xsl:with-param name="editInfo" select="$refToDelete"/>
       <xsl:with-param name="cls" select="local-name()"/>
       <xsl:with-param name="subTreeSnippet">
 
 				<xsl:variable name="identifier"
-	                    select="@rdf:about"/>
+	                    select="./dct:Location/@rdf:about"/>
 	      <xsl:variable name="description"
-	                    select="skos:prefLabel[1]"/>
+	                    select="./dct:Location/skos:prefLabel[1]"/>
 	      <xsl:variable name="readonly" select="false()"/>
         <xsl:variable name="geometry" as="node()">
           <xsl:choose>
-            <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#wktLiteral')])>0">
-              <xsl:copy-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#wktLiteral')][1]" />
+            <xsl:when test="count(./dct:Location/locn:geometry[ends-with(./dct:Location/@rdf:datatype,'#wktLiteral')])>0">
+              <xsl:copy-of select="node()[name(./dct:Location)='locn:geometry' and ends-with(./dct:Location/@rdf:datatype,'#wktLiteral')][1]" />
             </xsl:when>
-            <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#gmlLiteral')])>0">
-              <xsl:copy-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#gmlLiteral')][1]" />
+            <xsl:when test="count(./dct:Location/locn:geometry[ends-with(./dct:Location/@rdf:datatype,'#gmlLiteral')])>0">
+              <xsl:copy-of select="node()[name(./dct:Location)='locn:geometry' and ends-with(./dct:Location/@rdf:datatype,'#gmlLiteral')][1]" />
             </xsl:when>
             <xsl:otherwise>
-              <xsl:copy-of select="locn:geometry[1]"/>
+              <xsl:copy-of select="./dct:Location/locn:geometry[1]"/>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:variable>
@@ -106,30 +106,21 @@
           <xsl:variable name="identifier">
             <xsl:choose>
               <xsl:when test="count($bboxCoordinates)>5"><xsl:value-of select="$bboxCoordinates[6]"/></xsl:when>
-              <xsl:otherwise><xsl:value-of select="@rdf:about"/></xsl:otherwise>
+              <xsl:otherwise><xsl:value-of select="./dct:Location/@rdf:about"/></xsl:otherwise>
             </xsl:choose>
           </xsl:variable>
           <xsl:variable name="description">
             <xsl:choose>
               <xsl:when test="count($bboxCoordinates)>4"><xsl:value-of select="$bboxCoordinates[5]"/></xsl:when>
-              <xsl:otherwise><xsl:value-of select="skos:prefLabel[1]"/></xsl:otherwise>
+              <xsl:otherwise><xsl:value-of select="./dct:Location/skos:prefLabel[1]"/></xsl:otherwise>
             </xsl:choose>
           </xsl:variable>
           <xsl:attribute name="data-identifier" select="$identifier"/>
-          <xsl:attribute name="data-identifier-ref" select="concat('_',gn:element/@ref,'_rdfCOLONabout')"/>
+          <xsl:attribute name="data-identifier-ref" select="concat('_', ./dct:Location/gn:element/@ref,'_rdfCOLONabout')"/>
           <xsl:attribute name="data-description" select="$description"/>
-					<xsl:attribute name="data-description-ref" select="concat('_', skos:prefLabel[1]/gn:element/@ref)"/>
+					<xsl:attribute name="data-description-ref" select="concat('_', ./dct:Location/skos:prefLabel[1]/gn:element/@ref)"/>
 	      </div>
       </xsl:with-param>
     </xsl:call-template>
   </xsl:template>
-
-  <!--xsl:template mode="mode-dcat-ap" match="dct:spatial" priority="2000">
-    <xsl:param name="schema" select="$schema" required="no"/>
-    <xsl:param name="labels" select="$labels" required="no"/>
-    <xsl:apply-templates mode="mode-dcat-ap" select="*">
-      <xsl:with-param name="labels" select="$labels"/>
-      <xsl:with-param name="schema" select="$schema"/>
-    </xsl:apply-templates>
-  </xsl:template-->
 </xsl:stylesheet>
