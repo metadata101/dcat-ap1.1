@@ -10,12 +10,19 @@
   <advanced>Advanced</advanced>
   <xml>XML</xml>
   <dataset>Dataset</dataset>
+  <distribution>Distribution</distribution>
   <metadata>Metadata</metadata>
   <metadata-on-metadata>Metadata on metadata</metadata-on-metadata>
-  <distribution>Distribution</distribution>
   <defaultDistribution>Distributies</defaultDistribution>
   <advancedDataset>Dataset</advancedDataset>
   <advancedDistribution>Distributies</advancedDistribution>
+  <!-- Section labels -->
+  <basicInformation>Basic information</basicInformation>
+  <versionInformation>Version information</versionInformation>
+  <usageInformation>Usage information</usageInformation>
+  <geographicalInformation>Spatial / geographic extent</geographicalInformation>
+  <relationInformation>Relation</relationInformation>
+  <extraInformation>Extra information</extraInformation>
 	<!-- DCAT-AP view labels and help -->
 	<FieldId107>dataset</FieldId107>
 	<FieldId108>URI</FieldId108>

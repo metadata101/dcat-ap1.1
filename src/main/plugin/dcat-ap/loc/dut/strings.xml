@@ -2,8 +2,7 @@
 <!-- -->
 
 <strings>
-	<xml_dublin-core>Save this metadata as a Dublin Core XML file
-	</xml_dublin-core>
+	<xml_dublin-core>Save this metadata as a Dublin Core XML file</xml_dublin-core>
 	<xml_dcat-ap>Save this metadata as a DCAT-AP XML file</xml_dcat-ap>
   <default>Standaardweergave</default>
 	<defaultMenu>Standaard</defaultMenu>
@@ -16,6 +15,13 @@
   <defaultDistribution>Distributies</defaultDistribution>
   <advancedDataset>Dataset</advancedDataset>
   <advancedDistribution>Distributies</advancedDistribution>
+  <!-- Section labels -->
+  <basicInformation>Basis informatie</basicInformation>
+  <versionInformation>Versie informatie</versionInformation>
+  <usageInformation>Gebruiksinformatie</usageInformation>
+  <geographicalInformation>Ruimtelijke dekking</geographicalInformation>
+  <relationInformation>Verwantschappen</relationInformation>
+  <extraInformation>Extra informatie</extraInformation>
 	<!-- DCAT-AP view labels and help -->
 	<FieldId107>Dataset</FieldId107>
 	<FieldId108>URI</FieldId108>
