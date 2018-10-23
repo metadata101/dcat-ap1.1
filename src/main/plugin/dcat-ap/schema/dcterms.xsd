@@ -55,7 +55,7 @@
 	<xs:element name="source" type="rdf:Resource"/>
 	<xs:element name="mediator" substitutionGroup="dct:audience"/>
 	<xs:element name="educationLevel" substitutionGroup="dct:audience"/>
-	<xs:element name="accessRights" type="dct:RightsStatement"/>
+	<xs:element name="accessRights" type="skos:Concept"/>
 	<xs:element name="license" type="dct:LicenseDocument"/>
 	<xs:element name="bibliographicCitation" type="rdf:PlainLiteral"/>
 	<xs:element name="publisher" type="foaf:Agent"/>

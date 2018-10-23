@@ -59,13 +59,13 @@
             <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/language" />
           </skos:Concept>
         </dct:language>
-        <dct:spatial xmlns:dc="http://purl.org/dc/elements/1.1/" />
-        <dct:spatial xmlns:gn="http://www.fao.org/geonetwork" xmlns:dc="http://purl.org/dc/elements/1.1/">
-          <dct:Location rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen">
-            <locn:geometry rdf:datatype="http://www.opengis.net/ont/geosparql#wktLiteral">North 51.51, South 50.67, East 2.53, West 5.92</locn:geometry>
-            <skos:prefLabel xml:lang="nl">Vlaams Gewest</skos:prefLabel>
-          </dct:Location>
-        </dct:spatial>
+		<dct:spatial xmlns:dc="http://purl.org/dc/elements/1.1/">
+		   <dct:Location rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/VlaamsBrabant">
+			  <locn:geometry rdf:datatype="http://www.opengis.net/ont/geosparql#wktLiteral">POLYGON ((5.188078 50.687429,5.188078 51.049929,3.889406 51.049929,3.889406 50.687429,5.188078 50.687429))</locn:geometry>
+			  <locn:geometry rdf:datatype="http://www.opengis.net/ont/geosparql#gmlLiteral">&lt;gml:Polygon&gt;&lt;gml:exterior&gt;&lt;gml:LinearRing&gt;&lt;gml:posList&gt;50.687429 5.188078 51.049929 5.188078 51.049929 3.889406 50.687429 3.889406 50.687429 5.188078&lt;/gml:posList&gt;&lt;/gml:LinearRing&gt;&lt;/gml:exterior&gt;&lt;/gml:Polygon&gt;</locn:geometry>
+			  <skos:prefLabel xml:lang="nl">Provincie Vlaams-Brabant</skos:prefLabel>
+		   </dct:Location>
+		</dct:spatial>
         <dct:temporal>
           <dct:PeriodOfTime rdf:about="">
             <schema:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47</schema:startDate>
