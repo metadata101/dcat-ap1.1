@@ -171,6 +171,15 @@
                 <dct:publisher>
                   <foaf:Agent rdf:about="">
                     <foaf:name xml:lang="nl"/>
+                    <dct:type>
+                      <skos:Concept rdf:about="">
+                        <skos:prefLabel xml:lang="nl"/>
+                        <skos:prefLabel xml:lang="en"/>
+                        <skos:prefLabel xml:lang="fr"/>
+                        <skos:prefLabel xml:lang="de"/>
+                        <skos:inScheme rdf:resource="http://purl.org/adms/publishertype/1.0"/>
+                      </skos:Concept>
+                    </dct:type>
                   </foaf:Agent>
                 </dct:publisher>
               </snippet>
@@ -182,19 +191,6 @@
         </section>
         <section name="versionInformation">
           <field name="FieldId223" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo" or="versionInfo" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
-          <field name="FieldId209" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal"/>
-          <action type="add" name="FieldId209" or="temporal" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
-            <template>
-              <snippet>
-                <dct:temporal>
-                  <dct:PeriodOfTime rdf:about="">
-                    <schema:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
-                    <schema:endDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
-                  </dct:PeriodOfTime>
-                </dct:temporal>
-              </snippet>
-            </template>
-          </action>
           <field name="FieldId131" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified" or="modified" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <values>
@@ -278,6 +274,19 @@
               </snippet>
             </template>
           </action>
+          <field name="FieldId209" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal"/>
+          <action type="add" name="FieldId209" or="temporal" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+            <template>
+              <snippet>
+                <dct:temporal>
+                  <dct:PeriodOfTime rdf:about="">
+                    <schema:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
+                    <schema:endDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
+                  </dct:PeriodOfTime>
+                </dct:temporal>
+              </snippet>
+            </template>
+          </action>
         </section>
         <section name="extraInformation">
             <field name="FieldId183" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language" or="language" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
@@ -337,12 +346,10 @@
         <!-- Publisher -->
         <for name="foaf:Agent"/>
         <for name="foaf:name"/>
-
         <!-- Temporal -->
         <for name="dct:PeriodOfTime"/>
         <for name="schema:startDate"/>
         <for name="schema:endDate"/>
-
         <!-- Contact Point -->
         <for name="vcard:Organization"/>
         <for name="vcard:organization-name"/>
@@ -351,10 +358,9 @@
         <for name="vcard:hasEmail"/>
         <for name="vcard:hasURL"/>
         <for name="vcard:hasTelephone"/>
-
         <!-- Distribution -->
         <for name="dcat:Distribution"/>
-        <!--<for name="dct:title"/> No need since already declared for Access right-->
+        <for name="dct:title"/>
         <for name="dct:description"/>
         <for name="dcat:accessURL"/>
         <for name="dcat:downloadURL"/>
@@ -362,6 +368,8 @@
         <for name="dcat:mediaType"/>
         <for name="dct:license"/>
         <for name="dct:LicenseDocument"/>
+        <for name="dct:type"/>
+        <for name="dct:identifier"/>
       </flatModeExceptions>
       <thesaurusList>
         <thesaurus key="external.theme.publisher-type" maxtags="1" transformations="" fieldset="false"/>
@@ -405,7 +413,20 @@
           <action type="add" btnLabel="FieldId133" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <snippet>
-                <dct:publisher/>
+                <dct:publisher>
+                  <foaf:Agent rdf:about="">
+                    <foaf:name xml:lang="nl"/>
+                    <dct:type>
+                      <skos:Concept rdf:about="">
+                        <skos:prefLabel xml:lang="nl"/>
+                        <skos:prefLabel xml:lang="en"/>
+                        <skos:prefLabel xml:lang="fr"/>
+                        <skos:prefLabel xml:lang="de"/>
+                        <skos:inScheme rdf:resource="http://purl.org/adms/publishertype/1.0"/>
+                      </skos:Concept>
+                    </dct:type>
+                  </foaf:Agent>
+                </dct:publisher>
               </snippet>
             </template>
           </action>
@@ -438,19 +459,6 @@
             <template>
               <snippet>
                 <adms:versionNotes xml:lang=""/>
-              </snippet>
-            </template>
-          </action>
-          <field name="FieldId209" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal"/>
-          <action type="add" name="FieldId209" or="temporal" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
-            <template>
-              <snippet>
-                <dct:temporal>
-                  <dct:PeriodOfTime rdf:about="">
-                    <schema:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
-                    <schema:endDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
-                  </dct:PeriodOfTime>
-                </dct:temporal>
               </snippet>
             </template>
           </action>
@@ -536,6 +544,19 @@
                     <skos:prefLabel xml:lang="nl">Vlaams Gewest</skos:prefLabel>
                   </dct:Location>
                 </dct:spatial>
+              </snippet>
+            </template>
+          </action>
+          <field name="FieldId209" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:temporal"/>
+          <action type="add" name="FieldId209" or="temporal" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+            <template>
+              <snippet>
+                <dct:temporal>
+                  <dct:PeriodOfTime rdf:about="">
+                    <schema:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
+                    <schema:endDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
+                  </dct:PeriodOfTime>
+                </dct:temporal>
               </snippet>
             </template>
           </action>

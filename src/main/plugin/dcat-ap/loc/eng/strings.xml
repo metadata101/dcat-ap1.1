@@ -20,7 +20,7 @@
   <basicInformation>Basic information</basicInformation>
   <versionInformation>Version information</versionInformation>
   <usageInformation>Usage information</usageInformation>
-  <geographicalInformation>Spatial / geographic extent</geographicalInformation>
+  <geographicalInformation>Spatial and temporal extent</geographicalInformation>
   <relationInformation>Relation</relationInformation>
   <extraInformation>Extra information</extraInformation>
 	<!-- DCAT-AP view labels and help -->

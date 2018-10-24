@@ -28,6 +28,15 @@
         <dct:publisher>
           <foaf:Agent rdf:about="">
             <foaf:name xml:lang="nl" />
+            <dct:type>
+              <skos:Concept rdf:about="">
+                <skos:prefLabel xml:lang="nl"/>
+                <skos:prefLabel xml:lang="en"/>
+                <skos:prefLabel xml:lang="fr"/>
+                <skos:prefLabel xml:lang="de"/>
+                <skos:inScheme rdf:resource="http://purl.org/adms/publishertype/1.0"/>
+              </skos:Concept>
+            </dct:type>
           </foaf:Agent>
         </dct:publisher>
         <dcat:keyword xml:lang="nl">Vlaamse open data</dcat:keyword>
