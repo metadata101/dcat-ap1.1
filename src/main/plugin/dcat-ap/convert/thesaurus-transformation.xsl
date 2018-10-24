@@ -107,6 +107,11 @@
 		    	<xsl:copy-of select="$concept"/>
 		    </dct:type>
 			</xsl:when>
+      <xsl:when test="ends-with($thesaurusKey, 'access-right')">
+        <dct:accessRights>
+          <xsl:copy-of select="$concept"/>
+        </dct:accessRights>
+      </xsl:when>
 			<xsl:otherwise>
 				<xsl:message select="concat('No concept added for a field value of thesaurus ', $thesaurusKey, '. Verify thesaurus-transformation.xsl.')"/>
 			</xsl:otherwise>

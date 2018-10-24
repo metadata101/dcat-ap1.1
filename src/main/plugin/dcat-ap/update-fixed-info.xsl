@@ -166,7 +166,7 @@
   </xsl:template>
 
 	<!-- Fill empty element and update existing with resourceType -->
-	<xsl:template match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:format|dcat:mediaType|adms:status|dct:LicenseDocument/dct:type" priority="10">
+	<xsl:template match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:format|dcat:mediaType|adms:status|dct:LicenseDocument/dct:type|dct:accessRights" priority="10">
 		<xsl:copy>
 			<xsl:apply-templates select="@*"/>
 	    <xsl:variable name="inScheme" select="gn-fn-dcat-ap:getInSchemeURIByElementName(name(.),name(..))"/>

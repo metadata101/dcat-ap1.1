@@ -206,7 +206,7 @@
   </xsl:template>
 
 	<xsl:template mode="render-field"
-		match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:format|dcat:mediaType|adms:status|dct:LicenseDocument/dct:type">
+		match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:format|dcat:mediaType|adms:status|dct:LicenseDocument/dct:type|dct:accessRights">
     <xsl:param name="xpath"/>
     <xsl:variable name="stringValue" select="string()"/>
     <xsl:if test="normalize-space(skos:Concept/skos:prefLabel[@xml:lang=$langId-2char]) != ''">
@@ -285,7 +285,7 @@
 
 
 	<xsl:template mode="render-field"
-		match="dcat:contactPoint|dct:publisher|dct:provenance|foaf:page|dct:temporal|dct:license|dct:rights|dct:accessRights|dct:conformsTo|dcat:distribution|adms:sample|vcard:hasAddress|adms:identifier">
+		match="dcat:contactPoint|dct:publisher|dct:provenance|foaf:page|dct:temporal|dct:license|dct:rights|dct:conformsTo|dcat:distribution|adms:sample|vcard:hasAddress|adms:identifier">
     <xsl:param name="xpath"/>
     <xsl:variable name="stringValue" select="string()"/>
 

@@ -130,6 +130,7 @@
                               .//dct:format|
                               .//dcat:mediaType|
                               .//adms:status|
+                              .//dct:accessRights|
                               .//dct:type[name(..)='dct:LicenseDocument']">
           <xsl:if test="skos:Concept/skos:prefLabel/@xml:lang=$langId">
 	          <xsl:variable name="prefLabel">
@@ -224,30 +225,6 @@
     <xsl:for-each select="dct:relation">
       <Field name="relation" string="{string(.)}" store="false"
              index="true" />
-    </xsl:for-each>
-
-    <xsl:for-each select="dct:accessRights/dct:RightsStatement">
-      <xsl:variable name="title">
-        <xsl:call-template name="index-lang-tag-oneval">
-          <xsl:with-param name="tag" select="dct:title"/>
-          <xsl:with-param name="langId" select="$langId"/>
-          <xsl:with-param name="isoLangId" select="$isoLangId"/>
-        </xsl:call-template>
-      </xsl:variable>
-      <xsl:variable name="desc">
-        <xsl:call-template name="index-lang-tag-oneval">
-          <xsl:with-param name="tag" select="dct:description"/>
-          <xsl:with-param name="langId" select="$langId"/>
-          <xsl:with-param name="isoLangId" select="$isoLangId"/>
-        </xsl:call-template>
-      </xsl:variable>
-      <Field name="dcat_accessRightsTitle" string="{string($title)}"
-             store="true" index="true" />
-      <Field name="dcat_accessRightsDesc" string="{string($desc)}"
-             store="true" index="true" />
-
-      <Field name="dcat_accessRights" string="{concat($title, '|',$desc)}"
-             store="true" index="false" />
     </xsl:for-each>
 
     <xsl:for-each select="dct:conformsTo/dct:Standard">

@@ -40,6 +40,16 @@
             <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/data-theme" />
           </skos:Concept>
         </dcat:theme>
+        <dct:accessRights>
+          <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/access-right/PUBLIC">
+            <rdf:type rdf:resource="dct:RightsStatement"/>
+            <skos:prefLabel xml:lang="nl">publiek</skos:prefLabel>
+            <skos:prefLabel xml:lang="en">public</skos:prefLabel>
+            <skos:prefLabel xml:lang="fr">public</skos:prefLabel>
+            <skos:prefLabel xml:lang="de">public</skos:prefLabel>
+            <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/access-right"/>
+          </skos:Concept>
+        </dct:accessRights>
         <dct:accrualPeriodicity>
           <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/frequency/ANNUAL">
             <skos:prefLabel xml:lang="nl">jaarlijks</skos:prefLabel>

@@ -67,6 +67,9 @@
       <xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dct:LicenseDocument'">
         <xsl:value-of select="concat($inSchemeAdmsBaseUrl,'licencetype/1.0')"/>
       </xsl:when>
+      <xsl:when test="$elementName = 'dct:accessRights'">
+        <xsl:value-of select="concat($inSchemeAuthorityBaseUrl, 'access-right')"/>
+      </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="''"/>
       </xsl:otherwise>
@@ -103,6 +106,9 @@
       </xsl:when>
       <xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dct:LicenseDocument'">
         <xsl:value-of select="''"/>
+      </xsl:when>
+      <xsl:when test="$elementName = 'dct:accessRights'">
+        <xsl:value-of select="'dct:RightsStatement'"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="''"/>
@@ -175,6 +181,9 @@
       </xsl:when>
       <xsl:when test="$resource = concat($inSchemeAdmsBaseUrl,'licencetype/1.0')">
         <xsl:value-of select="concat($thesaurusIdentifierBaseKey,'licence-type')"/>
+      </xsl:when>
+      <xsl:when test="$resource = concat($inSchemeAuthorityBaseUrl,'access-right')">
+        <xsl:value-of select="concat($thesaurusIdentifierBaseKey,'access-right')"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:message select="concat('No thesaurus identifier found for the inScheme URI ', $resource)"/>
