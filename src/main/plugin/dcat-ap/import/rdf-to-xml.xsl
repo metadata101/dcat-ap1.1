@@ -219,18 +219,12 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="rdfType"></xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:accessRights -->
-          <xsl:call-template name="concepts">
-            <xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/accessRights' and
-											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
-            <xsl:with-param name="predicate">dct:accessRights</xsl:with-param>
-            <xsl:with-param name="rdfType">dct:RightsStatement</xsl:with-param>
-          </xsl:call-template>
-
-					<!--xsl:call-template name="rightsStatements">
-						<xsl:with-param name="statementURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/accessRights' and
+					<xsl:call-template name="concepts">
+						<xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/accessRights' and
 											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:accessRights</xsl:with-param>
-					</xsl:call-template-->
+						<xsl:with-param name="rdfType">dct:RightsStatement</xsl:with-param>
+					</xsl:call-template>
 					<!-- dct:conformsTo -->
 					<xsl:call-template name="standards">
 						<xsl:with-param name="standardURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/conformsTo' and
