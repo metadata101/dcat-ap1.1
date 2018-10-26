@@ -409,7 +409,7 @@
               </snippet>
             </template>
           </action>
-          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher" name="Sectionpublisher"/>
+          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher" name="FieldId133"/>
           <action type="add" btnLabel="FieldId133" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <snippet>
@@ -430,7 +430,7 @@
               </snippet>
             </template>
           </action>
-          <field name="FieldId145" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword" or="keyword" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+          <field name="FieldId145" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword">
             <template>
               <values>
                 <key label="FieldId145" xpath="." />
@@ -489,8 +489,8 @@
           </field>
         </section>
         <section name="usageInformation">
-          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" name="SectioncontactPoint"/>
-          <action type="add"  or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" name="SectioncontactPoint">
+          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" name="FieldId114"/>
+          <action type="add"  or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" name="FieldId114">
             <template>
               <snippet>
                 <dcat:contactPoint>
