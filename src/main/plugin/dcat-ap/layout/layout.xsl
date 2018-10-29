@@ -111,20 +111,6 @@
       <xsl:with-param name="xpath" select="$xpath"/>
       <xsl:with-param name="isSlideToggle" select="if ($isSupportingSlideToggle and $isDisplayingSections = false()) then 'true' else 'false'"/>
       <xsl:with-param name="subTreeSnippet">
-        <xsl:variable name="needSubtitle" select="true()"/>
-        <!--xsl:variable name="needSubtitle" select="name() != 'dct:temporal'
-                                              and name() != 'dct:accessRights'
-                                              and name() != 'dcat:contactPoint'
-                                              and name() != 'vcard:hasAddress'
-                                              and name() != 'dct:publisher'
-                                              and name() != 'dcat:distribution'
-                                              and name() != 'dct:license'
-                                              and name() != 'spdx:checksum'
-                                              and name() != 'dct:rights'
-                                              and name() != 'foaf:page'
-                                              and name() != 'dct:provenance'
-                                              and name() != 'dct:conformsTo'
-                                              and name() != 'adms:identifier'"/-->
 
         <xsl:if test="$isEditing">
 		      <!-- Render attributes as fields and overwrite the normal behavior -->
@@ -133,7 +119,7 @@
 		        <xsl:with-param name="ref" select="gn:element/@ref"/>
 		      </xsl:apply-templates>
 		    </xsl:if>
-        <xsl:apply-templates mode="mode-dcat-ap" select="if ($needSubtitle) then * else */*">
+        <xsl:apply-templates mode="mode-dcat-ap" select="*">
           <xsl:with-param name="schema" select="$schema"/>
           <xsl:with-param name="labels" select="$labels"/>
         </xsl:apply-templates>
@@ -323,6 +309,7 @@
   <xsl:template mode="mode-dcat-ap" priority="2001"
                 match="*[(name(.) = 'vcard:fn' or
                           (name(.) = 'dct:type' and name(..)='foaf:Agent') or
+                          (name(.) = 'dcat:downloadURL' and name(..)='dcat:Distribution') or
                           (name(.) = 'dct:issued' and name(..)='dcat:Distribution') or
                           (name(.) = 'dct:modified' and name(..)='dcat:Distribution') or
                           (name(.) = 'dct:language' and name(..)='dcat:Distribution') or

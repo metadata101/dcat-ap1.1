@@ -294,29 +294,7 @@
       </tab>
       <tab id="defaultDistribution" mode="flat">
         <section>
-          <field xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution" name="distribution">
-            <template>
-              <snippet>
-                <dcat:distribution>
-                  <dcat:Distribution rdf:about="">
-                    <dct:title xml:lang=""/>
-                    <dct:description/>
-                    <dcat:accessURL rdf:ressource=""/>
-                    <dcat:downloadURL rdf:resource=""/>
-                    <dct:format>
-                      <skos:Concept rdf:about="">
-                        <skos:prefLabel xml:lang="nl"/>
-                        <skos:prefLabel xml:lang="en"/>
-                        <skos:prefLabel xml:lang="fr"/>
-                        <skos:prefLabel xml:lang="de"/>
-                        <skos:inScheme rdf:resource=""/>
-                      </skos:Concept>
-                    </dct:format>
-                  </dcat:Distribution>
-                </dcat:distribution>
-              </snippet>
-            </template>
-          </field>
+          <field xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution" name="distribution"/>
           <action type="add" name="distribution" or="distribution" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <snippet>
@@ -325,7 +303,6 @@
                     <dct:title xml:lang=""/>
                     <dct:description/>
                     <dcat:accessURL rdf:ressource=""/>
-                    <dcat:downloadURL rdf:resource=""/>
                     <dct:format>
                       <skos:Concept rdf:about="">
                         <skos:prefLabel xml:lang="nl"/>
@@ -363,7 +340,6 @@
         <for name="dct:title"/>
         <for name="dct:description"/>
         <for name="dcat:accessURL"/>
-        <for name="dcat:downloadURL"/>
         <for name="dct:format"/>
         <for name="dcat:mediaType"/>
         <for name="dct:license"/>
