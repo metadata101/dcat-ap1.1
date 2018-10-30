@@ -117,6 +117,31 @@
 	</xsl:template>
 
 
+  <!-- ########################## -->
+  <!-- Render Section... -->
+
+  <xsl:template mode="render-view" match="section[@xpath]">
+    <div id="gn-view-{generate-id()}" class="gn-tab-content">
+      <xsl:apply-templates mode="render-view" select="@xpath"/>
+    </div>
+  </xsl:template>
+
+  <xsl:template mode="render-view" match="section[not(@xpath)]">
+    <div id="gn-section-{generate-id()}" class="gn-tab-content">
+      <xsl:if test="@name">
+        <xsl:variable name="title" select="gn-fn-render:get-schema-strings($schemaStrings, @name)"/>
+        <xsl:element name="h{2 + count(ancestor-or-self::*[name(.) = 'section'])}">
+          <xsl:attribute name="class" select="'view-header'"/>
+          <xsl:value-of select="$title"/>
+        </xsl:element>
+      </xsl:if>
+      <table class="table table-striped">
+        <xsl:apply-templates mode="render-view" select="section|field"/>&#160;
+      </table>
+    </div>
+  </xsl:template>
+
+
 	<!-- ########################## -->
 	<!-- Render fields... -->
 
@@ -132,19 +157,17 @@
     <xsl:param name="xpath"/>
     <xsl:variable name="stringValue" select="string()"/>
     <xsl:if test="normalize-space($stringValue) != ''">
-      <span style="line-height:1.7">
-        <span style="font-weight:bold;">
+      <tr>
+        <th>
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
           <xsl:if test="@xml:lang">
             <xsl:value-of select="concat(' (',@xml:lang,')')" />
           </xsl:if>
-          <xsl:value-of select="' : '"/>
-        </span>
-        <span>
+        </th>
+        <td>
           <xsl:apply-templates mode="render-value" select="." />
-        </span>
-        <br/>
-      </span>
+        </td>
+      </tr>
     </xsl:if>
   </xsl:template>
 
@@ -153,54 +176,51 @@
     <!-- Fields entering in this template must have their name equal to "rdf:about" or "rdf:resource" in labels.xml -->
     <xsl:variable name="stringValue" select="string()"/>
     <xsl:if test="normalize-space($stringValue) != ''">
-      <span style="line-height:1.7">
-        <span style="font-weight:bold;">
+      <tr>
+        <th>
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
-          <xsl:value-of select="' : '"/>
-        </span>
-        <span>
+        </th>
+        <td>
           <xsl:apply-templates mode="render-url" select="." />
-        </span>
-        <br/>
-      </span>
+        </td>
+      </tr>
     </xsl:if>
 	</xsl:template>
 
-	<xsl:template mode="render-field" match="dcat:keyword">
+	<xsl:template mode="render-field" match="dcat:keyword[not(preceding-sibling::dcat:keyword[position()=1])]">
     <xsl:param name="xpath"/>
-		<xsl:if test="not(preceding-sibling::dcat:keyword[position()=1])">
-			<span style="font-weight:bold;" class="gn-keyword">
+    <tr>
+      <th class="gn-keyword">
         <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
-			</span>
-		</xsl:if>
-		<span style="background-color: #FFE615; border: 1px solid; border-color: #333; border-radius: 2px; text-align: center; padding: 6px 6px; display: inline-block;">
-			<a href="{concat($nodeUrl,$langId,'/catalog.search?resultType=details&amp;sortBy=relevance&amp;from=1&amp;to=20&amp;keyword=',.)}">
-				<xsl:apply-templates mode="render-value" select="." />
-				<xsl:if test="@xml:lang">
-					<xsl:value-of select="concat(' (',@xml:lang,')')" />
-				</xsl:if>
-			</a>
-		</span>
-    <xsl:if test="not(following-sibling::dcat:keyword)">
-      <br/>
-    </xsl:if>
+      </th>
+      <td>
+        <xsl:for-each select="../dcat:keyword">
+          <div style="background-color: #FFE615; border: 1px solid; border-color: #333; border-radius: 2px; text-align: center; padding: 6px 6px; display: inline-block;">
+            <a href="{concat($nodeUrl,$langId,'/catalog.search?resultType=details&amp;sortBy=relevance&amp;from=1&amp;to=20&amp;keyword=',.)}">
+              <xsl:apply-templates mode="render-value" select="." />
+              <xsl:if test="@xml:lang">
+                <xsl:value-of select="concat(' (',@xml:lang,')')" />
+              </xsl:if>
+            </a>
+          </div>
+        </xsl:for-each>
+      </td>
+    </tr>
 	</xsl:template>
 
-	<xsl:template mode="render-field"
-		match="dcat:accessURL|dcat:downloadURL|dcat:landingPage">
+  <xsl:template mode="render-field"
+                match="dcat:accessURL|dcat:downloadURL|dcat:landingPage">
     <xsl:param name="xpath"/>
     <xsl:variable name="stringValue" select="string(@rdf:resource)"/>
     <xsl:if test="normalize-space($stringValue) != ''">
-      <span style="line-height:1.7">
-        <span style="font-weight:bold;">
+      <tr>
+        <th>
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, 'rdf:resource', $labels, name(..), '', concat(gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)), '/@rdf:resource'))/label" />
-          <xsl:value-of select="' : '"/>
-        </span>
-        <span>
+        </th>
+        <td>
           <xsl:apply-templates mode="render-url" select="@rdf:resource" />
-        </span>
-        <br/>
-      </span>
+        </td>
+      </tr>
     </xsl:if>
   </xsl:template>
 
@@ -209,12 +229,11 @@
     <xsl:param name="xpath"/>
     <xsl:variable name="stringValue" select="string()"/>
     <xsl:if test="normalize-space(skos:Concept/skos:prefLabel[@xml:lang=$langId-2char]) != ''">
-      <span style="line-height:1.7">
-        <span style="font-weight:bold;">
+      <tr>
+        <th>
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
-          <xsl:value-of select="' : '"/>
-        </span>
-        <span>
+        </th>
+        <td>
           <xsl:for-each select="skos:Concept/skos:prefLabel[@xml:lang=$langId-2char]">
             <a href="skos:Concept/@rdf:about">
               <xsl:apply-templates mode="render-value" select="." />
@@ -224,13 +243,10 @@
             </xsl:if>
           </xsl:for-each>
           <xsl:for-each select="skos:Concept/@rdf:about">
-            (
-            <xsl:apply-templates mode="render-url" select="." />
-            )
+            (<xsl:apply-templates mode="render-url" select="." />)
           </xsl:for-each>
-        </span>
-        <br/>
-      </span>
+        </td>
+      </tr>
     </xsl:if>
 	</xsl:template>
 
@@ -238,48 +254,53 @@
 		the coordinates displayed around -->
 	<xsl:template mode="render-field" match="dct:Location">
     <xsl:param name="xpath"/>
-    <div class="entry name">
-      <h3 style="padding-left: 0;">
-        <xsl:value-of
-          select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
-      </h3>
-      <div class="target">
-        <xsl:apply-templates mode="render-field" select="@rdf:about">
-          <xsl:with-param name="xpath" select="$xpath"/>
-        </xsl:apply-templates>
 
-        <xsl:apply-templates mode="render-field" select="skos:prefLabel[1]" >
-          <xsl:with-param name="xpath" select="$xpath"/>
-        </xsl:apply-templates>
-        <xsl:variable name="geometry" as="node()">
-          <xsl:choose>
-            <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#wktLiteral')])>0">
-              <xsl:copy-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#wktLiteral')][1]" />
-            </xsl:when>
-            <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#gmlLiteral')])>0">
-              <xsl:copy-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#gmlLiteral')][1]" />
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:copy-of select="locn:geometry[1]"/>
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:variable>
-        <xsl:variable name="bbox" select="gn-fn-dcat-ap:getBboxCoordinates($geometry)"/>
-        <xsl:variable name="bboxCoordinates" select="tokenize(replace($bbox,',','.'), '\|')"/>
-        <xsl:if test="count($bboxCoordinates)=4">
-          <xsl:copy-of
-            select="gn-fn-render:bbox(
-                          xs:double($bboxCoordinates[1]),
-                          xs:double($bboxCoordinates[2]),
-                          xs:double($bboxCoordinates[3]),
-                          xs:double($bboxCoordinates[4]))" />
-          <br />
-          <br />
-        </xsl:if>
-      </div>
-    </div>
+    <xsl:variable name="geometry" as="node()">
+      <xsl:choose>
+        <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#wktLiteral')])>0">
+          <xsl:copy-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#wktLiteral')][1]" />
+        </xsl:when>
+        <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#gmlLiteral')])>0">
+          <xsl:copy-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#gmlLiteral')][1]" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:copy-of select="locn:geometry[1]"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="bbox" select="gn-fn-dcat-ap:getBboxCoordinates($geometry)"/>
+    <xsl:variable name="bboxCoordinates" select="tokenize(replace($bbox,',','.'), '\|')"/>
+
+    <tr>
+      <th>
+        <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
+      </th>
+      <td>
+        <table class="table nested-table">
+          <tr>
+            <td colspan="2">
+              <xsl:if test="count($bboxCoordinates)=4">
+                <xsl:copy-of
+                  select="gn-fn-render:bbox(
+                      xs:double($bboxCoordinates[1]),
+                      xs:double($bboxCoordinates[2]),
+                      xs:double($bboxCoordinates[3]),
+                      xs:double($bboxCoordinates[4]))" />
+              </xsl:if>
+            </td>
+          </tr>
+
+          <xsl:apply-templates mode="render-field" select="@rdf:about">
+            <xsl:with-param name="xpath" select="$xpath"/>
+          </xsl:apply-templates>
+
+          <xsl:apply-templates mode="render-field" select="skos:prefLabel[1]" >
+            <xsl:with-param name="xpath" select="$xpath"/>
+          </xsl:apply-templates>
+        </table>
+      </td>
+    </tr>
 	</xsl:template>
-
 
 	<xsl:template mode="render-field"
 		match="dcat:contactPoint|dct:publisher|dct:provenance|foaf:page|dct:temporal|dct:license|dct:rights|dct:conformsTo|dcat:distribution|adms:sample|vcard:hasAddress|adms:identifier">
@@ -287,19 +308,21 @@
     <xsl:variable name="stringValue" select="string()"/>
 
     <xsl:if test="normalize-space($stringValue) != ''">
-      <div class="entry name">
-        <h3 style="padding-left: 0;">
+      <tr>
+        <th>
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
           <xsl:if test="@xml:lang">
             ( <xsl:value-of select="." /> )
           </xsl:if>
-        </h3>
-        <div class="target">
-          <xsl:apply-templates mode="render-field" select="@*|*">
-            <xsl:with-param name="xpath" select="$xpath"/>
-          </xsl:apply-templates>
-        </div>
-      </div>
+        </th>
+        <td>
+          <table class="table nested-table">
+            <xsl:apply-templates mode="render-field" select="@*|*">
+              <xsl:with-param name="xpath" select="$xpath"/>
+            </xsl:apply-templates>
+          </table>
+        </td>
+      </tr>
     </xsl:if>
 	</xsl:template>
 
@@ -319,10 +342,9 @@
 	</xsl:template>
 
 	<!-- Render values for URL -->
-	<xsl:template mode="render-url" match="*">
+	<xsl:template mode="render-url" match="*|@*">
 			<a href="{.}" style="color=#06c; text-decoration: underline;">
 				<xsl:value-of select="." />
-				&#160;
 			</a>
 	</xsl:template>
 
@@ -336,7 +358,7 @@
 
 	<xsl:template mode="render-value"
 		match="*[matches(., '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}')]">
-		<span data-gn-humanize-time="{.}">
+		<span data-gn-humanize-time="{.}" data-format="DD MMM YYYY HH:mm">
 			<xsl:value-of select="." />
 		</span>
 	</xsl:template>
