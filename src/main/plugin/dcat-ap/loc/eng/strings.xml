@@ -6,13 +6,14 @@
 <strings>
   <xml_dublin-core>Save this metadata as a Dublin Core XML file</xml_dublin-core>
   <xml_dcat-ap>Save this metadata as a DCAT-AP XML file</xml_dcat-ap>
-  <default>Simple</default>
+  <defaultView>Simple</defaultView>
   <advanced>Advanced</advanced>
   <xml>XML</xml>
   <dataset>Dataset</dataset>
   <distribution>Distribution</distribution>
   <metadata>Metadata</metadata>
   <metadata-on-metadata>Metadata on metadata</metadata-on-metadata>
+  <default>Dataset</default>
   <defaultDistribution>Distributies</defaultDistribution>
   <advancedDataset>Dataset</advancedDataset>
   <advancedDistribution>Distributies</advancedDistribution>

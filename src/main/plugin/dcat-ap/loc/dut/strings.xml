@@ -4,7 +4,7 @@
 <strings>
 	<xml_dublin-core>Save this metadata as a Dublin Core XML file</xml_dublin-core>
 	<xml_dcat-ap>Save this metadata as a DCAT-AP XML file</xml_dcat-ap>
-  <default>Standaardweergave</default>
+  <defaultView>Standaardweergave</defaultView>
 	<defaultMenu>Standaard</defaultMenu>
 	<advanced>Volledige weergave</advanced>
 	<xml>XML weergave</xml>
@@ -12,14 +12,15 @@
 	<distribution>Distributie</distribution>
 	<metadata>Metadata</metadata>
 	<metadata-on-metadata>Metadata over metadata</metadata-on-metadata>
+  <default>Dataset</default>
   <defaultDistribution>Distributies</defaultDistribution>
   <advancedDataset>Dataset</advancedDataset>
   <advancedDistribution>Distributies</advancedDistribution>
   <!-- Section labels -->
-  <basicInformation>Basis informatie</basicInformation>
+  <basicInformation>Basisinformatie</basicInformation>
   <versionInformation>Versie informatie</versionInformation>
   <usageInformation>Gebruiksinformatie</usageInformation>
-  <geographicalInformation>Begrenzing</geographicalInformation>
+  <geographicalInformation>Ruimtelijke en temporele begrenzing</geographicalInformation>
   <relationInformation>Verwantschappen</relationInformation>
   <extraInformation>Extra informatie</extraInformation>
 	<!-- DCAT-AP view labels and help -->
@@ -46,7 +47,7 @@
 	<FieldId127>Website</FieldId127>
 	<FieldId128>Telefoonnummer</FieldId128>
 	<FieldId129>Publicatiedatum</FieldId129>
-	<FieldId131>Laatst gewijzigd</FieldId131>
+	<FieldId131>Wijzigingsdatum</FieldId131>
 	<FieldId133>Uitgever</FieldId133>
 	<FieldId134>Organisatie</FieldId134>
 	<FieldId135>URI</FieldId135>
@@ -94,8 +95,8 @@
 	<FieldId177>Label</FieldId177>
 	<FieldId178>Taal</FieldId178>
 	<FieldId179>In thesaurus</FieldId179>
-	<FieldId180>Heeft versie</FieldId180>
-	<FieldId181>Is versie van</FieldId181>
+	<FieldId180>Heeft als versie</FieldId180>
+	<FieldId181>Is een versie van</FieldId181>
 	<FieldId182>Bijsluiter</FieldId182>
 	<FieldId183>Taal</FieldId183>
 	<FieldId184>Concept</FieldId184>
@@ -113,9 +114,9 @@
 	<FieldId197>URI</FieldId197>
 	<FieldId198>Beschrijving</FieldId198>
 	<FieldId199>Taal</FieldId199>
-	<FieldId200>Verwante bron</FieldId200>
-	<FieldId201>Bron</FieldId201>
-	<FieldId202>Omschrijvende rechthoek</FieldId202>
+	<FieldId200>Verwante dataset</FieldId200>
+	<FieldId201>Brondataset</FieldId201>
+	<FieldId202>Ruimtelijke begrenzing</FieldId202>
 	<FieldId203>Locatie</FieldId203>
 	<FieldId204>Geografische identificatie</FieldId204>
 	<FieldId205>Geometrie</FieldId205>
@@ -137,7 +138,7 @@
 	<FieldId224>Taal</FieldId224>
 	<FieldId225>Versie nota's</FieldId225>
 	<FieldId226>Taal</FieldId226>
-	<FieldId227>Bijkomende informatie</FieldId227>
+	<FieldId227>Voorbeeld</FieldId227>
 	<FieldId228>Toegevoegde informatie</FieldId228>
 	<FieldId229>URI</FieldId229>
 	<FieldId230>Subject</FieldId230>
@@ -153,7 +154,7 @@
 	<FieldId241>URL</FieldId241>
 	<FieldId242>Download URL</FieldId242>
 	<FieldId243>Publicatiedatum</FieldId243>
-	<FieldId245>Laatst gewijzigd</FieldId245>
+	<FieldId245>Wijzigingsdatum</FieldId245>
 	<FieldId247>Formaat</FieldId247>
 	<FieldId248>Concept</FieldId248>
 	<FieldId249>URI</FieldId249>
@@ -198,17 +199,17 @@
 	<FieldId288>Beschrijving</FieldId288>
 	<FieldId289>Taal</FieldId289>
 	<FieldId290>Grootte (bytes)</FieldId290>
-	<FieldId291>Checksom</FieldId291>
-	<FieldId292>Checksom</FieldId292>
+	<FieldId291>Checksum</FieldId291>
+	<FieldId292>Checksum</FieldId292>
 	<FieldId293>URI</FieldId293>
 	<FieldId294>Algoritme</FieldId294>
-	<FieldId295>Checksom waarde</FieldId295>
+	<FieldId295>Checksum waarde</FieldId295>
 	<FieldId296>Documentatie</FieldId296>
 	<FieldId297>Document</FieldId297>
 	<FieldId298>URI</FieldId298>
 	<FieldId299>Naam</FieldId299>
 	<FieldId300>Taal</FieldId300>
-	<FieldId301>Conformiteit met standaard</FieldId301>
+	<FieldId301>Standaardschema</FieldId301>
 	<FieldId302>Standaard</FieldId302>
 	<FieldId303>URI</FieldId303>
 	<FieldId304>Titel</FieldId304>
@@ -232,7 +233,7 @@
 	<FieldId322>URL</FieldId322>
 	<FieldId323>Download URL</FieldId323>
 	<FieldId324>Publicatiedatum</FieldId324>
-	<FieldId326>Laatst gewijzigd</FieldId326>
+	<FieldId326>Wijzigingsdatum</FieldId326>
 	<FieldId328>Formaat</FieldId328>
 	<FieldId329>Concept</FieldId329>
 	<FieldId330>URI</FieldId330>
@@ -276,17 +277,17 @@
 	<FieldId369>Beschrijving</FieldId369>
 	<FieldId370>Taal</FieldId370>
 	<FieldId371>Grootte (bytes)</FieldId371>
-	<FieldId372>Checksom</FieldId372>
-	<FieldId373>Checksom</FieldId373>
+	<FieldId372>Checksum</FieldId372>
+	<FieldId373>Checksum</FieldId373>
 	<FieldId374>URI</FieldId374>
 	<FieldId375>Algoritme</FieldId375>
-	<FieldId376>Checksom waarde</FieldId376>
+	<FieldId376>Checksum waarde</FieldId376>
 	<FieldId377>Documentatie</FieldId377>
 	<FieldId378>Document</FieldId378>
 	<FieldId379>URI</FieldId379>
 	<FieldId380>Naam</FieldId380>
 	<FieldId381>Taal</FieldId381>
-	<FieldId382>Conformiteit met standaard</FieldId382>
+	<FieldId382>Standaardschema</FieldId382>
 	<FieldId383>Standaard</FieldId383>
 	<FieldId384>URI</FieldId384>
 	<FieldId385>Titel</FieldId385>

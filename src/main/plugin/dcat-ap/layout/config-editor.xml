@@ -140,7 +140,7 @@
     </table>
   </tableFields-->
   <views>
-    <view name="default" displayTooltips="true" upAndDownControlHidden="true">
+    <view name="defaultView" displayTooltips="true" upAndDownControlHidden="true">
       <sidePanel>
         <directive data-gn-onlinesrc-list="" data-types="source"/>
         <directive data-gn-validation-report=""/>
