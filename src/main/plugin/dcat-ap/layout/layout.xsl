@@ -362,16 +362,17 @@
                 priority="100">
     <xsl:param name="ref"/>
     <xsl:param name="insertRef" select="''"/>
-
-    <xsl:variable name="attributeLabel" select="gn-fn-metadata:getLabel($schema, @name, $labels)"/>
-    <label class="col-sm-2 control-label"></label>
-    <div class="col-sm-9 btn-group nopadding-in-table">
-	    <button type="button" class="btn btn-default btn-xs"
-	            data-gn-click-and-spin="add('{$ref}', '{@name}', '{$ref}', null, true)"
-	            title="{$attributeLabel/description}">
-	      <i class="fa fa-plus fa-fw"/>
-	      <xsl:value-of select="$attributeLabel/label"/>
-	    </button>
-	  </div>
+    <xsl:if test="not(gn-fn-dcat-ap:isNotMultilingualField(.., $editorConfig))">
+      <xsl:variable name="attributeLabel" select="gn-fn-metadata:getLabel($schema, @name, $labels)"/>
+      <label class="col-sm-2 control-label"/>
+      <div class="col-sm-9 btn-group nopadding-in-table">
+        <button type="button" class="btn btn-default btn-xs"
+                data-gn-click-and-spin="add('{$ref}', '{@name}', '{$ref}', null, true)"
+                title="{$attributeLabel/description}">
+          <i class="fa fa-plus fa-fw"/>
+          <xsl:value-of select="$attributeLabel/label"/>
+        </button>
+      </div>
+    </xsl:if>
   </xsl:template>
 </xsl:stylesheet>

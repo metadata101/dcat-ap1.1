@@ -120,10 +120,13 @@
     <!-- In multilingual mode, define which mode
     the widget should have. If expanded, then one
     field per language is displayed. -->
-    <!--expanded>
-      <name>dct:title</name>
-      <name>dct:description</name>
-    </expanded-->
+    <expanded>
+      <!--<name>dct:title</name>-->
+      <!--<name>dct:description</name>-->
+    </expanded>
+    <exclude>
+      <name>dct:identifier</name>
+    </exclude>
   </multilingualFields>
   <!--tableFields>
     <table for="dct:title">
