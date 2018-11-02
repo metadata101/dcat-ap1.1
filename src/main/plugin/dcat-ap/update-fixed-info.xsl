@@ -142,16 +142,19 @@
 				<xsl:value-of select="/root/env/uuid"/>
 			</dct:identifier>
 			<!--
-			Copy all dct:identifier elements except the first. We could use position() to check the position
-			of the next dct:identifier elements, but when schema change and dct:identifier is not the first
-			element in the dcat:Dataset sequence anymore, the next will continue to work.
+			When duplicate, do not copy any dct:identifier otherwise copy all dct:identifier elements except the first.
+			We could use position() to check the position of the next dct:identifier elements,
+			but when schema change and dct:identifier is not the first element in the dcat:Dataset sequence anymore,
+			the next will continue to work.
   		-->
-			<xsl:for-each select="dct:identifier">
-	      <xsl:variable name="previousIdentifierSiblingsCount" select="count(preceding-sibling::*[name(.) = 'dct:identifier'])" />
-        <xsl:if test="$previousIdentifierSiblingsCount>0">
-          <xsl:apply-templates select="."/>
-        </xsl:if>
-			</xsl:for-each>
+      <xsl:if test="/root/env/id!=''">
+        <xsl:for-each select="dct:identifier">
+          <xsl:variable name="previousIdentifierSiblingsCount" select="count(preceding-sibling::*[name(.) = 'dct:identifier'])" />
+          <xsl:if test="$previousIdentifierSiblingsCount>0">
+            <xsl:apply-templates select="."/>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:if>
 			<xsl:apply-templates select="node()[not(name(.) = 'dct:identifier')]"/>
 		</dcat:Dataset>
 	</xsl:template>
