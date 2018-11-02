@@ -41,7 +41,7 @@
     <for name="dcat:accessURL" templateModeOnly="true" forceLabel="true" label="FieldId241">
       <template>
         <values>
-          <key label="FieldId241" xpath="@rdf:resource"/>
+          <key label="FieldId241" xpath="@rdf:resource" tooltip="dcat:accessURL|dcat:Distribution|/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:accessURL"/>
         </values>
         <snippet>
           <dcat:accessURL rdf:resource="{{FieldId241}}"/>
@@ -51,7 +51,7 @@
     <for name="dcat:downloadURL" templateModeOnly="true" forceLabel="true" label="FieldId242">
       <template>
         <values>
-          <key label="FieldId242" xpath="@rdf:resource"/>
+          <key label="FieldId242" xpath="@rdf:resource" tooltip="dcat:downloadURL|dcat:Distribution|/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dcat:downloadURL"/>
         </values>
         <snippet>
           <dcat:downloadURL rdf:resource="{{FieldId242}}"/>
