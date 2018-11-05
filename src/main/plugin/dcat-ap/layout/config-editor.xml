@@ -82,7 +82,26 @@
         </snippet>
       </template>
     </for>
-
+    <for name="vcard:hasEmail" templateModeOnly="true" forceLabel="true" label="FieldId126">
+      <template>
+        <values>
+          <key label="FieldId126" xpath="@rdf:resource" tooltip="vcard:hasEmail|dcat:Dataset|/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasEmail"/>
+        </values>
+        <snippet>
+          <vcard:hasEmail rdf:resource="{{FieldId126}}"/>
+        </snippet>
+      </template>
+    </for>
+    <for name="vcard:hasURL" templateModeOnly="true" forceLabel="true" label="FieldId127">
+      <template>
+        <values>
+          <key label="FieldId127" xpath="@rdf:resource" tooltip="vcard:hasURL|dcat:Dataset|/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint/vcard:Organization/vcard:hasURL"/>
+        </values>
+        <snippet>
+          <vcard:hasEmail rdf:resource="{{FieldId127}}"/>
+        </snippet>
+      </template>
+    </for>
   </fields>
   <!-- Complex fields. -->
   <fieldsWithFieldset>
