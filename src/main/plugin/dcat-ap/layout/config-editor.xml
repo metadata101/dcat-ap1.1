@@ -139,10 +139,10 @@
     <!-- In multilingual mode, define which mode
     the widget should have. If expanded, then one
     field per language is displayed. -->
-    <expanded>
+    <!--<expanded>-->
       <!--<name>dct:title</name>-->
       <!--<name>dct:description</name>-->
-    </expanded>
+    <!--</expanded>-->
     <exclude>
       <name>dct:identifier</name>
     </exclude>
@@ -162,12 +162,15 @@
     </table>
   </tableFields-->
   <views>
-    <view name="defaultView" displayTooltips="true" upAndDownControlHidden="true">
+    <view name="default" displayTooltips="true" upAndDownControlHidden="true">
       <sidePanel>
         <directive data-gn-onlinesrc-list="" data-types="source"/>
         <directive data-gn-validation-report=""/>
       </sidePanel>
-      <tab id="default" default="true" mode="flat">
+
+      <!-- The name of the view and the id must be different in order to have different labels.
+      A change in the core is then necessary. -> See "init" function in EditorController.js (line 154) -->
+      <tab id="defaultDataset" default="true" mode="flat">
         <!-- DON'T MOVE THIS SECTION, otherwise rendering stops at a certain point in the fields list -->
         <section name="basicInformation">
           <field name="FieldId109" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title" />

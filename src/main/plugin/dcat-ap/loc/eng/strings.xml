@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-
-  -->
+<!-- -->
 
 <strings>
   <xml_dublin-core>Save this metadata as a Dublin Core XML file</xml_dublin-core>
   <xml_dcat-ap>Save this metadata as a DCAT-AP XML file</xml_dcat-ap>
-  <defaultView>Simple</defaultView>
+  <defaultMenu>Standard</defaultMenu>
   <advanced>Advanced</advanced>
   <xml>XML</xml>
   <dataset>Dataset</dataset>
   <distribution>Distribution</distribution>
   <metadata>Metadata</metadata>
   <metadata-on-metadata>Metadata on metadata</metadata-on-metadata>
-  <default>Dataset</default>
+  <default>Simple</default>
+  <defaultDataset>Dataset</defaultDataset>
   <defaultDistribution>Distributies</defaultDistribution>
   <advancedDataset>Dataset</advancedDataset>
   <advancedDistribution>Distributies</advancedDistribution>

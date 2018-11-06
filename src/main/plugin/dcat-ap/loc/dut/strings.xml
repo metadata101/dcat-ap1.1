@@ -4,7 +4,6 @@
 <strings>
 	<xml_dublin-core>Save this metadata as a Dublin Core XML file</xml_dublin-core>
 	<xml_dcat-ap>Save this metadata as a DCAT-AP XML file</xml_dcat-ap>
-  <defaultView>Standaardweergave</defaultView>
 	<defaultMenu>Standaard</defaultMenu>
 	<advanced>Volledige weergave</advanced>
 	<xml>XML weergave</xml>
@@ -12,7 +11,8 @@
 	<distribution>Distributie</distribution>
 	<metadata>Metadata</metadata>
 	<metadata-on-metadata>Metadata over metadata</metadata-on-metadata>
-  <default>Dataset</default>
+  <default>Standaardweergave</default>
+  <defaultDataset>Dataset</defaultDataset>
   <defaultDistribution>Distributies</defaultDistribution>
   <advancedDataset>Dataset</advancedDataset>
   <advancedDistribution>Distributies</advancedDistribution>
