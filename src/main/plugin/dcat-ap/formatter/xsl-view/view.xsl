@@ -152,17 +152,37 @@
     </xsl:apply-templates>
 	</xsl:template>
 
+  <!-- Field with lang : display only field of current lang or first one if not exist -->
+  <xsl:template mode="render-field"
+                match="dct:title|dct:description|foaf:name">
+    <xsl:param name="xpath"/>
+    <xsl:variable name="stringValue" select="string()"/>
+    <xsl:if test="normalize-space($stringValue) != '' and
+                    ((../node()/@xml:lang = $langId-2char and @xml:lang = $langId-2char)or
+                    (not(../node()/@xml:lang = $langId-2char) and count(preceding-sibling::node()) &lt; 1))">
+      <tr>
+        <th>
+          <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
+          <xsl:if test="@xml:lang and normalize-space(@xml:lang) != $langId-2char and normalize-space(@xml:lang) != '' ">
+            <xsl:value-of select="concat(' (',@xml:lang,')')" />
+          </xsl:if>
+        </th>
+        <td>
+          <xsl:apply-templates mode="render-value" select="." />
+        </td>
+      </tr>
+    </xsl:if>
+  </xsl:template>
+
+  <!-- Field with no lang : display all -->
 	<xsl:template mode="render-field"
-		match="dct:title|dct:description|dct:created|dct:issued|dct:modified|dct:identifier|foaf:name|skos:notation|schema:startDate|schema:endDate|vcard:street-address|vcard:locality|vcard:postal-code|vcard:country-name|vcard:hasEmail|vcard:hasURL|vcard:hasTelephone|vcard:fn|vcard:organization-name|skos:prefLabel">
+		match="dct:created|dct:issued|dct:modified|dct:identifier|skos:notation|schema:startDate|schema:endDate|vcard:street-address|vcard:locality|vcard:postal-code|vcard:country-name|vcard:hasEmail|vcard:hasURL|vcard:hasTelephone|vcard:fn|vcard:organization-name|skos:prefLabel">
     <xsl:param name="xpath"/>
     <xsl:variable name="stringValue" select="string()"/>
     <xsl:if test="normalize-space($stringValue) != ''">
       <tr>
         <th>
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
-          <xsl:if test="@xml:lang">
-            <xsl:value-of select="concat(' (',@xml:lang,')')" />
-          </xsl:if>
         </th>
         <td>
           <xsl:apply-templates mode="render-value" select="." />
@@ -195,13 +215,13 @@
       </th>
       <td>
         <xsl:for-each select="../dcat:keyword">
-          <div style="background-color: #FFE615; border: 1px solid; border-color: #333; border-radius: 2px; text-align: center; padding: 6px 6px; display: inline-block;">
-            <a href="{concat($nodeUrl,$langId,'/catalog.search?resultType=details&amp;sortBy=relevance&amp;from=1&amp;to=20&amp;keyword=',.)}">
+          <div style="display:inline-block">
+            <a href="{concat($nodeUrl,$langId,'/catalog.search#/search?resultType=details&amp;sortBy=relevance&amp;from=1&amp;to=20&amp;fast=index&amp;_content_type=json&amp;any=',.)}">
               <xsl:apply-templates mode="render-value" select="." />
-              <xsl:if test="@xml:lang">
-                <xsl:value-of select="concat(' (',@xml:lang,')')" />
-              </xsl:if>
             </a>
+            <xsl:if test="position() != last()">
+              |
+            </xsl:if>
           </div>
         </xsl:for-each>
       </td>
@@ -235,15 +255,12 @@
         </th>
         <td>
           <xsl:for-each select="skos:Concept/skos:prefLabel[@xml:lang=$langId-2char]">
-            <a href="skos:Concept/@rdf:about">
+            <a href="{concat($nodeUrl,$langId,'/catalog.search#/search?resultType=details&amp;sortBy=relevance&amp;from=1&amp;to=20&amp;fast=index&amp;_content_type=json&amp;any=',.)}">
               <xsl:apply-templates mode="render-value" select="." />
             </a>
             <xsl:if test="position() != last()">
               ,
             </xsl:if>
-          </xsl:for-each>
-          <xsl:for-each select="skos:Concept/@rdf:about">
-            (<xsl:apply-templates mode="render-url" select="." />)
           </xsl:for-each>
         </td>
       </tr>
