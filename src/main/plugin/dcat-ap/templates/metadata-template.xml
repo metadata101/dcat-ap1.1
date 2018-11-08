@@ -4,14 +4,14 @@
     <dcat:dataset>
       <dcat:Dataset rdf:about="https://metadata.vlaanderen.be/doc/dataset/69705bd3-2e59-415a-8118-7c74a1367379">
         <dct:identifier>69705bd3-2e59-415a-8118-7c74a1367379</dct:identifier>
-        <dct:title xml:lang="nl">DCAT-AP template versie 1.0.6</dct:title>
+        <dct:title xml:lang="nl">DCAT-AP template versie 1.0.7</dct:title>
         <dct:description xml:lang="nl" />
         <dcat:contactPoint>
-          <vcard:Organization rdf:about="">
+          <vcard:Organization>
             <vcard:fn>contactnaam</vcard:fn>
             <vcard:organization-name>contact organisatie</vcard:organization-name>
             <vcard:hasAddress>
-              <vcard:Address rdf:about="">
+              <vcard:Address>
                 <vcard:street-address />
                 <vcard:locality />
                 <vcard:postal-code />
@@ -26,10 +26,10 @@
         <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2018-08-28</dct:issued>
         <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2018-08-27</dct:modified>
         <dct:publisher>
-          <foaf:Agent rdf:about="">
+          <foaf:Agent>
             <foaf:name xml:lang="nl" />
             <dct:type>
-              <skos:Concept rdf:about="">
+              <skos:Concept>
                 <skos:prefLabel xml:lang="nl"/>
                 <skos:prefLabel xml:lang="en"/>
                 <skos:prefLabel xml:lang="fr"/>
@@ -86,7 +86,7 @@
 		   </dct:Location>
 		</dct:spatial>
         <dct:temporal>
-          <dct:PeriodOfTime rdf:about="">
+          <dct:PeriodOfTime>
             <schema:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47</schema:startDate>
             <schema:endDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2001-12-17T09:30:47</schema:endDate>
           </dct:PeriodOfTime>
@@ -94,10 +94,10 @@
         <owl:versionInfo>versie</owl:versionInfo>
         <adms:versionNotes xml:lang="nl">versie nota's</adms:versionNotes>
         <dcat:distribution>
-          <dcat:Distribution rdf:about="">
+          <dcat:Distribution>
             <dct:title xml:lang="nl">distributie titel</dct:title>
             <dct:description xml:lang="nl">distributiebeschrijving</dct:description>
-            <dcat:accessURL rdf:resource="http://" />
+            <dcat:accessURL rdf:resource="" />
             <dct:format>
               <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/file-type/CSV">
                 <skos:prefLabel xml:lang="nl">CSV</skos:prefLabel>

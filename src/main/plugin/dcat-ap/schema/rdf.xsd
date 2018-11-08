@@ -25,7 +25,7 @@ The Resource Description Framework [RDF] is defined to have an extensible system
 	<xs:complexType name="TypedLiteral">
 		<xs:simpleContent>
 			<xs:extension base="xs:string">
-				<xs:attribute name="datatype" type="xs:anyURI"/>
+				<xs:attribute ref="rdf:datatype"/>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
@@ -36,21 +36,21 @@ The Resource Description Framework [RDF] is defined to have an extensible system
 	<xs:complexType name="DateTimeLiteral">
 		<xs:simpleContent>
 			<xs:extension base="xs:dateTime">
-				<xs:attribute name="datatype" type="xs:anyURI" fixed="http://www.w3.org/2001/XMLSchema#dateTime"/>
+				<xs:attribute ref="rdf:datatype" fixed="http://www.w3.org/2001/XMLSchema#dateTime"/>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name="DateLiteral">
 		<xs:simpleContent>
 			<xs:extension base="xs:date">
-				<xs:attribute name="datatype" type="xs:anyURI" fixed="http://www.w3.org/2001/XMLSchema#date"/>
+				<xs:attribute ref="rdf:datatype" fixed="http://www.w3.org/2001/XMLSchema#date"/>
 			</xs:extension>
 		</xs:simpleContent>
 	</xs:complexType>
 	<xs:complexType name="DateOrDateTimeLiteral">
 		<xs:simpleContent>
 			<xs:extension base="rdf:dateOrDateTime">
-				<xs:attribute name="datatype">
+				<xs:attribute ref="rdf:datatype">
 					<xs:simpleType>
 						<xs:restriction base="xs:anyURI">
 							<xs:enumeration value="http://www.w3.org/2001/XMLSchema#date"/>
@@ -81,7 +81,7 @@ The Resource Description Framework [RDF] is defined to have an extensible system
 							<xs:complexType>
 								<xs:simpleContent>
 									<xs:extension base="xs:string">
-										<xs:attribute name="datatype"/>
+										<xs:attribute ref="rdf:datatype"/>
 										<xs:attribute ref="rdf:resource"/>
 									</xs:extension>
 								</xs:simpleContent>
@@ -107,6 +107,7 @@ The Resource Description Framework [RDF] is defined to have an extensible system
 	<xs:element name="type" type="rdf:Resource"/>
 	<xs:attribute name="about" type="xs:anyURI"/>
 	<xs:attribute name="resource" type="xs:anyURI"/>
+	<xs:attribute name="datatype" type="xs:anyURI"/>
 	<xs:attribute name="nodeID" type="xs:NCName"/>
 	<xs:element name="RDF" type="rdf:CatalogRoot"/>
 </xs:schema>

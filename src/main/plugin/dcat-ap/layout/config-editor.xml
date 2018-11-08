@@ -7,7 +7,7 @@
     <for name="dct:description" use="textarea"/>
     <for name="dct:license" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
-        data-template-add-action="true"
+        data-template-add-action="false"
         data-search-action="true"
         data-popup-action="false"
         data-template-type="licence"
@@ -194,10 +194,10 @@
             <template>
               <snippet>
                 <dct:publisher>
-                  <foaf:Agent rdf:about="">
+                  <foaf:Agent>
                     <foaf:name xml:lang="nl"/>
                     <dct:type>
-                      <skos:Concept rdf:about="">
+                      <skos:Concept>
                         <skos:prefLabel xml:lang="nl"/>
                         <skos:prefLabel xml:lang="en"/>
                         <skos:prefLabel xml:lang="fr"/>
@@ -247,10 +247,10 @@
             <template>
               <snippet>
                 <dcat:contactPoint>
-                  <vcard:Organization rdf:about="">
+                  <vcard:Organization>
                     <vcard:organization-name/>
                     <vcard:hasAddress>
-                      <vcard:Address rdf:about="">
+                      <vcard:Address>
                         <vcard:street-address/>
                         <vcard:locality/>
                         <vcard:postal-code/>
@@ -304,7 +304,7 @@
             <template>
               <snippet>
                 <dct:temporal>
-                  <dct:PeriodOfTime rdf:about="">
+                  <dct:PeriodOfTime>
                     <schema:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
                     <schema:endDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
                   </dct:PeriodOfTime>
@@ -324,12 +324,12 @@
             <template>
               <snippet>
                 <dcat:distribution>
-                  <dcat:Distribution rdf:about="">
+                  <dcat:Distribution>
                     <dct:title xml:lang=""/>
                     <dct:description/>
-                    <dcat:accessURL rdf:ressource=""/>
+                    <dcat:accessURL rdf:resource=""/>
                     <dct:format>
-                      <skos:Concept rdf:about="">
+                      <skos:Concept>
                         <skos:prefLabel xml:lang="nl"/>
                         <skos:prefLabel xml:lang="en"/>
                         <skos:prefLabel xml:lang="fr"/>
@@ -415,10 +415,10 @@
             <template>
               <snippet>
                 <dct:publisher>
-                  <foaf:Agent rdf:about="">
+                  <foaf:Agent>
                     <foaf:name xml:lang="nl"/>
                     <dct:type>
-                      <skos:Concept rdf:about="">
+                      <skos:Concept>
                         <skos:prefLabel xml:lang="nl"/>
                         <skos:prefLabel xml:lang="en"/>
                         <skos:prefLabel xml:lang="fr"/>
@@ -495,11 +495,11 @@
             <template>
               <snippet>
                 <dcat:contactPoint>
-                  <vcard:Organization rdf:about="">
+                  <vcard:Organization>
                     <vcard:fn/>
                     <vcard:organization-name/>
                     <vcard:hasAddress>
-                      <vcard:Address rdf:about="">
+                      <vcard:Address>
                         <vcard:street-address/>
                         <vcard:locality/>
                         <vcard:postal-code/>
@@ -553,7 +553,7 @@
             <template>
               <snippet>
                 <dct:temporal>
-                  <dct:PeriodOfTime rdf:about="">
+                  <dct:PeriodOfTime>
                     <schema:startDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
                     <schema:endDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
                   </dct:PeriodOfTime>
@@ -568,7 +568,7 @@
             <template>
               <snippet>
                 <dct:provenance>
-                  <dct:ProvenanceStatement rdf:about="">
+                  <dct:ProvenanceStatement>
                     <dct:description xml:lang="nl"/>
                   </dct:ProvenanceStatement>
                 </dct:provenance>
@@ -632,7 +632,7 @@
                 <key label="FieldId180" xpath="@rdf:resource"/>
               </values>
               <snippet>
-                <dct:hasVersion rdf:resource="{{FieldId180}}"></dct:hasVersion>
+                <dct:hasVersion rdf:resource="{{FieldId180}}"/>
               </snippet>
             </template>
           </field>
@@ -651,7 +651,7 @@
             <template>
               <snippet>
                 <foaf:page>
-                  <foaf:Document rdf:about="">
+                  <foaf:Document>
                     <foaf:name xml:lang="nl"/>
                   </foaf:Document>
                 </foaf:page>
@@ -663,7 +663,7 @@
             <template>
               <snippet>
                 <dct:conformsTo>
-                  <dct:Standard rdf:about="">
+                  <dct:Standard>
                     <dct:title xml:lang="nl"/>
                     <dct:description xml:lang="nl"/>
                   </dct:Standard>
@@ -695,7 +695,7 @@
             <template>
               <snippet>
                 <dcat:extension>
-                  <rdf:Statement rdf:about="">
+                  <rdf:Statement>
                     <rdf:subject rdf:resource=""/>
                     <rdf:predicate rdf:resource=""/>
                     <rdf:object rdf:resource=""/>
@@ -713,13 +713,13 @@
             <template>
               <snippet>
                 <dcat:distribution>
-                  <dcat:Distribution rdf:about="">
+                  <dcat:Distribution>
                     <dct:title xml:lang=""/>
                     <dct:description/>
-                    <dcat:accessURL rdf:ressource=""/>
+                    <dcat:accessURL rdf:resource=""/>
                     <dcat:downloadURL rdf:resource=""/>
                     <dct:format>
-                      <skos:Concept rdf:about="">
+                      <skos:Concept>
                         <skos:prefLabel xml:lang="nl"/>
                         <skos:prefLabel xml:lang="en"/>
                         <skos:prefLabel xml:lang="fr"/>

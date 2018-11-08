@@ -176,7 +176,7 @@
 	    <xsl:variable name="rdfType" select="gn-fn-dcat-ap:getRdfTypeByElementName(name(.),name(..))"/>
 			<xsl:choose>
 				<xsl:when test="count(*)=0 or count(skos:Concept/*[name(.)='skos:prefLabel'])=0">
-			    <skos:Concept rdf:about="">
+			    <skos:Concept>
 			    	<xsl:if test="$rdfType!=''">
 			    		<rdf:type rdf:resource="{$rdfType}"/>
 			    	</xsl:if>
@@ -188,15 +188,32 @@
 			    </skos:Concept>
 				</xsl:when>
 				<xsl:otherwise>
-			    <skos:Concept rdf:about="{skos:Concept/@rdf:about}">
-			    	<xsl:if test="$rdfType!=''">
-			    		<rdf:type rdf:resource="{$rdfType}"/>
-			    	</xsl:if>
-			    	<xsl:for-each select="skos:Concept/*[name(.)='skos:prefLabel']">
-	          	<xsl:copy-of select="."/>
-	          </xsl:for-each>
-						<skos:inScheme rdf:resource="{$inScheme}"/>
-			    </skos:Concept>
+
+          <!-- remove rdf:about attribute if empty -->
+          <xsl:choose>
+            <xsl:when test="normalize-space(skos:Concept/@rdf:about) = ''">
+              <skos:Concept>
+                <xsl:if test="$rdfType!=''">
+                  <rdf:type rdf:resource="{$rdfType}"/>
+                </xsl:if>
+                <xsl:for-each select="skos:Concept/*[name(.)='skos:prefLabel']">
+                  <xsl:copy-of select="."/>
+                </xsl:for-each>
+                <skos:inScheme rdf:resource="{$inScheme}"/>
+              </skos:Concept>
+            </xsl:when>
+            <xsl:otherwise>
+              <skos:Concept rdf:about="{skos:Concept/@rdf:about}">
+                <xsl:if test="$rdfType!=''">
+                  <rdf:type rdf:resource="{$rdfType}"/>
+                </xsl:if>
+                <xsl:for-each select="skos:Concept/*[name(.)='skos:prefLabel']">
+                  <xsl:copy-of select="."/>
+                </xsl:for-each>
+                <skos:inScheme rdf:resource="{$inScheme}"/>
+              </skos:Concept>
+            </xsl:otherwise>
+          </xsl:choose>
 				</xsl:otherwise>
 			</xsl:choose>
 		</xsl:copy>
@@ -274,5 +291,8 @@
 			</xsl:if>
 		</xsl:copy>
 	</xsl:template>
-	
+
+  <!-- Ignore all empty rdf:about -->
+  <xsl:template match="@rdf:about[normalize-space() = '']|@rdf:datatype[normalize-space() = '']" priority="10"/>
+
 </xsl:stylesheet>
