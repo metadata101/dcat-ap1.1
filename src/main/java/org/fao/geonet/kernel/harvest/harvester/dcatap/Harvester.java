@@ -306,8 +306,8 @@ class Harvester implements IHarvester<HarvestResult> {
 			
 			  XMLOutputter xmlOutputter = new
 			  XMLOutputter(Format.getPrettyFormat());
-			  System.out.println("SPARQL result:");
-			  xmlOutputter.output(sparqlResults,System.out);
+			  //System.out.println("SPARQL result:");
+			  //xmlOutputter.output(sparqlResults,System.out);
 			  //System.out.println("DCAT result:");
 			  //xmlOutputter.output(dcatXML,System.out);
 			 

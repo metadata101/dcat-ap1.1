@@ -257,8 +257,8 @@ public class Aligner extends BaseAligner {
 		// xmlOutputter.output(ri.metadata,System.out);
 
 		Element validationReport = validateMetadata(ri, metadata);
-		//log.info("VALIDATION REPORT for dataset with UUID: " + ri.uuid + " and with URI: " + ri.uri + transformReportToString(validationReport));
-		//XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
+		log.info("VALIDATION REPORT for dataset with UUID: " + ri.uuid + " and with URI: " + ri.uri + transformReportToString(validationReport));
+		XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
 		//log.info(xmlOutputter.outputString(validationReport));
 	}
 
@@ -312,8 +312,8 @@ public class Aligner extends BaseAligner {
 				result.updatedMetadata++;
 
 				Element validationReport = validateMetadata(ri, metadata);
-				//log.info("VALIDATION REPORT for dataset with UUID: " + ri.uuid + " and with URI: " + ri.uri + transformReportToString(validationReport));
-				//XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
+				log.info("VALIDATION REPORT for dataset with UUID: " + ri.uuid + " and with URI: " + ri.uri + transformReportToString(validationReport));
+				XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
 				//log.info(xmlOutputter.outputString(validationReport));
 			}
 		}
@@ -394,6 +394,7 @@ public class Aligner extends BaseAligner {
 				errors =+ Integer.parseInt(errorText);					
 				}
 		}
+		//Make the records publicly visible when valid.
 		if (errors > 0 ){
 			result.doesNotValidate++;
 			dataMan.unsetOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.view.getId());
