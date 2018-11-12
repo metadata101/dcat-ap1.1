@@ -138,12 +138,12 @@ class Harvester implements IHarvester<HarvestResult> {
 			log.error("Unknown error trying to harvest");
 			log.error(t.getMessage());
 			BadServerResponseEx et = new BadServerResponseEx(t.getMessage());
-			errors.add(new HarvestError(context, et, log));
+			errors.add(new HarvestError(context, et));
 		} catch (Throwable t) {
 			log.fatal("Something unknown and terrible happened while harvesting");
 			log.fatal(t.getMessage());
 			BadServerResponseEx et = new BadServerResponseEx(t.getMessage());
-			errors.add(new HarvestError(context, et, log));
+			errors.add(new HarvestError(context, et));
 		}
 
 		// return empty harvest result in case of errors
@@ -203,10 +203,10 @@ class Harvester implements IHarvester<HarvestResult> {
 			log.info("Records added to result list : " + records.size());
 
 		} catch (Exception e) {
-			HarvestError harvestError = new HarvestError(context, e, log);
+			HarvestError harvestError = new HarvestError(context, e);
 			harvestError.setDescription(harvestError.getDescription());
 			BadServerResponseEx et = new BadServerResponseEx(e.getMessage());
-			errors.add(new HarvestError(context, et, log));
+			errors.add(new HarvestError(context, et));
 		}
 
 		return records;
@@ -315,22 +315,22 @@ class Harvester implements IHarvester<HarvestResult> {
 			return new DCATAPRecordInfo(datasetUuid, datasetId, modified, "dcat-ap", "TODO: source?", dcatXML);
 
 		} catch (ParseException e) {
-			HarvestError harvestError = new HarvestError(context, e, log);
+			HarvestError harvestError = new HarvestError(context, e);
 			harvestError.setDescription(harvestError.getDescription());
-			errors.add(new HarvestError(context, e, log));
+			errors.add(new HarvestError(context, e));
 		} catch (JDOMException e) {
-			HarvestError harvestError = new HarvestError(context, e, log);
+			HarvestError harvestError = new HarvestError(context, e);
 			harvestError.setDescription(harvestError.getDescription());
-			errors.add(new HarvestError(context, e, log));
+			errors.add(new HarvestError(context, e));
 		} catch (IOException e) {
-			HarvestError harvestError = new HarvestError(context, e, log);
+			HarvestError harvestError = new HarvestError(context, e);
 			harvestError.setDescription(harvestError.getDescription());
-			errors.add(new HarvestError(context, e, log));
+			errors.add(new HarvestError(context, e));
 		} catch (Exception e) {
-			HarvestError harvestError = new HarvestError(context, e, log);
+			HarvestError harvestError = new HarvestError(context, e);
 			harvestError.setDescription(harvestError.getDescription());
 			BadServerResponseEx et = new BadServerResponseEx(e.getMessage());
-			errors.add(new HarvestError(context, et, log));
+			errors.add(new HarvestError(context, et));
 		}
 
 		// we get here if we couldn't get the UUID or date modified

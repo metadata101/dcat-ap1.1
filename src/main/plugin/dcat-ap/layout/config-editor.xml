@@ -177,7 +177,7 @@
           <action type="add" btnLabel="FieldId109" or="title" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" if="count(rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title)=0" >
             <template>
               <snippet>
-                <dct:title xml:lang=""/>
+                <dct:title xml:lang="nl"/>
               </snippet>
             </template>
           </action>
@@ -185,11 +185,11 @@
           <action type="add" btnLabel="FieldId111" or="description" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" if="count(rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description)=0" >
             <template>
               <snippet>
-                <dct:description xml:lang=""/>
+                <dct:description xml:lang="nl"/>
               </snippet>
             </template>
           </action>
-          <section name="FieldId133" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher"/>
+          <field name="FieldId133" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher"/>
           <action type="add" name="FieldId133" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <snippet>
@@ -279,7 +279,7 @@
           <action type="add" btnLabel="FieldId182" or="landingPage" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <snippet>
-                <dcat:landingPage rdf:resource=""/>
+                <dcat:landingPage/>
               </snippet>
             </template>
           </action>
@@ -325,7 +325,7 @@
               <snippet>
                 <dcat:distribution>
                   <dcat:Distribution>
-                    <dct:title xml:lang=""/>
+                    <dct:title xml:lang="nl"/>
                     <dct:description/>
                     <dcat:accessURL rdf:resource=""/>
                     <dct:format>
@@ -397,7 +397,7 @@
           <action type="add" btnLabel="FieldId109" or="title" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" if="count(/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title)=0">
             <template>
               <snippet>
-                <dct:title xml:lang=""/>
+                <dct:title xml:lang="nl"/>
               </snippet>
             </template>
           </action>
@@ -406,11 +406,11 @@
           <action type="add" btnLabel="FieldId111" or="description" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <snippet>
-                <dct:description xml:lang=""/>
+                <dct:description xml:lang="nl"/>
               </snippet>
             </template>
           </action>
-          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher" name="FieldId133"/>
+          <field xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher" name="FieldId133"/>
           <action type="add" btnLabel="FieldId133" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <snippet>
@@ -431,17 +431,7 @@
               </snippet>
             </template>
           </action>
-          <field name="FieldId145" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword">
-            <template>
-              <values>
-                <key label="FieldId145" xpath="." />
-                <key label="FieldId146" xpath="@xml:lang"><helper name="xml:lang"/></key>
-              </values>
-              <snippet>
-                <dcat:keyword xml:lang="{{FieldId146}}">{{FieldId145}}</dcat:keyword>
-              </snippet>
-            </template>
-          </field>
+          <field name="FieldId145" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:keyword"/>
           <action type="add" btnLabel="FieldId145" or="keyword" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
               <snippet>
@@ -455,14 +445,7 @@
         </section>
         <section name="versionInformation">
           <field name="FieldId223" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo" or="versionInfo" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
-          <field name="FieldId225" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:versionNotes"/>
-          <action type="add" btnLabel="FieldId225" or="versionNotes" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
-            <template>
-              <snippet>
-                <adms:versionNotes xml:lang=""/>
-              </snippet>
-            </template>
-          </action>
+          <field name="FieldId225" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:versionNotes" or="versionNotes" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
           <field name="FieldId173" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity" or="accrualPeriodicity" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
           <field name="FieldId131" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified" or="modified" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
             <template>
@@ -490,7 +473,7 @@
           </field>
         </section>
         <section name="usageInformation">
-          <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" name="FieldId114"/>
+          <field xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" name="FieldId114"/>
           <action type="add"  or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" name="FieldId114">
             <template>
               <snippet>
@@ -714,7 +697,7 @@
               <snippet>
                 <dcat:distribution>
                   <dcat:Distribution>
-                    <dct:title xml:lang=""/>
+                    <dct:title xml:lang="nl"/>
                     <dct:description/>
                     <dcat:accessURL rdf:resource=""/>
                     <dcat:downloadURL rdf:resource=""/>

@@ -5,7 +5,7 @@
   <parent>
     <artifactId>schemas</artifactId>
     <groupId>org.geonetwork-opensource</groupId>
-    <version>3.4.2-0</version>
+    <version>3.4</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -21,17 +21,17 @@
     <dependency>
       <groupId>org.geonetwork-opensource</groupId>
       <artifactId>core</artifactId>
-      <version>${project.version}</version>
+      <version>${gn.project.version}</version>
     </dependency>
     <dependency>
       <groupId>org.geonetwork-opensource</groupId>
       <artifactId>harvesters</artifactId>
-      <version>${project.version}</version>
+      <version>${gn.project.version}</version>
     </dependency>  
     <dependency>
       <groupId>org.geonetwork-opensource</groupId>
       <artifactId>services</artifactId>
-      <version>${project.version}</version>
+      <version>${gn.project.version}</version>
     </dependency> 
 	<dependency>
 	  <groupId>org.apache.jena</groupId>

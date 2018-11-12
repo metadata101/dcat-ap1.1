@@ -26,6 +26,7 @@
 	<gns:name>dcat-ap</gns:name>
 	<gns:id>2785ae4c-dde3-11df-a813-001c2346de4c</gns:id>
 	<gns:version>1.0</gns:version>
+  <gns:appMinorVersionSupported>3.4.0</gns:appMinorVersionSupported>
   <gns:title xml:lang="en">DCAT-AP</gns:title>
   <gns:description>DCAT Application Profile for Data Portals in Europe v1.1 (DCAT-AP v1.1).</gns:description>
   <gns:standardUrl>https://joinup.ec.europa.eu/catalogue/distribution/dcat-ap-version-11</gns:standardUrl>

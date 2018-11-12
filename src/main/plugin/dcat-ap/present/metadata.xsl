@@ -25,6 +25,7 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 	xmlns:dc = "http://purl.org/dc/elements/1.1/"
 	xmlns:dct = "http://purl.org/dc/terms/"
+  xmlns:dcat="http://www.w3.org/ns/dcat#"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:ows="http://www.opengis.net/ows"
 	xmlns:csw="http://www.opengis.net/cat/csw/2.0.2"
