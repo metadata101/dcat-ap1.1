@@ -4,7 +4,7 @@
     <dcat:dataset>
       <dcat:Dataset rdf:about="https://metadata.vlaanderen.be/doc/dataset/69705bd3-2e59-415a-8118-7c74a1367379">
         <dct:identifier>69705bd3-2e59-415a-8118-7c74a1367379</dct:identifier>
-        <dct:title xml:lang="nl">DCAT-AP template versie 1.0.7</dct:title>
+        <dct:title xml:lang="nl">DCAT-AP template versie 1.0.8</dct:title>
         <dct:description xml:lang="nl" />
         <dcat:contactPoint>
           <vcard:Organization>
@@ -107,22 +107,6 @@
                 <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/file-type" />
               </skos:Concept>
             </dct:format>
-            <dct:license>
-              <dct:LicenseDocument rdf:about="https://data.vlaanderen.be/doc/licentie/creative-commons-zero-verklaring/v1.0">
-                <dct:type>
-                  <skos:Concept rdf:about="http://purl.org/adms/licencetype/PublicDomain">
-                    <skos:prefLabel xml:lang="nl">Public domain</skos:prefLabel>
-                    <skos:prefLabel xml:lang="en">Public domain</skos:prefLabel>
-                    <skos:prefLabel xml:lang="fr">Public domain</skos:prefLabel>
-                    <skos:prefLabel xml:lang="de">Public domain</skos:prefLabel>
-                    <skos:inScheme rdf:resource="http://purl.org/adms/licencetype/1.0" />
-                  </skos:Concept>
-                </dct:type>
-                <dct:title xml:lang="nl">Creative Commons Zero verklaring</dct:title>
-                <dct:description xml:lang="nl">De instantie doet afstand van haar intellectuele eigendomsrechten voor zover dit wettelijk mogelijk is. Hierdoor kan de gebruiker de data hergebruiken voor eender welk doel, zonder een verplichting op naamsvermelding. Deze is de welbekende CC0 licentie.</dct:description>
-                <dct:identifier>https://data.vlaanderen.be/doc/licentie/creative-commons-zero-verklaring/v1.0</dct:identifier>
-              </dct:LicenseDocument>
-            </dct:license>
             <adms:status>
               <skos:Concept rdf:about="http://purl.org/adms/status/Completed">
                 <skos:prefLabel xml:lang="nl">Completed</skos:prefLabel>
