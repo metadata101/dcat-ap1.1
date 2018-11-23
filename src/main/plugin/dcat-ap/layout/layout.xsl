@@ -307,8 +307,7 @@
 
   <!-- Hide from the editor in default view -->
   <xsl:template mode="mode-dcat-ap" priority="2001"
-                match="*[(name(.) = 'vcard:fn' or
-                          (name(.) = 'dct:type' and name(..)='foaf:Agent') or
+                match="*[((name(.) = 'dct:type' and name(..)='foaf:Agent') or
                           (name(.) = 'dcat:downloadURL' and name(..)='dcat:Distribution') or
                           (name(.) = 'dct:issued' and name(..)='dcat:Distribution') or
                           (name(.) = 'dct:modified' and name(..)='dcat:Distribution') or
