@@ -328,7 +328,8 @@
     <xsl:param name="xpath"/>
     <xsl:variable name="stringValue" select="string()"/>
 
-    <xsl:if test="normalize-space($stringValue) != ''">
+    <!-- Special case for dct:license with an empty dct:LicenseDocument with only @rdf:about -->
+    <xsl:if test="normalize-space($stringValue) != '' or (name() = 'dct:license' and ./dct:LicenseDocument/@rdf:about)">
       <tr>
         <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;">
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
