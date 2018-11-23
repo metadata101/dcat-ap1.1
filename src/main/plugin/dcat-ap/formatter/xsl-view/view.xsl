@@ -132,10 +132,13 @@
         <xsl:variable name="title" select="gn-fn-render:get-schema-strings($schemaStrings, @name)"/>
         <xsl:element name="h{2 + count(ancestor-or-self::*[name(.) = 'section'])}">
           <xsl:attribute name="class" select="'view-header'"/>
+          <xsl:attribute name="style" select="'border-bottom: 2px solid rgb(229, 229, 229); margin-top: 30px;font-size: 16px;color: rgb(40, 96, 144); position: relative;'"/>
           <xsl:value-of select="$title"/>
         </xsl:element>
       </xsl:if>
-      <table class="table table-striped">
+      <table style="box-sizing: border-box; width: 100%; max-width: 100%; margin-bottom: 20px;
+        background-color: transparent; border-collapse: collapse; border-spacing: 0;"
+        class="table table-striped" >
         <xsl:apply-templates mode="render-view" select="section|field"/>&#160;
       </table>
     </div>
@@ -161,13 +164,13 @@
                     ((../node()/@xml:lang = $langId-2char and @xml:lang = $langId-2char)or
                     (not(../node()/@xml:lang = $langId-2char) and count(preceding-sibling::node()) &lt; 1))">
       <tr>
-        <th>
+        <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;">
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
           <xsl:if test="@xml:lang and normalize-space(@xml:lang) != $langId-2char and normalize-space(@xml:lang) != '' ">
             <xsl:value-of select="concat(' (',@xml:lang,')')" />
           </xsl:if>
         </th>
-        <td>
+        <td style="border-style: solid; border-color: #ddd; border-width: 1px 1px 1px 0; padding-left: 0; width: 80%; word-break: break-word; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box;">
           <xsl:apply-templates mode="render-value" select="." />
         </td>
       </tr>
@@ -181,10 +184,10 @@
     <xsl:variable name="stringValue" select="string()"/>
     <xsl:if test="normalize-space($stringValue) != ''">
       <tr>
-        <th>
+        <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;">
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
         </th>
-        <td>
+        <td style="border-style: solid; border-color: #ddd; border-width: 1px 1px 1px 0; padding-left: 0; width: 80%; word-break: break-word; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box;">
           <xsl:apply-templates mode="render-value" select="." />
         </td>
       </tr>
@@ -197,10 +200,10 @@
     <xsl:variable name="stringValue" select="string()"/>
     <xsl:if test="normalize-space($stringValue) != ''">
       <tr>
-        <th>
+        <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;">
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
         </th>
-        <td>
+        <td style="border-style: solid; border-color: #ddd; border-width: 1px 1px 1px 0; padding-left: 0; width: 80%; word-break: break-word; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box;">
           <xsl:apply-templates mode="render-url" select="." />
         </td>
       </tr>
@@ -210,10 +213,11 @@
 	<xsl:template mode="render-field" match="dcat:keyword[not(preceding-sibling::dcat:keyword[position()=1])]">
     <xsl:param name="xpath"/>
     <tr>
-      <th class="gn-keyword">
+      <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;"
+          class="gn-keyword">
         <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
       </th>
-      <td>
+      <td style="border-style: solid; border-color: #ddd; border-width: 1px 1px 1px 0; padding-left: 0; width: 80%; word-break: break-word; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box;">
         <xsl:for-each select="../dcat:keyword">
           <div style="display:inline-block">
             <a href="{concat($nodeUrl,$langId,'/catalog.search#/search?resultType=details&amp;sortBy=relevance&amp;from=1&amp;to=20&amp;fast=index&amp;_content_type=json&amp;any=',.)}">
@@ -234,10 +238,10 @@
     <xsl:variable name="stringValue" select="string(@rdf:resource)"/>
     <xsl:if test="normalize-space($stringValue) != ''">
       <tr>
-        <th>
+        <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;">
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, 'rdf:resource', $labels, name(..), '', concat(gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)), '/@rdf:resource'))/label" />
         </th>
-        <td>
+        <td style="border-style: solid; border-color: #ddd; border-width: 1px 1px 1px 0; padding-left: 0; width: 80%; word-break: break-word; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box;">
           <xsl:apply-templates mode="render-url" select="@rdf:resource" />
         </td>
       </tr>
@@ -250,10 +254,10 @@
     <xsl:variable name="stringValue" select="string()"/>
     <xsl:if test="normalize-space(skos:Concept/skos:prefLabel[@xml:lang=$langId-2char]) != ''">
       <tr>
-        <th>
+        <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;">
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
         </th>
-        <td>
+        <td style="border-style: solid; border-color: #ddd; border-width: 1px 1px 1px 0; padding-left: 0; width: 80%; word-break: break-word; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box;">
           <xsl:for-each select="skos:Concept/skos:prefLabel[@xml:lang=$langId-2char]">
             <a href="{concat($nodeUrl,$langId,'/catalog.search#/search?resultType=details&amp;sortBy=relevance&amp;from=1&amp;to=20&amp;fast=index&amp;_content_type=json&amp;any=',.)}">
               <xsl:apply-templates mode="render-value" select="." />
@@ -287,13 +291,13 @@
     </xsl:variable>
     <xsl:variable name="bbox" select="gn-fn-dcat-ap:getBboxCoordinates($geometry)"/>
     <xsl:variable name="bboxCoordinates" select="tokenize(replace($bbox,',','.'), '\|')"/>
-
     <tr>
-      <th>
+      <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;">
         <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
       </th>
-      <td>
-        <table class="table nested-table">
+      <td style="border-style: solid; border-color: #ddd; border-width: 1px 1px 1px 0; padding-left: 0; width: 80%; word-break: break-word; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box;">
+        <table style="background-color: rgba(0, 0, 0, 0.035); margin-bottom: 0; box-sizing: border-box; width: 100%; max-width: 100%; border-collapse: collapse; border-spacing: 0;"
+               class="table nested-table">
           <tr>
             <td colspan="2">
               <xsl:if test="count($bboxCoordinates)=4">
@@ -326,14 +330,15 @@
 
     <xsl:if test="normalize-space($stringValue) != ''">
       <tr>
-        <th>
+        <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;">
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
           <xsl:if test="@xml:lang">
             ( <xsl:value-of select="." /> )
           </xsl:if>
         </th>
-        <td>
-          <table class="table nested-table">
+        <td style="border-style: solid; border-color: #ddd; border-width: 1px 1px 1px 0; padding-left: 0; width: 80%; word-break: break-word; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box;">
+          <table style="background-color: rgba(0, 0, 0, 0.035); margin-bottom: 0; box-sizing: border-box; width: 100%; max-width: 100%; border-collapse: collapse; border-spacing: 0;"
+                 class="table nested-table">
             <xsl:apply-templates mode="render-field" select="@*|*">
               <xsl:with-param name="xpath" select="$xpath"/>
             </xsl:apply-templates>
