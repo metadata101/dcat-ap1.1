@@ -8,7 +8,7 @@
         <dct:description xml:lang="nl" />
         <dcat:contactPoint>
           <vcard:Organization>
-            <vcard:fn>contactnaam</vcard:fn>
+            <vcard:fn>Naam Contactpunt</vcard:fn>
             <vcard:organization-name>contact organisatie</vcard:organization-name>
             <vcard:hasAddress>
               <vcard:Address>

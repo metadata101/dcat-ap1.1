@@ -32,12 +32,12 @@
 	<FieldId112>Taal</FieldId112>
 	<FieldId113>Identificator</FieldId113>
 	<FieldId114>Contactpunt</FieldId114>
-	<FieldId115>Contactpunt organisatie</FieldId115>
+	<FieldId115>Organisatie</FieldId115>
 	<FieldId116>URI</FieldId116>
-	<FieldId117>Contactnaam</FieldId117>
-	<FieldId118>Naam organisatie</FieldId118>
+	<FieldId117>Naam Contactpunt</FieldId117>
+	<FieldId118>Organisatie</FieldId118>
 	<FieldId119>Adres</FieldId119>
-	<FieldId120>Adres</FieldId120>
+	<FieldId120>Adresinformatie</FieldId120>
 	<FieldId121>URI</FieldId121>
 	<FieldId122>Straat</FieldId122>
 	<FieldId123>Gemeente</FieldId123>
@@ -145,7 +145,7 @@
 	<FieldId231>Predicaat</FieldId231>
 	<FieldId232>Object</FieldId232>
 	<FieldId234>Distributie</FieldId234>
-	<FieldId235>Distributie</FieldId235>
+	<FieldId235>Distributie-informatie</FieldId235>
 	<FieldId236>URI</FieldId236>
 	<FieldId237>Titel</FieldId237>
 	<FieldId238>Taal</FieldId238>
