@@ -121,27 +121,39 @@
   <!-- Render Section... -->
 
   <xsl:template mode="render-view" match="section[@xpath]">
-    <div id="gn-view-{generate-id()}" class="gn-tab-content">
+    <xsl:variable name="sectionContent">
       <xsl:apply-templates mode="render-view" select="@xpath"/>
-    </div>
+    </xsl:variable>
+    <!-- Hide sections if empty -->
+    <xsl:if test="normalize-space($sectionContent)">
+      <div id="gn-view-{generate-id()}" class="gn-tab-content">
+        <xsl:copy-of select="$sectionContent"/>
+      </div>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template mode="render-view" match="section[not(@xpath)]">
-    <div id="gn-section-{generate-id()}" class="gn-tab-content">
-      <xsl:if test="@name">
-        <xsl:variable name="title" select="gn-fn-render:get-schema-strings($schemaStrings, @name)"/>
-        <xsl:element name="h{2 + count(ancestor-or-self::*[name(.) = 'section'])}">
-          <xsl:attribute name="class" select="'view-header'"/>
-          <xsl:attribute name="style" select="'border-bottom: 2px solid rgb(229, 229, 229); margin-top: 30px;font-size: 16px;color: rgb(40, 96, 144); position: relative;'"/>
-          <xsl:value-of select="$title"/>
-        </xsl:element>
-      </xsl:if>
-      <table style="box-sizing: border-box; width: 100%; max-width: 100%; margin-bottom: 20px;
-        background-color: transparent; border-collapse: collapse; border-spacing: 0;"
-        class="table table-striped" >
-        <xsl:apply-templates mode="render-view" select="section|field"/>&#160;
-      </table>
-    </div>
+    <xsl:variable name="sectionContent">
+      <xsl:apply-templates mode="render-view" select="section|field"/>
+    </xsl:variable>
+    <!-- Hide sections if empty -->
+    <xsl:if test="normalize-space($sectionContent)">
+      <div id="gn-section-{generate-id()}" class="gn-tab-content">
+        <xsl:if test="@name">
+          <xsl:variable name="title" select="gn-fn-render:get-schema-strings($schemaStrings, @name)"/>
+          <xsl:element name="h{2 + count(ancestor-or-self::*[name(.) = 'section'])}">
+            <xsl:attribute name="class" select="'view-header'"/>
+            <xsl:attribute name="style" select="'border-bottom: 2px solid rgb(229, 229, 229); margin-top: 30px;font-size: 16px;color: rgb(40, 96, 144); position: relative;'"/>
+            <xsl:value-of select="$title"/>
+          </xsl:element>
+        </xsl:if>
+        <table style="box-sizing: border-box; width: 100%; max-width: 100%; margin-bottom: 20px; background-color: transparent; border-collapse: collapse; border-spacing: 0;"
+               class="table table-striped" >
+          <!--<xsl:apply-templates mode="render-view" select="section|field"/>-->
+          <xsl:copy-of select="$sectionContent"/>&#160;
+        </table>
+      </div>
+    </xsl:if>
   </xsl:template>
 
 
