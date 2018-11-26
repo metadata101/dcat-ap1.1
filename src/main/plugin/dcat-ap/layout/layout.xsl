@@ -178,8 +178,12 @@
     <xsl:variable name="ref" select="gn:element/@ref"/>
     <xsl:variable name="labelConfig" as="node()">
       <xsl:choose>
-        <xsl:when test="name()='dcat:accessURL' or name()='dcat:downloadURL'"><xsl:copy-of select="gn-fn-metadata:getLabel($schema, 'rdf:resource', $labels, name(..), '', concat(gn-fn-metadata:getXPath(.),'/@rdf:resource'))"/></xsl:when>
-        <xsl:otherwise><xsl:copy-of select="gn-fn-metadata:getLabel($schema, $name, $labels, name(..), '', gn-fn-metadata:getXPath(.))"/></xsl:otherwise>
+        <xsl:when test="name()='dcat:accessURL' or name()='dcat:downloadURL'">
+          <xsl:copy-of select="gn-fn-metadata:getLabel($schema, 'rdf:resource', $labels, name(..), '', concat(gn-fn-metadata:getXPath(.),'/@rdf:resource'))"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:copy-of select="gn-fn-metadata:getLabel($schema, $name, $labels, name(..), '', gn-fn-metadata:getXPath(.))"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
     <xsl:variable name="helper" select="gn-fn-metadata:getHelper($labelConfig/helper, .)"/>
@@ -261,7 +265,7 @@
 				  <xsl:with-param name="template" select="$templateCombinedWithNode"/>
 				  <xsl:with-param name="keyValues" select="$keyValues"/>
 				  <xsl:with-param name="refToDelete" select="$refToDelete/gn:element"/>
-				  <xsl:with-param name="isFirst" select="$isForceLabel or position() = 1"/>
+				  <xsl:with-param name="isFirst" select="$isForceLabel and count(preceding-sibling::*[name() = $name]) = 0"/>
 				</xsl:call-template>
     	</xsl:when>
 			<xsl:otherwise>
@@ -291,6 +295,16 @@
 			                    (not(gn:element/@down) and not(gn:element/@up)))"/>
           <xsl:with-param name="isForceLabel" select="true()"/>
 		      <xsl:with-param name="isDisabled" select="name(.)='dct:identifier' and count(preceding-sibling::*[name(.) = 'dct:identifier'])=0 and name(..)='dcat:Dataset'"/>
+          <!-- Boolean that allow to show the mandatory "*" in black instead of red -->
+          <xsl:with-param name="subRequired" select="(name() = 'vcard:street-address' and name(..) = 'vcard:Address') or
+                                                     (name() = 'vcard:locality' and name(..) = 'vcard:Address') or
+                                                     (name() = 'vcard:postal-code' and name(..) = 'vcard:Address') or
+                                                     (name() = 'vcard:country-name' and name(..) = 'vcard:Address') or
+                                                     (name() = 'foaf:name' and ../../name() = 'dct:publisher') or
+                                                     (name() = 'foaf:name' and name(..) = 'foaf:Document') or
+                                                     (name() = 'skos:notation' and name(..) = 'adms:Identifier') or
+                                                     (name() = 'spdx:algorithm' and name(..) = 'spdx:Checksum') or
+                                                     (name() = 'spdx:checksumValue' and name(..) = 'spdx:Checksum')"/>
 			  </xsl:call-template>
 			
 	      <xsl:if test="$isEditing">
@@ -362,7 +376,7 @@
     <xsl:param name="ref"/>
     <xsl:param name="insertRef" select="''"/>
     <xsl:if test="not(gn-fn-dcat-ap:isNotMultilingualField(.., $editorConfig))">
-      <xsl:variable name="attributeLabel" select="gn-fn-metadata:getLabel($schema, @name, $labels)"/>
+      <xsl:variable name="attributeLabel" select="gn-fn-metadata:getLabel($schema, @name, $labels, name(..), '', concat(gn-fn-metadata:getXPath(..),'/@',@name))"/>
       <label class="col-sm-2 control-label"/>
       <div class="col-sm-9 btn-group nopadding-in-table">
         <button type="button" class="btn btn-default btn-xs"
