@@ -248,6 +248,7 @@
               <snippet>
                 <dcat:contactPoint>
                   <vcard:Organization>
+                    <vcard:fn/>
                     <vcard:organization-name/>
                     <vcard:hasAddress>
                       <vcard:Address>
@@ -354,6 +355,7 @@
         <for name="schema:endDate"/>
         <!-- Contact Point -->
         <for name="vcard:Organization"/>
+        <for name="vcard:fn"/>
         <for name="vcard:organization-name"/>
         <for name="vcard:hasAddress"/>
         <for name="vcard:Address"/>
