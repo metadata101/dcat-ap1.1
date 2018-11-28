@@ -371,7 +371,7 @@
         <for name="dcat:mediaType"/>
         <for name="dct:license"/>
         <for name="dct:LicenseDocument"/>
-        <for name="dct:type"/>
+        <for name="dct:LicenseDocument/dct:type"/>
         <for name="dct:identifier"/>
       </flatModeExceptions>
       <thesaurusList>
