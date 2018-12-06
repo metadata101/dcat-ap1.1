@@ -15,23 +15,11 @@
       <dcat:dataset>
          <dcat:Dataset rdf:about="https://metadata.vlaanderen.be/doc/dataset/69705bd3-2e59-415a-8118-7c74a1367379">
             <dct:identifier>69705bd3-2e59-415a-8118-7c74a1367379</dct:identifier>
-            <dct:title xml:lang="nl">DCAT-AP template versie 1.0.9</dct:title>
+            <dct:title xml:lang="nl">DCAT-AP template versie 1.0.10</dct:title>
             <dct:description xml:lang="nl"/>
             <dcat:contactPoint>
                <vcard:Organization>
-                  <vcard:fn/>
-                  <vcard:organization-name/>
-                  <vcard:hasAddress>
-                     <vcard:Address>
-                        <vcard:street-address/>
-                        <vcard:locality/>
-                        <vcard:postal-code/>
-                        <vcard:country-name/>
-                     </vcard:Address>
-                  </vcard:hasAddress>
                   <vcard:hasEmail rdf:resource=""/>
-                  <vcard:hasURL rdf:resource=""/>
-                  <vcard:hasTelephone/>
                </vcard:Organization>
             </dcat:contactPoint>
             <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
@@ -39,7 +27,6 @@
             <dct:publisher>
                <foaf:Agent>
                   <foaf:name xml:lang="nl"/>
-                  <dct:type/>
                </foaf:Agent>
             </dct:publisher>
             <dcat:keyword xml:lang="nl">Vlaamse open data</dcat:keyword>
@@ -53,23 +40,6 @@
                   <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/access-right"/>
                </skos:Concept>
             </dct:accessRights>
-            <dcat:landingPage rdf:resource=""/>
-            <dct:language>
-               <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/language/NLD">
-                  <skos:prefLabel xml:lang="nl">Nederlands</skos:prefLabel>
-                  <skos:prefLabel xml:lang="en">Dutch</skos:prefLabel>
-                  <skos:prefLabel xml:lang="fr">néerlandais</skos:prefLabel>
-                  <skos:prefLabel xml:lang="de">Niederländisch</skos:prefLabel>
-                  <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/language"/>
-               </skos:Concept>
-            </dct:language>
-            <dct:spatial xmlns:dc="http://purl.org/dc/elements/1.1/">
-               <dct:Location rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen">
-                  <locn:geometry rdf:datatype="http://www.opengis.net/ont/geosparql#wktLiteral">North 51.51, South 50.67, East 2.53, West 5.92</locn:geometry>
-                  <locn:geometry rdf:datatype="http://www.opengis.net/ont/geosparql#gmlLiteral">&lt;gml:Polygon&gt;&lt;gml:exterior&gt;&lt;gml:LinearRing&gt;&lt;gml:posList&gt;50.687429 5.188078 51.049929 5.188078 51.049929 3.889406 50.687429 3.889406 50.687429 5.188078&lt;/gml:posList&gt;&lt;/gml:LinearRing&gt;&lt;/gml:exterior&gt;&lt;/gml:Polygon&gt;</locn:geometry>
-                  <skos:prefLabel xml:lang="nl">Vlaams Gewest</skos:prefLabel>
-               </dct:Location>
-            </dct:spatial>
             <dcat:distribution>
                <dcat:Distribution>
                   <dct:title xml:lang="nl"/>
