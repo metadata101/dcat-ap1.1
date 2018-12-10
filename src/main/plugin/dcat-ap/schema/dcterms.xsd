@@ -69,7 +69,8 @@
 				<xs:complexType>
 					<xs:sequence>
 						<!-- recommended properties for dct:LicenseDocument-->
-						<xs:element ref="dct:type" minOccurs="0" maxOccurs="unbounded"/>
+            <!-- dct:type mandatory for DCAT-AP-VL otherwise minOccurs="0" -->
+						<xs:element ref="dct:type" minOccurs="1" maxOccurs="unbounded"/>
 						<!-- non-DCAT-AP properties for dct:LicenseDocument-->
 						<xs:element ref="dct:title" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element ref="dct:description" minOccurs="0" maxOccurs="unbounded"/>

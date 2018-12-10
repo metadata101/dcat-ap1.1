@@ -174,7 +174,7 @@
         <!-- DON'T MOVE THIS SECTION, otherwise rendering stops at a certain point in the fields list -->
         <section name="basicInformation">
           <field name="FieldId109" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title" />
-          <action type="add" btnLabel="FieldId109" or="title" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" if="count(rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title)=0" >
+          <action type="add" btnLabel="FieldId109" or="title" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" if="count(rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title)=0" required="true()" >
             <template>
               <snippet>
                 <dct:title xml:lang="nl"/>
@@ -182,7 +182,7 @@
             </template>
           </action>
           <field name="FieldId111" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description"/>
-          <action type="add" btnLabel="FieldId111" or="description" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" if="count(rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description)=0" >
+          <action type="add" btnLabel="FieldId111" or="description" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" if="count(rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description)=0" required="true()" >
             <template>
               <snippet>
                 <dct:description xml:lang="nl"/>
@@ -190,7 +190,7 @@
             </template>
           </action>
           <field name="FieldId133" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher"/>
-          <action type="add" name="FieldId133" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+          <action type="add" name="FieldId133" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" required="true()">
             <template>
               <snippet>
                 <dct:publisher>
@@ -243,24 +243,12 @@
         </section>
         <section name="usageInformation">
           <section name="FieldId114" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint"/>
-          <action type="add" name="FieldId114" or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+          <action type="add" name="FieldId114" or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" required="true()">
             <template>
               <snippet>
                 <dcat:contactPoint>
                   <vcard:Organization>
-                    <vcard:fn/>
-                    <vcard:organization-name/>
-                    <vcard:hasAddress>
-                      <vcard:Address>
-                        <vcard:street-address/>
-                        <vcard:locality/>
-                        <vcard:postal-code/>
-                        <vcard:country-name/>
-                      </vcard:Address>
-                    </vcard:hasAddress>
                     <vcard:hasEmail rdf:resource=""/>
-                    <vcard:hasURL rdf:resource=""/>
-                    <vcard:hasTelephone/>
                   </vcard:Organization>
                 </dcat:contactPoint>
               </snippet>
@@ -321,23 +309,15 @@
       <tab id="defaultDistribution" mode="flat">
         <section>
           <field xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution" name="distribution"/>
-          <action type="add" name="distribution" or="distribution" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+          <action type="add" name="distribution" or="distribution" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" required="true()">
             <template>
               <snippet>
                 <dcat:distribution>
                   <dcat:Distribution>
-                    <dct:title xml:lang="nl"/>
+                    <dct:title/>
                     <dct:description/>
                     <dcat:accessURL rdf:resource=""/>
-                    <dct:format>
-                      <skos:Concept>
-                        <skos:prefLabel xml:lang="nl"/>
-                        <skos:prefLabel xml:lang="en"/>
-                        <skos:prefLabel xml:lang="fr"/>
-                        <skos:prefLabel xml:lang="de"/>
-                        <skos:inScheme rdf:resource=""/>
-                      </skos:Concept>
-                    </dct:format>
+                    <dct:format/>
                   </dcat:Distribution>
                 </dcat:distribution>
               </snippet>
@@ -396,7 +376,7 @@
         <!-- DON'T MOVE THIS SECTION, otherwise rendering stops at a certain point in the fields list -->
         <section name="basicInformation">
           <field name="FieldId109" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title"/>
-          <action type="add" btnLabel="FieldId109" or="title" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" if="count(/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title)=0">
+          <action type="add" btnLabel="FieldId109" or="title" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" if="count(/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title)=0" required="true()">
             <template>
               <snippet>
                 <dct:title xml:lang="nl"/>
@@ -405,7 +385,7 @@
           </action>
           <!--field name="FieldId110" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title/@xml:lang"/!-->
           <field name="FieldId111" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:description"/>
-          <action type="add" btnLabel="FieldId111" or="description" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+          <action type="add" btnLabel="FieldId111" or="description" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" required="true()">
             <template>
               <snippet>
                 <dct:description xml:lang="nl"/>
@@ -413,7 +393,7 @@
             </template>
           </action>
           <field xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher" name="FieldId133"/>
-          <action type="add" btnLabel="FieldId133" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+          <action type="add" btnLabel="FieldId133" or="publisher" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" required="true()">
             <template>
               <snippet>
                 <dct:publisher>
@@ -476,24 +456,12 @@
         </section>
         <section name="usageInformation">
           <field xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" name="FieldId114"/>
-          <action type="add"  or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" name="FieldId114">
+          <action type="add"  or="contactPoint" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" name="FieldId114" required="true()">
             <template>
               <snippet>
                 <dcat:contactPoint>
                   <vcard:Organization>
-                    <vcard:fn/>
-                    <vcard:organization-name/>
-                    <vcard:hasAddress>
-                      <vcard:Address>
-                        <vcard:street-address/>
-                        <vcard:locality/>
-                        <vcard:postal-code/>
-                        <vcard:country-name/>
-                      </vcard:Address>
-                    </vcard:hasAddress>
                     <vcard:hasEmail rdf:resource=""/>
-                    <vcard:hasURL rdf:resource=""/>
-                    <vcard:hasTelephone/>
                   </vcard:Organization>
                 </dcat:contactPoint>
               </snippet>
@@ -694,24 +662,16 @@
       <tab id="advancedDistribution">
         <section>
           <section xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution" name="distribution"/>
-          <action type="add" name="distribution" or="distribution" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
+          <action type="add" name="distribution" or="distribution" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset" required="true()">
             <template>
               <snippet>
                 <dcat:distribution>
                   <dcat:Distribution>
-                    <dct:title xml:lang="nl"/>
+                    <dct:title/>
                     <dct:description/>
                     <dcat:accessURL rdf:resource=""/>
                     <dcat:downloadURL rdf:resource=""/>
-                    <dct:format>
-                      <skos:Concept>
-                        <skos:prefLabel xml:lang="nl"/>
-                        <skos:prefLabel xml:lang="en"/>
-                        <skos:prefLabel xml:lang="fr"/>
-                        <skos:prefLabel xml:lang="de"/>
-                        <skos:inScheme rdf:resource=""/>
-                      </skos:Concept>
-                    </dct:format>
+                    <dct:format/>
                   </dcat:Distribution>
                 </dcat:distribution>
               </snippet>
