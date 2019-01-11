@@ -105,7 +105,7 @@ public class DCATAPParams extends AbstractParams {
         maxResults = Util.getParam(site, "maxResults", 10000); //MAX_HARVEST_RESULTS;
 
         try {
-            baseUrl = URLDecoder.decode(baseUrl, Constants.ENCODING);
+            baseUrl = safeDecode(baseUrl);
         } catch (UnsupportedEncodingException x) {
             System.out.println(x.getMessage());
             x.printStackTrace();
@@ -132,8 +132,8 @@ public class DCATAPParams extends AbstractParams {
         maxResults = Util.getParam(site, "maxResults", 10000); //MAX_HARVEST_RESULTS;
 
         try {
-            baseUrl = URLDecoder.decode(baseUrl, Constants.ENCODING);
-            rdfSyntax = URLDecoder.decode(rdfSyntax, Constants.ENCODING);
+            baseUrl = safeDecode(baseUrl);
+            rdfSyntax = safeDecode(rdfSyntax);
         } catch (UnsupportedEncodingException x) {
             System.out.println(x.getMessage());
             x.printStackTrace();
@@ -181,6 +181,12 @@ public class DCATAPParams extends AbstractParams {
 
             alSearches.add(new Search(search));
         }
+    }
+
+    private String safeDecode(String url) throws UnsupportedEncodingException {
+        url = url.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
+        url = url.replaceAll("\\+", "%2B");
+        return URLDecoder.decode(url);
     }
 }
 
