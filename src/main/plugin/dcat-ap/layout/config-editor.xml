@@ -258,7 +258,7 @@
           <field name="FieldId182" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:landingPage">
             <template>
               <values>
-                <key label="FieldId182" xpath="@rdf:resource"/>
+                <key label="FieldId182" xpath="@rdf:resource" tooltip="dcat:landingPage|/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:landingPage"/>
               </values>
               <snippet>
                 <dcat:landingPage rdf:resource="{{FieldId182}}"/>
@@ -471,7 +471,7 @@
           <field name="FieldId182" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:landingPage">
             <template>
               <values>
-                <key label="FieldId182" xpath="@rdf:resource"/>
+                <key label="FieldId182" xpath="@rdf:resource" tooltip="dcat:landingPage|/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:landingPage"/>
               </values>
               <snippet>
                 <dcat:landingPage rdf:resource="{{FieldId182}}"/>
@@ -531,7 +531,7 @@
           <field name="FieldId200" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:relation">
             <template>
               <values>
-                <key label="FieldId200" xpath="@rdf:resource" />
+                <key label="FieldId200" xpath="@rdf:resource" tooltip="dct:relation|/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:relation"/>
               </values>
               <snippet>
                 <dct:relation rdf:resource="{{FieldId200}}"/>
@@ -548,7 +548,7 @@
           <field name="FieldId201" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:source">
             <template>
               <values>
-                <key label="FieldId201" xpath="@rdf:resource"/>
+                <key label="FieldId201" xpath="@rdf:resource" tooltip="dct:source|/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:source"/>
               </values>
               <snippet>
                 <dct:source rdf:resource="{{FieldId201}}"/>
@@ -565,7 +565,7 @@
           <field name="FieldId181" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:isVersionOf">
             <template>
               <values>
-                <key label="FieldId181" xpath="@rdf:resource"/>
+                <key label="FieldId181" xpath="@rdf:resource" tooltip="dct:isVersionOf|/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:isVersionOf"/>
               </values>
               <snippet>
                 <dct:isVersionOf rdf:resource="{{FieldId181}}"/>
@@ -582,7 +582,7 @@
           <field name="FieldId180" notDisplayedIfMissing="true" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:hasVersion">
             <template>
               <values>
-                <key label="FieldId180" xpath="@rdf:resource"/>
+                <key label="FieldId180" xpath="@rdf:resource" tooltip="dct:hasVersion|/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:hasVersion"/>
               </values>
               <snippet>
                 <dct:hasVersion rdf:resource="{{FieldId180}}"/>
