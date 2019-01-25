@@ -33,7 +33,6 @@ import org.fao.geonet.kernel.harvest.harvester.AbstractParams;
 import org.fao.geonet.kernel.harvest.harvester.HarvestResult;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.DCATAPParams;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.Harvester;
-import org.fao.geonet.kernel.harvest.harvester.dcatap.Search;
 import org.fao.geonet.repository.SourceRepository;
 import org.fao.geonet.resources.Resources;
 import org.jdom.Element;
@@ -132,11 +131,11 @@ public class DCATAPHarvester extends AbstractHarvester<HarvestResult> {
 
         //--- store search nodes
 
-        for (Search s : params.getSearches()) {
-            String searchID = harvesterSettingsManager.add(path, "search", "");
-
-            harvesterSettingsManager.add("id:" + searchID, "freeText", s.freeText);
-        }
+//        for (Search s : params.getSearches()) {
+//            String searchID = harvesterSettingsManager.add(path, "search", "");
+//
+//            harvesterSettingsManager.add("id:" + searchID, "freeText", s.freeText);
+//        }
     }
     
     /**

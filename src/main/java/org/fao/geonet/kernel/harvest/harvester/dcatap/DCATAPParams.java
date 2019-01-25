@@ -30,7 +30,6 @@ import org.fao.geonet.exceptions.BadInputEx;
 import org.fao.geonet.kernel.DataManager;
 import org.fao.geonet.kernel.harvest.harvester.AbstractParams;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.DCATAPParams;
-import org.fao.geonet.kernel.harvest.harvester.dcatap.Search;
 import org.jdom.Element;
 
 import java.io.UnsupportedEncodingException;
@@ -80,7 +79,7 @@ public class DCATAPParams extends AbstractParams {
     public int maxResults;
 
     //---------------------------------------------------------------------------
-    private List<Search> alSearches = new ArrayList<Search>();
+    //private List<Search> alSearches = new ArrayList<Search>();
 
     //---------------------------------------------------------------------------
 
@@ -98,7 +97,7 @@ public class DCATAPParams extends AbstractParams {
         super.create(node);
 
         Element site = node.getChild("site");
-        Element searches = node.getChild("searches");
+        //Element searches = node.getChild("searches");
 
         baseUrl = Util.getParam(site, "baseUrl", "");
         rdfSyntax = Util.getParam(site, "rdfSyntax", RDFLanguages.RDFXML.toLongString()); 
@@ -112,7 +111,7 @@ public class DCATAPParams extends AbstractParams {
         }
         icon = Util.getParam(site, "icon", "default.gif");
 
-        addSearches(searches);
+        //addSearches(searches);
     }
 
     //---------------------------------------------------------------------------
@@ -125,7 +124,7 @@ public class DCATAPParams extends AbstractParams {
         super.update(node);
 
         Element site = node.getChild("site");
-        Element searches = node.getChild("searches");
+        //Element searches = node.getChild("searches");
 
         baseUrl = Util.getParam(site, "baseUrl", baseUrl);
         rdfSyntax = Util.getParam(site, "rdfSyntax", "RDFXML"); 
@@ -144,17 +143,17 @@ public class DCATAPParams extends AbstractParams {
         //--- if some search queries are given, we drop the previous ones and
         //--- set these new ones
 
-        if (searches != null)
-            addSearches(searches);
+//        if (searches != null)
+//            addSearches(searches);
     }
 
-    public Iterable<Search> getSearches() {
-        return alSearches;
-    }
-
-    public boolean isSearchEmpty() {
-        return alSearches.isEmpty();
-    }
+//    public Iterable<Search> getSearches() {
+//        return alSearches;
+//    }
+//
+//    public boolean isSearchEmpty() {
+//        return alSearches.isEmpty();
+//    }
 
     public DCATAPParams copy() {
         DCATAPParams copy = new DCATAPParams(dm);
@@ -164,24 +163,24 @@ public class DCATAPParams extends AbstractParams {
         copy.rdfSyntax = rdfSyntax;
         copy.icon = icon;
 
-        for (Search s : alSearches)
-            copy.alSearches.add(s.copy());
+//        for (Search s : alSearches)
+//            copy.alSearches.add(s.copy());
 
         return copy;
     }
-
-    private void addSearches(Element searches) {
-        alSearches.clear();
-
-        if (searches == null)
-            return;
-
-        for (Object o : searches.getChildren("search")) {
-            Element search = (Element) o;
-
-            alSearches.add(new Search(search));
-        }
-    }
+//
+//    private void addSearches(Element searches) {
+//        alSearches.clear();
+//
+//        if (searches == null)
+//            return;
+//
+//        for (Object o : searches.getChildren("search")) {
+//            Element search = (Element) o;
+//
+//            alSearches.add(new Search(search));
+//        }
+//    }
 
     private String safeDecode(String url) throws UnsupportedEncodingException {
         url = url.replaceAll("%(?![0-9a-fA-F]{2})", "%25");
