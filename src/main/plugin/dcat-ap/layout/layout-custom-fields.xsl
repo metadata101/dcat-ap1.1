@@ -117,8 +117,10 @@
           </xsl:variable>
           <xsl:attribute name="data-identifier" select="$identifier"/>
           <xsl:attribute name="data-identifier-ref" select="concat('_', ./dct:Location/gn:element/@ref,'_rdfCOLONabout')"/>
+          <xsl:attribute name="data-identifier-tooltip" select="concat($schema, '|rdf:about|dct:Location|', $xpath, '/dct:Location/@rdf:about')"/>
           <xsl:attribute name="data-description" select="$description"/>
 					<xsl:attribute name="data-description-ref" select="concat('_', ./dct:Location/skos:prefLabel[1]/gn:element/@ref)"/>
+          <xsl:attribute name="data-description-tooltip" select="concat($schema, '|', 'skos:prefLabel|dcat:Dataset|', $xpath, '/dct:Location/skos:prefLabel')"/>
 	      </div>
       </xsl:with-param>
     </xsl:call-template>
