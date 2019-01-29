@@ -138,6 +138,7 @@ class Harvester implements IHarvester<HarvestResult> {
 			log.error("Unknown error trying to harvest");
 			log.error(t.getMessage());
 			BadServerResponseEx et = new BadServerResponseEx(t.getMessage());
+			//log.info(t.getMessage());
 			errors.add(new HarvestError(context, et));
 		} catch (Throwable t) {
 			log.fatal("Something unknown and terrible happened while harvesting");
@@ -207,6 +208,7 @@ class Harvester implements IHarvester<HarvestResult> {
 			harvestError.setDescription(harvestError.getDescription());
 			BadServerResponseEx et = new BadServerResponseEx(e.getMessage());
 			errors.add(new HarvestError(context, et));
+			log.error("The server returned an answer that could not be processed: "+e.getMessage());
 		}
 
 		return records;
@@ -304,8 +306,7 @@ class Harvester implements IHarvester<HarvestResult> {
 			qe.close();
 
 			
-			  XMLOutputter xmlOutputter = new
-			  XMLOutputter(Format.getPrettyFormat());
+			  //XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
 			  //System.out.println("SPARQL result:");
 			  //xmlOutputter.output(sparqlResults,System.out);
 			  //System.out.println("DCAT result:");
