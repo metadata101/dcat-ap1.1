@@ -29,16 +29,12 @@ import jeeves.server.context.ServiceContext;
 import org.fao.geonet.GeonetContext;
 import org.fao.geonet.Logger;
 import org.fao.geonet.constants.Geonet;
-import org.fao.geonet.domain.ISODate;
-import org.fao.geonet.domain.Metadata;
-import org.fao.geonet.domain.MetadataType;
-import org.fao.geonet.domain.OperationAllowedId_;
-import org.fao.geonet.domain.ReservedGroup;
-import org.fao.geonet.domain.ReservedOperation;
-import org.fao.geonet.domain.Schematron;
+import org.fao.geonet.domain.*;
 import org.fao.geonet.kernel.DataManager;
 import org.fao.geonet.kernel.GeonetworkDataDirectory;
 import org.fao.geonet.kernel.UpdateDatestamp;
+import org.fao.geonet.kernel.datamanager.IMetadataUtils;
+import org.fao.geonet.kernel.datamanager.IMetadataValidator;
 import org.fao.geonet.kernel.harvest.BaseAligner;
 import org.fao.geonet.kernel.harvest.harvester.CategoryMapper;
 import org.fao.geonet.kernel.harvest.harvester.GroupMapper;
@@ -46,9 +42,7 @@ import org.fao.geonet.kernel.harvest.harvester.HarvestError;
 import org.fao.geonet.kernel.harvest.harvester.HarvestResult;
 import org.fao.geonet.kernel.harvest.harvester.RecordInfo;
 import org.fao.geonet.kernel.harvest.harvester.UUIDMapper;
-import org.fao.geonet.kernel.harvest.harvester.dcatap.DCATAPParams;
 import org.fao.geonet.kernel.schema.MetadataSchema;
-import org.fao.geonet.repository.MetadataRepository;
 import org.fao.geonet.repository.OperationAllowedRepository;
 import org.fao.geonet.repository.SchematronRepository;
 import org.fao.geonet.utils.IO;
@@ -113,6 +107,7 @@ public class Aligner extends BaseAligner {
 	// ---
 	// --------------------------------------------------------------------------
 	private DataManager dataMan;
+	private IMetadataValidator metadataValidator;
 
 	// --------------------------------------------------------------------------
 	private CategoryMapper localCateg;
@@ -137,6 +132,7 @@ public class Aligner extends BaseAligner {
 
 		GeonetContext gc = (GeonetContext) context.getHandlerContext(Geonet.CONTEXT_NAME);
 		dataMan = gc.getBean(DataManager.class);
+        metadataValidator = context.getBean(IMetadataValidator.class);
 		result = new HarvestResult();
 
 	}
@@ -150,7 +146,7 @@ public class Aligner extends BaseAligner {
 
 		localCateg = new CategoryMapper(context);
 		localGroups = new GroupMapper(context);
-		localUuids = new UUIDMapper(context.getBean(MetadataRepository.class), params.getUuid());
+		localUuids = new UUIDMapper(context.getBean(IMetadataUtils.class), params.getUuid());
 
 		dataMan.flush();
 
@@ -233,20 +229,20 @@ public class Aligner extends BaseAligner {
 
 		// insert metadata
 		int userid = 1;
-		Metadata metadata = new Metadata().setUuid(ri.uuid);
+		AbstractMetadata metadata = new Metadata().setUuid(ri.uuid);
 		metadata.getDataInfo().setSchemaId(schema).setRoot(md.getQualifiedName()).setType(MetadataType.METADATA)
 				.setChangeDate(new ISODate(ri.changeDate)).setCreateDate(new ISODate(ri.changeDate));
 		metadata.getSourceInfo().setSourceId(params.getUuid()).setOwner(userid);
 		metadata.getHarvestInfo().setHarvested(true).setUuid(params.getUuid());
 
-		addCategories(metadata, params.getCategories(), localCateg, context,null, false);
+		addCategories(metadata, params.getCategories(), localCateg, context, log,null, false);
 
 		metadata = dataMan.insertMetadata(context, metadata, md, true, false, false, UpdateDatestamp.NO, false, false);
 
 		String id = String.valueOf(metadata.getId());
 		ri.id = id;
 
-		addPrivileges(id, params.getPrivileges(), localGroups, dataMan, context);
+		addPrivileges(id, params.getPrivileges(), localGroups, dataMan, context, log);
 
 		dataMan.indexMetadata(id, Math.random() < 0.01, null);
 		result.addedMetadata++;
@@ -297,15 +293,15 @@ public class Aligner extends BaseAligner {
 				boolean ufo = false;
 				boolean index = false;
 				String language = context.getLanguage();
-				final Metadata metadata = dataMan.updateMetadata(context, id, md, validate, ufo, index, language,
+				final AbstractMetadata metadata = dataMan.updateMetadata(context, id, md, validate, ufo, index, language,
 						ri.changeDate, false);
 
 				OperationAllowedRepository repository = context.getBean(OperationAllowedRepository.class);
 				repository.deleteAllByIdAttribute(OperationAllowedId_.metadataId, Integer.parseInt(id));
-				addPrivileges(id, params.getPrivileges(), localGroups, dataMan, context);
+				addPrivileges(id, params.getPrivileges(), localGroups, dataMan, context, log);
 
 				metadata.getMetadataCategories().clear();
-				addCategories(metadata, params.getCategories(), localCateg, context, null, true);
+				addCategories(metadata, params.getCategories(), localCateg, context, log,  null, true);
 				dataMan.flush();
 
 				dataMan.indexMetadata(id, Math.random() < 0.01, null);
@@ -327,11 +323,11 @@ public class Aligner extends BaseAligner {
 	 * @return
 	 * @throws Exception
 	 */
-	private Element validateMetadata(DCATAPRecordInfo ri, Metadata metadata) throws Exception {
+	private Element validateMetadata(DCATAPRecordInfo ri, AbstractMetadata metadata) throws Exception {
 
 		// --- validate metadata
 		UserSession session = context.getUserSession();
-		Element errorReport = dataMan
+		Element errorReport = metadataValidator
 				.doValidate(session, ri.schema, ri.id, metadata.getXmlData(false), context.getLanguage(), false).one();
 		restructureReportToHavePatternRuleHierarchy(errorReport);
 		

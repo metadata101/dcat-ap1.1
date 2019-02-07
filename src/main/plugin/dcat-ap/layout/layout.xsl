@@ -269,16 +269,17 @@
 				</xsl:call-template>
     	</xsl:when>
 			<xsl:otherwise>
+        <xsl:variable name="xpath" select="gn-fn-metadata:getXPath(.)"/>
         <xsl:call-template name="render-element">
 			    <xsl:with-param name="label" select="$labelConfig"/>
 			    <xsl:with-param name="value" select="."/>
 			    <xsl:with-param name="cls" select="local-name()"/>
 			    <!--<xsl:with-param name="widget"/>
 			          <xsl:with-param name="widgetParams"/>-->
-			    <xsl:with-param name="xpath" select="gn-fn-metadata:getXPath(.)"/>
+			    <xsl:with-param name="xpath" select="$xpath"/>
 					<!--xsl:with-param name="forceDisplayAttributes" select="gn-fn-dcat-ap:isForceDisplayAttributes(.)"/-->
 			    <!--xsl:with-param name="attributesSnippet" select="$attributes"/-->
-			    <xsl:with-param name="type" select="gn-fn-metadata:getFieldType($editorConfig, name(), '')"/>
+			    <xsl:with-param name="type" select="gn-fn-metadata:getFieldType($editorConfig, name(), '', $xpath)"/>
 			    <xsl:with-param name="name" select="if ($isEditing) then $ref else ''"/>
 			    <xsl:with-param name="editInfo" select="if ($refToDelete) then $refToDelete else gn:element"/>
 			    <xsl:with-param name="parentEditInfo"
@@ -352,12 +353,13 @@
     <xsl:variable name="helper" select="gn-fn-metadata:getHelper($labelConfig/helper, .)"/>
     <xsl:variable name="added" select="parent::node()/parent::node()/@gn:addedObj"/>
 
+    <xsl:variable name="xpath" select="gn-fn-metadata:getXPath(.)"/>
     <xsl:call-template name="render-element">
       <xsl:with-param name="label" select="$labelConfig"/>
       <xsl:with-param name="value" select="."/>
       <xsl:with-param name="cls" select="local-name()"/>
-      <xsl:with-param name="xpath" select="gn-fn-metadata:getXPath(.)"/>
-      <xsl:with-param name="type" select="gn-fn-metadata:getFieldType($editorConfig, $attributeName, '')"/>
+      <xsl:with-param name="xpath" select="$xpath"/>
+      <xsl:with-param name="type" select="gn-fn-metadata:getFieldType($editorConfig, $attributeName, '', $xpath)"/>
       <xsl:with-param name="name" select="$ref"/>
       <xsl:with-param name="editInfo" select="$attribute"/>
       <xsl:with-param name="listOfValues" select="$helper"/>
