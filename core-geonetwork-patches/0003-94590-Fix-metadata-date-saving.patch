@@ -1,0 +1,32 @@
+From b3461d0e97e0658beec8fdc105285eccce049422 Mon Sep 17 00:00:00 2001
+From: mchaussier <mathieu.chaussier@gim.be>
+Date: Thu, 7 Feb 2019 10:33:17 +0100
+Subject: [PATCH] #94590 - Fix metadata date saving
+
+---
+ core/src/main/java/org/fao/geonet/kernel/EditLib.java | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/core/src/main/java/org/fao/geonet/kernel/EditLib.java b/core/src/main/java/org/fao/geonet/kernel/EditLib.java
+index 1160255e7..1d386846d 100644
+--- a/core/src/main/java/org/fao/geonet/kernel/EditLib.java
++++ b/core/src/main/java/org/fao/geonet/kernel/EditLib.java
+@@ -342,8 +342,13 @@ public class EditLib {
+                     if (replaceExisting) {
+                         @SuppressWarnings("unchecked")
+                         List<Element> children = node.getChildren();
+-                        for (Element child: children) {
+-                            el.addContent((Element) child.clone());
++                        if(children.size() > 0) {
++                            for (Element child: children) {
++                                el.addContent((Element) child.clone());
++                            }
++                        } else {
++                            String textContent = node.getText();
++                            el.addContent(textContent);
+                         }
+                         List<Attribute> attributes = node.getAttributes();
+                         for (Attribute a : attributes) {
+-- 
+2.18.0.windows.1
+
