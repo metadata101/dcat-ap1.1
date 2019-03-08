@@ -169,7 +169,7 @@
 
   <!-- Field with lang : display only field of current lang or first one if not exist -->
   <xsl:template mode="render-field"
-                match="dct:title|dct:description|foaf:name">
+                match="dct:title|dct:description|foaf:name|adms:versionNotes">
     <xsl:param name="xpath"/>
     <xsl:variable name="stringValue" select="string()"/>
     <xsl:if test="normalize-space($stringValue) != '' and
@@ -191,7 +191,7 @@
 
   <!-- Field with no lang : display all -->
 	<xsl:template mode="render-field"
-		match="dct:created|dct:issued|dct:modified|dct:identifier|skos:notation|schema:startDate|schema:endDate|vcard:street-address|vcard:locality|vcard:postal-code|vcard:country-name|vcard:hasEmail|vcard:hasURL|vcard:hasTelephone|vcard:fn|vcard:organization-name|skos:prefLabel">
+		match="dct:created|dct:issued|dct:modified|dct:identifier|skos:notation|schema:startDate|schema:endDate|vcard:street-address|vcard:locality|vcard:postal-code|vcard:country-name|vcard:hasTelephone|vcard:fn|vcard:organization-name|skos:prefLabel|owl:versionInfo|dcat:byteSize">
     <xsl:param name="xpath"/>
     <xsl:variable name="stringValue" select="string()"/>
     <xsl:if test="normalize-space($stringValue) != ''">
@@ -340,8 +340,8 @@
     <xsl:param name="xpath"/>
     <xsl:variable name="stringValue" select="string()"/>
 
-    <!-- Special case for dct:license with an empty dct:LicenseDocument with only @rdf:about -->
-    <xsl:if test="normalize-space($stringValue) != '' or (name() = 'dct:license' and ./dct:LicenseDocument/@rdf:about)">
+    <!-- Special case for dct:license with an empty dct:LicenseDocument with only @rdf:about or for dcat:contactPoint with only vcard:hasEmail and vcard:hasURL-->
+    <xsl:if test="normalize-space($stringValue) != '' or (name() = 'dct:license' and ./dct:LicenseDocument/@rdf:about) or (name() = 'dcat:contactPoint' and ./vcard:Organization/*/@rdf:resource)">
       <tr>
         <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;">
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
