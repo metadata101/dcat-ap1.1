@@ -79,7 +79,26 @@
 
 	<!-- Specific schema rendering -->
 	<xsl:template mode="getMetadataTitle" match="rdf:RDF">
-		<xsl:value-of select="//dcat:Dataset/dct:title[1]" />
+    <!--
+     Language priority order:
+       1) Field in the language of the interface
+       2) Field in default language ($defaultLang-2char)
+       3) First field of the list
+     -->
+    <xsl:choose>
+      <xsl:when test="//dcat:Dataset/dct:title[@xml:lang = $langId-2char]">
+        <xsl:value-of select="//dcat:Dataset/dct:title[@xml:lang = $langId-2char][1]"/>
+      </xsl:when>
+      <xsl:when test="//dcat:Dataset/dct:title[@xml:lang = $defaultLang-2char]">
+        <xsl:value-of select="concat(//dcat:Dataset/dct:title[@xml:lang = $defaultLang-2char][1], ' (', normalize-space(//dcat:Dataset/dct:title[@xml:lang = $defaultLang-2char][1]/@xml:lang), ')')"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="//dcat:Dataset/dct:title[1]"/>
+        <xsl:if test="//dcat:Dataset/dct:title[1]/@xml:lang and normalize-space(//dcat:Dataset/dct:title[1]/@xml:lang) != '' ">
+          <xsl:value-of select="concat(' (',//dcat:Dataset/dct:title[1]/@xml:lang,')')" />
+        </xsl:if>
+      </xsl:otherwise>
+    </xsl:choose>
 	</xsl:template>
 
 	<xsl:template mode="getMetadataAbstract" match="rdf:RDF">
@@ -172,9 +191,11 @@
                 match="dct:title|dct:description|foaf:name|adms:versionNotes">
     <xsl:param name="xpath"/>
     <xsl:variable name="stringValue" select="string()"/>
-    <xsl:if test="normalize-space($stringValue) != '' and
-                    ((../node()/@xml:lang = $langId-2char and @xml:lang = $langId-2char)or
-                    (not(../node()/@xml:lang = $langId-2char) and count(preceding-sibling::node()) &lt; 1))">
+    <xsl:if test="normalize-space($stringValue) != '' and (
+                    (../node()/@xml:lang = $langId-2char and @xml:lang = $langId-2char) or
+                    (not(../node()/@xml:lang = $langId-2char) and ../node()/@xml:lang = $defaultLang-2char and @xml:lang = $defaultLang-2char) or
+                    (not(../node()/@xml:lang = $langId-2char) and not(../node()/@xml:lang = $defaultLang-2char) and count(preceding-sibling::node()) &lt; 1)
+                  )">
       <tr>
         <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;">
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
