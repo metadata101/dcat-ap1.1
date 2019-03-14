@@ -187,12 +187,12 @@ Source:
 	</sch:pattern>
 	<sch:pattern>
 		<sch:title>411. vcard:hasEmail must be a non-empty string.</sch:title>
-		<sch:rule context="//vcard:hasEmail/@rdf:resource">
+		<sch:rule context="//vcard:hasEmail">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="emptyString" value="normalize-space(.)=''"/>
-			<sch:assert test="$emptyString = false()">ERROR: The contact point "<sch:value-of select="$id"/>" has a vcard:hasEmail that is an empty string.
+			<sch:let name="emptyString" value="normalize-space(@rdf:resource)='' or not(matches(@rdf:resource, '.+@.+'))"/>
+			<sch:assert test="$emptyString = false()">ERROR: The contact point "<sch:value-of select="$id"/>" has a vcard:hasEmail that is an empty string or does not match the e-mail format.
 			</sch:assert>
-			<sch:report test="$emptyString = false()">The dcontact point '<sch:value-of select="$id"/>' has a vcard:hasEmail '<sch:value-of select="./string()"/>' which is a non-empty string.
+			<sch:report test="$emptyString = false()">The dcontact point '<sch:value-of select="$id"/>' has a vcard:hasEmail '<sch:value-of select="./string()"/>' which is a non-empty string and matches the e-mail string format.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>	

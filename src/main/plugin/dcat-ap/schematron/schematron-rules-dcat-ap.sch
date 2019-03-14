@@ -72,17 +72,21 @@ Source:
 			<sch:report test="$emptyString = false()">The foaf:Agent '<sch:value-of select="$id"/>' has a foaf:name '<sch:value-of select="./string()"/>' which is a non-empty string.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>		
+	</sch:pattern>	
+	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal. 
+	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process 
+	this validation rule.
 	<sch:pattern>
 		<sch:title>1. The foaf:name property should be a literal.</sch:title>
 		<sch:rule context="//foaf:Agent/foaf:name">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="noNameLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$noNameLiteral = false()">ERROR: The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is not a literal.
+			<sch:let name="notALiteral" value="exists(./*[node-name(.) != QName('http://www.fao.org/geonetwork','element')])"/>
+			<sch:assert test="$notALiteral = false()">ERROR: The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is not a literal.
 			</sch:assert>
-			<sch:report test="$noNameLiteral = false()">The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name property which is a literal "<sch:value-of select="./string()"/>".</sch:report>
+			<sch:report test="$notALiteral = false()">The foaf:Agent "<sch:value-of select="$id"/>" has a foaf:name property which is a literal "<sch:value-of select="./string()"/>".</sch:report>
 		</sch:rule>
 	</sch:pattern>
+	 -->	
 	<sch:pattern>
 		<sch:title>4. dcat:dataset is a required property for Catalog.</sch:title>
 		<sch:rule context="//dcat:Catalog">
@@ -127,16 +131,20 @@ Source:
 			<sch:report test="$emptyString = false()">The dcat:Catalog '<sch:value-of select="$id"/>' has a dct:description '<sch:value-of select="./string()"/>' which is a non-empty string.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>	
+	</sch:pattern>
+	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal. 
+	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process 
+	this validation rule.	
 	<sch:pattern>
 		<sch:title>7. dct:description should be a literal for Catalog.</sch:title>
 		<sch:rule context="//dcat:Catalog/dct:description">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="noDescriptionLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$noDescriptionLiteral = false()">ERROR: In dcat:Catalog "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
-			<sch:report test="$noDescriptionLiteral = false()">In dcat:Catalog "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="./string()"/>," is a literal.</sch:report>
+			<sch:let name="notALiteral" value="exists(./*[node-name(.) != QName('http://www.fao.org/geonetwork','element')])"/>
+			<sch:assert test="$notALiteral = false()">ERROR: In dcat:Catalog "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
+			<sch:report test="$notALiteral = false()">In dcat:Catalog "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="./string()"/>," is a literal.</sch:report>
 		</sch:rule>
 	</sch:pattern>
+	-->
 	<sch:pattern>
 		<sch:title>11. dct:publisher should be a foaf:Agent for Catalog.</sch:title>
 		<sch:rule context="//dcat:Catalog/dct:publisher">
@@ -170,16 +178,20 @@ Source:
 			<sch:report test="$emptyString = false()">The dcat:Catalog '<sch:value-of select="$id"/>' has a dct:title '<sch:value-of select="./string()"/>' which is a non-empty string.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>		
+	</sch:pattern>	
+	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal. 
+	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process 
+	this validation rule.	
 	<sch:pattern>
 		<sch:title>13. dct:title should be a literal.</sch:title>
 		<sch:rule context="//dcat:Catalog/dct:title">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="noTitleLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$noTitleLiteral = false()">ERROR: In dcat:Catalog "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
-			<sch:report test="$noTitleLiteral = false()">In dcat:Catalog "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="./string()"/>," is a literal.</sch:report>
+			<sch:let name="notALiteral" value="exists(./*[node-name(.) != QName('http://www.fao.org/geonetwork','element')])"/>
+			<sch:assert test="$notALiteral = false()">ERROR: In dcat:Catalog "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
+			<sch:report test="$notALiteral = false()">In dcat:Catalog "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="./string()"/>," is a literal.</sch:report>
 		</sch:rule>
 	</sch:pattern>	
+	-->
 	<sch:pattern>
 		<sch:title>15. foaf:homepage has a maximum cardinality of 1 for Catalog.</sch:title>
 		<sch:rule context="//dcat:Catalog">
@@ -292,16 +304,20 @@ Source:
 			<sch:report test="$emptyString = false()">The dcat:Dataset '<sch:value-of select="$id"/>' has a dct:description '<sch:value-of select="./string()"/>' which is a non-empty string.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>		
+	</sch:pattern>
+	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal. 
+	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process 
+	this validation rule.	
 	<sch:pattern>
 		<sch:title>38. dct:description should be a literal for Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:description">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="noDescriptionLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$noDescriptionLiteral = false()">ERROR: In dcat:Dataset "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
-			<sch:report test="$noDescriptionLiteral = false()">In dcat:Dataset "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="./string()"/>," is a literal.</sch:report>
+			<sch:let name="notALiteral" value="exists(./*[node-name(.) != QName('http://www.fao.org/geonetwork','element')])"/>
+			<sch:assert test="$notALiteral = false()">ERROR: In dcat:Dataset "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
+			<sch:report test="$notALiteral = false()">In dcat:Dataset "<sch:value-of select="$id"/>" the dct:description property "<sch:value-of select="./string()"/>," is a literal.</sch:report>
 		</sch:rule>
 	</sch:pattern>
+	-->
 	<sch:pattern>
 		<sch:title>39. dct:title is a required property for Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset">
@@ -323,16 +339,20 @@ Source:
 			<sch:report test="$emptyString = false()">The dcat:Dataset '<sch:value-of select="$id"/>' has a dct:title '<sch:value-of select="./string()"/>' which is a non-empty string.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>		
+	</sch:pattern>
+	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal. 
+	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process 
+	this validation rule.	
 	<sch:pattern>
 		<sch:title>40. dct:title should be a literal for Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:title">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="noTitleLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$noTitleLiteral = false()">ERROR: In dcat:Dataset "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="string-join(//dct:title[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
-			<sch:report test="$noTitleLiteral = false()">In dcat:Dataset "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="./string()"/>," is a literal.</sch:report>
+			<sch:let name="notALiteral" value="exists(./*[node-name(.) != QName('http://www.fao.org/geonetwork','element')])"/>
+			<sch:assert test="$notALiteral = false()">ERROR: In dcat:Dataset "<sch:value-of select="$id"/>" the dct:title property contains tags such as: "<sch:value-of select="string-join(.//*/name(),'|') "/>", so it is not a literal.</sch:assert>
+			<sch:report test="$notALiteral = false()">In dcat:Dataset "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="."/>," is a literal.  "<sch:value-of select="string-join(.//*/name(),'|') "/>"</sch:report> 
 		</sch:rule>
 	</sch:pattern>
+	-->
 	<sch:pattern>
 		<sch:title>43. dcat:contactPoint should be a vcard:Kind (or vcard:Organization,vcard:Individual,vcard:Location,vcard:Group).</sch:title>
 		<sch:rule context="//dcat:Dataset/dcat:contactPoint">
@@ -383,17 +403,21 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
+	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal. 
+	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process 
+	this validation rule.	
 	<sch:pattern>
 		<sch:title>82. dct:description should be a literal.</sch:title>
 		<sch:rule context="//dcat:Distribution/dct:description">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="descriptionLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$descriptionLiteral = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:description property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is not a literal.
+			<sch:let name="notALiteral" value="exists(./*[node-name(.) != QName('http://www.fao.org/geonetwork','element')])"/>
+			<sch:assert test="$notALiteral = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:description property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is not a literal.
 			</sch:assert>
-			<sch:report test="$descriptionLiteral = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:description property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is a literal.
+			<sch:report test="$notALiteral = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:description property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is a literal.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
+	-->
 	<sch:pattern>
 		<sch:title>87. dct:license should be a dct:LicenseDocument.</sch:title>
 		<sch:rule context="//dcat:Distribution/dct:license">
@@ -418,17 +442,21 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
+	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal. 
+	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process 
+	this validation rule.	
 	<sch:pattern>
 		<sch:title>95. dct:title should be a literal.</sch:title>
 		<sch:rule context="//dcat:Distribution/dct:title">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="titleLiteral" value="exists(.[child::*[node-name(.) != QName('http://www.fao.org/geonetwork','element')]])"/>
-			<sch:assert test="$titleLiteral = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:title property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is not a literal.
+			<sch:let name="notALiteral" value="exists(./*[node-name(.) != QName('http://www.fao.org/geonetwork','element')])"/>
+			<sch:assert test="$notALiteral = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:title property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is not a literal.
 			</sch:assert>
-			<sch:report test="$titleLiteral = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:title property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is a literal.
+			<sch:report test="$notALiteral = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:title property which value "<sch:value-of select="string-join(.[child::*]//*/name(),'|') "/>" is a literal.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
+	-->
 	<sch:pattern>
 		<sch:title>112. dcat:Catalog does not exist.</sch:title>
 		<sch:rule context="/">
