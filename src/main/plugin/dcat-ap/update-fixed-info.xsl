@@ -309,4 +309,20 @@
   <!-- Ignore all empty rdf:about -->
   <xsl:template match="@rdf:about[normalize-space() = '']|@rdf:datatype[normalize-space() = '']" priority="10"/>
 
+  <!-- Remove non numeric byteSize and format scientific notation to decimal -->
+  <xsl:template match="dcat:byteSize" priority="10">
+    <xsl:if test="string(number(.)) != 'NaN'">
+      <xsl:copy>
+        <xsl:choose>
+          <xsl:when test="matches(string(.), '^\-?[\d\.,]*[Ee][+\-]*\d*$')">
+            <xsl:value-of select="format-number(number(.), '#0.#############')"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="."/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:copy>
+    </xsl:if>
+  </xsl:template>
+
 </xsl:stylesheet>
