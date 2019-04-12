@@ -51,17 +51,17 @@ Source:
 	<sch:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<sch:ns prefix="geonet" uri="http://www.fao.org/geonetwork"/>
 	<sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
-	<sch:pattern>
-		<sch:title>8. dct:publisher is a required property for Catalog.</sch:title>
-		<sch:rule context="//dcat:Catalog">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noPublisher" value="not(dct:publisher)"/>
-			<sch:assert test="$noPublisher = false()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:publisher.
-			</sch:assert>
-			<sch:report test="$noPublisher = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:publisher with id "<sch:value-of select="dct:publisher/*/@rdf:about/string()"/>".
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
+	<!-- <sch:pattern> -->
+		<!-- <sch:title>8. dct:publisher is a required property for Catalog.</sch:title> -->
+		<!-- <sch:rule context="//dcat:Catalog"> -->
+			<!-- <sch:let name="id" value="@rdf:about/string()"/> -->
+			<!-- <sch:let name="noPublisher" value="not(dct:publisher)"/> -->
+			<!-- <sch:assert test="$noPublisher = false()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:publisher. -->
+			<!-- </sch:assert> -->
+			<!-- <sch:report test="$noPublisher = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:publisher with id "<sch:value-of select="dct:publisher/*/@rdf:about/string()"/>". -->
+			<!-- </sch:report> -->
+		<!-- </sch:rule> -->
+	<!-- </sch:pattern> -->
 	<sch:pattern>
 		<sch:title>41. dcat:contactPoint is a required property for Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset">
@@ -143,7 +143,7 @@ Source:
 	<sch:pattern>
 		<!-- Rule_ID:118  (seems wrong in DCATv1.1 !) -->
 		<sch:title>170. dct:type is a required property for Licence Document.</sch:title>
-		<sch:rule context="//dct:LicenseDocument">
+		<sch:rule context="//dcat:Distribution/*/dct:LicenseDocument">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="noLicenseType" value="not(dct:type)"/>
 			<sch:assert test="$noLicenseType = false()">ERROR: The licence <sch:value-of select="$id"/> has no dct:type property. 

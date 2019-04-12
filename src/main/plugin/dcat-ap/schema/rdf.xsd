@@ -50,7 +50,7 @@ The Resource Description Framework [RDF] is defined to have an extensible system
 	<xs:complexType name="DateOrDateTimeLiteral">
 		<xs:simpleContent>
 			<xs:extension base="rdf:dateOrDateTime">
-				<xs:attribute ref="rdf:datatype">
+				<xs:attribute name="datatype">
 					<xs:simpleType>
 						<xs:restriction base="xs:anyURI">
 							<xs:enumeration value="http://www.w3.org/2001/XMLSchema#date"/>

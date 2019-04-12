@@ -26,9 +26,9 @@
 	<xs:element name="Catalog" type="dcat:Catalog"/>
 	<xs:complexType name="Catalog">
 		<xs:sequence>
-			<xs:element ref="dct:title" minOccurs="1" maxOccurs="unbounded"/>
-			<xs:element ref="dct:description" minOccurs="1" maxOccurs="unbounded"/>
-			<xs:element ref="dct:publisher" minOccurs="1" maxOccurs="1"/>
+			<xs:element ref="dct:title" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="dct:description" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="dct:publisher" minOccurs="0" maxOccurs="1"/>
 			<xs:element ref="foaf:homepage" minOccurs="0" maxOccurs="1"/>
 			<xs:element ref="dct:license" minOccurs="0" maxOccurs="1"/>
 			<xs:element ref="dct:language" minOccurs="0" maxOccurs="unbounded"/>

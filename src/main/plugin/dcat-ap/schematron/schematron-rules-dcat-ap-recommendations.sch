@@ -62,28 +62,28 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
-	<sch:pattern>
-		<sch:title>8. dct:publisher is a recommended property for Catalog.</sch:title>
-		<sch:rule context="//dcat:Catalog">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noPublisher" value="not(dct:publisher)"/>
-			<sch:assert test="$noPublisher = false()">WHARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:publisher.
-			</sch:assert>
-			<sch:report test="$noPublisher = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:publisher with id "<sch:value-of select="dct:publisher/*/@rdf:about/string()"/>".
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>14. foaf:homepage is a recommended property for Catalog.</sch:title>
-		<sch:rule context="//dcat:Catalog">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noHomepage" value="not(foaf:homepage)"/>
-			<sch:assert test="$noHomepage = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a foaf:homepage.
-			</sch:assert>
-			<sch:report test="$noHomepage = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a foaf:homepage.
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
+	<!-- <sch:pattern> -->
+		<!-- <sch:title>8. dct:publisher is a recommended property for Catalog.</sch:title> -->
+		<!-- <sch:rule context="//dcat:Catalog"> -->
+			<!-- <sch:let name="id" value="@rdf:about/string()"/> -->
+			<!-- <sch:let name="noPublisher" value="not(dct:publisher)"/> -->
+			<!-- <sch:assert test="$noPublisher = false()">WHARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:publisher. -->
+			<!-- </sch:assert> -->
+			<!-- <sch:report test="$noPublisher = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:publisher with id "<sch:value-of select="dct:publisher/*/@rdf:about/string()"/>". -->
+			<!-- </sch:report> -->
+		<!-- </sch:rule> -->
+	<!-- </sch:pattern> -->
+	<!-- <sch:pattern> -->
+		<!-- <sch:title>14. foaf:homepage is a recommended property for Catalog.</sch:title> -->
+		<!-- <sch:rule context="//dcat:Catalog"> -->
+			<!-- <sch:let name="id" value="@rdf:about/string()"/> -->
+			<!-- <sch:let name="noHomepage" value="not(foaf:homepage)"/> -->
+			<!-- <sch:assert test="$noHomepage = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a foaf:homepage. -->
+			<!-- </sch:assert> -->
+			<!-- <sch:report test="$noHomepage = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a foaf:homepage. -->
+			<!-- </sch:report> -->
+		<!-- </sch:rule> -->
+	<!-- </sch:pattern> -->
 <!--	<sch:pattern>-->
 <!--		<sch:title>18. dct:language is a recommended property for Catalog.</sch:title>-->
 <!--		<sch:rule context="//dcat:Catalog">-->
@@ -117,17 +117,17 @@ Source:
 <!--			</sch:report>-->
 <!--		</sch:rule>-->
 <!--	</sch:pattern>-->
-	<sch:pattern>
-		<sch:title>25. dct:issued should be a literal typed as date or dateTime.</sch:title>
-		<sch:rule context="//dcat:Catalog/dct:issued">
-			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="issuedDateTime" value=". castable as xs:date or . castable as xs:dateTime"/>
-			<sch:assert test="$issuedDateTime = true()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:issued property which value "<sch:value-of select="./string()"/>" is not a date or dateTime.
-			</sch:assert>
-			<sch:report test="$issuedDateTime = true()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:issued property which value "<sch:value-of select="./string()"/>" is a date or dateTime.
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
+	<!-- <sch:pattern> -->
+		<!-- <sch:title>25. dct:issued should be a literal typed as date or dateTime.</sch:title> -->
+		<!-- <sch:rule context="//dcat:Catalog/dct:issued"> -->
+			<!-- <sch:let name="id" value="parent::node()/@rdf:about/string()"/> -->
+			<!-- <sch:let name="issuedDateTime" value=". castable as xs:date or . castable as xs:dateTime"/> -->
+			<!-- <sch:assert test="$issuedDateTime = true()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:issued property which value "<sch:value-of select="./string()"/>" is not a date or dateTime. -->
+			<!-- </sch:assert> -->
+			<!-- <sch:report test="$issuedDateTime = true()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:issued property which value "<sch:value-of select="./string()"/>" is a date or dateTime. -->
+			<!-- </sch:report> -->
+		<!-- </sch:rule> -->
+	<!-- </sch:pattern> -->
 <!--	<sch:pattern>-->
 <!--		<sch:title>31. dct:modified is a recommended property for Catalog.</sch:title>-->
 <!--		<sch:rule context="//dcat:Catalog">-->
@@ -230,7 +230,7 @@ Source:
 	<sch:pattern>
 		<!-- Rule_ID:118  (seems wrong in DCATv1.1 !) -->
 		<sch:title>170. dct:type is a recommended property for Licence Document.</sch:title>
-		<sch:rule context="//dct:LicenseDocument">
+		<sch:rule context="//dcat:Distribution/*/dct:LicenseDocument">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="noLicenseType" value="not(dct:type)"/>
 			<sch:assert test="$noLicenseType = false()">WARNING: The licence "<sch:value-of select="$id"/>" has no dct:type property. 
