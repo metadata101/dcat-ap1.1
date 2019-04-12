@@ -53,7 +53,7 @@ Source:
 	<sch:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	<sch:pattern>
 		<sch:title>2. dct:type is a recommended property for Agent.</sch:title>
-		<sch:rule context="//foaf:Agent">
+		<sch:rule context="//foaf:Agent[not(name(../..) = 'dcat:Catalog')]">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="noName" value="not(dct:type)"/>
 			<sch:assert test="$noName = false()">WARNING: The foaf:Agent "<sch:value-of select="$id"/>" does not have a dct:type property.
@@ -84,39 +84,39 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
-	<sch:pattern>
-		<sch:title>18. dct:language is a recommended property for Catalog.</sch:title>
-		<sch:rule context="//dcat:Catalog">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noLanguage" value="not(dct:language)"/>
-			<sch:assert test="$noLanguage = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:language.
-			</sch:assert>
-			<sch:report test="$noLanguage = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:language.
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>21. dct:license is a recommended property for Catalog.</sch:title>
-		<sch:rule context="//dcat:Catalog">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noLicense" value="not(dct:license)"/>
-			<sch:assert test="$noLicense = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:license.
-			</sch:assert>
-			<sch:report test="$noLicense = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:license.
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
-		<sch:title>24. dct:issued is a recommended property for Catalog.</sch:title>
-		<sch:rule context="//dcat:Catalog">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noIssued" value="not(dct:issued )"/>
-			<sch:assert test="$noIssued = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:issued.
-			</sch:assert>
-			<sch:report test="$noIssued = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:issued.
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
+<!--	<sch:pattern>-->
+<!--		<sch:title>18. dct:language is a recommended property for Catalog.</sch:title>-->
+<!--		<sch:rule context="//dcat:Catalog">-->
+<!--			<sch:let name="id" value="@rdf:about/string()"/>-->
+<!--			<sch:let name="noLanguage" value="not(dct:language)"/>-->
+<!--			<sch:assert test="$noLanguage = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:language.-->
+<!--			</sch:assert>-->
+<!--			<sch:report test="$noLanguage = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:language.-->
+<!--			</sch:report>-->
+<!--		</sch:rule>-->
+<!--	</sch:pattern>-->
+<!--	<sch:pattern>-->
+<!--		<sch:title>21. dct:license is a recommended property for Catalog.</sch:title>-->
+<!--		<sch:rule context="//dcat:Catalog">-->
+<!--			<sch:let name="id" value="@rdf:about/string()"/>-->
+<!--			<sch:let name="noLicense" value="not(dct:license)"/>-->
+<!--			<sch:assert test="$noLicense = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:license.-->
+<!--			</sch:assert>-->
+<!--			<sch:report test="$noLicense = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:license.-->
+<!--			</sch:report>-->
+<!--		</sch:rule>-->
+<!--	</sch:pattern>-->
+<!--	<sch:pattern>-->
+<!--		<sch:title>24. dct:issued is a recommended property for Catalog.</sch:title>-->
+<!--		<sch:rule context="//dcat:Catalog">-->
+<!--			<sch:let name="id" value="@rdf:about/string()"/>-->
+<!--			<sch:let name="noIssued" value="not(dct:issued )"/>-->
+<!--			<sch:assert test="$noIssued = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:issued.-->
+<!--			</sch:assert>-->
+<!--			<sch:report test="$noIssued = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:issued.-->
+<!--			</sch:report>-->
+<!--		</sch:rule>-->
+<!--	</sch:pattern>-->
 	<sch:pattern>
 		<sch:title>25. dct:issued should be a literal typed as date or dateTime.</sch:title>
 		<sch:rule context="//dcat:Catalog/dct:issued">
@@ -128,17 +128,17 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
-	<sch:pattern>
-		<sch:title>31. dct:modified is a recommended property for Catalog.</sch:title>
-		<sch:rule context="//dcat:Catalog">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noModified" value="not(dct:modified)"/>
-			<sch:assert test="$noModified = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:modified.
-			</sch:assert>
-			<sch:report test="$noModified = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:modified property "<sch:value-of select="dct:modified"/>".
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
+<!--	<sch:pattern>-->
+<!--		<sch:title>31. dct:modified is a recommended property for Catalog.</sch:title>-->
+<!--		<sch:rule context="//dcat:Catalog">-->
+<!--			<sch:let name="id" value="@rdf:about/string()"/>-->
+<!--			<sch:let name="noModified" value="not(dct:modified)"/>-->
+<!--			<sch:assert test="$noModified = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dct:modified.-->
+<!--			</sch:assert>-->
+<!--			<sch:report test="$noModified = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:modified property "<sch:value-of select="dct:modified"/>".-->
+<!--			</sch:report>-->
+<!--		</sch:rule>-->
+<!--	</sch:pattern>-->
 	<sch:pattern>
 		<sch:title>41. dcat:contactPoint is a recommended property for Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset">
