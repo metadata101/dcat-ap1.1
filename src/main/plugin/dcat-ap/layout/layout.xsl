@@ -199,7 +199,8 @@
     </xsl:if>
 
     <!-- Add view and edit template-->
-    <xsl:variable name="fieldNode" select="$editorConfig/editor/fields/for[@name = $name and @templateModeOnly]"/>
+    <xsl:variable name="contextXpath" select="gn-fn-metadata:getXPath(.)"/>
+    <xsl:variable name="fieldNode" select="$editorConfig/editor/fields/for[@name = $name and @templateModeOnly and (not(@xpath) or @xpath = $contextXpath)]"/>
     <xsl:choose>
 			<xsl:when test="count($fieldNode/*)>0 and $fieldNode/@templateModeOnly">
 				<xsl:variable name="name" select="$fieldNode/@name"/>

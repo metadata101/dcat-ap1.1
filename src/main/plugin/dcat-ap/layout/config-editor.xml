@@ -5,6 +5,30 @@
     <for name="dcat:byteSize" use="number"/>
     <for name="adms:versionNotes" use="textarea"/>
     <for name="dct:description" use="textarea"/>
+    <for name="dct:issued" templateModeOnly="true" forceLabel="true" label="FieldId131" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued">
+      <template>
+        <values>
+          <key label="FieldId131" xpath="." use="gn-date-picker">
+            <directiveAttributes data-tag-name=""/>
+          </key>
+        </values>
+        <snippet>
+          <dct:issued>{{FieldId131}}</dct:issued>
+        </snippet>
+      </template>
+    </for>
+    <for name="dct:modified" templateModeOnly="true" forceLabel="true" label="FieldId129" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified">
+      <template>
+        <values>
+          <key label="FieldId129" xpath="." use="gn-date-picker">
+            <directiveAttributes data-tag-name=""/>
+          </key>
+        </values>
+        <snippet>
+          <dct:modified>{{FieldId129}}</dct:modified>
+        </snippet>
+      </template>
+    </for>
     <for name="dct:license" addDirective="data-gn-directory-entry-selector">
       <directiveAttributes
         data-template-add-action="false"
@@ -58,7 +82,7 @@
         </snippet>
       </template>
     </for>
-    <for name="dct:issued" templateModeOnly="true" forceLabel="true" label="FieldId243">
+    <for name="dct:issued" templateModeOnly="true" forceLabel="true" label="FieldId243" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:issued">
       <template>
         <values>
           <key label="FieldId243" xpath="." use="gn-date-picker">
@@ -70,7 +94,7 @@
         </snippet>
       </template>
     </for>
-    <for name="dct:modified" templateModeOnly="true" forceLabel="true" label="FieldId245">
+    <for name="dct:modified" templateModeOnly="true" forceLabel="true" label="FieldId245" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/dct:modified">
       <template>
         <values>
           <key label="FieldId245" xpath="." use="gn-date-picker">
@@ -216,30 +240,8 @@
         </section>
         <section name="versionInformation">
           <field name="FieldId223" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo" or="versionInfo" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
-          <field name="FieldId131" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified" or="modified" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
-            <template>
-              <values>
-                <key label="FieldId131" xpath="." use="gn-date-picker">
-                  <directiveAttributes data-tag-name=""/>
-                </key>
-              </values>
-              <snippet>
-                <dct:modified>{{FieldId131}}</dct:modified>
-              </snippet>
-            </template>
-          </field>
-          <field name="FieldId129" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued" or="issued" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
-            <template>
-              <values>
-                <key label="FieldId129" xpath="." use="gn-date-picker">
-                  <directiveAttributes data-tag-name=""/>
-                </key>
-              </values>
-              <snippet>
-                <dct:issued>{{FieldId129}}</dct:issued>
-              </snippet>
-            </template>
-          </field>
+          <field xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified" or="modified" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+          <field xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued" or="issued" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
         </section>
         <section name="usageInformation">
           <section name="FieldId114" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint"/>
@@ -429,30 +431,8 @@
           <field name="FieldId223" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/owl:versionInfo" or="versionInfo" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
           <field name="FieldId225" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/adms:versionNotes" or="versionNotes" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
           <field name="FieldId173" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:accrualPeriodicity" or="accrualPeriodicity" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
-          <field name="FieldId131" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified" or="modified" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
-            <template>
-              <values>
-                <key label="FieldId131" xpath="." use="gn-date-picker">
-                  <directiveAttributes data-tag-name=""/>
-                </key>
-              </values>
-              <snippet>
-                <dct:modified>{{FieldId131}}</dct:modified>
-              </snippet>
-            </template>
-          </field>
-          <field name="FieldId129" templateModeOnly="true" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued" or="issued" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset">
-            <template>
-              <values>
-                <key label="FieldId129" xpath="." use="gn-date-picker">
-                  <directiveAttributes data-tag-name=""/>
-                </key>
-              </values>
-              <snippet>
-                <dct:issued>{{FieldId129}}</dct:issued>
-              </snippet>
-            </template>
-          </field>
+          <field name="FieldId131" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified" or="modified" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
+          <field name="FieldId129" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued" or="issued" in="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset"/>
         </section>
         <section name="usageInformation">
           <field xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:contactPoint" name="FieldId114"/>
