@@ -26,6 +26,7 @@ package org.fao.geonet.kernel.harvest.harvester.dcatap;
 import jeeves.server.UserSession;
 import jeeves.server.context.ServiceContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.fao.geonet.GeonetContext;
 import org.fao.geonet.Logger;
 import org.fao.geonet.constants.Geonet;
@@ -226,15 +227,43 @@ public class Aligner extends BaseAligner {
 
 		if (log.isDebugEnabled())
 			log.debug("  - Adding metadata with remote uuid:" + ri.uuid + " schema:" + schema);
+		
+        try {
+            params.getValidate().validate(dataMan, context, md);
+        } catch (Exception e) {
+            log.info("Ignoring invalid metadata uuid: " + ri.uuid);
+            result.doesNotValidate++;
+            return;
+        }		
 
-		// insert metadata
-		int userid = 1;
-		AbstractMetadata metadata = new Metadata().setUuid(ri.uuid);
-		metadata.getDataInfo().setSchemaId(schema).setRoot(md.getQualifiedName()).setType(MetadataType.METADATA)
-				.setChangeDate(new ISODate(ri.changeDate)).setCreateDate(new ISODate(ri.changeDate));
-		metadata.getSourceInfo().setSourceId(params.getUuid()).setOwner(userid);
-		metadata.getHarvestInfo().setHarvested(true).setUuid(params.getUuid());
+        //
+        // insert metadata
+        //
+        int ownerId = Integer.parseInt(StringUtils.isNumeric(params.getOwnerIdUser()) ? params.getOwnerIdUser() : params.getOwnerId());
+        //int ownerId = getOwner(); //FIXME
+        
+		AbstractMetadata metadata = new Metadata();
+        metadata.setUuid(ri.uuid);
+		metadata.getDataInfo()
+	        .setSchemaId(schema)
+	        .setRoot(md.getQualifiedName())
+	        .setType(MetadataType.METADATA)
+	        .setChangeDate(new ISODate(ri.changeDate))
+	        .setCreateDate(new ISODate(ri.changeDate));
+		metadata.getSourceInfo()
+	        .setSourceId(params.getUuid())
+	        .setOwner(ownerId)
+	        .setGroupOwner(Integer.valueOf(params.getOwnerIdGroup()));
+		metadata
+		    .getHarvestInfo()
+		    .setHarvested(true)
+		    .setUuid(params.getUuid());
 
+        try {
+            metadata.getSourceInfo().setGroupOwner(Integer.valueOf(params.getOwnerIdGroup()));
+        } catch (NumberFormatException e) {
+        }		
+		
 		addCategories(metadata, params.getCategories(), localCateg, context, log,null, false);
 
 		metadata = dataMan.insertMetadata(context, metadata, md, true, false, false, UpdateDatestamp.NO, false, false);
@@ -285,6 +314,14 @@ public class Aligner extends BaseAligner {
 
 				if (md == null)
 					return;
+				
+		        try {
+		            params.getValidate().validate(dataMan, context, md);
+		        } catch (Exception e) {
+		            log.info("Ignoring invalid metadata uuid: " + ri.uuid);
+		            result.doesNotValidate++;
+		            return;
+		        }				
 
 				//
 				// update metadata
@@ -379,7 +416,7 @@ public class Aligner extends BaseAligner {
 		}
 
 		final Element validationReport = Xml.transform(elResp, validateXsl, params);
-		
+		/*
 		//calculate the total number of validation errors in the report against DCAT-AP v1.1
 		int iId = Integer.parseInt(ri.id);
 		int errors = 0;
@@ -391,6 +428,7 @@ public class Aligner extends BaseAligner {
 				}
 		}
 		//Make the records publicly visible when valid.
+		
 		if (errors > 0 ){
 			result.doesNotValidate++;
 			dataMan.unsetOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.view.getId());
@@ -402,6 +440,7 @@ public class Aligner extends BaseAligner {
 			dataMan.setOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.download.getId());
 			dataMan.setOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.dynamic.getId());
 		}
+		*/
 		
 		return validationReport;
 	}

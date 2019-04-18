@@ -138,17 +138,6 @@ public class DCATAPHarvester extends AbstractHarvester<HarvestResult> {
 //        }
     }
     
-    /**
-     * Override this method with an empty body to avoid privileges storage.
-     *
-     * @param params
-     * @param path
-     * @throws SQLException
-     */
-    @Override
-    protected void storePrivileges(AbstractParams params, String path){
-    	
-    }
 
     //---------------------------------------------------------------------------
     //---

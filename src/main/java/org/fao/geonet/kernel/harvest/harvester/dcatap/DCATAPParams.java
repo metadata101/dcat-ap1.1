@@ -40,14 +40,6 @@ import java.util.List;
 //=============================================================================
 
 public class DCATAPParams extends AbstractParams {
-    //--------------------------------------------------------------------------
-    //---
-    //--- Constructor
-    //---
-    //--------------------------------------------------------------------------
-
-    private static int MAX_HARVEST_RESULTS = 2; // TODO: config param
-
     //---------------------------------------------------------------------------
     //---
     //--- Create : called when a new entry must be added. Reads values from the
