@@ -281,6 +281,9 @@
       <xsl:with-param name="langId" select="$langId"/>
     </xsl:call-template>
 
+    <xsl:for-each select="dcat:keyword">
+      <Field name="keyword" string="{.}" store="true" index="true" />
+    </xsl:for-each>
     <xsl:variable name="listOfKeywords">{
       <xsl:variable name="keywordWithNoThesaurus"
                     select="dcat:keyword[@xml:lang=$langId]"/>
