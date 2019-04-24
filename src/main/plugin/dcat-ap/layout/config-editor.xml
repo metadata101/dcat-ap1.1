@@ -5,27 +5,27 @@
     <for name="dcat:byteSize" use="number"/>
     <for name="adms:versionNotes" use="textarea"/>
     <for name="dct:description" use="textarea"/>
-    <for name="dct:issued" templateModeOnly="true" forceLabel="true" label="FieldId131" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued">
+    <for name="dct:issued" templateModeOnly="true" forceLabel="true" label="FieldId129" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued">
       <template>
         <values>
-          <key label="FieldId131" xpath="." use="gn-date-picker">
+          <key label="FieldId129" xpath="." use="gn-date-picker">
             <directiveAttributes data-tag-name="dct:issued"/>
           </key>
         </values>
         <snippet>
-          <dct:issued>{{FieldId131}}</dct:issued>
+          <dct:issued>{{FieldId129}}</dct:issued>
         </snippet>
       </template>
     </for>
-    <for name="dct:modified" templateModeOnly="true" forceLabel="true" label="FieldId129" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified">
+    <for name="dct:modified" templateModeOnly="true" forceLabel="true" label="FieldId131" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified">
       <template>
         <values>
-          <key label="FieldId129" xpath="." use="gn-date-picker">
+          <key label="FieldId131" xpath="." use="gn-date-picker">
             <directiveAttributes data-tag-name="dct:modified"/>
           </key>
         </values>
         <snippet>
-          <dct:modified>{{FieldId129}}</dct:modified>
+          <dct:modified>{{FieldId131}}</dct:modified>
         </snippet>
       </template>
     </for>
