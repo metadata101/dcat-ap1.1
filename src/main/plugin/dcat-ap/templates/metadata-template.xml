@@ -22,8 +22,6 @@
                   <vcard:hasEmail rdf:resource=""/>
                </vcard:Organization>
             </dcat:contactPoint>
-            <dct:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
-            <dct:modified rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime"/>
             <dct:publisher>
                <foaf:Agent>
                   <foaf:name xml:lang="nl"/>
