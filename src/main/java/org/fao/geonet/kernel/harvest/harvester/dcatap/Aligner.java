@@ -416,32 +416,35 @@ public class Aligner extends BaseAligner {
 		}
 
 		final Element validationReport = Xml.transform(elResp, validateXsl, params);
-		/*
+
 		//calculate the total number of validation errors in the report against DCAT-AP v1.1
+
+        int errors = 0;
+        for (Object report : validationReport.getChildren("report") ) {
+            String errorText = ((Element) report).getChild("error").getText();
+            Element reportLabel = ((Element) report).getChild("label");
+            if (reportLabel != null && reportLabel.getText().equalsIgnoreCase("DCAT-AP Rules v1.1")){
+                errors =+ Integer.parseInt(errorText);
+            }
+        }
+        if (errors > 0) result.doesNotValidate++;
+
+        //Make the records publicly visible when valid.
+		/*
 		int iId = Integer.parseInt(ri.id);
-		int errors = 0;
-		for (Object report : validationReport.getChildren("report") ) {			
-			String errorText = ((Element) report).getChild("error").getText();
-			Element reportLabel = ((Element) report).getChild("label");
-			if (reportLabel != null && reportLabel.getText().equalsIgnoreCase("DCAT-AP Rules v1.1")){
-				errors =+ Integer.parseInt(errorText);					
-				}
-		}
-		//Make the records publicly visible when valid.
-		
 		if (errors > 0 ){
 			result.doesNotValidate++;
 			dataMan.unsetOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.view.getId());
 			dataMan.unsetOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.download.getId());
-			dataMan.unsetOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.dynamic.getId());			
+			dataMan.unsetOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.dynamic.getId());
 			}
-		else {			
+		else {
 			dataMan.setOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.view.getId());
 			dataMan.setOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.download.getId());
 			dataMan.setOperation(context, iId, ReservedGroup.all.getId(), ReservedOperation.dynamic.getId());
 		}
 		*/
-		
+
 		return validationReport;
 	}
 
