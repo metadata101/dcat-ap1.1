@@ -135,10 +135,9 @@ class Harvester implements IHarvester<HarvestResult> {
 			return aligner.align(recordsInfo, errors);
 
 		} catch (Exception t) {
-			log.error("Unknown error trying to harvest");
+			log.error("Error while trying to harvest");
 			log.error(t.getMessage());
 			BadServerResponseEx et = new BadServerResponseEx(t.getMessage());
-			//log.info(t.getMessage());
 			errors.add(new HarvestError(context, et));
 		} catch (Throwable t) {
 			log.fatal("Something unknown and terrible happened while harvesting");
@@ -156,7 +155,7 @@ class Harvester implements IHarvester<HarvestResult> {
 	 * Does DCAT-AP search request. Executes a SPARQL query to retrieve all
 	 * UUIDs and add them to a Set with RecordInfo
 	 */
-	private Set<DCATAPRecordInfo> search() {
+	private Set<DCATAPRecordInfo> search() throws Exception {
 
 		Set<DCATAPRecordInfo> records = new HashSet<DCATAPRecordInfo>();
 
@@ -206,9 +205,9 @@ class Harvester implements IHarvester<HarvestResult> {
 		} catch (Exception e) {
 			HarvestError harvestError = new HarvestError(context, e);
 			harvestError.setDescription(harvestError.getDescription());
-			BadServerResponseEx et = new BadServerResponseEx(e.getMessage());
-			errors.add(new HarvestError(context, et));
-			log.error("The server returned an answer that could not be processed: "+e.getMessage());
+			//BadServerResponseEx et = new BadServerResponseEx(e.getMessage());
+			//errors.add(new HarvestError(context, et));
+			throw new Exception("The server returned an answer that could not be processed: " + e.getMessage());
 		}
 
 		return records;
