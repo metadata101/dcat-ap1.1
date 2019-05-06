@@ -191,11 +191,17 @@
                 match="dct:title|dct:description|foaf:name|adms:versionNotes">
     <xsl:param name="xpath"/>
     <xsl:variable name="stringValue" select="string()"/>
-    <xsl:if test="normalize-space($stringValue) != '' and (
-                    (../node()/@xml:lang = $langId-2char and @xml:lang = $langId-2char) or
-                    (not(../node()/@xml:lang = $langId-2char) and ../node()/@xml:lang = $defaultLang-2char and @xml:lang = $defaultLang-2char) or
-                    (not(../node()/@xml:lang = $langId-2char) and not(../node()/@xml:lang = $defaultLang-2char) and count(preceding-sibling::node()) &lt; 1)
-                  )">
+    <xsl:variable name="name" select="name()"/>
+    <!--
+    Shown label:
+      if label is in current interface language
+      else if no labels in current interface language, show labels in default language
+      else if no labels in default language, show first one only
+    -->
+    <xsl:if test="normalize-space($stringValue) != '' and
+                    (@xml:lang = $langId-2char or
+                    (not(../node()[name() = $name]/@xml:lang = $langId-2char) and @xml:lang = $defaultLang-2char) or
+                    (not(../node()[name() = $name]/@xml:lang = $defaultLang-2char) and count(preceding-sibling::node()[name() = $name]) &lt; 1))">
       <tr>
         <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;">
           <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
