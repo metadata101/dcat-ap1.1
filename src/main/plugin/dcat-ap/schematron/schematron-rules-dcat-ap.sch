@@ -564,4 +564,30 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
+  <sch:pattern>
+    <sch:title>174. schema:startDate should be a literal typed as date or dateTime</sch:title>
+    <sch:rule context="//dcat:Dataset/dct:temporal/dct:PeriodOfTime/schema:startDate">
+      <sch:let name="id" value="ancestor::dcat:Dataset/@rdf:about/string()"/>
+      <sch:let name="startDateTime" value="string() != '' and (. castable as xs:date or . castable as xs:dateTime)"/>
+      <sch:assert test="$startDateTime = true()">
+        ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" has a schema:startDate property which value "<sch:value-of select="./string()"/>" is not a date or dateTime.
+      </sch:assert>
+      <sch:report test="$startDateTime = true()">
+        The dcat:Catalog "<sch:value-of select="$id"/>" has a schema:startDate property which value "<sch:value-of select="./string()"/>" is a date or dateTime.
+      </sch:report>
+    </sch:rule>
+  </sch:pattern>
+  <sch:pattern>
+    <sch:title>175. schema:endDate should be a literal typed as date or dateTime</sch:title>
+    <sch:rule context="//dcat:Dataset/dct:temporal/dct:PeriodOfTime/schema:endDate">
+      <sch:let name="id" value="ancestor::dcat:Dataset/@rdf:about/string()"/>
+      <sch:let name="endDateTime" value="string() != '' and (. castable as xs:date or . castable as xs:dateTime)"/>
+      <sch:assert test="$endDateTime = true()">
+        ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" has a schema:endDate property which value "<sch:value-of select="./string()"/>" is not a date or dateTime.
+      </sch:assert>
+      <sch:report test="$endDateTime = true()">
+        The dcat:Catalog "<sch:value-of select="$id"/>" has a schema:endDate property which value "<sch:value-of select="./string()"/>" is a date or dateTime.
+      </sch:report>
+    </sch:rule>
+  </sch:pattern>
 </sch:schema>
