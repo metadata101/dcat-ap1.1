@@ -250,14 +250,16 @@
              store="true" index="true" />
     </xsl:for-each>
     <xsl:for-each select="dct:spatial">
-      <xsl:apply-templates
-        select="dct:Location"
-        mode="latLon" />
-      <xsl:call-template name="index-lang-tag">
-        <xsl:with-param name="tag" select="dct:Location/skos:prefLabel"/>
-        <xsl:with-param name="field" select="'extentDesc'"/>
-        <xsl:with-param name="langId" select="$langId"/>
-      </xsl:call-template>
+      <xsl:if test="count(dct:Location/locn:geometry) &gt; 0">
+        <xsl:apply-templates
+          select="dct:Location"
+          mode="latLon" />
+        <xsl:call-template name="index-lang-tag">
+          <xsl:with-param name="tag" select="dct:Location/skos:prefLabel"/>
+          <xsl:with-param name="field" select="'extentDesc'"/>
+          <xsl:with-param name="langId" select="$langId"/>
+        </xsl:call-template>
+      </xsl:if>
       <Field name="geoDescCode" string="{string(dct:Location/@rdf:about)}" store="true" index="true"/>
     </xsl:for-each>
 

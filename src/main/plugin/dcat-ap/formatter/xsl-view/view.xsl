@@ -323,8 +323,11 @@
         <xsl:when test="count(locn:geometry[ends-with(@rdf:datatype,'#gmlLiteral')])>0">
           <xsl:copy-of select="node()[name(.)='locn:geometry' and ends-with(@rdf:datatype,'#gmlLiteral')][1]" />
         </xsl:when>
-        <xsl:otherwise>
+        <xsl:when test="locn:geometry">
           <xsl:copy-of select="locn:geometry[1]"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:copy-of select="."/>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
@@ -337,18 +340,20 @@
       <td style="border-style: solid; border-color: #ddd; border-width: 1px 1px 1px 0; padding-left: 0; width: 80%; word-break: break-word; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box;">
         <table style="background-color: rgba(0, 0, 0, 0.035); margin-bottom: 0; box-sizing: border-box; width: 100%; max-width: 100%; border-collapse: collapse; border-spacing: 0;"
                class="table nested-table">
-          <tr>
-            <td colspan="2">
-              <xsl:if test="count($bboxCoordinates)=4">
-                <xsl:copy-of
-                  select="gn-fn-render:bbox(
+          <xsl:if test="locn:geometry">
+            <tr>
+              <td colspan="2">
+                <xsl:if test="count($bboxCoordinates)=4">
+                  <xsl:copy-of
+                    select="gn-fn-render:bbox(
                       xs:double($bboxCoordinates[1]),
                       xs:double($bboxCoordinates[2]),
                       xs:double($bboxCoordinates[3]),
                       xs:double($bboxCoordinates[4]))" />
-              </xsl:if>
-            </td>
-          </tr>
+                </xsl:if>
+              </td>
+            </tr>
+          </xsl:if>
 
           <xsl:apply-templates mode="render-field" select="@rdf:about">
             <xsl:with-param name="xpath" select="$xpath"/>

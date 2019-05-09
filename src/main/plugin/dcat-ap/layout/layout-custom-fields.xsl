@@ -74,8 +74,12 @@
             <xsl:when test="count(./dct:Location/locn:geometry[ends-with(./dct:Location/@rdf:datatype,'#gmlLiteral')])>0">
               <xsl:copy-of select="node()[name(./dct:Location)='locn:geometry' and ends-with(./dct:Location/@rdf:datatype,'#gmlLiteral')][1]" />
             </xsl:when>
-            <xsl:otherwise>
+            <xsl:when test="dct:Location and dct:Location/locn:geometry">
               <xsl:copy-of select="./dct:Location/locn:geometry[1]"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <!-- Return empty nodes to trigger error later -->
+              <xsl:copy-of select="."/>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:variable>
