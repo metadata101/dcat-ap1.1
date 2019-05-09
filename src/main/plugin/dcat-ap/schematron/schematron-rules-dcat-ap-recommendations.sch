@@ -174,17 +174,6 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
-		<sch:title>79. dcat:accessURL is a required property for Distribution.</sch:title>
-		<sch:rule context="//dcat:Distribution">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noAccessURL" value="not(dcat:accessURL)"/>
-			<sch:assert test="$noAccessURL = false()">WARNING: The dcat:Distribution "<sch:value-of select="$id"/>" does not have a dcat:accessURL.
-			</sch:assert>
-			<sch:report test="$noAccessURL = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dcat:accessURL.
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
-	<sch:pattern>
 		<sch:title>81. dct:description is a recommended property for Distribution.</sch:title>
 		<sch:rule context="//dcat:Distribution">
 			<sch:let name="id" value="@rdf:about/string()"/>

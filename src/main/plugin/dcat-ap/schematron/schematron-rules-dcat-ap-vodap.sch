@@ -156,7 +156,7 @@ Source:
 		<sch:title>200. Mandatory dct:title for a dcat:Distribution</sch:title>
 		<sch:rule context="//dcat:Distribution">
 			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noTitle" value="not(dct:title) or dct:title/string() = ''"/>
+			<sch:let name="noTitle" value="not(dct:title)"/>
 			<sch:assert test="$noTitle = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" does not have a dct:title property.
 			</sch:assert>
 			<sch:report test="$noTitle = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:title property with value  "<sch:value-of select="dct:title"/>".

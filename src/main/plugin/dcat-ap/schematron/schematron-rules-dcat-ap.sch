@@ -447,6 +447,28 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
+  <sch:pattern>
+    <sch:title>79. dcat:accessURL is a mandatory property for a distribution.</sch:title>
+    <sch:rule context="//dcat:Distribution">
+      <sch:let name="id" value="dct:title[1]/string()"/>
+      <sch:let name="noURL" value="not(dcat:accessURL)"/>
+      <sch:assert test="$noURL = false()">ERROR: The dcat:Distribution with title "<sch:value-of select="$id"/>" does not have a dcat:accessURL property.
+      </sch:assert>
+      <sch:report test="$noURL = false()">The dcat:Distribution with title "<sch:value-of select="$id"/>" has a dcat:accessURL property.
+      </sch:report>
+    </sch:rule>
+  </sch:pattern>
+  <sch:pattern>
+    <sch:title>79. dcat:accessURL must be a non-empty string.</sch:title>
+    <sch:rule context="//dcat:Distribution/dcat:accessURL">
+      <sch:let name="id" value="parent::node()/dct:title[1]/string()"/>
+      <sch:let name="emptyString" value="normalize-space(@rdf:resource) = ''"/>
+      <sch:assert test="$emptyString = false()">ERROR: The dcat:Distribution with title "<sch:value-of select="$id"/>" has a dcat:accessURL that is an empty string.
+      </sch:assert>
+      <sch:report test="$emptyString = false()">The dcat:Distribution with title '<sch:value-of select="$id"/>' has a dcat:accessURL '<sch:value-of select="./string()"/>' which is a non-empty string.
+      </sch:report>
+    </sch:rule>
+  </sch:pattern>
 	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal. 
 	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process 
 	this validation rule.	
