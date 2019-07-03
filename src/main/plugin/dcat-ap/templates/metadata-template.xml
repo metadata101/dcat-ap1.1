@@ -27,7 +27,7 @@
                   <foaf:name xml:lang="nl"/>
                </foaf:Agent>
             </dct:publisher>
-            <dcat:keyword xml:lang="nl">Vlaamse open data</dcat:keyword>
+            <dcat:keyword xml:lang="nl">Vlaamse Open data</dcat:keyword>
             <dcat:theme/>
             <dct:accessRights>
                <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/access-right/PUBLIC">

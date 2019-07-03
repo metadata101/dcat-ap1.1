@@ -163,6 +163,9 @@
         </xsl:for-each>
       </xsl:if>
       <xsl:apply-templates select="node()[not(name(.) = 'dct:identifier')]"/>
+      <xsl:if test="not(dcat:keyword[translate(text(), 'abcdefghijklmonpqrstuvwxyz', 'ABCDEFGHIJKLMONPQRSTUVWXYZ') = 'VLAAMSE OPEN DATA'])">
+        <dcat:keyword xml:lang="nl">Vlaamse Open data</dcat:keyword>
+      </xsl:if>
     </dcat:Dataset>
   </xsl:template>
 
@@ -323,6 +326,11 @@
         </xsl:choose>
       </xsl:copy>
     </xsl:if>
+  </xsl:template>
+
+  <!-- Reformat 'Vlaamse Open data' -->
+  <xsl:template match="dcat:keyword[translate(text(), 'abcdefghijklmonpqrstuvwxyz', 'ABCDEFGHIJKLMONPQRSTUVWXYZ') = 'VLAAMSE OPEN DATA']" priority="10">
+    <dcat:keyword xml:lang="nl">Vlaamse Open data</dcat:keyword>
   </xsl:template>
 
 </xsl:stylesheet>

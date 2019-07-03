@@ -234,7 +234,19 @@ public class Aligner extends BaseAligner {
             log.info("Ignoring invalid metadata uuid: " + ri.uuid);
             result.doesNotValidate++;
             return;
-        }		
+        }
+
+        // transform it here if requested
+        if (!params.getImportXslt().equals("none")) {
+            Path thisXslt = context.getAppPath().resolve(Geonet.Path.IMPORT_STYLESHEETS).resolve(params.getImportXslt() + ".xsl");
+            try {
+                md = Xml.transform(md, thisXslt);
+            } catch (Exception e) {
+                log.info("Cannot transform XML " + Xml.getString(md) + ", ignoring. Error was: " + e.getMessage());
+                result.badFormat++;
+                return;
+            }
+        }
 
         //
         // insert metadata
@@ -321,7 +333,19 @@ public class Aligner extends BaseAligner {
 		            log.info("Ignoring invalid metadata uuid: " + ri.uuid);
 		            result.doesNotValidate++;
 		            return;
-		        }				
+		        }
+
+                // transform it here if requested
+                if (!params.getImportXslt().equals("none")) {
+                    Path thisXslt = context.getAppPath().resolve(Geonet.Path.IMPORT_STYLESHEETS).resolve(params.getImportXslt() + ".xsl");
+                    try {
+                        md = Xml.transform(md, thisXslt);
+                    } catch (Exception e) {
+                        log.info("Cannot transform XML " + Xml.getString(md) + ", ignoring. Error was: " + e.getMessage());
+                        result.badFormat++;
+                        return;
+                    }
+                }
 
 				//
 				// update metadata
