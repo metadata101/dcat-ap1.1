@@ -81,60 +81,59 @@
   <!-- ================================================================= -->
   <xsl:template match="dcat:Catalog" priority="10">
     <dcat:Catalog>
-      <xsl:choose>
-        <xsl:when test="not(@rdf:about) or @rdf:about=''">
-          <xsl:attribute name="rdf:about">
-            <xsl:value-of select="concat($resourcePrefix,'/catalogs/',$env/system/site/siteId)"/>
-          </xsl:attribute>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:apply-templates select="@*"/>
-        </xsl:otherwise>
-      </xsl:choose>
-      <xsl:choose>
-        <xsl:when
-          test="(not(dct:title) or dct:title='') and (not(dct:description) or dct:description='') and not(foaf:homepage)">
-          <dct:title xml:lang="{$iso2letterLanguageCode}">
-            <xsl:value-of select="$env/system/site/name"/>
-          </dct:title>
-          <dct:description xml:lang="{$iso2letterLanguageCode}">
-            <xsl:value-of select="$env/system/site/name"/>(<xsl:value-of select="$env/system/site/organization"/>)
-          </dct:description>
-          <dct:publisher>
-            <foaf:Agent rdf:about="{$resourcePrefix}/organizations/{encode-for-uri($env/system/site/organization)}">
-              <foaf:name xml:lang="{$iso2letterLanguageCode}">
-                <xsl:value-of select="$env/system/site/organization"></xsl:value-of>
-              </foaf:name>
-            </foaf:Agent>
-          </dct:publisher>
-          <foaf:homepage>
-            <foaf:Document rdf:about="{$url}">
-              <foaf:name xml:lang="{$iso2letterLanguageCode}">
-                <xsl:value-of select="$env/system/site/name"/>
-              </foaf:name>
-            </foaf:Document>
-          </foaf:homepage>
-          <xsl:for-each select="/root/gui/thesaurus/thesauri/thesaurus">
-            <dcat:themeTaxonomy>
-              <skos:ConceptScheme rdf:about="{$resourcePrefix}/registries/vocabularies/{key}">
-                <dct:title xml:lang="{$iso2letterLanguageCode}">
-                  <xsl:value-of select="title"/>
-                </dct:title>
-                <foaf:isPrimaryTopicOf><xsl:value-of select="$url"/>/srv/eng/thesaurus.download?ref=<xsl:value-of
-                  select="key"/>
-                </foaf:isPrimaryTopicOf>
-              </skos:ConceptScheme>
-            </dcat:themeTaxonomy>
-          </xsl:for-each>
-
-          <xsl:apply-templates
-            select="node()[not(name(.) = 'dct:title' or name(.) = 'dct:description' or name(.) = 'foaf:homepage' or name(.) = 'dct:publisher' or name(.) = 'dcat:themeTaxonomy')]"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:apply-templates
-            select="node()"/>
-        </xsl:otherwise>
-      </xsl:choose>
+      <xsl:attribute name="rdf:about">
+        <xsl:value-of select="concat($resourcePrefix,'/catalogs/',$env/system/site/siteId)"/>
+      </xsl:attribute>
+      <dct:title  xml:lang="nl">
+        <xsl:value-of select="concat('Open Data Catalogus van ', $env/system/site/organization)"/>
+      </dct:title>
+      <dct:description xml:lang="nl" >
+        <xsl:value-of select="concat('Deze catalogus bevat datasets ontsloten door ', $env/system/site/organization)"/>
+      </dct:description>
+      <dct:publisher>
+        <foaf:Agent rdf:about="{$resourcePrefix}/organizations/{encode-for-uri($env/system/site/organization)}">
+          <dct:type rdf:resource="http://purl.org/adms/publishertype/LocalAuthority"/>
+          <foaf:name xml:lang="nl">
+            <xsl:value-of select="$env/system/site/organization"></xsl:value-of>
+          </foaf:name>
+        </foaf:Agent>
+      </dct:publisher>
+      <dct:language rdf:resource="http://publications.europa.eu/resource/authority/language/NLD"/>
+      <dct:license>
+        <dct:LicenseDocument rdf:about="https://data.vlaanderen.be/doc/licentie/creative-commons-zero-verklaring/v1.0" xmlns:dct="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+          <dct:type>
+            <skos:Concept rdf:about="http://purl.org/adms/licencetype/PublicDomain">
+              <skos:prefLabel xml:lang="nl">Public domain</skos:prefLabel>
+              <skos:prefLabel xml:lang="en">Public domain</skos:prefLabel>
+              <skos:prefLabel xml:lang="fr">Public domain</skos:prefLabel>
+              <skos:prefLabel xml:lang="de">Public domain</skos:prefLabel>
+              <skos:inScheme rdf:resource="http://purl.org/adms/licencetype/1.0" />
+            </skos:Concept>
+          </dct:type>
+          <dct:title xml:lang="nl">Creative Commons Zero verklaring</dct:title>
+          <dct:description xml:lang="nl">De instantie doet afstand van haar intellectuele eigendomsrechten voor zover dit wettelijk mogelijk is. Hierdoor kan de gebruiker de data hergebruiken voor eender welk doel, zonder een verplichting op naamsvermelding. Deze is de welbekende CC0 licentie.</dct:description>
+          <dct:identifier>https://data.vlaanderen.be/doc/licentie/creative-commons-zero-verklaring/v1.0</dct:identifier>
+        </dct:LicenseDocument>
+      </dct:license>
+      <dct:issued>
+        <xsl:value-of select="'2019-09-01'"/>
+      </dct:issued>
+      <dct:modified>
+        <xsl:value-of select="'2019-09-01'"/>
+      </dct:modified>
+      <xsl:for-each select="/root/gui/thesaurus/thesauri/thesaurus">
+        <dcat:themeTaxonomy>
+          <skos:ConceptScheme rdf:about="{$resourcePrefix}/registries/vocabularies/{key}">
+            <dct:title xml:lang="{$iso2letterLanguageCode}">
+              <xsl:value-of select="title"/>
+            </dct:title>
+            <foaf:isPrimaryTopicOf><xsl:value-of select="$url"/>/srv/eng/thesaurus.download?ref=<xsl:value-of
+              select="key"/>
+            </foaf:isPrimaryTopicOf>
+          </skos:ConceptScheme>
+        </dcat:themeTaxonomy>
+      </xsl:for-each>
+      <xsl:apply-templates select="dcat:dataset"/>
     </dcat:Catalog>
   </xsl:template>
   <!-- ================================================================= -->
