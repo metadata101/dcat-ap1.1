@@ -201,6 +201,8 @@
     <xsl:for-each select="dct:modified">
       <Field name="changeDate" string="{string(.)}" store="true"
              index="true" />
+      <Field name="sortDate" string="{string(.)}" store="true" index="true"/>
+      <Field name="_sortDate" string="{string(.)}" store="true" index="true"/>
       <!--<Field name="createDateYear" string="{substring(., 0, 5)}" store="true"
                 index="true"/> -->
     </xsl:for-each>
