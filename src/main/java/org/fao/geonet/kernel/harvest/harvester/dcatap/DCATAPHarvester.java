@@ -30,6 +30,7 @@ import org.fao.geonet.domain.Source;
 import org.fao.geonet.exceptions.BadInputEx;
 import org.fao.geonet.kernel.harvest.harvester.AbstractHarvester;
 import org.fao.geonet.kernel.harvest.harvester.AbstractParams;
+import org.fao.geonet.kernel.harvest.harvester.HarvestError;
 import org.fao.geonet.kernel.harvest.harvester.HarvestResult;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.DCATAPParams;
 import org.fao.geonet.kernel.harvest.harvester.dcatap.Harvester;
@@ -39,6 +40,7 @@ import org.jdom.Element;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 
 //=============================================================================
@@ -52,6 +54,7 @@ public class DCATAPHarvester extends AbstractHarvester<HarvestResult> {
     //--------------------------------------------------------------------------
 
     private DCATAPParams params;
+    private List<HarvestError> errors;
 
     //---------------------------------------------------------------------------
     //---
@@ -148,5 +151,11 @@ public class DCATAPHarvester extends AbstractHarvester<HarvestResult> {
     public void doHarvest(Logger log) throws Exception {
         Harvester h = new Harvester(cancelMonitor, log, context, params);
         result = h.harvest(log);
+        errors = h.getErrors();
+    }
+
+    @Override
+    public List<HarvestError> getErrors() {
+        return errors;
     }
 }

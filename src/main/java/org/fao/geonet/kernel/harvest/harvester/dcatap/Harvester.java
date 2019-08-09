@@ -138,7 +138,9 @@ class Harvester implements IHarvester<HarvestResult> {
 			log.error("Error while trying to harvest");
 			log.error(t.getMessage());
 			BadServerResponseEx et = new BadServerResponseEx(t.getMessage());
-			errors.add(new HarvestError(context, et));
+			HarvestError harvestError = new HarvestError(context, et);
+            harvestError.setDescription((String)et.getObject());
+			errors.add(harvestError);
 		} catch (Throwable t) {
 			log.fatal("Something unknown and terrible happened while harvesting");
 			log.fatal(t.getMessage());
@@ -356,6 +358,7 @@ class Harvester implements IHarvester<HarvestResult> {
 		return null;
 	}
 
+	@Override
 	public List<HarvestError> getErrors() {
 		return errors;
 	}
