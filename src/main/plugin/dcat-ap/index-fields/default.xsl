@@ -201,11 +201,35 @@
     <xsl:for-each select="dct:modified">
       <Field name="changeDate" string="{string(.)}" store="true"
              index="true" />
-      <Field name="sortDate" string="{string(.)}" store="true" index="true"/>
-      <Field name="_sortDate" string="{string(.)}" store="true" index="true"/>
       <!--<Field name="createDateYear" string="{substring(., 0, 5)}" store="true"
                 index="true"/> -->
     </xsl:for-each>
+
+    <xsl:variable name="issuedDate">
+      <xsl:for-each select="dct:issued">
+        <xsl:sort select="." order="descending"/>
+        <xsl:if test="position() = 1">
+          <xsl:value-of select="string(.)"/>
+        </xsl:if>
+      </xsl:for-each>
+    </xsl:variable>
+    <xsl:variable name="modifiedDate">
+      <xsl:for-each select="dct:modified">
+        <xsl:sort select="." order="descending"/>
+        <xsl:if test="position() = 1">
+          <xsl:value-of select="string(.)"/>
+        </xsl:if>
+      </xsl:for-each>
+    </xsl:variable>
+
+    <xsl:if test="string-length(normalize-space($modifiedDate)) > 0">
+      <Field name="_sortDate" string="{$modifiedDate}" store="true" index="true"/>
+    </xsl:if>
+    <xsl:if test="string-length(normalize-space($modifiedDate)) = 0">
+      <xsl:if test="string-length(normalize-space($issuedDate)) > 0">
+        <Field name="_sortDate" string="{$issuedDate}" store="true" index="true"/>
+      </xsl:if>
+    </xsl:if>
 
     <xsl:for-each select="distinct-values(dct:language/skos:Concept/@rdf:about)">
       <xsl:variable name="datasetLanguage">
