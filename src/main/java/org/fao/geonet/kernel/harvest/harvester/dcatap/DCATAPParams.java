@@ -122,6 +122,9 @@ public class DCATAPParams extends AbstractParams {
         rdfSyntax = Util.getParam(site, "rdfSyntax", "RDFXML"); 
         maxResults = Util.getParam(site, "maxResults", 10000); //MAX_HARVEST_RESULTS;
 
+        Element content = node.getChild("content");
+        super.setImportXslt(Util.getParam(content, "importxslt", "none"));
+
         try {
             baseUrl = safeDecode(baseUrl);
             rdfSyntax = safeDecode(rdfSyntax);
