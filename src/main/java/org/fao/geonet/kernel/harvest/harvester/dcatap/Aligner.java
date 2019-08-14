@@ -265,7 +265,7 @@ public class Aligner extends BaseAligner {
 		metadata.getSourceInfo()
 	        .setSourceId(params.getUuid())
 	        .setOwner(ownerId)
-	        .setGroupOwner(Integer.valueOf(params.getOwnerIdGroup()));
+	        .setGroupOwner(StringUtils.isNotEmpty(params.getOwnerIdGroup()) ? Integer.valueOf(params.getOwnerIdGroup()): null);
 		metadata
 		    .getHarvestInfo()
 		    .setHarvested(true)
