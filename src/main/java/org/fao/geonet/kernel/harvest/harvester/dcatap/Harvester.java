@@ -252,7 +252,10 @@ class Harvester implements IHarvester<HarvestResult> {
 					// Triples on a dct:Catalog instance's "child" resources
 					// (publisher, distribution, ed.)
 					+ "UNION \n" + "{?subject ?predicate ?object. \n" + "?s a dcat:Catalog. \n" + "?s dcat:dataset <"
-					+ datasetId + ">. \n" + "?s ?p ?subject. \n" + "FILTER (?p != dcat:dataset)} \n"
+					+ datasetId + ">. \n" + "?s ?p ?subject. \n"
+                    + "FILTER (?p != dcat:dataset). \n"
+                    + "FILTER (?predicate != dcat:dataset) \n"
+                    + "} \n"
 					+ "BIND(afn:namespace(?predicate) as ?pns) \n" + "BIND (\n" + "			COALESCE(\n"
 					+ "				    IF(?pns = 'http://www.w3.org/ns/dcat#', 'dcat:', 1/0), \n"
 					+ "				    IF(?pns = 'http://purl.org/dc/terms/', 'dct:', 1/0), \n"

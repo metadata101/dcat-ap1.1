@@ -961,7 +961,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 											sr:binding[@name='pAsQName']/sr:literal = $predicate]/sr:binding[@name='object']">
 			<xsl:choose>
 				<!-- plain literals -->
-				<xsl:when test="./sr:literal">
+				<xsl:when test="./sr:literal and ./sr:literal != $identifier">
 					<xsl:element name="{$predicate}">
 						<xsl:value-of select="./sr:literal"/>
 						<!-- if the identifier is a UUID, keep it, otherwise, generate another UUID 
