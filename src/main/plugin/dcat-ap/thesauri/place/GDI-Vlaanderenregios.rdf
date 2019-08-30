@@ -14,7 +14,6 @@
     <dcterms:modified>2013-09-25</dcterms:modified>
     <skos:hasTopConcept rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen"/>
   </skos:ConceptScheme>
-
   <!-- Main Concept-->
   <skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen">
     <skos:prefLabel xml:lang="nl">Vlaanderen</skos:prefLabel>
@@ -26,6 +25,7 @@
     <skos:narrower rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/WestVlaanderen" />
     <skos:narrower rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/OostVlaanderen" />
     <skos:narrower rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Limburg" />
+    <skos:narrower rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaams Gewest" />
     <gml:BoundedBy>
       <gml:Envelope gml:srsName="http://www.opengis.net/gml/srs/epsg.xml#epsg:4326">
         <gml:lowerCorner>2.5456398 50.687428500000003</gml:lowerCorner>
@@ -99,7 +99,19 @@
     </gml:BoundedBy>
     <skos:broader rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen" />
   </skos:Concept>
-<skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaams Gewest"><skos:prefLabel xml:lang="nl">Vlaams Gewest</skos:prefLabel></skos:Concept>
+  <skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaams Gewest">
+    <skos:prefLabel xml:lang="nl">Vlaams Gewest</skos:prefLabel>
+    <skos:prefLabel xml:lang="fr">Vlaams Gewest</skos:prefLabel>
+    <skos:prefLabel xml:lang="du">Vlaams Gewest</skos:prefLabel>
+    <skos:prefLabel xml:lang="en">Vlaams Gewest</skos:prefLabel>
+    <gml:BoundedBy>
+      <gml:Envelope gml:srsName="http://www.opengis.net/gml/srs/epsg.xml#epsg:4326">
+        <gml:lowerCorner>2.5456398 50.687428500000003</gml:lowerCorner>
+        <gml:upperCorner>5.9111042999999999 51.505080700000001</gml:upperCorner>
+      </gml:Envelope>
+    </gml:BoundedBy>
+    <skos:broader rdf:resource="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen" />
+  </skos:Concept>
 <skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Brussels Hoofdstedelijk Gewest"><skos:prefLabel xml:lang="nl">Brussels Hoofdstedelijk Gewest</skos:prefLabel></skos:Concept>
 <skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Boutersem"><skos:prefLabel xml:lang="nl">Gemeente Boutersem</skos:prefLabel></skos:Concept>
 <skos:Concept rdf:about="http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Bonheiden"><skos:prefLabel xml:lang="nl">Gemeente Bonheiden</skos:prefLabel></skos:Concept>
