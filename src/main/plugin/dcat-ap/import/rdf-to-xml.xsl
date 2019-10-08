@@ -590,7 +590,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:call-template>
 					<!-- dct:type -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="subject" select="."/>
+						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">skos:inScheme</xsl:with-param>
 					</xsl:call-template>
 				</skos:Concept>

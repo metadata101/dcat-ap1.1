@@ -290,24 +290,38 @@
 	<xsl:template mode="render-field"
 		match="foaf:Agent/dct:type|dcat:theme|dct:accrualPeriodicity|dct:language|dcat:Dataset/dct:type|dct:format|dcat:mediaType|adms:status|dct:LicenseDocument/dct:type|dct:accessRights">
     <xsl:param name="xpath"/>
-    <xsl:variable name="stringValue" select="string()"/>
-    <xsl:if test="normalize-space(skos:Concept/skos:prefLabel[@xml:lang=$langId-2char]) != ''">
-      <tr>
-        <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;">
-          <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
-        </th>
-        <td style="border-style: solid; border-color: #ddd; border-width: 1px 1px 1px 0; padding-left: 0; width: 80%; word-break: break-word; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box;">
-          <xsl:for-each select="skos:Concept/skos:prefLabel[@xml:lang=$langId-2char]">
-            <a href="{concat($nodeUrl,$langId,'/catalog.search#/search?resultType=details&amp;sortBy=relevance&amp;from=1&amp;to=20&amp;fast=index&amp;_content_type=json&amp;any=',.)}">
-              <xsl:apply-templates mode="render-value" select="." />
-            </a>
-            <xsl:if test="position() != last()">
-              ,
-            </xsl:if>
-          </xsl:for-each>
-        </td>
-      </tr>
-    </xsl:if>
+    <xsl:variable name="usedLang">
+      <xsl:value-of select="
+        if (normalize-space(skos:Concept/skos:prefLabel[@xml:lang=$langId-2char]) != '')
+        then $langId-2char
+        else $defaultLang-2char
+      "/>
+    </xsl:variable>
+    <tr>
+      <th style="border-style: solid; border-color: #ddd; border-width: 1px 0 1px 1px; width: 20%; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box; text-align: left;">
+        <xsl:value-of select="gn-fn-metadata:getLabel($schema, name(.), $labels, name(..), '', gn-fn-dcat-ap:concatXPaths($xpath, gn-fn-metadata:getXPath(.), name(.)))/label" />
+      </th>
+      <td style="border-style: solid; border-color: #ddd; border-width: 1px 1px 1px 0; padding-left: 0; width: 80%; word-break: break-word; padding: 8px; line-height: 1.428571429; vertical-align: top; box-sizing: border-box;">
+        <xsl:choose>
+          <xsl:when test="count(skos:Concept/skos:prefLabel[@xml:lang=$usedLang]) > 0">
+            <xsl:for-each select="skos:Concept/skos:prefLabel[@xml:lang=$usedLang]">
+              <a href="{concat($nodeUrl,$langId,'/catalog.search#/search?resultType=details&amp;sortBy=relevance&amp;from=1&amp;to=20&amp;fast=index&amp;_content_type=json&amp;any=',.)}">
+                <xsl:apply-templates mode="render-value" select="." />
+                <xsl:if test="($usedLang = $defaultLang-2char) and ($defaultLang-2char != $langId-2char)">
+                  <xsl:value-of select="concat(' (', $usedLang, ')')"/>
+                </xsl:if>
+              </a>
+              <xsl:if test="position() != last()">
+                ,
+              </xsl:if>
+            </xsl:for-each>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="skos:Concept/@rdf:about"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </td>
+    </tr>
 	</xsl:template>
 
 	<!-- Bbox is displayed with an overview and the geom displayed on it and 
