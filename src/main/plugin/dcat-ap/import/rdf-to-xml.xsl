@@ -845,9 +845,10 @@ Rome - Italy. email: geonetwork@osgeo.org
               <xsl:with-param name="rdfType">dct:MediaTypeOrExtent</xsl:with-param>
             </xsl:call-template>
             <!-- dcat:mediaType -->
+            <xsl:variable name="current" select="."/>
             <xsl:call-template name="concepts">
               <xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#mediaType' and
-											sr:binding[@name='subject'] = .]/sr:binding[@name='object' and (sr:uri or sr:bnode)]"/>
+											(sr:binding[@name='subject'] = $current or sr:binding[@name='subject']/sr:uri = $current/sr:uri)]/sr:binding[@name='object' and (sr:uri or sr:bnode)]"/>
               <xsl:with-param name="predicate">dcat:mediaType</xsl:with-param>
               <xsl:with-param name="rdfType">dct:MediaTypeOrExtent</xsl:with-param>
             </xsl:call-template>
