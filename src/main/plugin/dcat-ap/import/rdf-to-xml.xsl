@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<!--
 Copyright (C) 2001-2007 Food and Agriculture Organization of the
 United Nations (FAO-UN), United Nations World Food Programme (WFP)
 and United Nations Environment Programme (UNEP)
@@ -24,7 +24,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 <!--
 	rdf-to-xml.xsl
 	XML Schema for http://www.w3.org/ns/dcat# namespace
-	
+
 	Description: Converts a SPARQL SELECT result (XML) into an XML record that conforms to the DCAT-AP XML Schema.
       -->
 <xsl:stylesheet xmlns:sr="http://www.w3.org/2005/sparql-results#" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:spdx="http://spdx.org/rdf/terms#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:adms="http://www.w3.org/ns/adms#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dct="http://purl.org/dc/terms/" xmlns:dcat="http://www.w3.org/ns/dcat#" xmlns:vcard="http://www.w3.org/2006/vcard/ns#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:schema="http://schema.org/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:locn="http://www.w3.org/ns/locn#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:fn-rdf="http://geonetwork-opensource.org/xsl/functions/rdf" version="2.0">
@@ -90,7 +90,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">dct:modified</xsl:with-param>
 					</xsl:call-template>
-					<!-- dcat:themeTaxonomy 
+					<!-- dcat:themeTaxonomy
 					<xsl:call-template name="conceptSchemes">
 						<xsl:with-param name="conceptSchemeURIs" select="//sr:result[sr:binding[@name='subject']/* = $catalogURI and sr:binding[@name='predicate']/sr:uri = 'http://www.w3.org/ns/dcat#themeTaxonomy']/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dcat:themeTaxonomy</xsl:with-param>
@@ -290,7 +290,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:call-template>
 					<!-- dct:spatial -->
 					<xsl:call-template name="locations">
-						<xsl:with-param name="locationURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/spatial' and 
+						<xsl:with-param name="locationURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/spatial' and
 											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object' and (sr:uri or sr:bnode)]"/>
 						<xsl:with-param name="predicate">dct:spatial</xsl:with-param>
 					</xsl:call-template>
@@ -412,13 +412,13 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">locn:geometry</xsl:with-param>
 					</xsl:call-template>
-					<!-- TODO: remove this template 
+					<!-- TODO: remove this template
 							<dct:spatial>
 								<dct:Location rdf:about="b0">
 									<locn:geometry rdf:datatype="https://www.iana.org/assignments/media-types/application/vnd.geo+json">{"type": "Polygon", "coordinates": [[[2.55791, 50.6746], [5.92, 50.6746], [5.92, 51.496], [2.55791, 51.496], [2.55791, 50.6746]]]}</locn:geometry>
 									<locn:geometry rdf:datatype="http://www.opengis.net/ont/geosparql#wktLiteral">POLYGON ((2.5579 50.6746, 5.9200 50.6746, 5.9200 51.4960, 2.5579 51.4960, 2.5579 50.6746))</locn:geometry>
 								</dct:Location>
-							</dct:spatial>	
+							</dct:spatial>
 -->
 					<!-- skos:prefLabel -->
 					<xsl:call-template name="properties">
@@ -808,7 +808,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:call-template>
 					<!-- dct:license -->
 					<xsl:call-template name="licenses">
-						<xsl:with-param name="licenseURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/license' and 
+						<xsl:with-param name="licenseURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/license' and
 											sr:binding[@name='subject']/* = $distributionURI]/sr:binding[@name='object' and (sr:uri or sr:bnode)]"/>
 						<xsl:with-param name="predicate">dct:license</xsl:with-param>
 					</xsl:call-template>
@@ -964,7 +964,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 				<xsl:when test="./sr:literal and ./sr:literal != $identifier">
 					<xsl:element name="{$predicate}">
 						<xsl:value-of select="./sr:literal"/>
-						<!-- if the identifier is a UUID, keep it, otherwise, generate another UUID 
+						<!-- if the identifier is a UUID, keep it, otherwise, generate another UUID
 						<xsl:choose>
 							<xsl:when test="fn:matches(./sr:literal,'[a-f0-9]{8}-?[a-f0-9]{4}-?[1-5][a-f0-9]{3}-?[89ab][a-f0-9]{3}-?[a-f0-9]{12}')">
 								<xsl:value-of select="./sr:literal"/>
