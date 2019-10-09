@@ -431,14 +431,14 @@
 
 	<!-- ... Dates -->
 	<xsl:template mode="render-value"
-		match="*[matches(., '[0-9]{4}-[0-9]{2}-[0-9]{2}')]">
+		match="*[matches(., '^[0-9]{4}-[0-1][0-9]-[0-3][0-9](Z|(\+|-)[0-1][0-9]:[0-6][0-9])?$')]">
 		<span data-gn-humanize-time="{.}" data-format="DD MMM YYYY">
 			<xsl:value-of select="." />
 		</span>
 	</xsl:template>
 
 	<xsl:template mode="render-value"
-		match="*[matches(., '[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}')]">
+		match="*[matches(., '^[0-9]{4}-[0-1][0-9]-[0-3][0-9]T[0-2][0-9]:[0-6][0-9]:[0-6][0-9](Z|(\+|-)[0-1][0-9]:[0-6][0-9])?$')]">
 		<span data-gn-humanize-time="{.}" data-format="DD MMM YYYY HH:mm">
 			<xsl:value-of select="." />
 		</span>
