@@ -310,12 +310,12 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:call-template>
 					<!-- owl:versionInfo -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="subject" select="."/>
+						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">owl:versionInfo</xsl:with-param>
 					</xsl:call-template>
 					<!-- adms:versionNotes -->
 					<xsl:call-template name="properties">
-						<xsl:with-param name="subject" select="."/>
+						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">adms:versionNotes</xsl:with-param>
 					</xsl:call-template>
 					<!-- dcat:distribution -->
