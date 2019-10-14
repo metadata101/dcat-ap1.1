@@ -106,7 +106,7 @@ class Harvester implements IHarvester<HarvestResult> {
 	 * harvest.
 	 */
 	private List<HarvestError> errors = new LinkedList<HarvestError>();
-	
+
 	private Path xslFile;
 
 	public Harvester(AtomicBoolean cancelMonitor, Logger log, ServiceContext context, DCATAPParams params) {
@@ -152,7 +152,7 @@ class Harvester implements IHarvester<HarvestResult> {
 		return new HarvestResult();
 
 	}
-	
+
 	/**
 	 * Does DCAT-AP search request. Executes a SPARQL query to retrieve all
 	 * UUIDs and add them to a Set with RecordInfo
@@ -238,6 +238,7 @@ class Harvester implements IHarvester<HarvestResult> {
 			// Retrieve all triples about a specific dataset URI
             String queryStringRecord = ""
                 + "PREFIX dcat: <http://www.w3.org/ns/dcat#>\n"
+                + "PREFIX dct: <http://purl.org/dc/terms/>\n"
                 + "PREFIX apf: <http://jena.hpl.hp.com/ARQ/property#>\n"
                 + "PREFIX afn: <http://jena.hpl.hp.com/ARQ/function#>\n"
                 + "SELECT DISTINCT ?subject ?predicate ?pAsQName ?object\n"
@@ -255,6 +256,12 @@ class Harvester implements IHarvester<HarvestResult> {
                 + "  } UNION {\n"
                 + "    ?subject ?predicate ?object.\n"
                 + "    <" + datasetId + "> ?p ?subject.\n"
+
+                // Triple on a specific distribution's child dct:license
+                + "  } UNION {\n"
+                + "    ?subject ?predicate ?object.\n"
+                + "    <" + datasetId + "> dcat:distribution ?distribution.\n"
+                + "    ?distribution ?p ?subject.\n"
 
                 // Triples on a dct:Catalog instance
                 + "  } UNION {\n"
@@ -330,13 +337,13 @@ class Harvester implements IHarvester<HarvestResult> {
 			Element dcatXML = Xml.transform(sparqlResults, xslFile, params);
 			qe.close();
 
-			
+
 			  //XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
 			  //System.out.println("SPARQL result:");
 			  //xmlOutputter.output(sparqlResults,System.out);
 			  //System.out.println("DCAT result:");
 			  //xmlOutputter.output(dcatXML,System.out);
-			 
+
 
 			return new DCATAPRecordInfo(datasetUuid, datasetId, modified, "dcat-ap", "TODO: source?", dcatXML);
 
