@@ -236,42 +236,63 @@ class Harvester implements IHarvester<HarvestResult> {
 				log.debug("getRecordInfo: adding " + datasetId + " with modification date " + modified);
 
 			// Retrieve all triples about a specific dataset URI
-			String queryStringRecord = "PREFIX dcat: <http://www.w3.org/ns/dcat#> \n"
-					+ "PREFIX apf: <http://jena.hpl.hp.com/ARQ/property#> \n"
-					+ "PREFIX afn: <http://jena.hpl.hp.com/ARQ/function#> \n"
-					+ "SELECT DISTINCT ?subject ?predicate ?pAsQName ?object \n" + "WHERE { \n"
-					// Triples on a specific dataset
-					+ "{?subject ?predicate ?object. \n" + "FILTER(?subject = <" + datasetId + "> || ?object = <"
-					+ datasetId + "> )} \n"
-					// Triples on a specific dataset's "child" resources
-					// (publisher, distribution, ed.)
-					+ "UNION \n" + "{?subject ?predicate ?object. \n" + "<" + datasetId + "> ?p ?subject.} \n"
-					// Triples on a dct:Catalog instance
-					+ "UNION \n" + "{?subject ?predicate ?object. \n" + "?subject a dcat:Catalog. \n"
-					+ "?subject dcat:dataset <" + datasetId + ">. \n" + "FILTER (?predicate != dcat:dataset)} \n"
-					// Triples on a dct:Catalog instance's "child" resources
-					// (publisher, distribution, ed.)
-					+ "UNION \n" + "{?subject ?predicate ?object. \n" + "?s a dcat:Catalog. \n" + "?s dcat:dataset <"
-					+ datasetId + ">. \n" + "?s ?p ?subject. \n"
-                    + "FILTER (?p != dcat:dataset). \n"
-                    + "FILTER (?predicate != dcat:dataset) \n"
-                    + "} \n"
-					+ "BIND(afn:namespace(?predicate) as ?pns) \n" + "BIND (\n" + "			COALESCE(\n"
-					+ "				    IF(?pns = 'http://www.w3.org/ns/dcat#', 'dcat:', 1/0), \n"
-					+ "				    IF(?pns = 'http://purl.org/dc/terms/', 'dct:', 1/0), \n"
-					+ "				    IF(?pns = 'http://spdx.org/rdf/terms#', 'spdx:', 1/0),\n"
-					+ "				    IF(?pns = 'http://www.w3.org/2004/02/skos/core#', 'skos:', 1/0), \n"
-					+ "				    IF(?pns = 'http://www.w3.org/ns/adms#', 'adms:', 1/0), \n"
-					+ "				    IF(?pns = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'rdf:', 1/0), \n"
-					+ "				    IF(?pns = 'http://www.w3.org/2006/vcard/ns#', 'vcard:', 1/0), \n"
-					+ "				    IF(?pns = 'http://xmlns.com/foaf/0.1/', 'foaf:', 1/0), \n"
-					+ "				    IF(?pns = 'http://www.w3.org/2002/07/owl#', 'owl:', 1/0), \n"
-					+ "				    IF(?pns = 'http://schema.org/', 'schema:', 1/0), \n"
-					+ "				    IF(?pns = 'http://www.w3.org/2000/01/rdf-schema#', 'rdfs:', 1/0), \n"
-					+ "				    IF(?pns = 'http://www.w3.org/ns/locn#', 'locn:', 1/0), \n"
-					+ "				    IF(?pns = 'http://purl.org/dc/elements/1.1/', 'dc:', 1/0), \n"
-					+ " 				'unkown:' \n" + "				   )AS ?pprefix \n" + " 				)\n"
-					+ "BIND (CONCAT(?pprefix,afn:localname(?predicate)) AS ?pAsQName) \n" + "}";
+            String queryStringRecord = ""
+                + "PREFIX dcat: <http://www.w3.org/ns/dcat#>\n"
+                + "PREFIX apf: <http://jena.hpl.hp.com/ARQ/property#>\n"
+                + "PREFIX afn: <http://jena.hpl.hp.com/ARQ/function#>\n"
+                + "SELECT DISTINCT ?subject ?predicate ?pAsQName ?object\n"
+                + "WHERE {{\n"
+
+                // Triples on a specific dataset
+                + "    ?subject ?predicate ?object.\n"
+                + "    FILTER (\n"
+                + "      ?subject = <" + datasetId + "> || \n"
+                + "      ?object = <" + datasetId + "> \n"
+                + "    )\n"
+
+                // Triples on a specific dataset's "child" resources
+                // (publisher, distribution, ed.)
+                + "  } UNION {\n"
+                + "    ?subject ?predicate ?object.\n"
+                + "    <" + datasetId + "> ?p ?subject.\n"
+
+                // Triples on a dct:Catalog instance
+                + "  } UNION {\n"
+                + "    ?subject ?predicate ?object.\n"
+                + "    ?subject a dcat:Catalog.\n"
+                + "    ?subject dcat:dataset <" + datasetId + ">.\n"
+                + "    FILTER (?predicate != dcat:dataset)\n"
+
+                // Triples on a dct:Catalog instance's "child" resources
+                // (publisher, distribution, ed.)
+                + "  } UNION {\n"
+                + "    ?subject ?predicate ?object.\n"
+                + "    ?s a dcat:Catalog.\n"
+                + "    ?s dcat:dataset <" + datasetId + ">.\n"
+                + "    ?s ?p ?subject.\n"
+                + "    FILTER (?p != dcat:dataset).\n"
+                + "    FILTER (?predicate != dcat:dataset)\n"
+
+                + "  }\n"
+                + "  BIND (afn:namespace(?predicate) as ?pns)\n"
+                + "  BIND (COALESCE(\n"
+                + "      IF(?pns = 'http://www.w3.org/ns/dcat#', 'dcat:', 1/0),\n"
+                + "      IF(?pns = 'http://purl.org/dc/terms/', 'dct:', 1/0),\n"
+                + "      IF(?pns = 'http://spdx.org/rdf/terms#', 'spdx:', 1/0),\n"
+                + "      IF(?pns = 'http://www.w3.org/2004/02/skos/core#', 'skos:', 1/0),\n"
+                + "      IF(?pns = 'http://www.w3.org/ns/adms#', 'adms:', 1/0),\n"
+                + "      IF(?pns = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#', 'rdf:', 1/0),\n"
+                + "      IF(?pns = 'http://www.w3.org/2006/vcard/ns#', 'vcard:', 1/0),\n"
+                + "      IF(?pns = 'http://xmlns.com/foaf/0.1/', 'foaf:', 1/0),\n"
+                + "      IF(?pns = 'http://www.w3.org/2002/07/owl#', 'owl:', 1/0),\n"
+                + "      IF(?pns = 'http://schema.org/', 'schema:', 1/0),\n"
+                + "      IF(?pns = 'http://www.w3.org/2000/01/rdf-schema#', 'rdfs:', 1/0),\n"
+                + "      IF(?pns = 'http://www.w3.org/ns/locn#', 'locn:', 1/0),\n"
+                + "      IF(?pns = 'http://purl.org/dc/elements/1.1/', 'dc:', 1/0),\n"
+                + "      'unkown:'\n"
+                + "    ) AS ?pprefix )\n"
+                + "  BIND (CONCAT(?pprefix,afn:localname(?predicate)) AS ?pAsQName)\n"
+                + "}";
 
 			// System.out.println(queryStringRecord);
 
