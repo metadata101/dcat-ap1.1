@@ -239,6 +239,7 @@ class Harvester implements IHarvester<HarvestResult> {
             String queryStringRecord = ""
                 + "PREFIX dcat: <http://www.w3.org/ns/dcat#>\n"
                 + "PREFIX dct: <http://purl.org/dc/terms/>\n"
+                + "PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>\n"
                 + "PREFIX apf: <http://jena.hpl.hp.com/ARQ/property#>\n"
                 + "PREFIX afn: <http://jena.hpl.hp.com/ARQ/function#>\n"
                 + "SELECT DISTINCT ?subject ?predicate ?pAsQName ?object\n"
@@ -262,6 +263,12 @@ class Harvester implements IHarvester<HarvestResult> {
                 + "    ?subject ?predicate ?object.\n"
                 + "    <" + datasetId + "> dcat:distribution ?distribution.\n"
                 + "    ?distribution ?p ?subject.\n"
+
+                // Triple on a specific contactPoint's child Address
+                + "  } UNION {\n"
+                + "    ?subject ?predicate ?object.\n"
+                + "    <" + datasetId + "> dcat:contactPoint ?address.\n"
+                + "    ?address ?p ?subject.\n"
 
                 // Triples on a dct:Catalog instance
                 + "  } UNION {\n"
