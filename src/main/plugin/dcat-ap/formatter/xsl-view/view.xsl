@@ -443,4 +443,10 @@
 			<xsl:value-of select="." />
 		</span>
 	</xsl:template>
+
+  <xsl:template mode="render-url" match="*[../name() = 'vcard:hasEmail']|@*[../name() = 'vcard:hasEmail']">
+    <a href="{concat('mailto:', .)}" style="color=#06c; text-decoration: underline;">
+      <xsl:value-of select="." />
+    </a>
+  </xsl:template>
 </xsl:stylesheet>

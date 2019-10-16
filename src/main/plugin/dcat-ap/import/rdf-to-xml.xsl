@@ -769,7 +769,7 @@ Rome - Italy. email: geonetwork@osgeo.org
               <xsl:with-param name="predicate">vcard:hasAddress</xsl:with-param>
             </xsl:call-template>
             <!-- vcard:hasEmail -->
-            <xsl:call-template name="properties">
+            <xsl:call-template name="mail-properties">
               <xsl:with-param name="subject" select="./*"/>
               <xsl:with-param name="predicate">vcard:hasEmail</xsl:with-param>
             </xsl:call-template>
@@ -1124,6 +1124,18 @@ Rome - Italy. email: geonetwork@osgeo.org
             </xsl:if>
           </xsl:otherwise>
         </xsl:choose>
+      </xsl:element>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="mail-properties">
+    <xsl:param name="subject"/>
+    <xsl:param name="predicate"/>
+    <!-- Select all objects matching the subject and predicate pattern -->
+    <xsl:for-each select="//sr:result[sr:binding[@name='subject']/* = $subject and
+											sr:binding[@name='pAsQName']/sr:literal = $predicate]/sr:binding[@name='object']">
+      <xsl:element name="{$predicate}">
+        <xsl:attribute name="rdf:resource" select="fn:tokenize(./sr:uri, '/')[fn:last()]"/>
       </xsl:element>
     </xsl:for-each>
   </xsl:template>
