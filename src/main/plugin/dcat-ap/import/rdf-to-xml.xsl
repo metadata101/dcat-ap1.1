@@ -616,7 +616,7 @@ Rome - Italy. email: geonetwork@osgeo.org
           <xsl:if test="not(./sr:bnode)">
             <!-- skos:prefLabel -->
             <xsl:call-template name="properties">
-              <xsl:with-param name="subject" select="."/>
+              <xsl:with-param name="subject" select="./*"/>
               <xsl:with-param name="predicate">skos:prefLabel</xsl:with-param>
             </xsl:call-template>
             <!-- dct:type -->
@@ -842,7 +842,7 @@ Rome - Italy. email: geonetwork@osgeo.org
               <xsl:with-param name="conceptURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/format' and
 											sr:binding[@name='subject']/* = $distributionURI]/sr:binding[@name='object' and (sr:uri or sr:bnode)]"/>
               <xsl:with-param name="predicate">dct:format</xsl:with-param>
-              <xsl:with-param name="rdfType">dct:MediaTypeOrExtent</xsl:with-param>
+              <xsl:with-param name="rdfType"></xsl:with-param>
             </xsl:call-template>
             <!-- dcat:mediaType -->
             <xsl:variable name="current" select="."/>
