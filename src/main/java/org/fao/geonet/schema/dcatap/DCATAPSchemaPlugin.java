@@ -47,7 +47,7 @@ import com.google.common.collect.ImmutableSet;
  */
 public class DCATAPSchemaPlugin
         extends org.fao.geonet.kernel.schema.SchemaPlugin
-        implements DcatapAssociatedResourcesSchemaPlugin, MultilingualSchemaPlugin {
+        implements AssociatedResourcesSchemaPlugin, MultilingualSchemaPlugin {
     public static final String IDENTIFIER = "dcat-ap";
 
     private static ImmutableSet<Namespace> allNamespaces;
@@ -123,7 +123,11 @@ public class DCATAPSchemaPlugin
         }
         return uuids;
     }
-
+    
+    public Set<String> getAssociatedRelationUUIDs(Element metadata) {
+    	return null;    	
+    }
+    
     @Override
     public Map<String, Namespace> getCswTypeNames() {
         return allTypenames;
