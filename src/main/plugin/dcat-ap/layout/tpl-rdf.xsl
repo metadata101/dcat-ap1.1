@@ -22,7 +22,7 @@
   -->
 	<!-- FIME : $url comes from a global variable. -->
 	<xsl:template match="rdf:RDF" mode="record-reference">
-		<dcat:dataset rdf:resource="{$url}/resource/{dcat:Catalog/dcat:dataset/dcat:Dataset/dct:identifier[1]}"/>
+		<dcat:dataset rdf:resource="{$serviceUrl}resource/{dcat:Catalog/dcat:dataset/dcat:Dataset/dct:identifier[1]}"/>
 		<!--  <dcat:record rdf:resource="{$url}/metadata/{dcat:Catalog/dcat:dataset/dcat:Dataset/dct:identifier[1]}"/>  --> 
 	</xsl:template>
 	<!-- 

@@ -52,22 +52,7 @@
   <xsl:variable name="serviceUrl" select="/root/env/siteURL"/>
   <xsl:variable name="env" select="/root/env"/>
   <xsl:variable name="iso2letterLanguageCode" select="lower-case(java:twoCharLangCode(/root/gui/language))"/>
-  <xsl:variable name="port">
-    <xsl:choose>
-      <xsl:when test="$env/system/server/protocol = 'https'">
-        <xsl:value-of select="$env/system/server/securePort"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$env/system/server/port"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:variable>
   <xsl:variable name="resourcePrefix" select="$env/metadata/resourceIdentifierPrefix"/>
-  <xsl:variable name="url"
-                select="concat($env/system/server/protocol, '://',
-                          $env/system/server/host,
-                          if ($port='80') then '' else concat(':', $port),
-                          /root/gui/url)"/>
 
   <xsl:template match="/root">
     <xsl:apply-templates select="//rdf:RDF"/>
@@ -127,7 +112,7 @@
             <dct:title xml:lang="{$iso2letterLanguageCode}">
               <xsl:value-of select="title"/>
             </dct:title>
-            <foaf:isPrimaryTopicOf><xsl:value-of select="$url"/>/srv/eng/thesaurus.download?ref=<xsl:value-of
+            <foaf:isPrimaryTopicOf><xsl:value-of select="$serviceUrl"/>thesaurus.download?ref=<xsl:value-of
               select="key"/>
             </foaf:isPrimaryTopicOf>
           </skos:ConceptScheme>
