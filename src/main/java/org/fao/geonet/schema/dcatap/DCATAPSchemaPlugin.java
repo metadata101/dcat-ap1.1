@@ -31,7 +31,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.fao.geonet.kernel.schema.AssociatedResource;
-import org.fao.geonet.kernel.schema.AssociatedResourcesSchemaPlugin;
+import org.fao.geonet.kernel.schema.DcatapAssociatedResourcesSchemaPlugin;
 import org.fao.geonet.kernel.schema.MultilingualSchemaPlugin;
 import org.fao.geonet.utils.Xml;
 import org.jdom.Element;
@@ -47,7 +47,7 @@ import com.google.common.collect.ImmutableSet;
  */
 public class DCATAPSchemaPlugin
         extends org.fao.geonet.kernel.schema.SchemaPlugin
-        implements AssociatedResourcesSchemaPlugin, MultilingualSchemaPlugin {
+        implements DcatapAssociatedResourcesSchemaPlugin, MultilingualSchemaPlugin {
     public static final String IDENTIFIER = "dcat-ap";
 
     private static ImmutableSet<Namespace> allNamespaces;
