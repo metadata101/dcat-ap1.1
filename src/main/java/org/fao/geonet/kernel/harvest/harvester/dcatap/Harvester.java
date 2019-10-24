@@ -314,63 +314,69 @@ class Harvester implements IHarvester<HarvestResult> {
 			Query queryRecord = QueryFactory.create(queryStringRecord);
 			QueryExecution qe = QueryExecutionFactory.create(queryRecord, model);
 			ResultSet results = qe.execSelect();
+			if (results.hasNext()) {
+				// Output query results
+				ByteArrayOutputStream outxml = new ByteArrayOutputStream();
+				ResultSetFormatter.outputAsXML(outxml, results);
 
-			// Output query results
-			ByteArrayOutputStream outxml = new ByteArrayOutputStream();
-			ResultSetFormatter.outputAsXML(outxml, results);
+				// Apply XSLT transformation
+				Element sparqlResults = Xml.loadStream(new ByteArrayInputStream(outxml.toByteArray()));
+				/*
+				 * Issue: GeoNetwork works best (only?) with UUIDs as dataset
+				 * identifiers. The following lines of code extract a uuid from the
+				 * dataset URI. If no UUID is found, the dataset URIs are converted
+				 * into a (unique) UUID using generateUUID. Note that URL encoding
+				 * does not work, as the GeoNetwork URLs still clash and don't work
+				 * in all situations.
+				 * //java.net.URLEncoder.encode(datasetId,"utf-8");
+				 */
+				Pattern pattern = Pattern
+						.compile("([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}){1}");
+				Matcher matcher = pattern.matcher(datasetId);
+				String datasetUuid;
+				if (matcher.find()) {
+					datasetUuid = datasetId.substring(matcher.start(), matcher.end());
+				} else {
+					datasetUuid = UUID.nameUUIDFromBytes(datasetId.getBytes()).toString();
+				}
+				Map<String, Object> params = new HashMap<String, Object>();
+				params.put("identifier", datasetUuid);
+				Element dcatXML = Xml.transform(sparqlResults, xslFile, params);
+				qe.close();
 
-			// Apply XSLT transformation
-			Element sparqlResults = Xml.loadStream(new ByteArrayInputStream(outxml.toByteArray()));
-			/*
-			 * Issue: GeoNetwork works best (only?) with UUIDs as dataset
-			 * identifiers. The following lines of code extract a uuid from the
-			 * dataset URI. If no UUID is found, the dataset URIs are converted
-			 * into a (unique) UUID using generateUUID. Note that URL encoding
-			 * does not work, as the GeoNetwork URLs still clash and don't work
-			 * in all situations.
-			 * //java.net.URLEncoder.encode(datasetId,"utf-8");
-			 */
-			Pattern pattern = Pattern
-					.compile("([a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}){1}");
-			Matcher matcher = pattern.matcher(datasetId);
-			String datasetUuid;
-			if (matcher.find()) {
-				datasetUuid = datasetId.substring(matcher.start(), matcher.end());
+
+				  //XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
+				  //System.out.println("SPARQL result:");
+				  //xmlOutputter.output(sparqlResults,System.out);
+				  //System.out.println("DCAT result:");
+				  //xmlOutputter.output(dcatXML,System.out);
+
+
+				return new DCATAPRecordInfo(datasetUuid, datasetId, modified, "dcat-ap", "TODO: source?", dcatXML);
 			} else {
-				datasetUuid = UUID.nameUUIDFromBytes(datasetId.getBytes()).toString();
+				String errorMessage = "No dcat:Dataset found with datasetId " + datasetId + ", rdf:about attribute empty?";
+				HarvestError harvestError = new HarvestError(context, new Exception(errorMessage));
+				harvestError.setDescription(harvestError.getDescription());
+				errors.add(harvestError);
 			}
-			Map<String, Object> params = new HashMap<String, Object>();
-			params.put("identifier", datasetUuid);
-			Element dcatXML = Xml.transform(sparqlResults, xslFile, params);
-			qe.close();
-
-
-			  //XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
-			  //System.out.println("SPARQL result:");
-			  //xmlOutputter.output(sparqlResults,System.out);
-			  //System.out.println("DCAT result:");
-			  //xmlOutputter.output(dcatXML,System.out);
-
-
-			return new DCATAPRecordInfo(datasetUuid, datasetId, modified, "dcat-ap", "TODO: source?", dcatXML);
 
 		} catch (ParseException e) {
 			HarvestError harvestError = new HarvestError(context, e);
 			harvestError.setDescription(harvestError.getDescription());
-			errors.add(new HarvestError(context, e));
+			errors.add(harvestError);
 		} catch (JDOMException e) {
 			HarvestError harvestError = new HarvestError(context, e);
 			harvestError.setDescription(harvestError.getDescription());
-			errors.add(new HarvestError(context, e));
+			errors.add(harvestError);
 		} catch (IOException e) {
 			HarvestError harvestError = new HarvestError(context, e);
 			harvestError.setDescription(harvestError.getDescription());
-			errors.add(new HarvestError(context, e));
+			errors.add(harvestError);
 		} catch (Exception e) {
-			HarvestError harvestError = new HarvestError(context, e);
-			harvestError.setDescription(harvestError.getDescription());
 			BadServerResponseEx et = new BadServerResponseEx(e.getMessage());
-			errors.add(new HarvestError(context, et));
+			HarvestError harvestError = new HarvestError(context, et);
+			harvestError.setDescription(harvestError.getDescription());
+			errors.add(harvestError);
 		}
 
 		// we get here if we couldn't get the UUID or date modified
