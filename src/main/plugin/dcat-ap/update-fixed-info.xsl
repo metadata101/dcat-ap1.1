@@ -74,16 +74,24 @@
       </dct:title>
       <dct:description xml:lang="nl" >
         <xsl:value-of select="concat('Deze catalogus bevat datasets ontsloten door ', $env/system/site/organization)"/>
-      </dct:description>
-      <dct:publisher>
-        <foaf:Agent rdf:about="{$resourcePrefix}/organizations/{encode-for-uri($env/system/site/organization)}">
-          <dct:type rdf:resource="http://purl.org/adms/publishertype/LocalAuthority"/>
-          <foaf:name xml:lang="nl">
-            <xsl:value-of select="$env/system/site/organization"></xsl:value-of>
-          </foaf:name>
-        </foaf:Agent>
-      </dct:publisher>
-      <dct:language rdf:resource="http://publications.europa.eu/resource/authority/language/NLD"/>
+			</dct:description>
+			<dct:publisher>
+				<foaf:Agent
+					rdf:about="{$resourcePrefix}/organizations/{encode-for-uri($env/system/site/organization)}">
+					<foaf:name xml:lang="nl">
+						<xsl:value-of select="$env/system/site/organization"></xsl:value-of>
+					</foaf:name>
+					<dct:type>
+						<skos:Concept rdf:about="http://purl.org/adms/publishertype/LocalAuthority">
+							<skos:prefLabel xml:lang="nl">Local Authority</skos:prefLabel>
+							<skos:prefLabel xml:lang="en">Local Authority</skos:prefLabel>
+							<skos:prefLabel xml:lang="fr">Local Authority</skos:prefLabel>
+							<skos:prefLabel xml:lang="de">Local Authority</skos:prefLabel>
+							<skos:inScheme rdf:resource="http://purl.org/adms/publishertype/1.0" />
+						</skos:Concept>
+					</dct:type>
+				</foaf:Agent>
+			</dct:publisher>
       <dct:license>
         <dct:LicenseDocument rdf:about="https://data.vlaanderen.be/doc/licentie/creative-commons-zero-verklaring/v1.0" xmlns:dct="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#">
           <dct:type>
@@ -100,6 +108,16 @@
           <dct:identifier>https://data.vlaanderen.be/doc/licentie/creative-commons-zero-verklaring/v1.0</dct:identifier>
         </dct:LicenseDocument>
       </dct:license>
+      <dct:language>
+         <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/language/NLD">
+            <rdf:type rdf:resource="dct:LinguisticSystem"/>
+            <skos:prefLabel xml:lang="nl">Nederlands</skos:prefLabel>
+            <skos:prefLabel xml:lang="en">Dutch</skos:prefLabel>
+            <skos:prefLabel xml:lang="fr">néerlandais</skos:prefLabel>
+            <skos:prefLabel xml:lang="de">NiederlÃ¤ndisch</skos:prefLabel>
+            <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/language"/>
+         </skos:Concept>
+      </dct:language>
       <dct:issued>
         <xsl:value-of select="'2019-09-01'"/>
       </dct:issued>
@@ -146,10 +164,37 @@
           </xsl:if>
         </xsl:for-each>
       </xsl:if>
-      <xsl:apply-templates select="node()[not(name(.) = 'dct:identifier')]"/>
-      <xsl:if test="not(dcat:keyword[translate(text(), 'abcdefghijklmonpqrstuvwxyz', 'ABCDEFGHIJKLMONPQRSTUVWXYZ') = 'VLAAMSE OPEN DATA'])">
-        <dcat:keyword xml:lang="nl">Vlaamse Open data</dcat:keyword>
-      </xsl:if>
+      <xsl:apply-templates select="dct:title"/>
+      <xsl:apply-templates select="dct:description"/>
+      <xsl:apply-templates select="dcat:contactPoint"/>
+      <xsl:apply-templates select="dct:issued"/>
+      <xsl:apply-templates select="dct:modified"/>
+      <xsl:apply-templates select="dct:publisher"/>
+      <xsl:apply-templates
+        select="dcat:keyword[not(translate(text(), 'abcdefghijklmonpqrstuvwxyz', 'ABCDEFGHIJKLMONPQRSTUVWXYZ') = 'VLAAMSE OPEN DATA')]"/>
+      <!-- Add the missing keyword -->
+      <dcat:keyword xml:lang="nl">Vlaamse Open data</dcat:keyword>
+      <xsl:apply-templates select="dcat:theme"/>
+      <xsl:apply-templates select="dct:accessRights"/>
+      <xsl:apply-templates select="dct:conformsTo"/>
+      <xsl:apply-templates select="foaf:page"/>
+      <xsl:apply-templates select="dct:accrualPeriodicity"/>
+      <xsl:apply-templates select="dct:hasVersion"/>
+      <xsl:apply-templates select="dct:isVersionOf"/>
+      <xsl:apply-templates select="dcat:landingPage"/>
+      <xsl:apply-templates select="dct:language"/>
+      <xsl:apply-templates select="adms:identifier"/>
+      <xsl:apply-templates select="dct:provenance"/>
+      <xsl:apply-templates select="dct:relation"/>
+      <xsl:apply-templates select="dct:source"/>
+      <xsl:apply-templates select="dct:spatial"/>
+      <xsl:apply-templates select="dct:temporal"/>
+      <xsl:apply-templates select="dct:type"/>
+      <xsl:apply-templates select="owl:versionInfo"/>
+      <xsl:apply-templates select="adms:versionNotes"/>
+      <xsl:apply-templates select="dcat:extension"/>
+      <xsl:apply-templates select="dcat:distribution"/>
+      <xsl:apply-templates select="adms:sample"/>
     </dcat:Dataset>
   </xsl:template>
 
