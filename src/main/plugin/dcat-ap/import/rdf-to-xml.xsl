@@ -52,7 +52,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 					<!-- dct:description -->
 					<xsl:call-template name="properties">
 						<xsl:with-param name="subject" select="./*"/>
-						<xsl:with-param name="predicate">dt:description</xsl:with-param>
+						<xsl:with-param name="predicate">dct:description</xsl:with-param>
 					</xsl:call-template>
 					<dct:description xml:lang="en">This catalog was harvested by GeoNetwork.</dct:description>
 					<!-- dct:publisher -->
@@ -275,7 +275,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 					<!-- dct:provenance-->
 					<xsl:call-template name="provenanceStatements">
 						<xsl:with-param name="statementURIs" select="//sr:result[sr:binding[@name='predicate']/sr:uri = 'http://purl.org/dc/terms/provenance' and
-											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object' and (sr:uri or sr:bnode)]"/>
+											sr:binding[@name='subject']/* = $datasetURI]/sr:binding[@name='object']"/>
 						<xsl:with-param name="predicate">dct:provenance</xsl:with-param>
 					</xsl:call-template>
 					<!-- dct:relation-->
@@ -506,13 +506,13 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
           <xsl:if test="not(./sr:bnode)">
             <!-- dct:title -->
-            <xsl:call-template name="properties">
-              <xsl:with-param name="subject" select="./*"/>
+            <xsl:call-template name="litteral-properties">
+              <xsl:with-param name="subject" select="."/>
               <xsl:with-param name="predicate">dct:title</xsl:with-param>
             </xsl:call-template>
             <!-- dct:description -->
-            <xsl:call-template name="properties">
-              <xsl:with-param name="subject" select="./*"/>
+            <xsl:call-template name="litteral-properties">
+              <xsl:with-param name="subject" select="."/>
               <xsl:with-param name="predicate">dct:description</xsl:with-param>
             </xsl:call-template>
           </xsl:if>
@@ -572,13 +572,13 @@ Rome - Italy. email: geonetwork@osgeo.org
 					</xsl:choose>
           <xsl:if test="not(./sr:bnode)">
             <!-- dct:title -->
-            <xsl:call-template name="properties">
-              <xsl:with-param name="subject" select="./*"/>
+            <!--xsl:call-template name="litteral-properties">
+              <xsl:with-param name="subject" select="."/>
               <xsl:with-param name="predicate">dct:title</xsl:with-param>
-            </xsl:call-template>
+            </xsl:call-template-->
             <!-- dct:description -->
-            <xsl:call-template name="properties">
-              <xsl:with-param name="subject" select="./*"/>
+            <xsl:call-template name="litteral-properties">
+              <xsl:with-param name="subject" select="."/>
               <xsl:with-param name="predicate">dct:description</xsl:with-param>
             </xsl:call-template>
           </xsl:if>
@@ -1139,4 +1139,32 @@ Rome - Italy. email: geonetwork@osgeo.org
       </xsl:element>
     </xsl:for-each>
   </xsl:template>
+
+	<xsl:template name="litteral-properties">
+		<xsl:param name="subject" />
+		<xsl:param name="predicate" />
+		<xsl:for-each select="$subject/sr:literal">
+			<xsl:element name="{$predicate}">
+				<!-- rdf:datatype attribute -->
+				<xsl:if test="./@datatype">
+					<xsl:attribute name="rdf:datatype" select="./@datatype" />
+				</xsl:if>
+				<!-- language tag attribute -->
+				<xsl:choose>
+					<xsl:when test="./@xml:lang">
+						<xsl:attribute name="xml:lang"><xsl:value-of
+							select="./@xml:lang" /></xsl:attribute>
+					</xsl:when>
+					<xsl:when
+						test="not(./@xml:lang) and (contains($predicate,'title') or contains($predicate,'description') or contains($predicate, 'keyword') or contains($predicate, 'name'))">
+						<xsl:attribute name="xml:lang"><xsl:value-of
+							select="$defaultLang" /></xsl:attribute>
+					</xsl:when>
+				</xsl:choose>
+				<!-- literal value -->
+				<xsl:value-of select="." />
+			</xsl:element>
+		</xsl:for-each>
+	</xsl:template>
+  
 </xsl:stylesheet>
