@@ -114,30 +114,25 @@
   <xsl:template name="interpretLanguage">
     <xsl:param name="input"/>
     <xsl:choose>
-      <xsl:when test="ends-with($input,'nld')">dut</xsl:when>
-      <xsl:when test="ends-with($input,'fre')">fre</xsl:when>
-      <xsl:when test="ends-with($input,'eng')">eng</xsl:when>
-      <xsl:when test="ends-with($input,'deu')">ger</xsl:when>
+      <xsl:when test="ends-with(lower-case($input),'nld')">dut</xsl:when>
+      <xsl:when test="ends-with(lower-case($input),'fre')">fre</xsl:when>
+      <xsl:when test="ends-with(lower-case($input),'eng')">eng</xsl:when>
+      <xsl:when test="ends-with(lower-case($input),'deu')">ger</xsl:when>
     </xsl:choose>
   </xsl:template>
 
   <xsl:template name="langId-dcat-ap">
-    <xsl:variable name="titleLanguages" select="/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title/@xml:lang"/>
-    <xsl:variable name="allLanguages" select="distinct-values(/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset//@xml:lang)"/>
+    <!--xsl:variable name="titleLanguages" select="/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:title/@xml:lang"/-->
+    <!--xsl:variable name="allLanguages" select="distinct-values(/*[name(.)='rdf:RDF']/dcat:Catalog/dcat:dataset/dcat:Dataset//@xml:lang)"/-->
+    <xsl:variable name="allCatalogLanguages" select="distinct-values(/*[name(.)='rdf:RDF']/dcat:Catalog/dct:language/skos:Concept/@rdf:about)"/>
     <xsl:variable name="foundDefaultLanguage">
       <xsl:choose>
-        <xsl:when test="$titleLanguages[1]">
-          <xsl:call-template name="langId2to3">
-            <xsl:with-param name="langId-2char" select="$titleLanguages[1]" />
+        <xsl:when test="$allCatalogLanguages[1]">
+          <xsl:call-template name="interpretLanguage">
+            <xsl:with-param name="input" select="$allCatalogLanguages[1]" />
           </xsl:call-template>
         </xsl:when>
-        <xsl:when test="$allLanguages[1]">
-          <xsl:call-template name="langId2to3">
-            <xsl:with-param name="langId-2char" select="$allLanguages[1]" />
-          </xsl:call-template>
-        </xsl:when>
-        <xsl:otherwise>
-        </xsl:otherwise>
+        <xsl:otherwise></xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
     <xsl:if test="$foundDefaultLanguage=''">
