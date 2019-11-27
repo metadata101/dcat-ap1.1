@@ -70,6 +70,7 @@ public class DCATAPParams extends AbstractParams {
     //---------------------------------------------------------------------------
     public int maxResults;
 
+    private String sourceXslt;
     //---------------------------------------------------------------------------
     //private List<Search> alSearches = new ArrayList<Search>();
 
@@ -92,6 +93,7 @@ public class DCATAPParams extends AbstractParams {
         //Element searches = node.getChild("searches");
 
         baseUrl = Util.getParam(site, "baseUrl", "");
+        setSourceXslt(Util.getParam(site, "sourcexslt", "none"));
         rdfSyntax = Util.getParam(site, "rdfSyntax", RDFLanguages.RDFXML.toLongString()); 
         maxResults = Util.getParam(site, "maxResults", 10000); //MAX_HARVEST_RESULTS;
 
@@ -119,6 +121,7 @@ public class DCATAPParams extends AbstractParams {
         //Element searches = node.getChild("searches");
 
         baseUrl = Util.getParam(site, "baseUrl", baseUrl);
+        setSourceXslt(Util.getParam(site, "sourcexslt", "none"));
         rdfSyntax = Util.getParam(site, "rdfSyntax", "RDFXML"); 
         maxResults = Util.getParam(site, "maxResults", 10000); //MAX_HARVEST_RESULTS;
 
@@ -157,12 +160,22 @@ public class DCATAPParams extends AbstractParams {
         copy.baseUrl = baseUrl;
         copy.rdfSyntax = rdfSyntax;
         copy.icon = icon;
+        copy.sourceXslt = sourceXslt;
 
 //        for (Search s : alSearches)
 //            copy.alSearches.add(s.copy());
 
         return copy;
     }
+
+    public String getSourceXslt() {
+        return sourceXslt;
+    }
+
+    public void setSourceXslt(String sourceXslt) {
+        this.sourceXslt = sourceXslt;
+    }
+
 //
 //    private void addSearches(Element searches) {
 //        alSearches.clear();

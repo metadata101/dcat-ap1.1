@@ -26,7 +26,9 @@ package org.fao.geonet.kernel.harvest.harvester.dcatap;
 import jeeves.server.context.ServiceContext;
 
 import org.fao.geonet.Logger;
+import org.fao.geonet.constants.Geonet;
 import org.fao.geonet.domain.ISODate;
+import org.fao.geonet.domain.MetadataType;
 import org.fao.geonet.exceptions.BadServerResponseEx;
 import org.fao.geonet.exceptions.OperationAbortedEx;
 import org.fao.geonet.kernel.DataManager;
@@ -47,6 +49,7 @@ import org.jdom.output.XMLOutputter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Path;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -73,7 +76,7 @@ import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.RDFDataMgr;
-
+import org.apache.jena.riot.Lang;
 //=============================================================================
 
 class Harvester implements IHarvester<HarvestResult> {
@@ -164,9 +167,25 @@ class Harvester implements IHarvester<HarvestResult> {
 		try {
 			int maxResults = params.maxResults;
 
-			// Create an empty in-memory model and populate it from the graph
+	        // Create an empty in-memory model and populate it from the graph
 			Model model = ModelFactory.createMemModelMaker().createDefaultModel();
-			RDFDataMgr.read(model, params.baseUrl);
+	        if (!params.getSourceXslt().equals("none")) {
+		        Element xml = Xml.loadFile(new URL(params.baseUrl));
+		        Path styleSheet = context.getAppPath()
+						.resolve(Geonet.Path.HARVESTSOURCE_STYLESHEETS + "/" + params.getSourceXslt() + ".xsl");
+	            try {
+	            	Element resultXml = Xml.transform(xml, styleSheet);
+			        RDFDataMgr.read(model, new ByteArrayInputStream(Xml.getString(resultXml).getBytes("UTF-8")), Lang.RDFXML);
+	            } catch (Exception e) {
+					HarvestError harvestError = new HarvestError(context, new Exception("Cannot transform RDFXML feed: " + e.getMessage()));
+					errors.add(harvestError);
+					return records;
+	            }
+	        } else {
+		        RDFDataMgr.read(model, params.baseUrl);
+	        }
+	        
+	        
 
 			// Get all dataset URIs
 			String queryStringIds = "PREFIX dcat: <http://www.w3.org/ns/dcat#> \n"
@@ -356,7 +375,6 @@ class Harvester implements IHarvester<HarvestResult> {
 			} else {
 				String errorMessage = "No dcat:Dataset found with datasetId " + datasetId + ", rdf:about attribute empty?";
 				HarvestError harvestError = new HarvestError(context, new Exception(errorMessage));
-				harvestError.setDescription(harvestError.getDescription());
 				errors.add(harvestError);
 			}
 
