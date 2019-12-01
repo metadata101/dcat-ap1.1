@@ -168,13 +168,47 @@ class Harvester implements IHarvester<HarvestResult> {
 			Model model = ModelFactory.createMemModelMaker().createDefaultModel();
 			RDFDataMgr.read(model, params.baseUrl);
 
+	        // Set URIs of blank-node dcat:Dataset instances to a URN composed of the dataset's first title.
+			String queryStringFixBlankNodes = 
+	                "PREFIX dcat: <http://www.w3.org/ns/dcat#>\n" +
+	                "PREFIX dct: <http://purl.org/dc/terms/>\n" + 	
+					"CONSTRUCT { ?newDatasetURI ?p1 ?o1.\n" + 
+					"							?s2 ?p2 ?newDatasetURI.\n" + 
+					"							?s3 ?p3 ?o3.}\n" + 
+					"WHERE {\n" + 
+					"{\n" + 
+					"?oldDatasetURI a dcat:Dataset.\n" + 
+					"?oldDatasetURI ?p1 ?o1.\n" + 
+					"?s2 ?p2 ?oldDatasetURI.\n" + 
+					"FILTER(isBlank(?oldDatasetURI)).\n" + 
+					"	 {SELECT ?oldDatasetURI (MIN(?t) AS ?title)\n" + 
+					"	  WHERE {\n" + 
+					"		?oldDatasetURI dct:title ?t.\n" + 
+					"	  } GROUP BY ?oldDatasetURI\n" + 
+					"	 }" +
+					"?oldDatasetURI dct:title ?title.\n" + 
+					"BIND (URI(CONCAT('urn:title:',ENCODE_FOR_URI(replace(replace(lcase(?title),' ','-'),'[^a-z|^0-9|-]','')))) AS ?newDatasetURI).\n" + 
+					"}\n" + 
+					"UNION\n" + 
+					"{\n" + 
+					"?s3 ?p3 ?o3.\n" + 
+					"FILTER(NOT EXISTS {?s3 a dcat:Dataset. FILTER(isBlank(?s3)).}).\n" + 
+					"FILTER(NOT EXISTS {?o3 a dcat:Dataset. FILTER(isBlank(?o3)).}).\n" + 
+					"}\n" + 
+					"}";
+
+			Query queryFixBlankNodes = QueryFactory.create(queryStringFixBlankNodes);
+			QueryExecution qe = QueryExecutionFactory.create(queryFixBlankNodes, model);
+			model = qe.execConstruct();
+			qe.close();
+
 			// Get all dataset URIs
 			String queryStringIds = "PREFIX dcat: <http://www.w3.org/ns/dcat#> \n"
 					+ "PREFIX dct: <http://purl.org/dc/terms/> \n" + "SELECT ?datasetid ?modified \n"
 					+ " WHERE {?datasetid a dcat:Dataset. \n" + " OPTIONAL {?datasetid dcat:record ?record. \n"
 					+ " ?record dct:modified ?modified}}";
 			Query queryIds = QueryFactory.create(queryStringIds);
-			QueryExecution qe = QueryExecutionFactory.create(queryIds, model);
+			qe = QueryExecutionFactory.create(queryIds, model);
 			ResultSet resultIds = qe.execSelect();
 
 			while (resultIds.hasNext()) {
