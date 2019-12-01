@@ -131,7 +131,6 @@ public class DCATAPHarvester extends AbstractHarvester<HarvestResult> {
         harvesterSettingsManager.add("id:" + siteId, "baseUrl", params.baseUrl);
         harvesterSettingsManager.add("id:" + siteId, "icon", params.icon);
         harvesterSettingsManager.add("id:" + siteId, "rdfSyntax", params.rdfSyntax);
-        harvesterSettingsManager.add("id:" + siteId, "sourcexslt", params.getSourceXslt());
 
         //--- store search nodes
 
