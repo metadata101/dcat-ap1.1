@@ -25,7 +25,12 @@ This plugin has the following features:
 
 ### GeoNetwork version to use with this plugin
 
-Use GeoNetwork version 3.6+.
+Use GeoNetwork version 3.6.0. See the instructions on [software development](https://github.com/geonetwork/core-geonetwork/tree/master/software_development) in the core-geonetwork project.
+
+```
+git clone --recursive https://github.com/geonetwork/core-geonetwork.git
+git checkout 3.6.0
+```
 
 ### Adding the plugin to the source code
 
@@ -40,7 +45,7 @@ git submodule init
 git submodule update
 ```
 
-Add the new module to the schema/pom.xml:
+Add the new module to the schemas/pom.xml:
 
 ```
   <module>iso19139</module>
@@ -71,13 +76,26 @@ Add the module to the webapp in web/pom.xml:
   </resource>
 ```
 
-Apply the [patches](/core-geonetwork-patches) to the geonetwork core.
+Apply the [patches](/core-geonetwork-patches) to the geonetwork core. You may need to manually apply specific hunks of a patch.
 ```
-git am schemas/dcat-ap/core-geonetwork-patches/*.patch
+cd ..   (core-geonetwork)
+git am --ignore-space-change --ignore-whitespace --reject --whitespace=fix schemas/dcat-ap/core-geonetwork-patches/*.patch
 ```
 
 Build and run the application following the
-[Software Development Documentation](https://github.com/geonetwork/core-geonetwork/tree/master/software_development).
+[Software Development Documentation](https://github.com/geonetwork/core-geonetwork/tree/master/software_development). You'll need to have Java JDK 1.8 and [Maven](https://maven.apache.org/install.html) installed.
+
+```
+mvn clean install -DskipTests
+```
+
+After build, you will find a WAR file in `/web/target/geonetwork.war` that you can deploy in your Tomcat 8.x servket container. Alternatively, you can run GeoNetwork with the Maven Jetty plugin by executing the following command:
+
+
+```
+cd web
+mvn jetty:run -Penv-dev
+```
 
 Samples and templates can be imported via the 'Admin Console' > 'Metadata and Templates' > 'DCAT-AP' menu.
 
