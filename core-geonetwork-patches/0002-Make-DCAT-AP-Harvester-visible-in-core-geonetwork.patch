@@ -38,16 +38,6 @@ index 4b5adc4161..22b335f6fc 100644
      "harvester-geonetwork": "GeoNetwork",
      "harvester-geonetwork20": "GeoNetwork (Old node)",
      "harvester-geonetwork20Help": "Harvest GeoNetwork node in 2.0 or lower version. Please notice that harvesting old GeoNetwork nodes is unsafe. The old nodes do not have unique site ids and this could cause unpredictable results (like removing nodes from other harvestings).",
-@@ -1344,9 +1349,5 @@
-     "ui-editorIndentType-colored": "Colored indents",
-     "filterSettings": "Filter settings ",
-     "filterPlaceHolder": "e.g. INSPIRE",
--    "filterReset": "Reset the filter",
--    "distributedSearch": "Distributed search",
--    "distributedSearchHelp": "Enables the distributed search in remote server (if the remote server supports it). When this option is enabled, the remote catalog cascades the search to the Federated CSW servers that has configured.",
--    "hopCount": "Hop count",
--    "hopCountHelp": "Control the maximum number of message hops (default to 2) before the search is terminated in a distributed search."
-+    "filterReset": "Reset the filter"
  }
 diff --git a/web-ui/src/main/resources/catalog/locales/fr-admin.json b/web-ui/src/main/resources/catalog/locales/fr-admin.json
 index 5e61bd0716..2b04e63868 100644
