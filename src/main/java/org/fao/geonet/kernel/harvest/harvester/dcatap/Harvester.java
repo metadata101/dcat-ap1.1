@@ -181,13 +181,12 @@ class Harvester implements IHarvester<HarvestResult> {
 					"?oldDatasetURI ?p1 ?o1.\n" + 
 					"?s2 ?p2 ?oldDatasetURI.\n" + 
 					"FILTER(isBlank(?oldDatasetURI)).\n" + 
-					"	 {SELECT ?oldDatasetURI (MIN(?t) AS ?title)\n" + 
+					"	 {SELECT ?oldDatasetURI (UUID() AS ?uuid) (MIN(?t) AS ?title)\n" + 
 					"	  WHERE {\n" + 
 					"		?oldDatasetURI dct:title ?t.\n" + 
 					"	  } GROUP BY ?oldDatasetURI\n" + 
-					"	 }" +
-					"?oldDatasetURI dct:title ?title.\n" + 
-					"BIND (URI(CONCAT('urn:title:',ENCODE_FOR_URI(replace(replace(lcase(?title),' ','-'),'[^a-z|^0-9|-]','')))) AS ?newDatasetURI).\n" + 
+					"	 }	" +
+					"BIND (?uuid AS ?newDatasetURI)." +
 					"}\n" + 
 					"UNION\n" + 
 					"{\n" + 
