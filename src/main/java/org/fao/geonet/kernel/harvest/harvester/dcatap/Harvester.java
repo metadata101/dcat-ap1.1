@@ -275,6 +275,7 @@ class Harvester implements IHarvester<HarvestResult> {
                 + "PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>\n"
                 + "PREFIX apf: <http://jena.hpl.hp.com/ARQ/property#>\n"
                 + "PREFIX afn: <http://jena.hpl.hp.com/ARQ/function#>\n"
+                + "PREFIX skos: <http://www.w3.org/2004/02/skos/core#>\n"
                 + "SELECT DISTINCT ?subject ?predicate ?pAsQName ?object\n"
                 + "WHERE {{\n"
 
@@ -319,6 +320,11 @@ class Harvester implements IHarvester<HarvestResult> {
                 + "    ?s ?p ?subject.\n"
                 + "    FILTER (?p != dcat:dataset).\n"
                 + "    FILTER (?predicate != dcat:dataset)\n"
+                
+                // Triples on a skos:Concept instance
+                + "  } UNION {\n"
+                + "    ?subject ?predicate ?object.\n"
+                + "    ?subject a skos:Concept.\n"                
 
                 + "  }\n"
                 + "  BIND (afn:namespace(?predicate) as ?pns)\n"
