@@ -317,7 +317,14 @@
             </xsl:for-each>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:value-of select="skos:Concept/@rdf:about"/>
+            <xsl:choose>
+              <xsl:when test="starts-with(skos:Concept/@rdf:about, 'http://') or starts-with(skos:Concept/@rdf:about, 'https://')">
+                <xsl:apply-templates mode="render-url" select="skos:Concept/@rdf:about"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="skos:Concept/@rdf:about"/>
+              </xsl:otherwise>
+            </xsl:choose>
           </xsl:otherwise>
         </xsl:choose>
       </td>
@@ -445,8 +452,27 @@
 	</xsl:template>
 
   <xsl:template mode="render-url" match="*[../name() = 'vcard:hasEmail']|@*[../name() = 'vcard:hasEmail']">
-    <a href="{concat('mailto:', .)}" style="color=#06c; text-decoration: underline;">
-      <xsl:value-of select="." />
+    <xsl:choose>
+      <xsl:when test="starts-with(normalize-space(.), 'mailto:')">
+        <a href="{normalize-space(.)}" style="color=#06c; text-decoration: underline;">
+          <xsl:value-of select="substring-after(normalize-space(.), 'mailto:')" />
+        </a>
+      </xsl:when>
+      <xsl:otherwise>
+        <a href="{concat('mailto:', normalize-space(.))}" style="color=#06c; text-decoration: underline;">
+          <xsl:value-of select="." />
+        </a>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template mode="render-url"
+                match="*[name(..) = 'dct:relation' or name(..) = 'dct:source' or name(..) = 'dct:isVersionOf' or name(..) = 'dct:hasVersion']|
+                       @*[name(..) = 'dct:relation' or name(..) = 'dct:source' or name(..) = 'dct:isVersionOf' or name(..) = 'dct:hasVersion']">
+    <a
+      href="{concat($nodeUrl,$langId,'/catalog.search#/search?resultType=details&amp;sortBy=relevance&amp;from=1&amp;to=20&amp;fast=index&amp;_content_type=json&amp;any=',.)}"
+      style="color=#06c; text-decoration: underline;">
+      <xsl:value-of select="."/>
     </a>
   </xsl:template>
 </xsl:stylesheet>
