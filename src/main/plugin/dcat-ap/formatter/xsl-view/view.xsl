@@ -424,7 +424,14 @@
 
 
 	<!-- ########################## -->
-	<!-- Render values for text ... -->
+	<!-- Render values for text with clickable URL ... -->
+  <xsl:template mode="render-value" match="dct:title|dct:description|owl:versionInfo|adms:versionNotes|dct:LicenseDocument/dct:identifier">
+    <xsl:call-template name="linkify">
+      <xsl:with-param name="txt" select="."/>
+    </xsl:call-template>
+  </xsl:template>
+
+  <!-- Render values for text -->
 	<xsl:template mode="render-value" match="*">
 		<xsl:value-of select="." />
 	</xsl:template>
