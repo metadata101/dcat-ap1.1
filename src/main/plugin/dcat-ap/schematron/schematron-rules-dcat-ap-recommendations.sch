@@ -117,17 +117,17 @@ Source:
 <!--			</sch:report>-->
 <!--		</sch:rule>-->
 <!--	</sch:pattern>-->
-	<!-- <sch:pattern> -->
-		<!-- <sch:title>25. dct:issued should be a literal typed as date or dateTime.</sch:title> -->
-		<!-- <sch:rule context="//dcat:Catalog/dct:issued"> -->
-			<!-- <sch:let name="id" value="parent::node()/@rdf:about/string()"/> -->
-			<!-- <sch:let name="issuedDateTime" value=". castable as xs:date or . castable as xs:dateTime"/> -->
-			<!-- <sch:assert test="$issuedDateTime = true()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:issued property which value "<sch:value-of select="./string()"/>" is not a date or dateTime. -->
-			<!-- </sch:assert> -->
-			<!-- <sch:report test="$issuedDateTime = true()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:issued property which value "<sch:value-of select="./string()"/>" is a date or dateTime. -->
-			<!-- </sch:report> -->
-		<!-- </sch:rule> -->
-	<!-- </sch:pattern> -->
+<!--	<sch:pattern>-->
+<!--		<sch:title>24. dcat:themeTaxonomy is a recommended property for Catalog.</sch:title>-->
+<!--		<sch:rule context="//dcat:Catalog">-->
+<!--			<sch:let name="id" value="@rdf:about/string()"/>-->
+<!--			<sch:let name="noIssued" value="not(dcat:themeTaxonomy )"/>-->
+<!--			<sch:assert test="$noIssued = false()">WARNING: The dcat:Catalog "<sch:value-of select="$id"/>" does not have a dcat:themeTaxonomy.-->
+<!--			</sch:assert>-->
+<!--			<sch:report test="$noIssued = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dcat:themeTaxonomy.-->
+<!--			</sch:report>-->
+<!--		</sch:rule>-->
+<!--	</sch:pattern>-->
 <!--	<sch:pattern>-->
 <!--		<sch:title>31. dct:modified is a recommended property for Catalog.</sch:title>-->
 <!--		<sch:rule context="//dcat:Catalog">-->
@@ -151,13 +151,23 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
-		<sch:title>45. dcat:distribution is a recommended property for Dataset.</sch:title>
+		<sch:title>44. dcat:distribution is a recommended property for Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset">
 			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noDistribution" value="not(dcat:distribution )"/>
-			<sch:assert test="$noDistribution = false()">WARNING: The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dcat:distribution.
+			<sch:let name="missingProperty" value="not(dcat:distribution )"/>
+			<sch:assert test="$missingProperty = false()">WARNING: The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dcat:distribution.
 			</sch:assert>
-			<sch:report test="$noDistribution = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:distribution with id  "<sch:value-of select="dcat:distribution/*/@rdf:about/string()"/>".			</sch:report>
+			<sch:report test="$missingProperty = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:distribution with id  "<sch:value-of select="dcat:distribution/*/@rdf:about/string()"/>".			</sch:report>
+		</sch:rule>
+	</sch:pattern>
+	<sch:pattern>
+		<sch:title>47. dcat:keyword is a recommended property for Dataset.</sch:title>
+		<sch:rule context="//dcat:Dataset">
+			<sch:let name="id" value="@rdf:about/string()"/>
+			<sch:let name="missingProperty" value="not(dcat:distribution)"/>
+			<sch:assert test="$missingProperty = false()">WARNING: The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dcat:keyword.
+			</sch:assert>
+			<sch:report test="$missingProperty = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:keyword.</sch:report>
 		</sch:rule>
 	</sch:pattern>
 	<!-- ISSUE: VODAP Validator is wrong... it is not a mandatory but a recommended property for a dataset (but according to DCAT-AP v1.1 and VODAP bijlage 3)
@@ -174,6 +184,16 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
+		<sch:title>53. dcat:theme is a recommended property for Dataset.</sch:title>
+		<sch:rule context="//dcat:Dataset">
+			<sch:let name="id" value="@rdf:about/string()"/>
+			<sch:let name="missingProperty" value="not(dcat:theme)"/>
+			<sch:assert test="$missingProperty = false()">WARNING: The dcat:Dataset "<sch:value-of select="$id"/>" does not have a dcat:theme.
+			</sch:assert>
+			<sch:report test="$missingProperty = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dcat:theme².</sch:report>
+		</sch:rule>
+	</sch:pattern>
+	<sch:pattern>
 		<sch:title>81. dct:description is a recommended property for Distribution.</sch:title>
 		<sch:rule context="//dcat:Distribution">
 			<sch:let name="id" value="@rdf:about/string()"/>
@@ -185,16 +205,16 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
-		<sch:title>81. dct:description should be a a non-empty string for dcat:Distribution.</sch:title>
-		<sch:rule context="//dcat:Distribution/dct:description">
-			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="emptyString" value="normalize-space(.)=''"/>
-			<sch:assert test="$emptyString = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:description that is an empty string.
+		<sch:title>83. dct:format is a recommended property for Distribution.</sch:title>
+		<sch:rule context="//dcat:Distribution">
+			<sch:let name="id" value="@rdf:about/string()"/>
+			<sch:let name="missingProperty" value="not(dct:format)"/>
+			<sch:assert test="$missingProperty = false()">WARNING: The dcat:Distribution "<sch:value-of select="$id"/>" does not have a dct:format.
 			</sch:assert>
-			<sch:report test="$emptyString = false()">The dcat:Distribution '<sch:value-of select="$id"/>' has a dct:description '<sch:value-of select="./string()"/>' which is a non-empty string.
+			<sch:report test="$missingProperty = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:format "<sch:value-of select="dct:description"/>"
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>	
+	</sch:pattern>
 	<sch:pattern>
 		<sch:title>86. dct:license is a recommended property for Distribution.</sch:title>
 		<sch:rule context="//dcat:Distribution">
@@ -216,8 +236,26 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
+	<!-- 144.  dct:conformsTo is a recommended property for Catalog Record-->
+	<!-- 145.  adms:status is a recommended property for Catalog Record-->
+	<!-- 146.  dct:issued is a recommended property for Catalog Record-->	
 	<sch:pattern>
-		<!-- Rule_ID:118  (seems wrong in DCATv1.1 !) -->
+		<sch:title>167. The recommended class skos:Concept does not exist.</sch:title>
+		<sch:rule context="/">
+			<sch:let name="missingClass" value="not(//skos:Concept)"/>
+			<sch:assert test="$missingClass = false()">ERROR: The recommended class skos:Concept does not exist.</sch:assert>
+			<sch:report test="$missingClass = false()">The recommended class skos:Concept does exist.</sch:report>
+		</sch:rule>
+	</sch:pattern>
+	<sch:pattern>
+		<sch:title>168. The recommended class skos:ConceptScheme does not exist.</sch:title>
+		<sch:rule context="/">
+			<sch:let name="missingClass" value="not(//skos:Concept)"/>
+			<sch:assert test="$missingClass = false()">ERROR: The recommended class skos:ConceptScheme does not exist.</sch:assert>
+			<sch:report test="$missingClass = false()">The recommended class skos:ConceptScheme does exist.</sch:report>
+		</sch:rule>
+	</sch:pattern>	
+	<sch:pattern>
 		<sch:title>170. dct:type is a recommended property for Licence Document.</sch:title>
 		<sch:rule context="//dcat:Distribution/*/dct:LicenseDocument">
 			<sch:let name="id" value="@rdf:about/string()"/>
