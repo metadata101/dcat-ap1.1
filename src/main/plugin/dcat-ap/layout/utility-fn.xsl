@@ -87,7 +87,7 @@
         <xsl:value-of select="''"/>
       </xsl:when>
       <xsl:when test="$elementName = 'dct:accrualPeriodicity'">
-        <xsl:value-of select="''"/>
+        <xsl:value-of select="'dct:Frequency'"/>
       </xsl:when>
       <xsl:when test="$elementName = 'dct:language'">
         <xsl:value-of select="'dct:LinguisticSystem'"/>
@@ -96,10 +96,10 @@
         <xsl:value-of select="''"/>
       </xsl:when>
       <xsl:when test="$elementName = 'dct:format'">
-        <xsl:value-of select="''"/>
+        <xsl:value-of select="'dct:MediaTypeOrExtent'"/>
       </xsl:when>
       <xsl:when test="$elementName = 'dcat:mediaType'">
-        <xsl:value-of select="'dct:MediatypeOrExtent'"/>
+        <xsl:value-of select="'dct:MediaTypeOrExtent'"/>
       </xsl:when>
       <xsl:when test="$elementName = 'adms:status'">
         <xsl:value-of select="''"/>

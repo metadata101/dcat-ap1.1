@@ -126,6 +126,16 @@
         </snippet>
       </template>
     </for>
+    <for name="spdx:algorithm" templateModeOnly="true" forceLabel="true" label="FieldId294">
+      <template>
+        <values>
+          <key label="FieldId294" xpath="@rdf:resource" tooltip="dcat:downloadURL|dcat:Distribution|/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dcat:distribution/dcat:Distribution/spdx:checksum/spdx:Checksum/spdx:algorithm"/>
+        </values>
+        <snippet>
+          <spdx:algorithm rdf:resource="{{FieldId294}}"/>
+        </snippet>
+      </template>
+    </for>	
   </fields>
   <!-- Complex fields. -->
   <fieldsWithFieldset>

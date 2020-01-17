@@ -93,7 +93,7 @@
 				</foaf:Agent>
 			</dct:publisher>
       <dct:license>
-        <dct:LicenseDocument rdf:about="https://data.vlaanderen.be/doc/licentie/creative-commons-zero-verklaring/v1.0" xmlns:dct="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#">
+        <dct:LicenseDocument rdf:about="https://data.vlaanderen.be/id/licentie/creative-commons-zero-verklaring/v1.0" xmlns:dct="http://purl.org/dc/terms/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:skos="http://www.w3.org/2004/02/skos/core#">
           <dct:type>
             <skos:Concept rdf:about="http://purl.org/adms/licencetype/PublicDomain">
               <skos:prefLabel xml:lang="nl">Public domain</skos:prefLabel>
@@ -105,7 +105,7 @@
           </dct:type>
           <dct:title xml:lang="nl">Creative Commons Zero verklaring</dct:title>
           <dct:description xml:lang="nl">De instantie doet afstand van haar intellectuele eigendomsrechten voor zover dit wettelijk mogelijk is. Hierdoor kan de gebruiker de data hergebruiken voor eender welk doel, zonder een verplichting op naamsvermelding. Deze is de welbekende CC0 licentie.</dct:description>
-          <dct:identifier>https://data.vlaanderen.be/doc/licentie/creative-commons-zero-verklaring/v1.0</dct:identifier>
+          <dct:identifier>https://data.vlaanderen.be/id/licentie/creative-commons-zero-verklaring/v1.0</dct:identifier>
         </dct:LicenseDocument>
       </dct:license>
       <dct:language>
@@ -345,6 +345,7 @@
   <xsl:template match="dcat:byteSize" priority="10">
     <xsl:if test="string(number(.)) != 'NaN'">
       <xsl:copy>
+		<xsl:attribute name="rdf:datatype">http://www.w3.org/2001/XMLSchema#decimal</xsl:attribute>
         <xsl:choose>
           <xsl:when test="matches(string(.), '^\-?[\d\.,]*[Ee][+\-]*\d*$')">
             <xsl:value-of select="format-number(number(.), '#0.#############')"/>
@@ -356,6 +357,20 @@
       </xsl:copy>
     </xsl:if>
   </xsl:template>
+  
+  <!-- Fix value for attribute -->
+  <xsl:template match="spdx:checksumValue" priority="10">
+    <xsl:copy>
+      <xsl:copy-of select="@*[not(name()='rdf:datatype')]"/>
+		<xsl:attribute name="rdf:datatype">http://www.w3.org/2001/XMLSchema#hexBinary</xsl:attribute>
+		<xsl:value-of select="."/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <!-- Fix value for attribute -->
+  <xsl:template match="spdx:algorithm" priority="10">
+	<spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1"/>
+  </xsl:template>    
 
   <!-- Reformat 'Vlaamse Open data' -->
   <xsl:template match="dcat:keyword[translate(text(), 'abcdefghijklmonpqrstuvwxyz', 'ABCDEFGHIJKLMONPQRSTUVWXYZ') = 'VLAAMSE OPEN DATA']" priority="10">

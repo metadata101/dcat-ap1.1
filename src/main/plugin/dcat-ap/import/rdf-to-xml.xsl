@@ -811,13 +811,13 @@ Rome - Italy. email: geonetwork@osgeo.org
 			</xsl:element>
 		</xsl:for-each>
 	</xsl:template>
-	<!-- spdx:CheckSum -->
+	<!-- spdx:Checksum -->
 	<xsl:template name="checksums">
 		<xsl:param name="checksumURIs"/>
 		<xsl:param name="predicate"/>
 		<xsl:for-each select="$checksumURIs">
 			<xsl:element name="{$predicate}">
-				<spdx:CheckSum>
+				<spdx:Checksum>
 					<xsl:if test="./sr:uri">
 						<xsl:attribute name="rdf:about"><xsl:value-of select="./sr:uri"/></xsl:attribute>
 					</xsl:if>
@@ -831,7 +831,7 @@ Rome - Italy. email: geonetwork@osgeo.org
 						<xsl:with-param name="subject" select="./*"/>
 						<xsl:with-param name="predicate">spdx:checksumValue</xsl:with-param>
 					</xsl:call-template>
-				</spdx:CheckSum>
+				</spdx:Checksum>
 			</xsl:element>
 		</xsl:for-each>
 	</xsl:template>

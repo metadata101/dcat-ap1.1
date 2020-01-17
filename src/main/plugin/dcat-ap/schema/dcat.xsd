@@ -133,7 +133,7 @@
             <!-- dct:license mandatory for DCAT-AP-VL otherwise minOccurs="0" -->
 						<xs:element ref="dct:license" minOccurs="1" maxOccurs="1"/>
 						<xs:element ref="dct:rights" minOccurs="0" maxOccurs="1"/>
-						<xs:element name="byteSize" type="xs:decimal" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="byteSize" type="rdf:TypedLiteral" minOccurs="0" maxOccurs="1"/>
 						<xs:element ref="spdx:checksum" minOccurs="0" maxOccurs="1"/>
 						<xs:element ref="foaf:page" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element ref="dct:conformsTo" minOccurs="0" maxOccurs="unbounded"/>
