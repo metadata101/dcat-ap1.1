@@ -110,7 +110,7 @@
       </dct:license>
       <dct:language>
          <skos:Concept rdf:about="http://publications.europa.eu/resource/authority/language/NLD">
-            <rdf:type rdf:resource="dct:LinguisticSystem"/>
+            <rdf:type rdf:resource="http://purl.org/dc/terms/LinguisticSystem"/>
             <skos:prefLabel xml:lang="nl">Nederlands</skos:prefLabel>
             <skos:prefLabel xml:lang="en">Dutch</skos:prefLabel>
             <skos:prefLabel xml:lang="fr">néerlandais</skos:prefLabel>

@@ -87,19 +87,19 @@
         <xsl:value-of select="''"/>
       </xsl:when>
       <xsl:when test="$elementName = 'dct:accrualPeriodicity'">
-        <xsl:value-of select="'dct:Frequency'"/>
+        <xsl:value-of select="'http://purl.org/dc/terms/Frequency'"/>
       </xsl:when>
       <xsl:when test="$elementName = 'dct:language'">
-        <xsl:value-of select="'dct:LinguisticSystem'"/>
+        <xsl:value-of select="'http://purl.org/dc/terms/LinguisticSystem'"/>
       </xsl:when>
       <xsl:when test="$elementName = 'dct:type' and $parentElementName = 'dcat:Dataset'">
         <xsl:value-of select="''"/>
       </xsl:when>
       <xsl:when test="$elementName = 'dct:format'">
-        <xsl:value-of select="'dct:MediaTypeOrExtent'"/>
+        <xsl:value-of select="'http://purl.org/dc/terms/MediaTypeOrExtent'"/>
       </xsl:when>
       <xsl:when test="$elementName = 'dcat:mediaType'">
-        <xsl:value-of select="'dct:MediaTypeOrExtent'"/>
+        <xsl:value-of select="'http://purl.org/dc/terms/MediaTypeOrExtent'"/>
       </xsl:when>
       <xsl:when test="$elementName = 'adms:status'">
         <xsl:value-of select="''"/>
@@ -108,7 +108,7 @@
         <xsl:value-of select="''"/>
       </xsl:when>
       <xsl:when test="$elementName = 'dct:accessRights'">
-        <xsl:value-of select="'dct:RightsStatement'"/>
+        <xsl:value-of select="'http://purl.org/dc/terms/RightsStatement'"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:value-of select="''"/>

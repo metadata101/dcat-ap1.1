@@ -255,7 +255,7 @@ Source:
 		<!-- <sch:rule context="//dcat:Catalog/dct:language"> -->
 			<!-- <sch:let name="Catalogid" value="parent::node()/@rdf:about/string()"/> -->
 			<!-- <sch:let name="id" value="*/@rdf:about/string()"/> -->
-			<!-- <sch:let name="noLinguisticSystem" value="not(dct:LinguisticSystem | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','LinguisticSystem')])"/> -->
+			<!-- <sch:let name="noLinguisticSystem" value="not(dct:LinguisticSystem | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/LinguisticSystem'])"/> -->
 			<!-- <sch:assert test="$noLinguisticSystem = false()">ERROR: The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dct:language  "<sch:value-of select="$id"/>" which is not a dct:LinguisticSystem. -->
 			<!-- </sch:assert> -->
 			<!-- <sch:report test="$noLinguisticSystem = false()">The dcat:Catalog "<sch:value-of select="$Catalogid"/>" has a dct:language  "<sch:value-of select="$id"/>" which is a dct:LinguisticSystem. -->
@@ -334,7 +334,7 @@ Source:
 		<sch:title>34. dct:rights should be a dct:RightsStatement.</sch:title>
 		<sch:rule context="//dcat:Catalog/dct:rights">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="wrongType" value="not(dct:RightsStatement | */rdf:tpe[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','RightsStatement')])"/>
+			<sch:let name="wrongType" value="not(dct:RightsStatement | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/RightsStatement'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:rights  property "<sch:value-of select="$id"/>" which is not a dct:RightsStatement.
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:rights  property "<sch:value-of select="$id"/>" which is a dct:RightsStatement.
@@ -360,7 +360,7 @@ Source:
 		<sch:title>36. dct:spatial should be a dct:Location.</sch:title>
 		<sch:rule context="//dcat:Catalog/dct:spatial">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="wrongType" value="not(dct:Location | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','Location')])"/>
+			<sch:let name="wrongType" value="not(dct:Location | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/Location'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:spatial  property "<sch:value-of select="$id"/>" which is not a dct:Location.
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:spatial  property "<sch:value-of select="$id"/>" which is a dct:Location.
@@ -446,7 +446,7 @@ Source:
 		<sch:title>56. dct:conformsTo should be a dct:Standard.</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:conformsTo">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="wrongType" value="not(dct:Standard | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','Standard')])"/>
+			<sch:let name="wrongType" value="not(dct:Standard | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/Standard'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:conformsTo  property "<sch:value-of select="$id"/>" which is not a dct:Standard.
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:conformsTo property "<sch:value-of select="$id"/>" which is a dct:Standard.
@@ -457,7 +457,7 @@ Source:
 		<sch:title>58. dct:accrualPeriodicity should be a dct:Frequency.</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:accrualPeriodicity">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="wrongType" value="not(dct:Frequency | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','Frequency')])"/>
+			<sch:let name="wrongType" value="not(dct:Frequency | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/Frequency'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:accrualPeriodicity  property "<sch:value-of select="$id"/>" which is not a dct:Frequency.
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:accrualPeriodicity property "<sch:value-of select="$id"/>" which is a dct:Frequency.
@@ -491,7 +491,7 @@ Source:
 		<sch:title>65. dct:language should be a dct:LinguisticSystem.</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:language">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="wrongType" value="not(dct:LinguisticSystem | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','LinguisticSystem')])"/>
+			<sch:let name="wrongType" value="not(dct:LinguisticSystem | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/LinguisticSystem'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:language  property "<sch:value-of select="$id"/>" which is not a dct:LinguisticSystem.
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:language property "<sch:value-of select="$id"/>" which is a dct:LinguisticSystem.
@@ -557,7 +557,7 @@ Source:
 		<sch:title>71. dct:spatial should be a dct:Location.</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:location">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="wrongType" value="not(dct:Location | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','Location')])"/>
+			<sch:let name="wrongType" value="not(dct:Location | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/Location'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:spatial  property "<sch:value-of select="$id"/>" which is not a dct:Location.
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:spatial  property "<sch:value-of select="$id"/>" which is a dct:Location.
@@ -568,7 +568,7 @@ Source:
 		<sch:title>72. dct:temporal should be a dct:PeriodOfTime.</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:temporal">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="wrongType" value="not(dct:PeriodOfTime | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','PeriodOfTime')])"/>
+			<sch:let name="wrongType" value="not(dct:PeriodOfTime | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/PeriodOfTime'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:temporal  property "<sch:value-of select="$id"/>" which is not a dct:PeriodOfTime.
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:temporal  property "<sch:value-of select="$id"/>" which is a dct:PeriodOfTime.
@@ -648,7 +648,7 @@ Source:
 		<sch:title>84. dct:format should be a dct:MediaTypeOrExtent.</sch:title>
 		<sch:rule context="//dcat:Distribution/dct:format">
 			<sch:let name="id" value="parent::node()/dct:title[1]/string()"/>
-			<sch:let name="wrongType" value="not(dct:MediaTypeOrExtent | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','MediaTypeOrExtent')])"/>
+			<sch:let name="wrongType" value="not(dct:MediaTypeOrExtent | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/MediaTypeOrExtent'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:format  property "<sch:value-of select="$id"/>" which is not a dct:MediaTypeOrExtent.
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:format  property "<sch:value-of select="$id"/>" which is a dct:MediaTypeOrExtent.
@@ -727,7 +727,7 @@ Source:
 		<sch:title>91. dcat:mediaType should be a dct:MediaTypeOrExtent.</sch:title>
 		<sch:rule context="//dcat:Distribution/dcat:mediaType">
 			<sch:let name="id" value="parent::node()/dct:title[1]/string()"/>
-			<sch:let name="wrongType" value="not(dct:MediaTypeOrExtent | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','MediaTypeOrExtent')])"/>
+			<sch:let name="wrongType" value="not(dct:MediaTypeOrExtent | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/MediaTypeOrExtent'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dcat:mediaType property "<sch:value-of select="$id"/>" which is not a dct:MediaTypeOrExtent.
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dcat:mediaType  property "<sch:value-of select="$id"/>" which is a dct:MediaTypeOrExtent.
@@ -760,7 +760,7 @@ Source:
 		<sch:title>93. dct:rights should be a dct:RightsStatement.</sch:title>
 		<sch:rule context="//dcat:Distribution/dct:rights">
 			<sch:let name="id" value="parent::node()/dct:title[1]/string()"/>
-			<sch:let name="wrongType" value="not(dct:RightsStatement | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','RightsStatement')])"/>
+			<sch:let name="wrongType" value="not(dct:RightsStatement | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/RightsStatement'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:rights  property "<sch:value-of select="$id"/>" which is not a dct:RightsStatement.
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:rights  property "<sch:value-of select="$id"/>" which is a dct:RightsStatement.
@@ -1064,7 +1064,7 @@ Source:
 		<sch:title>138. dct:license should be a dct:LicenseDocument.</sch:title>
 		<sch:rule context="//dcat:Catalog/dct:license">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="wrongType" value="not(dct:LicenseDocument | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','LicenseDocument')])"/>
+			<sch:let name="wrongType" value="not(dct:LicenseDocument | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/LicenseDocument'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:license property which is not a dct:LicenseDocument.
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:license property which is a dct:LicenseDocument.
@@ -1108,10 +1108,10 @@ Source:
 		<sch:title>150. dct:accessRights should be a dct:RightsStatement.</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:accessRights">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="wrongType" value="not(dct:RightsStatement | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','RightsStatement')])"/>
-			<sch:assert test="$wrongType = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:license property which is not a dct:RightsStatement
+			<sch:let name="wrongType" value="not(dct:RightsStatement | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/RightsStatement'])"/>
+			<sch:assert test="$wrongType = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:accessRights property which is not a dct:RightsStatement
 			</sch:assert>
-			<sch:report test="$wrongType = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:license property which is a dct:RightsStatement.
+			<sch:report test="$wrongType = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:accessRights property which is a dct:RightsStatement.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -1152,7 +1152,7 @@ Source:
 		<sch:title>154. dct:provenance should be a dct:ProvenanceStatement.</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:provenance">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="wrongType" value="not(dct:ProvenanceStatement | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','ProvenanceStatement')])"/>
+			<sch:let name="wrongType" value="not(dct:ProvenanceStatement | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/ProvenanceStatement'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:provenance property which is not a dct:ProvenanceStatement
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:provenance property which is a dct:ProvenanceStatement.
@@ -1218,7 +1218,7 @@ Source:
 		<sch:title>160. dct:language should be a dct:LinguisticSystem.</sch:title>
 		<sch:rule context="//dcat:Distribution/dct:language">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="wrongType" value="not(dct:LinguisticSystem | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','LinguisticSystem')])"/>
+			<sch:let name="wrongType" value="not(dct:LinguisticSystem | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/LinguisticSystem'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:language  property that is not a dct:LinguisticSystem.
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:language property that is a dct:LinguisticSystem.
@@ -1229,7 +1229,7 @@ Source:
 		<sch:title>161. dct:conformsTo should be a dct:Standard.</sch:title>
 		<sch:rule context="//dcat:Distribution/dct:conformsTo">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="wrongType" value="not(dct:Standard | */rdf:type[resolve-QName(@rdf:resource, /*) = QName('http://purl.org/dc/terms/','Standard')])"/>
+			<sch:let name="wrongType" value="not(dct:Standard | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/Standard'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:conformsTo  property that is not a dct:Standard.
 			</sch:assert>
 			<sch:report test="$wrongType = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:conformsTo property that is a dct:Standard.
