@@ -1,0 +1,468 @@
+From a4fa6f40f9f4fff1cb82f5984c47f3dd3fa1ad38 Mon Sep 17 00:00:00 2001
+From: Mathieu Chaussier <mathieu.chaussier@gim.be>
+Date: Wed, 19 Feb 2020 11:37:18 +0100
+Subject: [PATCH] Fix link to source and relation in editor
+
+---
+ ...DcatapAssociatedResourcesSchemaPlugin.java | 36 +++++++
+ .../fao/geonet/api/records/MetadataUtils.java | 29 +++++-
+ .../model/related/RelatedItemType.java        |  4 +-
+ .../model/related/RelatedResponse.java        | 73 ++++++++++++++
+ .../edit/onlinesrc/OnlineSrcDirective.js      | 16 ++++
+ .../onlinesrc/partials/onlinesrcList.html     | 95 +++++++++++++++++++
+ .../resources/catalog/locales/en-editor.json  |  7 +-
+ .../resources/catalog/locales/fr-editor.json  |  9 +-
+ .../resources/catalog/locales/nl-editor.json  |  9 +-
+ .../catalog/templates/editor/editor.html      | 14 +++
+ .../xslt/services/metadata/relation.xsl       |  3 +-
+ 11 files changed, 286 insertions(+), 9 deletions(-)
+ create mode 100644 schemas/schema-core/src/main/java/org/fao/geonet/kernel/schema/DcatapAssociatedResourcesSchemaPlugin.java
+
+diff --git a/schemas/schema-core/src/main/java/org/fao/geonet/kernel/schema/DcatapAssociatedResourcesSchemaPlugin.java b/schemas/schema-core/src/main/java/org/fao/geonet/kernel/schema/DcatapAssociatedResourcesSchemaPlugin.java
+new file mode 100644
+index 0000000000..8affc53dee
+--- /dev/null
++++ b/schemas/schema-core/src/main/java/org/fao/geonet/kernel/schema/DcatapAssociatedResourcesSchemaPlugin.java
+@@ -0,0 +1,36 @@
++/*
++ * Copyright (C) 2001-2016 Food and Agriculture Organization of the
++ * United Nations (FAO-UN), United Nations World Food Programme (WFP)
++ * and United Nations Environment Programme (UNEP)
++ *
++ * This program is free software; you can redistribute it and/or modify
++ * it under the terms of the GNU General Public License as published by
++ * the Free Software Foundation; either version 2 of the License, or (at
++ * your option) any later version.
++ *
++ * This program is distributed in the hope that it will be useful, but
++ * WITHOUT ANY WARRANTY; without even the implied warranty of
++ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
++ * General Public License for more details.
++ *
++ * You should have received a copy of the GNU General Public License
++ * along with this program; if not, write to the Free Software
++ * Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA
++ *
++ * Contact: Jeroen Ticheler - FAO - Viale delle Terme di Caracalla 2,
++ * Rome - Italy. email: geonetwork@osgeo.org
++ */
++
++package org.fao.geonet.kernel.schema;
++
++import org.jdom.Element;
++
++import java.util.Set;
++
++/**
++ * Created by francois on 8/20/14.
++ */
++public interface DcatapAssociatedResourcesSchemaPlugin extends AssociatedResourcesSchemaPlugin{
++
++    public abstract Set<String> getAssociatedRelationUUIDs(Element metadata);
++}
+diff --git a/services/src/main/java/org/fao/geonet/api/records/MetadataUtils.java b/services/src/main/java/org/fao/geonet/api/records/MetadataUtils.java
+index e49664a0f7..e7e2e5fb65 100644
+--- a/services/src/main/java/org/fao/geonet/api/records/MetadataUtils.java
++++ b/services/src/main/java/org/fao/geonet/api/records/MetadataUtils.java
+@@ -53,6 +53,7 @@ import org.fao.geonet.kernel.datamanager.IMetadataValidator;
+ import org.fao.geonet.kernel.mef.MEFLib;
+ import org.fao.geonet.kernel.schema.AssociatedResource;
+ import org.fao.geonet.kernel.schema.AssociatedResourcesSchemaPlugin;
++import org.fao.geonet.kernel.schema.DcatapAssociatedResourcesSchemaPlugin;
+ import org.fao.geonet.kernel.schema.SchemaPlugin;
+ import org.fao.geonet.kernel.search.MetaSearcher;
+ import org.fao.geonet.kernel.search.SearchManager;
+@@ -172,7 +173,9 @@ public class MetadataUtils {
+             listOfTypes.size() == 0 ||
+                 listOfTypes.contains(RelatedItemType.datasets) ||
+                 listOfTypes.contains(RelatedItemType.fcats) ||
+-                listOfTypes.contains(RelatedItemType.sources)
++                listOfTypes.contains(RelatedItemType.sources) ||
++                listOfTypes.contains(RelatedItemType.dcatapsources) ||
++                listOfTypes.contains(RelatedItemType.dcataprelations)
+         )) {
+             // Get datasets related to service search
+             if (listOfTypes.size() == 0 ||
+@@ -220,6 +223,27 @@ public class MetadataUtils {
+                     relatedRecords.addContent(fcat);
+                 }
+             }
++
++            if(schemaIdentifier.equals("dcat-ap")) {
++                DcatapAssociatedResourcesSchemaPlugin dcatapSchemaPlugin = (DcatapAssociatedResourcesSchemaPlugin)schemaPlugin;
++                if (listOfTypes.size() == 0 ||
++                    listOfTypes.contains(RelatedItemType.dcatapsources)) {
++                    Set<String> listOfUUIDs = dcatapSchemaPlugin.getAssociatedSourceUUIDs(md);
++                    if (listOfUUIDs != null && listOfUUIDs.size() > 0) {
++                        String joinedUUIDs = Joiner.on(" or ").join(listOfUUIDs);
++                        relatedRecords.addContent(search(joinedUUIDs, "dcatapsources", context, from, to, fast));
++                    }
++                }
++
++                if (listOfTypes.size() == 0 ||
++                    listOfTypes.contains(RelatedItemType.dcataprelations)) {
++                    Set<String> listOfUUIDs = dcatapSchemaPlugin.getAssociatedRelationUUIDs(md);
++                    if (listOfUUIDs != null && listOfUUIDs.size() > 0) {
++                        String joinedUUIDs = Joiner.on(" or ").join(listOfUUIDs);
++                        relatedRecords.addContent(search(joinedUUIDs, "dcataprelations", context, from, to, fast));
++                    }
++                }
++            }
+         }
+ 
+         //
+@@ -275,7 +299,8 @@ public class MetadataUtils {
+             }
+             else if ("datasets".equals(type) || "fcats".equals(type) ||
+                 "sources".equals(type) || "siblings".equals(type) ||
+-                "parent".equals(type))
++                "parent".equals(type) || "dcatapsources".equals(type) ||
++                "dcataprelations".equals(type))
+                 parameters.addContent(new Element("uuid").setText(uuid));
+ 
+             parameters.addContent(new Element("fast").addContent("index"));
+diff --git a/services/src/main/java/org/fao/geonet/api/records/model/related/RelatedItemType.java b/services/src/main/java/org/fao/geonet/api/records/model/related/RelatedItemType.java
+index 355c2c19dd..26aa8c8026 100644
+--- a/services/src/main/java/org/fao/geonet/api/records/model/related/RelatedItemType.java
++++ b/services/src/main/java/org/fao/geonet/api/records/model/related/RelatedItemType.java
+@@ -17,7 +17,9 @@ public enum RelatedItemType {
+     hassources,
+     related,
+     onlines,
+-    thumbnails;
++    thumbnails,
++    dcatapsources,
++    dcataprelations;
+ 
+     public static RelatedItemType find(String lookupName) {
+         for (RelatedItemType value : values()) {
+diff --git a/services/src/main/java/org/fao/geonet/api/records/model/related/RelatedResponse.java b/services/src/main/java/org/fao/geonet/api/records/model/related/RelatedResponse.java
+index 3ad410ae27..ad5ae57ba9 100644
+--- a/services/src/main/java/org/fao/geonet/api/records/model/related/RelatedResponse.java
++++ b/services/src/main/java/org/fao/geonet/api/records/model/related/RelatedResponse.java
+@@ -188,6 +188,8 @@ public class RelatedResponse {
+     protected RelatedResponse.Related related;
+     protected RelatedResponse.Online onlines;
+     protected RelatedResponse.Thumbnail thumbnails;
++    protected RelatedResponse.Dcatapsource dcatapsources;
++    protected RelatedResponse.Dcataprelation dcataprelations;
+ 
+     /**
+      * Gets the value of the children property.
+@@ -424,6 +426,45 @@ public class RelatedResponse {
+     }
+ 
+ 
++
++    /**
++     * Gets the value of the dcatapsource property.
++     *
++     * @return possible object is {@link RelatedResponse.Source }
++     */
++    public RelatedResponse.Dcatapsource getDcatapsources() {
++        return dcatapsources;
++    }
++
++    /**
++     * Sets the value of the dcatapsource property.
++     *
++     * @param value allowed object is {@link RelatedResponse.Dcatapsource }
++     */
++    public void setDcatapsources(RelatedResponse.Dcatapsource value) {
++        this.dcatapsources = value;
++    }
++
++
++    /**
++     * Gets the value of the dcatapsource property.
++     *
++     * @return possible object is {@link RelatedResponse.Source }
++     */
++    public RelatedResponse.Dcataprelation getDcataprelations() {
++        return dcataprelations;
++    }
++
++    /**
++     * Sets the value of the dcataprelation property.
++     *
++     * @param value allowed object is {@link RelatedResponse.Dcataprelation }
++     */
++    public void setDcataprelations(RelatedResponse.Dcataprelation value) {
++        this.dcataprelations = value;
++    }
++
++
+     /**
+      * <p>Java class for anonymous complex type.
+      *
+@@ -1096,4 +1137,36 @@ public class RelatedResponse {
+ 
+     }
+ 
++    @XmlAccessorType(XmlAccessType.FIELD)
++    @XmlType(name = "", propOrder = {
++        "item"
++    })
++    public static class Dcatapsource implements IListOnlyClassToArray {
++
++        protected List<RelatedMetadataItem> item;
++
++        public List<RelatedMetadataItem> getItem() {
++            if (item == null) {
++                item = new ArrayList<RelatedMetadataItem>();
++            }
++            return this.item;
++        }
++    }
++
++    @XmlAccessorType(XmlAccessType.FIELD)
++    @XmlType(name = "", propOrder = {
++        "item"
++    })
++    public static class Dcataprelation implements IListOnlyClassToArray {
++
++        protected List<RelatedMetadataItem> item;
++
++        public List<RelatedMetadataItem> getItem() {
++            if (item == null) {
++                item = new ArrayList<RelatedMetadataItem>();
++            }
++            return this.item;
++        }
++    }
++
+ }
+diff --git a/web-ui/src/main/resources/catalog/components/edit/onlinesrc/OnlineSrcDirective.js b/web-ui/src/main/resources/catalog/components/edit/onlinesrc/OnlineSrcDirective.js
+index f3905f5c69..6a423b96fd 100644
+--- a/web-ui/src/main/resources/catalog/components/edit/onlinesrc/OnlineSrcDirective.js
++++ b/web-ui/src/main/resources/catalog/components/edit/onlinesrc/OnlineSrcDirective.js
+@@ -1391,6 +1391,22 @@
+                         label: $translate.instant('linkToSource')
+                       };
+                     }
++                    else if (scope.mode === 'dcatapsource') {
++                      searchParams = {
++                        hitsPerPage: 10
++                      };
++                      scope.btn = {
++                        label: $translate.instant('linkToDcatapsource')
++                      };
++                    }
++                    else if (scope.mode === 'dcataprelation') {
++                      searchParams = {
++                        hitsPerPage: 10
++                      };
++                      scope.btn = {
++                        label: $translate.instant('linkToDcataprelation')
++                      };
++                    }
+                     scope.$broadcast('resetSearch', searchParams);
+                   });
+ 
+diff --git a/web-ui/src/main/resources/catalog/components/edit/onlinesrc/partials/onlinesrcList.html b/web-ui/src/main/resources/catalog/components/edit/onlinesrc/partials/onlinesrcList.html
+index f918b0db18..b99b959a90 100644
+--- a/web-ui/src/main/resources/catalog/components/edit/onlinesrc/partials/onlinesrcList.html
++++ b/web-ui/src/main/resources/catalog/components/edit/onlinesrc/partials/onlinesrcList.html
+@@ -79,6 +79,22 @@
+               <span data-translate="">linkToSibling</span>
+             </a>
+           </li>
++          <li data-ng-show="::isCategoryEnable('dcatapsource')">
++            <a href=""
++               data-ng-click="onlinesrcService.onOpenPopup('dcatapsource')">
++              <i class="fa gn-icon-source"></i>
++              <i class="icon-external-link"></i>&nbsp;
++              <span data-translate="">linkToDcatapsource</span>
++            </a>
++          </li>
++          <li data-ng-show="::isCategoryEnable('dcataprelation')">
++            <a href=""
++               data-ng-click="onlinesrcService.onOpenPopup('dcataprelation')">
++              <i class="fa gn-icon-source"></i>
++              <i class="icon-external-link"></i>&nbsp;
++              <span data-translate="">linkToDcataprelation</span>
++            </a>
++          </li>
+         </ul>
+       </div>
+     </div>
+@@ -474,6 +490,85 @@
+         </li>
+       </ul>
+ 
++
++      <!-- ******* List of dcatapsources ******* -->
++      <h2 class="onlinesrc-title"
++          data-ng-show="::isCategoryEnable('dcatapsource') && relations.dcatapsources">
++        <i class="fa fa-sitemap fa-rotate-180"
++           data-ng-class="onlinesrcService.reload ? 'fa-spin' : ''"></i>
++        <i class="icon-external-link"></i>&nbsp;
++        <span data-translate="">dcatapsourceDatasets</span>&nbsp;
++        <a href=""
++           class="btn btn-default btn-xs pull-right"
++           data-ng-click="onlinesrcService.onOpenPopup('dcatapsource')">
++          <i class="fa fa-fw fa-plus"></i>
++          <span data-translate="">add</span>
++        </a>
++      </h2>
++      <ul class="list-group"
++          data-ng-show="::isCategoryEnable('dcatapsource') && relations.dcatapsources">
++        <li class="list-group-item"
++            data-ng-repeat="resource in relations.dcatapsources | orderBy:'title'">
++          <div class="row">
++            <div class="col-md-11"
++                 title="{{resource.description | gnLocalized: lang}}">
++              <a target="_blank"
++                 data-ng-href="{{'../metadata/' + resource.id}}">
++                {{resource.title | gnLocalized: lang}}
++              </a>
++            </div>
++            <div class="col-md-1 text-right">
++              <a href="" class="onlinesrc-remove"
++                 data-ng-if="readonly !== true"
++                 title="{{'remove' | translate}} {{resource.title | gnLocalized: lang}}"
++                 aria-label="{{'remove' | translate}} {{resource.title | gnLocalized: lang}}"
++                 data-ng-click="onlinesrcService.removeMdLink('dcatapsource', resource)">
++                <i class="fa fa-times text-danger"></i>
++              </a>
++            </div>
++          </div>
++        </li>
++      </ul>
++
++
++      <!-- ******* List of dcataprelations ******* -->
++      <h2 class="onlinesrc-title"
++          data-ng-show="::isCategoryEnable('dcataprelation') && relations.dcataprelations">
++        <i class="fa fa-sitemap fa-rotate-180"
++           data-ng-class="onlinesrcService.reload ? 'fa-spin' : ''"></i>
++        <i class="icon-external-link"></i>&nbsp;
++        <span data-translate="">dcataprelationDatasets</span>&nbsp;
++        <a href=""
++           class="btn btn-default btn-xs pull-right"
++           data-ng-click="onlinesrcService.onOpenPopup('dcataprelation')">
++          <i class="fa fa-fw fa-plus"></i>
++          <span data-translate="">add</span>
++        </a>
++      </h2>
++      <ul class="list-group"
++          data-ng-show="::isCategoryEnable('dcataprelation') && relations.dcataprelations">
++        <li class="list-group-item"
++            data-ng-repeat="resource in relations.dcataprelations | orderBy:'title'">
++          <div class="row">
++            <div class="col-md-11"
++                 title="{{resource.description | gnLocalized: lang}}">
++              <a target="_blank"
++                 data-ng-href="{{'../metadata/' + resource.id}}">
++                {{resource.title | gnLocalized: lang}}
++              </a>
++            </div>
++            <div class="col-md-1 text-right">
++              <a href="" class="onlinesrc-remove"
++                 data-ng-if="readonly !== true"
++                 title="{{'remove' | translate}} {{resource.title | gnLocalized: lang}}"
++                 aria-label="{{'remove' | translate}} {{resource.title | gnLocalized: lang}}"
++                 data-ng-click="onlinesrcService.removeMdLink('dcataprelation', resource)">
++                <i class="fa fa-times text-danger"></i>
++              </a>
++            </div>
++          </div>
++        </li>
++      </ul>
+     </div>
+   </div>
+ </div>
+diff --git a/web-ui/src/main/resources/catalog/locales/en-editor.json b/web-ui/src/main/resources/catalog/locales/en-editor.json
+index ca56e8e786..469a3401a5 100644
+--- a/web-ui/src/main/resources/catalog/locales/en-editor.json
++++ b/web-ui/src/main/resources/catalog/locales/en-editor.json
+@@ -410,5 +410,10 @@
+     "accessManagerChooseGroups": "Choose one or more groups",
+     "accessManagerChooseOperations": "Choose one or more operation types",
+     "status-no-status": "Workflow not active",
+-    "draft": "Working copy"
++    "draft": "Working copy",
++    "searchAlicence": "Select a license ...",
++    "linkToDcatapsource": "Link to a source dataset",
++    "linkToDcatapsourceTitle": "Link a source dataset to the current metadata",
++    "linkToDcataprelation": "Link to a related dataset",
++    "linkToDcataprelationTitle": "Link a related dataset to the current metadata"
+ }
+diff --git a/web-ui/src/main/resources/catalog/locales/fr-editor.json b/web-ui/src/main/resources/catalog/locales/fr-editor.json
+index 45269f1001..cbf36f5d7a 100644
+--- a/web-ui/src/main/resources/catalog/locales/fr-editor.json
++++ b/web-ui/src/main/resources/catalog/locales/fr-editor.json
+@@ -409,5 +409,10 @@
+     "accessManagerChooseGroups": "Sélectionner un ou plusieurs groupes",
+     "accessManagerChooseOperations": "Sélectionner un ou plusieurs types d'opération",
+     "status-no-status": "Cycle de vie désactivé",
+-    "draft": "Brouillon"
+-}
+\ No newline at end of file
++    "draft": "Brouillon",
++    "searchAlicence": "Sélectionner une licence ...",
++    "linkToDcatapsource": "Associer à une donnée source",
++    "linkToDcatapsourceTitle": "Associer une donnée source utilisée pour créer ce jeu de données",
++    "linkToDcataprelation": "Associer à une donnée en relation",
++    "linkToDcataprelationTitle": "Associer une donnée en relation utilisée pour créer ce jeu de données"
++}
+diff --git a/web-ui/src/main/resources/catalog/locales/nl-editor.json b/web-ui/src/main/resources/catalog/locales/nl-editor.json
+index e994ad3fa9..9bc46e247d 100644
+--- a/web-ui/src/main/resources/catalog/locales/nl-editor.json
++++ b/web-ui/src/main/resources/catalog/locales/nl-editor.json
+@@ -409,5 +409,10 @@
+     "accessManagerChooseGroups": "Kies één of meerdere records",
+     "accessManagerChooseOperations": "Kies één of meerdere operatie typen",
+     "status-no-status": "Workflow niet actief",
+-    "draft": "Werk kopie"
+-}
+\ No newline at end of file
++    "draft": "Werk kopie",
++    "searchAlicence": "Selecteer een licentie ...",
++    "linkToDcatapsource": "Link naar brondataset",
++    "linkToDcatapsourceTitle": "Link een bron dataset met de huidige metadata",
++    "linkToDcataprelation": "Link naar gerelateerde dataset",
++    "linkToDcataprelationTitle": "Link een gerelateerde dataset met de huidige metadata"
++}
+diff --git a/web-ui/src/main/resources/catalog/templates/editor/editor.html b/web-ui/src/main/resources/catalog/templates/editor/editor.html
+index 404e817238..339efecf8b 100644
+--- a/web-ui/src/main/resources/catalog/templates/editor/editor.html
++++ b/web-ui/src/main/resources/catalog/templates/editor/editor.html
+@@ -82,6 +82,20 @@
+        class="link-sibling-md"></div>
+ </div>
+ 
++<div data-gn-modal="" class="onlinesrc-popup"
++     data-gn-popup-options="{title:'linkToDcatapsourceTitle'}"
++     id="linktodcatapsource-popup">
++  <div data-gn-link-to-metadata="dcatapsource" id="link-to-dcatapsource"
++       class="link-dcatapsource-md"></div>
++</div>
++
++<div data-gn-modal="" class="onlinesrc-popup"
++     data-gn-popup-options="{title:'linkToDcataprelationTitle'}"
++     id="linktodcataprelation-popup">
++  <div data-gn-link-to-metadata="dcataprelation" id="link-to-dcataprelation"
++       class="link-dcataprelation-md"></div>
++</div>
++
+ <div data-gn-modal="" class="gn-save-invalid-modal"
+      data-gn-popup-options="{title:'confirmCloseInvalidTitle', confirmCallback: confirmClose}"
+      id="confirm-editor-close">
+diff --git a/web/src/main/webapp/xslt/services/metadata/relation.xsl b/web/src/main/webapp/xslt/services/metadata/relation.xsl
+index b9ea53d030..d5a7611965 100644
+--- a/web/src/main/webapp/xslt/services/metadata/relation.xsl
++++ b/web/src/main/webapp/xslt/services/metadata/relation.xsl
+@@ -153,7 +153,8 @@
+ 
+   <xsl:template mode="relation" match="related|services|datasets|children|
+                       parent|sources|hasfeaturecats|
+-                      siblings|associated|sources|hassources">
++                      siblings|associated|sources|hassources|
++                      dcatapsources|dcataprelations">
+     <xsl:variable name="type" select="name(.)"/>
+ 
+     <xsl:if test="response/metadata|response/sibling">
+-- 
+2.23.0.windows.1
+

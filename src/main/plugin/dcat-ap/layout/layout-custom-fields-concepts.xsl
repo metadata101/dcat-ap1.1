@@ -35,7 +35,7 @@
       <xsl:if test="$isEditing">
         <!-- Create form for all existing attribute (not in gn namespace)
         and all non existing attributes not already present. -->
-        <xsl:apply-templates mode="render-for-field-for-attribute"
+        <xsl:apply-templates mode="render-for-field-for-attribute-dcat-ap"
                              select="
           @*|
           gn:attribute[not(@name = parent::node()/@*/name())]">

@@ -34,6 +34,7 @@ import org.fao.geonet.domain.*;
 import org.fao.geonet.kernel.DataManager;
 import org.fao.geonet.kernel.GeonetworkDataDirectory;
 import org.fao.geonet.kernel.UpdateDatestamp;
+import org.fao.geonet.kernel.datamanager.IMetadataManager;
 import org.fao.geonet.kernel.datamanager.IMetadataUtils;
 import org.fao.geonet.kernel.datamanager.IMetadataValidator;
 import org.fao.geonet.kernel.harvest.BaseAligner;
@@ -78,7 +79,7 @@ import static org.fao.geonet.api.records.MetadataValidateApi.restructureReportTo
 
 //=============================================================================
 
-public class Aligner extends BaseAligner {
+public class Aligner extends BaseAligner<DCATAPParams> {
 	// --------------------------------------------------------------------------
 	// ---
 	// --- Constructor
@@ -94,14 +95,6 @@ public class Aligner extends BaseAligner {
 	// --------------------------------------------------------------------------
 	private ServiceContext context;
 
-
-	// --------------------------------------------------------------------------
-	// ---
-	// --- Private methods : updateMetadata
-	// ---
-	// --------------------------------------------------------------------------
-	private DCATAPParams params;
-
 	// --------------------------------------------------------------------------
 	// ---
 	// --- Private methods
@@ -109,6 +102,7 @@ public class Aligner extends BaseAligner {
 	// --------------------------------------------------------------------------
 	private DataManager dataMan;
 	private IMetadataValidator metadataValidator;
+	private IMetadataManager metadataManager;
 
 	// --------------------------------------------------------------------------
 	private CategoryMapper localCateg;
@@ -134,6 +128,7 @@ public class Aligner extends BaseAligner {
 		GeonetContext gc = (GeonetContext) context.getHandlerContext(Geonet.CONTEXT_NAME);
 		dataMan = gc.getBean(DataManager.class);
         metadataValidator = context.getBean(IMetadataValidator.class);
+        metadataManager = context.getBean(IMetadataManager.class);
 		result = new HarvestResult();
 
 	}
@@ -165,7 +160,7 @@ public class Aligner extends BaseAligner {
 
 				if (log.isDebugEnabled())
 					log.debug("  - Removing old metadata with local id:" + id);
-				dataMan.deleteMetadata(context, id);
+                metadataManager.deleteMetadata(context, id);
 
 				dataMan.flush();
 
@@ -227,7 +222,7 @@ public class Aligner extends BaseAligner {
 
 		if (log.isDebugEnabled())
 			log.debug("  - Adding metadata with remote uuid:" + ri.uuid + " schema:" + schema);
-		
+
         try {
             params.getValidate().validate(dataMan, context, md);
         } catch (Exception e) {
@@ -251,9 +246,9 @@ public class Aligner extends BaseAligner {
         //
         // insert metadata
         //
-        int ownerId = Integer.parseInt(StringUtils.isNumeric(params.getOwnerIdUser()) ? params.getOwnerIdUser() : params.getOwnerId());
+        int ownerId = Integer.parseInt((StringUtils.isNotEmpty(params.getOwnerIdUser()) && StringUtils.isNumeric(params.getOwnerIdUser())) ? params.getOwnerIdUser() : params.getOwnerId());
         //int ownerId = getOwner(); //FIXME
-        
+
 		AbstractMetadata metadata = new Metadata();
         metadata.setUuid(ri.uuid);
 		metadata.getDataInfo()
@@ -274,16 +269,16 @@ public class Aligner extends BaseAligner {
         try {
             metadata.getSourceInfo().setGroupOwner(Integer.valueOf(params.getOwnerIdGroup()));
         } catch (NumberFormatException e) {
-        }		
-		
-		addCategories(metadata, params.getCategories(), localCateg, context, log,null, false);
+        }
+
+		addCategories(metadata, params.getCategories(), localCateg, context, null, false);
 
 		metadata = dataMan.insertMetadata(context, metadata, md, true, false, false, UpdateDatestamp.NO, false, false);
 
 		String id = String.valueOf(metadata.getId());
 		ri.id = id;
 
-		addPrivileges(id, params.getPrivileges(), localGroups, dataMan, context, log);
+		addPrivileges(id, params.getPrivileges(), localGroups, context);
 
 		dataMan.indexMetadata(id, Math.random() < 0.01, null);
 		result.addedMetadata++;
@@ -326,7 +321,7 @@ public class Aligner extends BaseAligner {
 
 				if (md == null)
 					return;
-				
+
 		        try {
 		            params.getValidate().validate(dataMan, context, md);
 		        } catch (Exception e) {
@@ -354,15 +349,15 @@ public class Aligner extends BaseAligner {
 				boolean ufo = false;
 				boolean index = false;
 				String language = context.getLanguage();
-				final AbstractMetadata metadata = dataMan.updateMetadata(context, id, md, validate, ufo, index, language,
+				final Metadata metadata = (Metadata) metadataManager.updateMetadata(context, id, md, validate, ufo, index, language,
 						ri.changeDate, false);
 
 				OperationAllowedRepository repository = context.getBean(OperationAllowedRepository.class);
-				repository.deleteAllByIdAttribute(OperationAllowedId_.metadataId, Integer.parseInt(id));
-				addPrivileges(id, params.getPrivileges(), localGroups, dataMan, context, log);
+				repository.deleteAllByMetadataId(Integer.parseInt(id));
+				addPrivileges(id, params.getPrivileges(), localGroups, context);
 
 				metadata.getMetadataCategories().clear();
-				addCategories(metadata, params.getCategories(), localCateg, context, log,  null, true);
+				addCategories(metadata, params.getCategories(), localCateg, context,  null, true);
 				dataMan.flush();
 
 				dataMan.indexMetadata(id, Math.random() < 0.01, null);
@@ -377,8 +372,8 @@ public class Aligner extends BaseAligner {
 	}
 
 	/**
-	 * Validate a record after import. 
-	 * 
+	 * Validate a record after import.
+	 *
 	 * @param ri
 	 * @param metadata
 	 * @return
@@ -391,7 +386,7 @@ public class Aligner extends BaseAligner {
 		Element errorReport = metadataValidator
 				.doValidate(session, ri.schema, ri.id, metadata.getXmlData(false), context.getLanguage(), false).one();
 		restructureReportToHavePatternRuleHierarchy(errorReport);
-		
+
 		Element elResp = new Element("root");
 		elResp.addContent(new Element(Geonet.Elem.ID).setText(ri.uuid));
 		elResp.addContent(new Element("language").setText(context.getLanguage()));
@@ -474,7 +469,7 @@ public class Aligner extends BaseAligner {
 
 	/**
 	 * Transforms the GeoNetwork validation report to a text version
-	 * 
+	 *
 	 * @param validationReport An XML version of the validation report
 	 * @return A text-version of the validation report
 	 */

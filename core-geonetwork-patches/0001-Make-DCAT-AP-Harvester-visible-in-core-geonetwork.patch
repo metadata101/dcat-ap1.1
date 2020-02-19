@@ -1,25 +1,25 @@
-From f9536983f04d997a6325ad63a277fee5c2171b1c Mon Sep 17 00:00:00 2001
+From 8ecc42bd1f89a81c70f12694c50c0af89c5a6056 Mon Sep 17 00:00:00 2001
 From: Stijn Goedertier <stijn.goedertier@gim.be>
 Date: Tue, 26 Feb 2019 22:05:45 +0100
 Subject: [PATCH] Make DCAT-AP Harvester visible in core-geonetwork
 
 ---
- .../resources/catalog/locales/en-admin.json   | 11 +--
+ .../resources/catalog/locales/en-admin.json   |  5 ++
  .../resources/catalog/locales/fr-admin.json   |  7 +-
  .../resources/catalog/locales/nl-admin.json   |  5 ++
  .../templates/admin/harvest/type/dcatap.html  | 48 +++++++++++
  .../templates/admin/harvest/type/dcatap.js    | 80 +++++++++++++++++++
  .../main/webapp/xsl/xml/harvesting/dcatap.xsl | 42 ++++++++++
- 6 files changed, 187 insertions(+), 6 deletions(-)
+ 6 files changed, 186 insertions(+), 1 deletion(-)
  create mode 100644 web-ui/src/main/resources/catalog/templates/admin/harvest/type/dcatap.html
  create mode 100644 web-ui/src/main/resources/catalog/templates/admin/harvest/type/dcatap.js
  create mode 100644 web/src/main/webapp/xsl/xml/harvesting/dcatap.xsl
 
 diff --git a/web-ui/src/main/resources/catalog/locales/en-admin.json b/web-ui/src/main/resources/catalog/locales/en-admin.json
-index 4b5adc4161..22b335f6fc 100644
+index a116d6439d..70d8a1f669 100644
 --- a/web-ui/src/main/resources/catalog/locales/en-admin.json
 +++ b/web-ui/src/main/resources/catalog/locales/en-admin.json
-@@ -376,6 +376,9 @@
+@@ -395,6 +395,9 @@
      "geoPREST-anyHelp": "<a href='http://webhelp.esri.com/geoportal_extension/9.3.1/index.htm#srch_lucene.htm' target='_blank'>Lucene syntax help</a>",
      "geoPREST-host": "URL",
      "geoPREST-hostHelp": "The url of the geoPREST server",
@@ -29,7 +29,7 @@ index 4b5adc4161..22b335f6fc 100644
      "geonetwork-createRemoteCategory": "Set category if it exists locally",
      "geonetwork-createRemoteCategoryHelp": "If true then use the category set on the metadata in the remote server also locally (assuming it exists locally)",
      "geonetwork-customCriteria": "Custom criteria",
-@@ -420,6 +423,8 @@
+@@ -439,6 +442,8 @@
      "harvester-filesystemHelp": "Harvest from a directory on the server",
      "harvester-geoPREST": "GeoPortal REST",
      "harvester-geoPRESTHelp": "Harvest from an ESRI GeoPortal using the REST API.",
@@ -37,13 +37,12 @@ index 4b5adc4161..22b335f6fc 100644
 +    "harvester-dcatapHelp": "Harvest from a DCAT-AP GeoPortal using the catalog API.",
      "harvester-geonetwork": "GeoNetwork",
      "harvester-geonetwork20": "GeoNetwork (Old node)",
-     "harvester-geonetwork20Help": "Harvest GeoNetwork node in 2.0 or lower version. Please notice that harvesting old GeoNetwork nodes is unsafe. The old nodes do not have unique site ids and this could cause unpredictable results (like removing nodes from other harvestings).",
- }
+     "harvester-geonetwork20Help": "Harvest GeoNetwork node in 2.0 or lower version. Please note that harvesting old GeoNetwork nodes is unsafe. The old nodes do not have unique site ids and this could cause unpredictable results (like removing nodes from other harvestings).",
 diff --git a/web-ui/src/main/resources/catalog/locales/fr-admin.json b/web-ui/src/main/resources/catalog/locales/fr-admin.json
-index 5e61bd0716..2b04e63868 100644
+index aeb11ca5c6..9b98d4bda7 100644
 --- a/web-ui/src/main/resources/catalog/locales/fr-admin.json
 +++ b/web-ui/src/main/resources/catalog/locales/fr-admin.json
-@@ -376,6 +376,9 @@
+@@ -393,6 +393,9 @@
      "geoPREST-anyHelp": "<a href='http://webhelp.esri.com/geoportal_extension/9.3.1/index.htm#srch_lucene.htm' target='_blank'>Aide sur la syntax Lucene</a>",
      "geoPREST-host": "URL",
      "geoPREST-hostHelp": "L'URL du serveur GeoPREST",
@@ -53,7 +52,7 @@ index 5e61bd0716..2b04e63868 100644
      "geonetwork-createRemoteCategory": "Définir la catégorie si elle existe localement",
      "geonetwork-createRemoteCategoryHelp": "Si sélectionné, les catégories affectées sur le serveur distant seront réattribuées (si elles existent localement)",
      "geonetwork-customCriteria": "Autres critères",
-@@ -420,6 +423,8 @@
+@@ -437,6 +440,8 @@
      "harvester-filesystemHelp": "Moissonner à partir d'un répertoire du serveur où se trouve le catalogue",
      "harvester-geoPREST": "ESRI GeoPortal REST",
      "harvester-geoPRESTHelp": "Moissonner un noeud ESRI GeoPortal en utilisant l'API REST.",
@@ -62,18 +61,18 @@ index 5e61bd0716..2b04e63868 100644
      "harvester-geonetwork": "Catalogue GeoNetwork",
      "harvester-geonetwork20": "Catalogue GeoNetwork (Ancienne version)",
      "harvester-geonetwork20Help": "Moissoner un noeud GeoNetwork de version 2.0 ou inférieur. Veuillez noter que le moissonnage d'anciens noeuds est dangereux. Les anciens noeuds n'ont pas d'identifiants uniques de sites, ce qui pourrait entraîner des résultats imprévisibles (comme la suppression de noeuds d'autres moissonnages).",
-@@ -1345,4 +1350,4 @@
-     "filterSettings": "Filtres",
-     "filterPlaceHolder": "e.g. INSPIRE",
-     "filterReset": "Réinitialiser les filtres"
+@@ -1426,4 +1431,4 @@
+     "removeAllLinksAndStatus": "Supprimer tout",
+     "removeAllLinksAndStatusConfirm": "Êtes vous sûrs de vouloir supprimer tout l'historique ?",
+     "moreLinks": "Afficher plus de liens ..."
 -}
 \ No newline at end of file
 +}
 diff --git a/web-ui/src/main/resources/catalog/locales/nl-admin.json b/web-ui/src/main/resources/catalog/locales/nl-admin.json
-index 1bf2ca6bf7..b5095ff1bb 100644
+index 2d462e818d..4d9580f594 100644
 --- a/web-ui/src/main/resources/catalog/locales/nl-admin.json
 +++ b/web-ui/src/main/resources/catalog/locales/nl-admin.json
-@@ -376,6 +376,9 @@
+@@ -393,6 +393,9 @@
      "geoPREST-anyHelp": "<a href='http://webhelp.esri.com/geoportal_extension/9.3.1/index.htm#srch_lucene.htm' target='_blank'>Lucene syntax help</a>",
      "geoPREST-host": "URL",
      "geoPREST-hostHelp": "De URL van de geoPREST server",
@@ -83,7 +82,7 @@ index 1bf2ca6bf7..b5095ff1bb 100644
      "geonetwork-createRemoteCategory": "Stel categorie in als ze lokaal bestaan",
      "geonetwork-createRemoteCategoryHelp": "Indien aangevinkt, gebruik dan lokaal de categorie zoals die is ingesteld voor de metadata op de externe server (ervan uitgaande dat deze lokaal bestaat)",
      "geonetwork-customCriteria": "Aangepaste criteria",
-@@ -420,6 +423,8 @@
+@@ -437,6 +440,8 @@
      "harvester-filesystemHelp": "Harvest uit een map op de server",
      "harvester-geoPREST": "GeoPortal REST",
      "harvester-geoPRESTHelp": "Harvest uit een ESRI GeoPortal via de REST API.",
@@ -281,5 +280,5 @@ index 0000000000..83a905d068
 +
 +</xsl:stylesheet>
 -- 
-2.18.0.windows.1
+2.23.0.windows.1
 

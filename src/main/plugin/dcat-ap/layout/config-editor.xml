@@ -338,6 +338,13 @@
         </section>
       </tab>
       <flatModeExceptions>
+        <!-- Basic information -->
+        <for name="dcat:keyword"/>
+        <for name="dcat:theme"/>
+        <!-- Version info -->
+        <for name="owl:versionInfo"/>
+        <for name="dct:modified" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified"/>
+        <for name="dct:issued" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued"/>
         <!-- Publisher -->
         <for name="foaf:Agent"/>
         <for name="foaf:name"/>
@@ -365,6 +372,8 @@
         <for name="dct:LicenseDocument"/>
         <for name="dct:LicenseDocument/dct:type"/>
         <for name="dct:identifier"/>
+        <!-- Extra info -->
+        <for name="dct:language" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language"/>
       </flatModeExceptions>
       <thesaurusList>
         <thesaurus key="external.theme.publisher-type" maxtags="1" transformations="" fieldset="false"/>

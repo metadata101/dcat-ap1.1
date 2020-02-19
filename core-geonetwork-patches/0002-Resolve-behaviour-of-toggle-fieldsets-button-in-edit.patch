@@ -1,0 +1,247 @@
+From 4ac227f66636b3e5a481ed85c685e547b7188470 Mon Sep 17 00:00:00 2001
+From: Gustaaf Vandeboel <gustaaf.vandeboel@gim.be>
+Date: Mon, 20 Aug 2018 02:07:07 +0200
+Subject: [PATCH] Resolve behaviour of toggle fieldsets button in editor
+
+---
+ .../metadatamanager/EditorService.js          |  2 ++
+ .../catalog/js/edit/EditorController.js       | 18 ++++++++++
+ .../xslt/common/base-variables-metadata.xsl   |  6 ++++
+ .../webapp/xslt/ui-metadata/edit/edit.xsl     |  2 ++
+ .../webapp/xslt/ui-metadata/form-builder.xsl  | 13 ++++++--
+ .../xslt/ui-metadata/form-configurator.xsl    | 33 ++++++++++---------
+ 6 files changed, 57 insertions(+), 17 deletions(-)
+
+diff --git a/web-ui/src/main/resources/catalog/components/metadatamanager/EditorService.js b/web-ui/src/main/resources/catalog/components/metadatamanager/EditorService.js
+index f803bbaa94..bfcbab5482 100644
+--- a/web-ui/src/main/resources/catalog/components/metadatamanager/EditorService.js
++++ b/web-ui/src/main/resources/catalog/components/metadatamanager/EditorService.js
+@@ -383,6 +383,8 @@
+                getInputValue('displayTooltips') == 'true',
+                displayTooltipsMode:
+                getInputValue('displayTooltipsMode') || '',
++               displaySections:
++               getInputValue('displaySections') == 'true',
+                schema: getInputValue('schema'),
+                version: getInputValue('version'),
+                tab: getInputValue('currTab'),
+diff --git a/web-ui/src/main/resources/catalog/js/edit/EditorController.js b/web-ui/src/main/resources/catalog/js/edit/EditorController.js
+index fd2c6adb1b..c7f111e6bc 100644
+--- a/web-ui/src/main/resources/catalog/js/edit/EditorController.js
++++ b/web-ui/src/main/resources/catalog/js/edit/EditorController.js
+@@ -218,6 +218,12 @@
+                   //  }
+                   //  return defaultTab;
+                   //}
++
++                  //Default tab id for dcat-ap metadata is "defaultDataset" in order to differentiate it's label
++                  //with "default" view.
++                  'dcat-ap': function (md) {
++                    return 'defaultDataset';
++                  }
+                 };
+                 if (schemaCustomConfig) {
+                   var fn = schemaCustomConfig[$scope.mdSchema];
+@@ -241,6 +247,7 @@
+                   displayAttributes: $location.search()['displayAttributes'] === 'true',
+                   displayTooltips: $location.search()['displayTooltips'] === 'true',
+                   displayTooltipsMode: $location.search()['displayTooltipsMode'] || '',
++                  displaySections: ($location.search()['displaySections'] || 'true') === 'true',
+                   compileScope: $scope,
+                   formScope: $scope.$new(),
+                   sessionStartTime: moment(),
+@@ -274,6 +281,9 @@
+                     + gnCurrentEdit.displayTooltipsMode ;
+                 }
+ 
++                editorFormUrl += '&displaySections='
++                	+ (gnCurrentEdit.displaySections === true ? 'true' : 'false');
++
+                 gnEditor.load(editorFormUrl).then(function() {
+                   // $scope.onFormLoad();
+                   // Once the editor form is loaded, then
+@@ -382,6 +392,14 @@
+           gnUtilityService.scrollTo();
+         }
+ 
++        // If switching between default and advanced view (or the opposite)
++        // Stay on the current tab (Dataset/Distribution)
++        if ($('#currTab')[0].value === 'defaultDistribution' && tabIdentifier === 'advancedDataset') {
++          tabIdentifier = 'advancedDistribution';
++        } else if ($('#currTab')[0].value === 'advancedDistribution' && tabIdentifier === 'defaultDataset') {
++          tabIdentifier = 'defaultDistribution';
++        }
++
+         $('#currTab')[0].value = tabIdentifier;
+         $('#flat')[0].value = mode === 'flat';
+ 
+diff --git a/web/src/main/webapp/xslt/common/base-variables-metadata.xsl b/web/src/main/webapp/xslt/common/base-variables-metadata.xsl
+index a2327ebd49..0ba78db9f2 100644
+--- a/web/src/main/webapp/xslt/common/base-variables-metadata.xsl
++++ b/web/src/main/webapp/xslt/common/base-variables-metadata.xsl
+@@ -135,6 +135,12 @@
+                         else if ($viewConfig/@displayTooltipsMode)
+                         then $viewConfig/@displayTooltipsMode
+                         else ''"/>
++  <xsl:variable name="isDisplayingSections"
++                select="if (/root/request/displaySections)
++                        then /root/request/displaySections = 'true'
++                        else if ($viewConfig/@displaySections)
++                        then $viewConfig/@displaySections = 'true'
++                        else true()"/>
+ 
+ 
+ </xsl:stylesheet>
+diff --git a/web/src/main/webapp/xslt/ui-metadata/edit/edit.xsl b/web/src/main/webapp/xslt/ui-metadata/edit/edit.xsl
+index db348a5030..fe4a62a05f 100644
+--- a/web/src/main/webapp/xslt/ui-metadata/edit/edit.xsl
++++ b/web/src/main/webapp/xslt/ui-metadata/edit/edit.xsl
+@@ -100,6 +100,8 @@
+                  value="{$isDisplayingTooltips = true()}"/>
+           <input type="hidden" id="displayTooltipsMode" name="displayTooltipsMode"
+                  value="{$displayTooltipsMode}"/>
++          <input type="hidden" id="displaySections" name="displaySections"
++                 value="{$isDisplayingSections = true()}"/>
+           <input type="hidden" id="minor" name="minor" value="{$isMinorEdit}"/>
+           <input type="hidden" id="flat" name="flat" value="{$isFlatMode}"/>
+           <input type="hidden" id="showvalidationerrors" name="showvalidationerrors"
+diff --git a/web/src/main/webapp/xslt/ui-metadata/form-builder.xsl b/web/src/main/webapp/xslt/ui-metadata/form-builder.xsl
+index a1c0ded633..1f0fd0ce0f 100644
+--- a/web/src/main/webapp/xslt/ui-metadata/form-builder.xsl
++++ b/web/src/main/webapp/xslt/ui-metadata/form-builder.xsl
+@@ -99,9 +99,13 @@
+     This class could be used to customize style of first or following
+     element of same kind. eg. do not display label. -->
+     <xsl:param name="isFirst" required="no" as="xs:boolean" select="true()"/>
++    <xsl:param name="isForceLabel" required="no" as="xs:boolean" select="false()"/>
+ 
+     <xsl:param name="isReadOnly" required="no" as="xs:boolean" select="false()"/>
+ 
++    <!-- Mandatory field inside optional fieldset. Black '*' instead of red -->
++    <xsl:param name="subRequired" required="no" as="xs:boolean" select="false()"/>
++
+     <xsl:variable name="isMultilingual" select="count($value/values) > 0"/>
+ 
+     <xsl:variable name="isoType" select="if (../@gco:isoType) then ../@gco:isoType else ''"/>
+@@ -316,6 +320,7 @@
+         <xsl:with-param name="childEditInfo" select="$parentEditInfo"/>
+         <xsl:with-param name="parentEditInfo" select="../gn:element"/>
+         <xsl:with-param name="isFirst" select="false()"/>
++        <xsl:with-param name="isForceLabel" select="$isForceLabel"/>
+         <xsl:with-param name="isHidden" select="true()"/>
+         <xsl:with-param name="name" select="name()"/>
+       </xsl:call-template>
+@@ -354,6 +359,9 @@
+       <null/>
+     </xsl:param>
+     <xsl:param name="isDisabled" select="ancestor::node()[@xlink:href]"/>
++    <!-- Collapsed fieldsets reopens when saving, this param can be
++    used to collapse again the fieldset after loading -->
++    <xsl:param name="isSlideToggle" select="false()" required="no"/>
+ 
+ 
+     <xsl:variable name="hasXlink" select="@xlink:href"/>
+@@ -363,7 +371,7 @@
+               class="{if ($hasXlink) then 'gn-has-xlink' else ''} gn-{substring-after(name(), ':')}">
+ 
+       <legend class="{$cls}"
+-              data-gn-slide-toggle=""
++              data-gn-slide-toggle="{$isSlideToggle}"
+               data-gn-field-tooltip="{$schema}|{name()}|{name(..)}|">
+         <!--
+          The toggle title is in conflict with the element title
+@@ -812,6 +820,7 @@
+     <!-- Hide add element if child of an XLink section. -->
+     <xsl:param name="isDisabled" select="ancestor::node()[@xlink:href]"/>
+     <xsl:param name="isFirst" required="no" as="xs:boolean" select="true()"/>
++    <xsl:param name="isForceLabel" required="no" as="xs:boolean" select="false()"/>
+     <xsl:param name="isHidden" required="no" as="xs:boolean" select="false()"/>
+     <xsl:param name="name" required="no" as="xs:string" select="''"/>
+     <xsl:param name="class" required="no" as="xs:string?" select="''"/>
+@@ -835,7 +844,7 @@
+         data-gn-field-highlight="">
+         <label class="col-sm-2 control-label"
+                data-gn-field-tooltip="{$schema}|{$qualifiedName}|{$parentName}|">
+-          <xsl:if test="normalize-space($label) != ''">
++          <xsl:if test="normalize-space($label) != '' and normalize-space($btnLabel)=''">
+             <xsl:value-of select="$label"/>
+           </xsl:if>
+           &#160;
+diff --git a/web/src/main/webapp/xslt/ui-metadata/form-configurator.xsl b/web/src/main/webapp/xslt/ui-metadata/form-configurator.xsl
+index e49bf51848..59179b0ed5 100644
+--- a/web/src/main/webapp/xslt/ui-metadata/form-configurator.xsl
++++ b/web/src/main/webapp/xslt/ui-metadata/form-configurator.xsl
+@@ -68,7 +68,7 @@
+           <fieldset data-gn-field-highlight="" class="gn-{@name}">
+             <!-- Get translation for labels.
+             If labels contains ':', search into labels.xml. -->
+-            <legend data-gn-slide-toggle="">
++            <legend data-gn-slide-toggle="{if ($isDisplayingSections = true()) then 'false' else 'true'}">
+               <xsl:value-of
+                 select="if (contains($sectionName, ':'))
+                   then gn-fn-metadata:getLabel($schema, $sectionName, $labels)/label
+@@ -348,22 +348,25 @@
+            -->
+           <xsl:if test="($nonExistingChildParent/* and not(@ifNotExist)) or
+             ($nonExistingChildParent/* and count($nodes/*) = 0 and @ifNotExist)">
+             <xsl:variable name="childName" select="@or"/>
++            <xsl:variable name="xpath" select="@xpath"/>
+ 
+             <xsl:for-each select="$nonExistingChildParent/*/gn:child[@name = $childName]">
+               <xsl:variable name="name" select="concat(@prefix, ':', @name)"/>
+ 
+-              <xsl:variable name="labelConfig"
+-                            select="gn-fn-metadata:getLabel($schema, $name, $labels)"/>
++              <xsl:if test="ends-with($xpath,$name) or not($xpath)">
++                <xsl:variable name="labelConfig"
++                              select="gn-fn-metadata:getLabel($schema, $name, $labels)"/>
+ 
+-              <saxon:call-template name="{concat('dispatch-', $schema)}">
+-                <xsl:with-param name="base" select="."/>
+-                <xsl:with-param name="overrideLabel"
+-                                select="if ($configName != '')
+-                                        then $strings/*[name() = $configName]
+-                                        else $labelConfig/label"/>
+-                <xsl:with-param name="config" select="$config"/>
+-              </saxon:call-template>
++                <saxon:call-template name="{concat('dispatch-', $schema)}">
++                  <xsl:with-param name="base" select="."/>
++                  <xsl:with-param name="overrideLabel"
++                                  select="if ($configName != '')
++                                          then $strings/*[name() = $configName]
++                                          else $labelConfig/label"/>
++                  <xsl:with-param name="config" select="$config"/>
++                </saxon:call-template>
++              </xsl:if>
+             </xsl:for-each>
+           </xsl:if>
+ 
+@@ -697,14 +700,14 @@
+ 
+       <!-- If multiple elements $elementName contains multiple values. Use the first one in getLabel to avoid failure. -->
+       <xsl:variable name="labelConfig"
+-                    select="gn-fn-metadata:getLabel($schema, $elementName[1], $labels)"/>
++                    select="gn-fn-metadata:getLabel($schema, $elementName[1], $labels, '', '', concat(@in,'/',$elementName[1]))"/>
+       <xsl:variable name="name"
+                     select="if ($btnName != '')
+                             then $btnName
+                             else $labelConfig/label"/>
+       <xsl:variable name="class" select="if (@class != '') then @class else $labelConfig/class"/>
+       <xsl:variable name="btnLabel" select="if (@btnLabel != '') then @btnLabel else $labelConfig/btnLabel"/>
+-      <xsl:variable name="btnClass" select="if (@btnClass != '') then @btnLabel else $labelConfig/btnClass"/>
++      <xsl:variable name="btnClass" select="if (@btnClass != '') then @btnClass else $labelConfig/btnClass"/>
+       <xsl:variable name="btnLabelTranslation" select="$strings/*[name() = $btnLabel]"/>
+ 
+       <xsl:choose>
+@@ -745,7 +748,7 @@
+               <xsl:with-param name="parentEditInfo" select="../gn:element"/>
+               <xsl:with-param name="class" select="$class"/>
+               <xsl:with-param name="btnClass" select="$btnClass"/>
+-              <xsl:with-param name="btnLabel" select="$btnLabelTranslation"/>
++              <xsl:with-param name="btnLabel" select="if ($btnLabelTranslation != '') then $btnLabelTranslation else $btnLabel"/>
+             </xsl:call-template>
+           </xsl:for-each>
+         </xsl:otherwise>
+-- 
+2.23.0.windows.1
+

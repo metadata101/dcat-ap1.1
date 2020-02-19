@@ -63,8 +63,18 @@
 
 
     <xsl:variable name="name" select="concat(@prefix, ':', @name)"/>
+    <xsl:variable name="xpath">
+      <xsl:choose>
+        <xsl:when test="starts-with(concat(gn-fn-metadata:getXPath(..),'/',$name), '/dcat:Dataset/')">
+          <xsl:value-of select="concat('/rdf:RDF/dcat:Catalog/dcat:dataset', gn-fn-metadata:getXPath(..),'/',$name)"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="concat(gn-fn-metadata:getXPath(..),'/',$name)"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
     <xsl:variable name="flatModeException"
-                  select="gn-fn-metadata:isFieldFlatModeException($viewConfig, $name) or gn-fn-metadata:isFieldFlatModeException($viewConfig, concat(name(..), '/', $name))"/>
+                  select="gn-fn-metadata:isFieldFlatModeException($viewConfig, $name, $xpath) or gn-fn-metadata:isFieldFlatModeException($viewConfig, concat(name(..), '/', $name), $xpath)"/>
 
     <!-- TODO: this should be common to all schemas -->
     <xsl:if test="$isEditing and
@@ -72,8 +82,10 @@
 
       <xsl:variable name="directive"
                     select="gn-fn-metadata:getFieldAddDirective($editorConfig, $name)"/>
+
 			<xsl:variable name="labelConfig"
-                        select="gn-fn-metadata:getLabel($schema, $name, $labels, name(..), '', concat(gn-fn-metadata:getXPath(..),'/',$name))"/>
+                        select="gn-fn-metadata:getLabel($schema, $name, $labels, name(..), '', $xpath)"/>
+
       <xsl:call-template name="render-element-to-add">
         <!-- TODO: add xpath and isoType to get label ? -->
         <xsl:with-param name="label" select="$labelConfig/label"/>
@@ -114,7 +126,7 @@
 
         <xsl:if test="$isEditing">
 		      <!-- Render attributes as fields and overwrite the normal behavior -->
-		      <xsl:apply-templates mode="render-for-field-for-attribute"
+		      <xsl:apply-templates mode="render-for-field-for-attribute-dcat-ap"
 		                           select="@*|gn:attribute[not(@name = parent::node()/@*/name())]">
 		        <xsl:with-param name="ref" select="gn:element/@ref"/>
 		      </xsl:apply-templates>
@@ -192,7 +204,7 @@
 
     <!-- Render rdf:about attribute as field for dcat:Dataset -->
     <xsl:if test="not($isFlatMode) and $isEditing and name(..)='dcat:Dataset' and ../@rdf:about and name() = 'dct:title' and count(preceding-sibling::*[name() = 'dct:title']) = 0">
-      <xsl:apply-templates mode="render-for-field-for-attribute"
+      <xsl:apply-templates mode="render-for-field-for-attribute-dcat-ap"
                            select="../@rdf:about">
         <xsl:with-param name="ref" select="../gn:element/@ref"/>
       </xsl:apply-templates>
@@ -312,7 +324,7 @@
 	      <xsl:if test="$isEditing">
 	
 	        <!-- Render attributes as fields and overwrite the normal behavior -->
-	        <xsl:apply-templates mode="render-for-field-for-attribute"
+	        <xsl:apply-templates mode="render-for-field-for-attribute-dcat-ap"
 	                             select="@*|gn:attribute[not(@name = parent::node()/@*/name())]">
 	          <xsl:with-param name="ref" select="gn:element/@ref"/>
 	        </xsl:apply-templates>
@@ -337,9 +349,9 @@
                           $isFlatMode]" />
 
   <!-- Ignore the following attributes in flatMode -->
-  <xsl:template mode="render-for-field-for-attribute" match="@*[$isFlatMode]|@gn:xsderror|@gn:addedObj" priority="101"/>
+  <xsl:template mode="render-for-field-for-attribute-dcat-ap" match="@*[$isFlatMode]|@gn:xsderror|@gn:addedObj" priority="101"/>
 
-  <xsl:template mode="render-for-field-for-attribute" match="@*" priority="100">
+  <xsl:template mode="render-for-field-for-attribute-dcat-ap" match="@*" priority="100">
     <xsl:variable name="attributeName" select="name(.)"/>
     <xsl:variable name="ref" select="concat(../gn:element/@ref, '_', replace($attributeName, ':', 'COLON'))"/>
     <xsl:variable name="attribute" as="node()">
@@ -367,12 +379,12 @@
     </xsl:call-template>
   </xsl:template>
 
-  <xsl:template mode="render-for-field-for-attribute"
+  <xsl:template mode="render-for-field-for-attribute-dcat-ap"
                 match="gn:attribute[@name = ('rdf:nodeID') or (not(@name = ('ref', 'parent', 'id', 'uuid', 'type', 'uuidref',
     'xlink:show', 'xlink:actuate', 'xlink:arcrole', 'xlink:role', 'xlink:title', 'xlink:href')) and $isFlatMode)]"
                 priority="101"/>
 
-  <xsl:template mode="render-for-field-for-attribute"
+  <xsl:template mode="render-for-field-for-attribute-dcat-ap"
                 match="gn:attribute[not(@name = ('ref', 'parent', 'id', 'uuid', 'type', 'uuidref',
     'xlink:show', 'xlink:actuate', 'xlink:arcrole', 'xlink:role', 'xlink:title', 'xlink:href')) and not($isFlatMode)]"
                 priority="100">

@@ -1,0 +1,42 @@
+From eaf743a403699fc1a445586c7acc8b120e78287a Mon Sep 17 00:00:00 2001
+From: Mathieu Chaussier <mathieu.chaussier@gim.be>
+Date: Wed, 19 Feb 2020 13:44:41 +0100
+Subject: [PATCH] Add support for xpath attribute in flat mode exception
+
+---
+ web/src/main/webapp/xslt/common/functions-metadata.xsl | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/web/src/main/webapp/xslt/common/functions-metadata.xsl b/web/src/main/webapp/xslt/common/functions-metadata.xsl
+index 38ddb18313..d51ed85e80 100644
+--- a/web/src/main/webapp/xslt/common/functions-metadata.xsl
++++ b/web/src/main/webapp/xslt/common/functions-metadata.xsl
+@@ -454,9 +454,16 @@
+   </xsl:function>
+   
+   <!-- Return if a flat mode exception has been defined in the current view for a field. -->
++  <xsl:function name="gn-fn-metadata:isFieldFlatModeException" as="xs:boolean">
++    <xsl:param name="configuration" as="node()"/>
++    <xsl:param name="name" as="xs:string"/>
++    <xsl:value-of select="gn-fn-metadata:isFieldFlatModeException($configuration, $name, '')"/>
++  </xsl:function>
++
+   <xsl:function name="gn-fn-metadata:isFieldFlatModeException" as="xs:boolean">
+     <xsl:param name="configuration" as="node()?"/>
+     <xsl:param name="name" as="xs:string"/>
++    <xsl:param name="xpath" as="xs:string"/>
+ 
+     <xsl:choose>
+       <xsl:when test="not($configuration)">
+@@ -464,7 +471,7 @@
+       </xsl:when>
+       <xsl:otherwise>
+         <xsl:variable name="exception"
+-                      select="count($configuration/flatModeExceptions/for[@name = $name])"/>
++                      select="count($configuration/flatModeExceptions/for[@name = $name and (not(@xpath) or @xpath = '' or @xpath = $xpath)])"/>
+ 
+         <xsl:value-of select="if ($exception > 0)
+                       then true()
+-- 
+2.23.0.windows.1
+

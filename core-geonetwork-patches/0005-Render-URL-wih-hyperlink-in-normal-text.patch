@@ -1,0 +1,82 @@
+From aa0c96f5224e9ca490a2bd1d6d25c08891b18271 Mon Sep 17 00:00:00 2001
+From: Mathieu Chaussier <mathieu.chaussier@gim.be>
+Date: Mon, 13 Jan 2020 15:55:07 +0100
+Subject: [PATCH] Render URL wih hyperlink in normal text
+
+---
+ .../main/webapp/xslt/common/utility-tpl.xsl   | 61 +++++++++++++++++++
+ 1 file changed, 61 insertions(+)
+
+diff --git a/web/src/main/webapp/xslt/common/utility-tpl.xsl b/web/src/main/webapp/xslt/common/utility-tpl.xsl
+index ee77ee7eb2..7d59751e2e 100644
+--- a/web/src/main/webapp/xslt/common/utility-tpl.xsl
++++ b/web/src/main/webapp/xslt/common/utility-tpl.xsl
+@@ -357,4 +357,65 @@
+     </xsl:choose>
+   </xsl:template>
+ 
++
++  <!-- Replace http link by clickable hyperlink (only http) -->
++  <xsl:template name="linkify">
++    <xsl:param name="txt" select="string()"/>
++    <xsl:choose>
++      <xsl:when test="util:getSettingValue('system/clickablehyperlinks/enable') = 'true'">
++        <xsl:variable name="http">
++          <xsl:choose>
++            <xsl:when test="contains($txt, 'http://')">
++              <xsl:text>http://</xsl:text>
++            </xsl:when>
++            <xsl:when test="contains($txt, 'https://')">
++              <xsl:text>https://</xsl:text>
++            </xsl:when>
++            <xsl:otherwise>
++              <xsl:text>false</xsl:text>
++            </xsl:otherwise>
++          </xsl:choose>
++        </xsl:variable>
++
++        <xsl:choose>
++          <xsl:when test="$http = 'false'">
++            <!-- No URL, output string -->
++            <xsl:value-of select="$txt"/>
++          </xsl:when>
++          <xsl:otherwise>
++            <!-- Links detected, replace them -->
++            <xsl:variable name="before" select="substring-before($txt, $http)"/>
++            <xsl:variable name="after" select="substring-after($txt, $http)"/>
++            <xsl:variable name="url" select="concat($http, substring-before($after,' '))"/>
++            <xsl:variable name="rest" select="substring-after($txt, $url)"/>
++
++            <xsl:value-of select="$before"/>
++            <xsl:choose>
++              <!-- If the url is at then end, $rest doesn't work -->
++              <xsl:when test="substring-after($url,$http) != ''">
++                <a href="{$url}" rel="nofollow" target="_blank">
++                  <xsl:value-of select="$url"/>
++                </a>
++
++                <xsl:call-template name="linkify">
++                  <xsl:with-param name="txt" select="$rest"/>
++                </xsl:call-template>
++              </xsl:when>
++              <xsl:otherwise>
++                <a href="{$url}{$after}" rel="nofollow" target="_blank">
++                  <xsl:value-of select="$after"/>
++                </a>
++              </xsl:otherwise>
++            </xsl:choose>
++          </xsl:otherwise>
++        </xsl:choose>
++
++      </xsl:when>
++      <xsl:otherwise>
++        <xsl:value-of select="$txt"/>
++      </xsl:otherwise>
++    </xsl:choose>
++
++  </xsl:template>
++
+ </xsl:stylesheet>
+-- 
+2.23.0.windows.1
+

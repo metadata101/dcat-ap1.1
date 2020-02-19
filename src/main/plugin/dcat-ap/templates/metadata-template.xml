@@ -40,7 +40,7 @@
             </dct:accessRights>
             <dcat:distribution>
                <dcat:Distribution>
-                  <dct:title/>
+                  <dct:title xml:lang="nl"/>
                   <dct:description/>
                   <dcat:accessURL rdf:resource=""/>
                   <dct:format/>
