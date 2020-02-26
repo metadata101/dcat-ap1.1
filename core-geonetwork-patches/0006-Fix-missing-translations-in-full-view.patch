@@ -1,0 +1,50 @@
+From aa8b8323afda4c77cd40f26df29f3faa3c6f1532 Mon Sep 17 00:00:00 2001
+From: Mathieu Chaussier <mathieu.chaussier@gim.be>
+Date: Wed, 26 Feb 2020 14:15:06 +0100
+Subject: [PATCH] Fix missing translations in full view
+
+---
+ .../WEB-INF/data/data/formatter/xslt/render-layout.xsl      | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/web/src/main/webapp/WEB-INF/data/data/formatter/xslt/render-layout.xsl b/web/src/main/webapp/WEB-INF/data/data/formatter/xslt/render-layout.xsl
+index 907ef3814a..20148d63f5 100644
+--- a/web/src/main/webapp/WEB-INF/data/data/formatter/xslt/render-layout.xsl
++++ b/web/src/main/webapp/WEB-INF/data/data/formatter/xslt/render-layout.xsl
+@@ -339,10 +339,11 @@
+         <xsl:value-of select="gn-fn-render:get-schema-strings($schemaStrings, @name)"/>
+       </xsl:if>
+     </xsl:variable>
+-
++    <xsl:variable name="fieldXpath" select="@xpath" />
+     <xsl:for-each select="$nodes">
+       <xsl:apply-templates mode="render-field">
+         <xsl:with-param name="fieldName" select="$fieldName"/>
++        <xsl:with-param name="xpath" select="$fieldXpath"/>
+       </xsl:apply-templates>
+     </xsl:for-each>
+   </xsl:template>
+@@ -398,6 +399,7 @@
+         <xsl:for-each select="$nodes">
+           <xsl:apply-templates mode="render-field">
+             <xsl:with-param name="fieldName" select="$fieldName"/>
++            <xsl:with-param name="xpath" select="$fieldXpath"/>
+           </xsl:apply-templates>
+         </xsl:for-each>
+       </xsl:for-each>
+@@ -421,10 +423,12 @@
+         <xsl:value-of select="gn-fn-render:get-schema-strings($schemaStrings, ../@name)"/>
+       </xsl:if>
+     </xsl:variable>
++    <xsl:variable name="fieldXpath" select="." />
+ 
+     <xsl:for-each select="$nodes">
+       <xsl:apply-templates mode="render-field">
+         <xsl:with-param name="fieldName" select="$fieldName"/>
++        <xsl:with-param name="xpath" select="$fieldXpath"/>
+       </xsl:apply-templates>
+     </xsl:for-each>
+   </xsl:template>
+-- 
+2.23.0.windows.1
+
