@@ -1,6 +1,6 @@
 # DCAT-AP Schema Plugin for GeoNetwork
 
-This repository contains a [DCAT-AP v1.2](https://joinup.ec.europa.eu/release/dcat-ap/12) schema plugin for [GeoNetwork](http://geonetwork-opensource.org/) 3.6.0.
+This repository contains a [DCAT-AP v1.2](https://joinup.ec.europa.eu/release/dcat-ap/12) schema plugin for [GeoNetwork](http://geonetwork-opensource.org/) 3.8.3.
 
 ## Reference documents
 * [W3C Data Catalog Vocabulary (DCAT)](https://www.w3.org/TR/vocab-dcat/), Fadi Maali, John Erickson, 2014.
@@ -25,11 +25,11 @@ This plugin has the following features:
 
 ### GeoNetwork version to use with this plugin
 
-Use GeoNetwork version 3.6.0. See the instructions on [software development](https://github.com/geonetwork/core-geonetwork/tree/master/software_development) in the core-geonetwork project.
+Use GeoNetwork version 3.8.3. See the instructions on [software development](https://github.com/geonetwork/core-geonetwork/tree/master/software_development) in the core-geonetwork project.
 
 ```
 git clone --recursive https://github.com/geonetwork/core-geonetwork.git
-git checkout 3.6.0
+git checkout 3.8.x
 ```
 
 ### Adding the plugin to the source code
