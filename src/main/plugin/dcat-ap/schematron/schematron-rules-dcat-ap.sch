@@ -70,9 +70,9 @@ Source:
 			<sch:report test="$emptyString = false()">The foaf:Agent '<sch:value-of select="$id"/>' has a foaf:name '<sch:value-of select="./string()"/>' which is a non-empty string.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>	
-	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal. 
-	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process 
+	</sch:pattern>
+	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal.
+	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process
 	this validation rule.
 	<sch:pattern>
 		<sch:title>1. The foaf:name property should be a literal.</sch:title>
@@ -141,9 +141,9 @@ Source:
 			<!-- </sch:report> -->
 		<!-- </sch:rule> -->
 	<!-- </sch:pattern> -->
-	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal. 
-	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process 
-	this validation rule.	
+	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal.
+	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process
+	this validation rule.
 	<sch:pattern>
 		<sch:title>7. dct:description should be a literal for Catalog.</sch:title>
 		<sch:rule context="//dcat:Catalog/dct:description">
@@ -166,9 +166,9 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
-	<sch:pattern>	
+	<sch:pattern>
 	-->
-	<!-- 
+	<!--
 	<sch:pattern>
 		<sch:title>9. dct:publisher has a maximum cardinality of 1 for Catalog.</sch:title>
 		<sch:rule context="//dcat:Catalog">
@@ -179,7 +179,7 @@ Source:
 			<sch:report test="2 > $count">The dcat:Catalog "<sch:value-of select="$id"/>" has maximally one dct:publisher property.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern> -->	
+	</sch:pattern> -->
 	<!-- <sch:pattern> -->
 		<!-- <sch:title>11. dct:publisher should be a foaf:Agent for Catalog.</sch:title> -->
 		<!-- <sch:rule context="//dcat:Catalog/dct:publisher"> -->
@@ -214,9 +214,9 @@ Source:
 			<!-- </sch:report> -->
 		<!-- </sch:rule> -->
 	<!-- </sch:pattern>	 -->
-	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal. 
-	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process 
-	this validation rule.	
+	<!--GeoNetwork adds elements like <geonet:element xmlns:geonet="http://www.fao.org/geonetwork"> to any literal.
+	The new inline validation tool does not (see https://github.com/geonetwork/core-geonetwork/pull/3298) does not correctly process
+	this validation rule.
 	<sch:pattern>
 		<sch:title>13. dct:title should be a literal.</sch:title>
 		<sch:rule context="//dcat:Catalog/dct:title">
@@ -225,7 +225,7 @@ Source:
 			<sch:assert test="$notALiteral = false()">ERROR: In dcat:Catalog "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="string-join(//.[child::*]//*/name(),'|') "/>," is not a literal.</sch:assert>
 			<sch:report test="$notALiteral = false()">In dcat:Catalog "<sch:value-of select="$id"/>" the dct:title property "<sch:value-of select="./string()"/>," is a literal.</sch:report>
 		</sch:rule>
-	</sch:pattern>	
+	</sch:pattern>
 	-->
 	<!-- <sch:pattern> -->
 		<!-- <sch:title>15. foaf:homepage has a maximum cardinality of 1 for Catalog.</sch:title> -->
@@ -283,7 +283,7 @@ Source:
 			<!-- <sch:report test="$modifiedDateTime = true()">The dcat:Catalog "<sch:value-of select="$id"/>" has a dct:issued property which value "<sch:value-of select="./string()"/>" is a date or dateTime. -->
 			<!-- </sch:report> -->
 		<!-- </sch:rule> -->
-	<!-- </sch:pattern> -->	
+	<!-- </sch:pattern> -->
 	<!-- <sch:pattern> -->
 		<!-- <sch:title>26. dct:issued has a maximum cardinality of 1 for Catalog.</sch:title> -->
 		<!-- <sch:rule context="//dcat:Catalog"> -->
@@ -342,7 +342,7 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	-->
-	<!--	
+	<!--
 	<sch:pattern>
 		<sch:title>35.  dct:rights has maximum cardinality of 1 for Catalog.</sch:title>
 		<sch:rule context="//dcat:Catalog">
@@ -367,7 +367,7 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
-	-->	
+	-->
 	<sch:pattern>
 		<sch:title>37. dct:description is a required property for Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset">
@@ -475,7 +475,7 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
-	<!--60. dct:identifier should be a literal.-->	
+	<!--60. dct:identifier should be a literal.-->
 	<sch:pattern>
 		<sch:title>63. dcat:landingPage should be a foaf:Document.</sch:title>
 		<sch:rule context="//dcat:Dataset/dcat:landingPage">
@@ -541,7 +541,7 @@ Source:
 			<sch:report test="$datatype = true()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:issued property which value "<sch:value-of select="./string()"/>" is typed (rdf:datatype) as xsd:date or xsd:dateTime.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>	
+	</sch:pattern>
 	<sch:pattern>
 		<sch:title>69. dct:issued has a maximum cardinality of 1 for Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset">
@@ -574,7 +574,7 @@ Source:
 			<sch:report test="$wrongType = false()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:temporal  property "<sch:value-of select="$id"/>" which is a dct:PeriodOfTime.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>	
+	</sch:pattern>
 	<sch:pattern>
 		<sch:title>73. dct:modified should be a literal typed as date or dateTime (value).</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:modified">
@@ -587,7 +587,7 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
-		<sch:title>74. dct:modified should be a literal typed as date or dateTime (type).</sch:title>
+		<sch:title>73. dct:modified should be a literal typed as date or dateTime (type).</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:modified">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="datatype" value="./@rdf:datatype = 'http://www.w3.org/2001/XMLSchema#date' or ./@rdf:datatype = 'http://www.w3.org/2001/XMLSchema#dateTime'"/>
@@ -596,8 +596,19 @@ Source:
 			<sch:report test="$datatype = true()">The dcat:Dataset "<sch:value-of select="$id"/>" has a dct:modified property which value "<sch:value-of select="./string()"/>" is typed (rdf:datatype) as xsd:date or xsd:dateTime.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>	
-	<!--75. owl:versionInfo should be a literal.-->  	
+	</sch:pattern>
+	<sch:pattern>
+		<sch:title>74. dct:modified has maximum cardinality of 1 for Dataset.</sch:title>
+		<sch:rule context="//dcat:Dataset">
+			<sch:let name="id" value="@rdf:about/string()"/>
+			<sch:let name="count" value="count(dct:modified)"/>
+			<sch:assert test="2 > $count">ERROR: The dcat:Dataset "<sch:value-of select="$id"/>" has more than one dct:modified property.
+			</sch:assert>
+			<sch:report test="2 > $count">The dcat:Dataset "<sch:value-of select="$id"/>" has no more than one dct:modified property.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>
+	<!--75. owl:versionInfo should be a literal.-->
 	<sch:pattern>
 		<sch:title>76. owl:versionInfo has maximum cardinality of 1 for Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset">
@@ -608,9 +619,9 @@ Source:
 			<sch:report test="2 > $count">The dcat:Dataset "<sch:value-of select="$id"/>" has no more than one owl:versionInfo property.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>	
+	</sch:pattern>
   <sch:pattern>
-	<!--77. adms:versionNotes should be literal.-->  
+	<!--77. adms:versionNotes should be literal.-->
     <sch:title>79. dcat:accessURL is a mandatory property for a distribution.</sch:title>
     <sch:rule context="//dcat:Distribution">
       <sch:let name="id" value="dct:title[1]/string()"/>
@@ -642,7 +653,7 @@ Source:
       <sch:report test="$isAResource = false()">The dcat:Distribution with title '<sch:value-of select="$id"/>' has a dcat:accessURL '<sch:value-of select="./string()"/>' that is a resource (URI).
       </sch:report>
     </sch:rule>
-  </sch:pattern>  
+  </sch:pattern>
 	<!--82. dct:description should be a literal.-->
 	<sch:pattern>
 		<sch:title>84. dct:format should be a dct:MediaTypeOrExtent.</sch:title>
@@ -766,7 +777,7 @@ Source:
 			<sch:report test="$wrongType = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:rights  property "<sch:value-of select="$id"/>" which is a dct:RightsStatement.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>	
+	</sch:pattern>
 	<!--95. dct:title should be a literal.-->
 	<sch:pattern>
 		<sch:title>96. dct:modified should be a literal typed as date or dateTime (value).</sch:title>
@@ -993,7 +1004,7 @@ Source:
 <!-- 127.  dct:issued has a maximum cardinality of 1 for dcat:Catalog Record-->
 <!-- 128.  dct:source should be a dcat:CatalogRecord-->
 <!-- 129.  dct:source has a maximum cardinality of 1 for Catalog Record-->
-<!-- 131.  dct:language should be a dct:LinguisticSystem-->	
+<!-- 131.  dct:language should be a dct:LinguisticSystem-->
 	<sch:pattern>
 		<sch:title>132. spdx:algorithm is a required property for Checksum.</sch:title>
 		<sch:rule context="//spdx:Checksum">
@@ -1169,7 +1180,7 @@ Source:
 			<sch:report test="$resource = true()">The dcat:Dataset "<sch:value-of select="$id"/>" has  a dct:relation property that is a resource.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>	
+	</sch:pattern>
 	<sch:pattern>
 		<sch:title>156. adms:sample should be a dcat:Distribution.</sch:title>
 		<sch:rule context="//dcat:Dataset/adms:sample">
@@ -1300,7 +1311,7 @@ Source:
 			<sch:report test="$missingProperty = false()">The skos:Concept "<sch:value-of select="$id"/>" has a skos:prefLabel property.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>	
+	</sch:pattern>
 	<sch:pattern>
 		<sch:title>171. dct:title is a required property for Category scheme.</sch:title>
 		<sch:rule context="//skos:ConceptScheme">
@@ -1313,7 +1324,7 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	<!--172. dct:title should be a literal.-->
-	<!--173. skos:prefLabel should be a literal.-->	
+	<!--173. skos:prefLabel should be a literal.-->
   <sch:pattern>
     <sch:title>174. schema:startDate should be a literal typed as date or dateTime (value)</sch:title>
     <sch:rule context="//dct:PeriodOfTime/schema:startDate">
@@ -1361,7 +1372,7 @@ Source:
 		<sch:report test="$datatype = true()">The dct:PeriodOfTime "<sch:value-of select="$id"/>" has a schema:endDate property which value "<sch:value-of select="./string()"/>" is typed (rdf:datatype) as xsd:date or xsd:dateTime.
 		</sch:report>
 	</sch:rule>
-  </sch:pattern> 
+  </sch:pattern>
 	<sch:pattern>
 		<sch:title>176. skos:notation has maximum cardinality of 1 for adms:Identifier.</sch:title>
 		<sch:rule context="//adms:Identifier">
@@ -1449,5 +1460,5 @@ Source:
 			<sch:report test="$resource = true()">A dct:license property has a value that is a resource.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>		
+	</sch:pattern>
 </sch:schema>
