@@ -224,7 +224,11 @@ public class Aligner extends BaseAligner<DCATAPParams> {
 			log.debug("  - Adding metadata with remote uuid:" + ri.uuid + " schema:" + schema);
 
         try {
-            params.getValidate().validate(dataMan, context, md);
+            Integer groupIdVal = null;
+            if (StringUtils.isNotEmpty(params.getOwnerIdGroup())) {
+                groupIdVal = Integer.parseInt(params.getOwnerIdGroup());
+            }
+            params.getValidate().validate(dataMan, context, md, groupIdVal);
         } catch (Exception e) {
             log.info("Ignoring invalid metadata uuid: " + ri.uuid);
             result.doesNotValidate++;
@@ -323,7 +327,11 @@ public class Aligner extends BaseAligner<DCATAPParams> {
 					return;
 
 		        try {
-		            params.getValidate().validate(dataMan, context, md);
+		            Integer groupIdVal = null;
+                    if (StringUtils.isNotEmpty(params.getOwnerIdGroup())) {
+                        groupIdVal = Integer.parseInt(params.getOwnerIdGroup());
+                    }
+		            params.getValidate().validate(dataMan, context, md, groupIdVal);
 		        } catch (Exception e) {
 		            log.info("Ignoring invalid metadata uuid: " + ri.uuid);
 		            result.doesNotValidate++;

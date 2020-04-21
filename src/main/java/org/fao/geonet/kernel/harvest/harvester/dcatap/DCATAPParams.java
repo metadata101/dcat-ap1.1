@@ -24,18 +24,14 @@
 package org.fao.geonet.kernel.harvest.harvester.dcatap;
 
 import org.apache.jena.riot.RDFLanguages;
-import org.fao.geonet.Constants;
 import org.fao.geonet.Util;
 import org.fao.geonet.exceptions.BadInputEx;
 import org.fao.geonet.kernel.DataManager;
 import org.fao.geonet.kernel.harvest.harvester.AbstractParams;
-import org.fao.geonet.kernel.harvest.harvester.dcatap.DCATAPParams;
 import org.jdom.Element;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.List;
 
 //=============================================================================
 
@@ -47,7 +43,7 @@ public class DCATAPParams extends AbstractParams {
     //---
     //---------------------------------------------------------------------------
     public String baseUrl;
-    
+
     //---------------------------------------------------------------------------
     //---
     //--- See also: https://jena.apache.org/documentation/io/rdf-input.html
@@ -92,7 +88,7 @@ public class DCATAPParams extends AbstractParams {
         //Element searches = node.getChild("searches");
 
         baseUrl = Util.getParam(site, "baseUrl", "");
-        rdfSyntax = Util.getParam(site, "rdfSyntax", RDFLanguages.RDFXML.toLongString()); 
+        rdfSyntax = Util.getParam(site, "rdfSyntax", RDFLanguages.RDFXML.toLongString());
         maxResults = Util.getParam(site, "maxResults", 10000); //MAX_HARVEST_RESULTS;
 
         try {
@@ -119,7 +115,7 @@ public class DCATAPParams extends AbstractParams {
         //Element searches = node.getChild("searches");
 
         baseUrl = Util.getParam(site, "baseUrl", baseUrl);
-        rdfSyntax = Util.getParam(site, "rdfSyntax", "RDFXML"); 
+        rdfSyntax = Util.getParam(site, "rdfSyntax", "RDFXML");
         maxResults = Util.getParam(site, "maxResults", 10000); //MAX_HARVEST_RESULTS;
 
         Element content = node.getChild("content");
@@ -149,6 +145,11 @@ public class DCATAPParams extends AbstractParams {
 //    public boolean isSearchEmpty() {
 //        return alSearches.isEmpty();
 //    }
+
+    @Override
+    public String getIcon() {
+        return icon;
+    }
 
     public DCATAPParams copy() {
         DCATAPParams copy = new DCATAPParams(dm);
