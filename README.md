@@ -118,7 +118,7 @@ Comments and questions to the issue tracker.
 ## More work required
 
 This plugin would merit further improvements in at least the following areas:
-* **Harvester to support LDP/Hydra paging**: Now that the GeoNetwork endpoint supports paging, it would bee better to also support it on the harvester.
+* **Harvester to support LDP/Hydra paging**: Now that the GeoNetwork endpoint supports paging, it would be better to also support it on the harvester.
 * **Default view**: the default view currently does not display distribution information, this is only included in the full view.
 
 ## Contributors
