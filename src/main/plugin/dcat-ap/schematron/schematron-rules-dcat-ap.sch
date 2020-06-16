@@ -500,7 +500,7 @@ Source:
 	</sch:pattern>
 	<sch:pattern>
 		<sch:title>66. skos:notation is a required property for adms:Identifier.</sch:title>
-		<sch:rule context="//adms:Identifier.">
+		<sch:rule context="//adms:Identifier">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="propMissing" value="not(skos:notation)"/>
 			<sch:assert test="$propMissing = false()">ERROR: The adms:Identifier. "<sch:value-of select="$id"/>" does not have a skos:notation property.
