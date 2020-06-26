@@ -135,7 +135,7 @@
           <spdx:algorithm rdf:resource="{{FieldId294}}"/>
         </snippet>
       </template>
-    </for>	
+    </for>
   </fields>
   <!-- Complex fields. -->
   <fieldsWithFieldset>
@@ -345,6 +345,7 @@
         <for name="owl:versionInfo"/>
         <for name="dct:modified" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:modified"/>
         <for name="dct:issued" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:issued"/>
+        <for name="xml:lang" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:publisher/foaf:Agent/foaf:name"/>
         <!-- Publisher -->
         <for name="foaf:Agent"/>
         <for name="foaf:name"/>

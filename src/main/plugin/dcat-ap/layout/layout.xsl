@@ -25,17 +25,17 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 		xmlns:spdx="http://spdx.org/rdf/terms#"
 		xmlns:skos="http://www.w3.org/2004/02/skos/core#"
-		xmlns:adms="http://www.w3.org/ns/adms#" 
+		xmlns:adms="http://www.w3.org/ns/adms#"
 		xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
     xmlns:dc="http://purl.org/dc/elements/1.1/"
     xmlns:dct="http://purl.org/dc/terms/"
     xmlns:dcat="http://www.w3.org/ns/dcat#"
 		xmlns:vcard="http://www.w3.org/2006/vcard/ns#"
-		xmlns:foaf="http://xmlns.com/foaf/0.1/" 
+		xmlns:foaf="http://xmlns.com/foaf/0.1/"
 		xmlns:owl="http://www.w3.org/2002/07/owl#"
 		xmlns:schema="http://schema.org/"
 		xmlns:locn="http://www.w3.org/ns/locn#"
-		xmlns:java="java:org.fao.geonet.util.XslUtil" 
+		xmlns:java="java:org.fao.geonet.util.XslUtil"
 		xmlns:gn="http://www.fao.org/geonetwork"
 		xmlns:gn-fn-metadata="http://geonetwork-opensource.org/xsl/functions/metadata"
 		xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap"
@@ -94,7 +94,7 @@
         <xsl:with-param name="childEditInfo" select="."/>
         <xsl:with-param name="parentEditInfo" select="../gn:element"/>
         <xsl:with-param name="isFirst" select="count(preceding-sibling::*[name() = $name]) = 0"/>
-        <xsl:with-param name="isForceLabel" select="true()"/>        
+        <xsl:with-param name="isForceLabel" select="true()"/>
       </xsl:call-template>
     </xsl:if>
   </xsl:template>
@@ -140,19 +140,19 @@
 
   </xsl:template>
 
-  <!-- 
+  <!--
     ... but not the one proposing the list of elements to add in DC schema
-    
+
     Template to display non existing element ie. geonet:child element
-    of the metadocument. Display in editing mode only and if 
+    of the metadocument. Display in editing mode only and if
   the editor mode is not flat mode. -->
   <xsl:template mode="mode-dcat-ap" match="gn:child[contains(@name, 'CHOICE_ELEMENT')]"
     priority="3000">
-    <xsl:if test="$isEditing and 
+    <xsl:if test="$isEditing and
       not($isFlatMode)">
 
       <!-- Create a new configuration to only create
-            a add action for non existing node. The add action for 
+            a add action for non existing node. The add action for
             the existing one is below the last element. -->
       <xsl:variable name="newElementConfig">
         <xsl:variable name="dcConfig"
@@ -233,7 +233,7 @@
 				    </xsl:when>
 				  </xsl:choose>
 				</xsl:variable>
-		
+
 				<xsl:variable name="templateCombinedWithNode" as="node()">
 				  <template>
 				    <xsl:copy-of select="$template/values"/>
@@ -244,7 +244,7 @@
 				    </snippet>
 				  </template>
 				</xsl:variable>
-		
+
 				<xsl:variable name="keyValues">
 				  <xsl:call-template name="build-key-value-configuration">
 				    <xsl:with-param name="template" select="$template"/>
@@ -252,18 +252,18 @@
 				    <xsl:with-param name="readonly" select="$readonly"/>
 				  </xsl:call-template>
 				</xsl:variable>
-		
+
 				<xsl:variable name="originalNode"
 				              select="gn-fn-metadata:getOriginalNode($metadata, .)"/>
-		
+
 				<xsl:variable name="refToDelete">
 				  <xsl:call-template name="get-ref-element-to-delete">
 				    <xsl:with-param name="node" select="$originalNode"/>
 				    <xsl:with-param name="delXpath" select="$del"/>
 				  </xsl:call-template>
 				</xsl:variable>
-		
-		
+
+
 				<!-- If the element exist, use the _X<ref> mode which
 				      insert the snippet for the element if not use the
 				      XPATH mode which will create the new element at the
@@ -320,9 +320,9 @@
                                                      (name() = 'spdx:algorithm' and name(..) = 'spdx:Checksum') or
                                                      (name() = 'spdx:checksumValue' and name(..) = 'spdx:Checksum')"/>
 			  </xsl:call-template>
-			
+
 	      <xsl:if test="$isEditing">
-	
+
 	        <!-- Render attributes as fields and overwrite the normal behavior -->
 	        <xsl:apply-templates mode="render-for-field-for-attribute-dcat-ap"
 	                             select="@*|gn:attribute[not(@name = parent::node()/@*/name())]">
@@ -380,27 +380,30 @@
   </xsl:template>
 
   <xsl:template mode="render-for-field-for-attribute-dcat-ap"
-                match="gn:attribute[@name = ('rdf:nodeID') or (not(@name = ('ref', 'parent', 'id', 'uuid', 'type', 'uuidref',
-    'xlink:show', 'xlink:actuate', 'xlink:arcrole', 'xlink:role', 'xlink:title', 'xlink:href')) and $isFlatMode)]"
+                match="gn:attribute[@name = ('rdf:nodeID')]"
                 priority="101"/>
 
   <xsl:template mode="render-for-field-for-attribute-dcat-ap"
                 match="gn:attribute[not(@name = ('ref', 'parent', 'id', 'uuid', 'type', 'uuidref',
-    'xlink:show', 'xlink:actuate', 'xlink:arcrole', 'xlink:role', 'xlink:title', 'xlink:href')) and not($isFlatMode)]"
+    'xlink:show', 'xlink:actuate', 'xlink:arcrole', 'xlink:role', 'xlink:title', 'xlink:href'))]"
                 priority="100">
     <xsl:param name="ref"/>
     <xsl:param name="insertRef" select="''"/>
-    <xsl:if test="not(gn-fn-dcat-ap:isNotMultilingualField(.., $editorConfig))">
-      <xsl:variable name="attributeLabel" select="gn-fn-metadata:getLabel($schema, @name, $labels, name(..), '', concat(gn-fn-metadata:getXPath(..),'/@',@name))"/>
-      <label class="col-sm-2 control-label"/>
-      <div class="col-sm-9 btn-group nopadding-in-table">
-        <button type="button" class="btn btn-default btn-xs"
-                data-gn-click-and-spin="add('{$ref}', '{@name}', '{$ref}', null, true)"
-                title="{$attributeLabel/description}">
-          <i class="fa fa-plus fa-fw"/>
-          <xsl:value-of select="$attributeLabel/label"/>
-        </button>
-      </div>
+    <xsl:variable name="xpath" select="gn-fn-metadata:getXPath(..)"/>
+    <xsl:variable name="name" select="concat(@prefix, @name)"/>
+    <xsl:if test="not($isFlatMode) or gn-fn-metadata:isFieldFlatModeException($viewConfig, $name, $xpath)">
+      <xsl:if test="not(gn-fn-dcat-ap:isNotMultilingualField(.., $editorConfig))">
+        <xsl:variable name="attributeLabel" select="gn-fn-metadata:getLabel($schema, @name, $labels, name(..), '', concat(gn-fn-metadata:getXPath(..),'/@',@name))"/>
+        <label class="col-sm-2 control-label"/>
+        <div class="col-sm-9 btn-group nopadding-in-table">
+          <button type="button" class="btn btn-default btn-xs"
+                  data-gn-click-and-spin="add('{$ref}', '{@name}', '{$ref}', null, true)"
+                  title="{$attributeLabel/description}">
+            <i class="fa fa-plus fa-fw"/>
+            <xsl:value-of select="$attributeLabel/label"/>
+          </button>
+        </div>
+      </xsl:if>
     </xsl:if>
   </xsl:template>
 </xsl:stylesheet>
