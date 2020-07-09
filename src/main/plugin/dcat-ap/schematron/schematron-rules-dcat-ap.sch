@@ -658,7 +658,7 @@ Source:
 	<sch:pattern>
 		<sch:title>84. dct:format should be a dct:MediaTypeOrExtent.</sch:title>
 		<sch:rule context="//dcat:Distribution/dct:format">
-			<sch:let name="id" value="parent::node()/dct:title[1]/string()"/>
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="wrongType" value="not(dct:MediaTypeOrExtent | */rdf:type[@rdf:resource = 'http://purl.org/dc/terms/MediaTypeOrExtent'])"/>
 			<sch:assert test="$wrongType = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:format  property "<sch:value-of select="$id"/>" which is not a dct:MediaTypeOrExtent.
 			</sch:assert>
@@ -669,7 +669,7 @@ Source:
 	<sch:pattern>
 		<sch:title>85. dct:format has a maximum cardinality of 1 for Distribution.</sch:title>
 		<sch:rule context="//dcat:Distribution">
-			<sch:let name="id" value="parent::node()/dct:title[1]/string()"/>
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="count" value="count(dct:format)"/>
 			<sch:assert test="2 > $count">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has more than one dct:format property.
 			</sch:assert>

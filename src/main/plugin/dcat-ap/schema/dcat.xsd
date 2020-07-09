@@ -4,12 +4,12 @@
 		<xs:documentation xml:lang="en">
       DCAT-AP 1.1 XML Schema
       XML Schema for http://www.w3.org/ns/dcat# namespace
-      
+
       Description: This is an XML Schema for the DCAT-AP specification. The schema is used by GeoNetwork for storing GeoNetwork data internally. The schema adheres to a 'normalized' RDF/XML syntax that can be processed with good old XML Technology (XPath, XSLT, XQuery). The schema is not intended to be used outside GeoNetwork.
 
       Created 2016-05-31
       Modified 2018-06-22
- 
+
       Author GIM
 
     </xs:documentation>
@@ -122,7 +122,7 @@
             <!-- dct:title mandatory for DCAT-AP-VL otherwise minOccurs="0" -->
 						<xs:element ref="dct:title" minOccurs="1" maxOccurs="unbounded"/>
             <!-- dct:description mandatory for DCAT-AP-VL otherwise minOccurs="0" -->
-						<xs:element ref="dct:description" minOccurs="1" maxOccurs="unbounded"/>
+						<xs:element ref="dct:description" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element name="accessURL" type="rdf:Resource" minOccurs="1" maxOccurs="unbounded"/>
 						<xs:element name="downloadURL" type="rdf:Resource" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element ref="dct:issued" minOccurs="0" maxOccurs="1"/>

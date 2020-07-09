@@ -667,8 +667,8 @@
               <snippet>
                 <dcat:distribution>
                   <dcat:Distribution>
-                    <dct:title/>
-                    <dct:description/>
+                    <dct:title xml:lang="nl"/>
+                    <dct:description xml:lang="nl"/>
                     <dcat:accessURL rdf:resource=""/>
                     <dcat:downloadURL rdf:resource=""/>
                     <dct:format/>
