@@ -121,7 +121,6 @@
 					<xs:sequence>
             <!-- dct:title mandatory for DCAT-AP-VL otherwise minOccurs="0" -->
 						<xs:element ref="dct:title" minOccurs="1" maxOccurs="unbounded"/>
-            <!-- dct:description mandatory for DCAT-AP-VL otherwise minOccurs="0" -->
 						<xs:element ref="dct:description" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element name="accessURL" type="rdf:Resource" minOccurs="1" maxOccurs="unbounded"/>
 						<xs:element name="downloadURL" type="rdf:Resource" minOccurs="0" maxOccurs="unbounded"/>

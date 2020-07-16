@@ -26,7 +26,7 @@
 
 Schematron validation for DCAT-AP
 
-This script was written by GIM. 
+This script was written by GIM.
 
 Source:
 - DCAT-AP v1.1: https://joinup.ec.europa.eu/release/dcat-ap-v11
@@ -55,10 +55,10 @@ Source:
 		<sch:title>2. dct:type is a recommended property for Agent.</sch:title>
 		<sch:rule context="//foaf:Agent[not(name(../..) = 'dcat:Catalog')]">
 			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="noName" value="not(dct:type)"/>
-			<sch:assert test="$noName = false()">WARNING: The foaf:Agent "<sch:value-of select="$id"/>" does not have a dct:type property.
+			<sch:let name="missingProperty" value="not(dct:type)"/>
+			<sch:assert test="$missingProperty = false()">WARNING: The foaf:Agent "<sch:value-of select="$id"/>" does not have a dct:type property.
 			</sch:assert>
-			<sch:report test="$noName = false()">The foaf:Agent "<sch:value-of select="$id"/>" has a dct:type property.
+			<sch:report test="$missingProperty = false()">The foaf:Agent "<sch:value-of select="$id"/>" has a dct:type property.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -211,7 +211,7 @@ Source:
 			<sch:let name="missingProperty" value="not(dct:format)"/>
 			<sch:assert test="$missingProperty = false()">WARNING: The dcat:Distribution "<sch:value-of select="$id"/>" does not have a dct:format.
 			</sch:assert>
-			<sch:report test="$missingProperty = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:format "<sch:value-of select="dct:description"/>"
+			<sch:report test="$missingProperty = false()">The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:format "<sch:value-of select="dct:format"/>"
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -238,7 +238,7 @@ Source:
 	</sch:pattern>
 	<!-- 144.  dct:conformsTo is a recommended property for Catalog Record-->
 	<!-- 145.  adms:status is a recommended property for Catalog Record-->
-	<!-- 146.  dct:issued is a recommended property for Catalog Record-->	
+	<!-- 146.  dct:issued is a recommended property for Catalog Record-->
 	<sch:pattern>
 		<sch:title>167. The recommended class skos:Concept does not exist.</sch:title>
 		<sch:rule context="/">
@@ -254,15 +254,15 @@ Source:
 			<sch:assert test="$missingClass = false()">ERROR: The recommended class skos:ConceptScheme does not exist.</sch:assert>
 			<sch:report test="$missingClass = false()">The recommended class skos:ConceptScheme does exist.</sch:report>
 		</sch:rule>
-	</sch:pattern>	
+	</sch:pattern>
 	<sch:pattern>
 		<sch:title>170. dct:type is a recommended property for Licence Document.</sch:title>
 		<sch:rule context="//dcat:Distribution/*/dct:LicenseDocument">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="noLicenseType" value="not(dct:type)"/>
-			<sch:assert test="$noLicenseType = false()">WARNING: The licence "<sch:value-of select="$id"/>" has no dct:type property. 
+			<sch:assert test="$noLicenseType = false()">WARNING: The licence "<sch:value-of select="$id"/>" has no dct:type property.
 			</sch:assert>
-			<sch:report test="$noLicenseType = false()">The licence "<sch:value-of select="$id"/>" has a dct:type property. 
+			<sch:report test="$noLicenseType = false()">The licence "<sch:value-of select="$id"/>" has a dct:type property.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>

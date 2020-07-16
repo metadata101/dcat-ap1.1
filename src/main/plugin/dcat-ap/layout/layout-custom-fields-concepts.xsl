@@ -200,7 +200,10 @@
 		             data-lang="{$metadataOtherLanguagesAsJson}"
 		             data-textgroup-only="false">
 		        </div>
-			</xsl:when>
+            <xsl:if test="$showValidationErrors">
+              <xsl:call-template name="get-errors"/>
+            </xsl:if>
+      </xsl:when>
 			<xsl:otherwise>
 				<xsl:apply-templates mode="mode-dcat-ap" select="*"/>
 			</xsl:otherwise>

@@ -1305,13 +1305,25 @@ Source:
 		<sch:title>169. skos:prefLabel is a required property for skos:Concept.</sch:title>
 		<sch:rule context="//skos:Concept">
 			<sch:let name="id" value="@rdf:about/string()"/>
+			<sch:let name="value" value="skos:prefLabel[@xml:lang='nl']"/>
+			<sch:let name="missingProperty" value="not($value!='')"/>
+			<sch:assert test="$missingProperty = false()">ERROR: The <sch:value-of select="name(../..)"/>/<sch:value-of select="name(..)"/> does not have a skos:prefLabel value.
+			</sch:assert>
+			<sch:report test="$missingProperty = false()">The <sch:value-of select="name(../..)"/>/<sch:value-of select="name(..)"/> does have a skos:prefLabel with value <sch:value-of select="$value"/>.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>
+	<!--sch:pattern>
+		<sch:title>169. skos:prefLabel is a required property for skos:Concept.</sch:title>
+		<sch:rule context="//skos:Concept">
+			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="missingProperty" value="not(skos:prefLabel)"/>
 			<sch:assert test="$missingProperty = false()">ERROR: The skos:Concept "<sch:value-of select="$id"/>" does not have a skos:prefLabel property.
 			</sch:assert>
 			<sch:report test="$missingProperty = false()">The skos:Concept "<sch:value-of select="$id"/>" has a skos:prefLabel property.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>
+	</sch:pattern-->
 	<sch:pattern>
 		<sch:title>171. dct:title is a required property for Category scheme.</sch:title>
 		<sch:rule context="//skos:ConceptScheme">
