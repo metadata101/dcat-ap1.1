@@ -136,6 +136,7 @@
           <xsl:with-param name="labels" select="$labels"/>
         </xsl:apply-templates>
       </xsl:with-param>
+      <xsl:with-param name="isDisabled" select="name() = 'spdx:Checksum'"/>
     </xsl:call-template>
 
   </xsl:template>

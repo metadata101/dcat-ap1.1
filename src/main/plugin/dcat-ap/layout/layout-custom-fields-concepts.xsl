@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 				xmlns:adms="http://www.w3.org/ns/adms#"
-				xmlns:dct="http://purl.org/dc/terms/" 
+				xmlns:dct="http://purl.org/dc/terms/"
 				xmlns:dcat="http://www.w3.org/ns/dcat#"
 				xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 				xmlns:foaf="http://xmlns.com/foaf/0.1/"
@@ -24,13 +24,17 @@
     <xsl:variable name="createdInSchemeByParentElementName" select="gn-fn-dcat-ap:getInSchemeURIByElementName(name(.),name(..))"/>
 
     <xsl:variable name="inScheme">
-    	<xsl:choose>
-    		<xsl:when test="$existingInScheme!=''"><xsl:value-of select="$existingInScheme"/></xsl:when>
-    		<xsl:otherwise><xsl:value-of select="$createdInSchemeByParentElementName"/></xsl:otherwise>
-    	</xsl:choose>
+      <xsl:choose>
+        <xsl:when test="$existingInScheme!=''">
+          <xsl:value-of select="$existingInScheme"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$createdInSchemeByParentElementName"/>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:variable>
-    <xsl:variable name="thesaurusTitle" select="gn-fn-dcat-ap:getThesaurusTitle($inScheme)" />
-    <xsl:variable name="thesaurusIdentifier" select="gn-fn-dcat-ap:getThesaurusIdentifier($inScheme)" />
+    <xsl:variable name="thesaurusTitle" select="gn-fn-dcat-ap:getThesaurusTitle($inScheme)"/>
+    <xsl:variable name="thesaurusIdentifier" select="gn-fn-dcat-ap:getThesaurusIdentifier($inScheme)"/>
     <xsl:variable name="attributes">
       <xsl:if test="$isEditing">
         <!-- Create form for all existing attribute (not in gn namespace)
@@ -53,44 +57,44 @@
                           else $listOfThesaurus/thesaurus[title=$thesaurusTitle]"/>
     <xsl:choose>
       <xsl:when test="$thesaurusConfig/@fieldset = 'false'">
-<!--         <xsl:apply-templates mode="mode-dcat-ap" select="*">
-          <xsl:with-param name="schema" select="$schema"/>
-          <xsl:with-param name="labels" select="$labels"/>
-        </xsl:apply-templates>-->
-	    <xsl:call-template name="render-transparent-boxed-element">
-	      <xsl:with-param name="label"
-	                      select="if ($thesaurusTitle)
+        <!--         <xsl:apply-templates mode="mode-dcat-ap" select="*">
+                  <xsl:with-param name="schema" select="$schema"/>
+                  <xsl:with-param name="labels" select="$labels"/>
+                </xsl:apply-templates>-->
+        <xsl:call-template name="render-transparent-boxed-element">
+          <xsl:with-param name="label"
+                          select="if ($thesaurusTitle)
 	                then $thesaurusTitle
 	                else gn-fn-metadata:getLabel($schema, name(), $labels, name(..), '', $xpath)/label"/>
-	      <xsl:with-param name="editInfo" select="gn:element"/>
-	      <xsl:with-param name="cls" select="local-name()"/>
-	      <xsl:with-param name="xpath" select="$xpath"/>
-	      <xsl:with-param name="attributesSnippet" select="$attributes"/>
-	      <xsl:with-param name="subTreeSnippet">
-	        <xsl:apply-templates mode="mode-dcat-ap" select="*">
-	          <xsl:with-param name="schema" select="$schema"/>
-	          <xsl:with-param name="labels" select="$labels"/>
-	        </xsl:apply-templates>
-	      </xsl:with-param>
-	    </xsl:call-template>
+          <xsl:with-param name="editInfo" select="gn:element"/>
+          <xsl:with-param name="cls" select="local-name()"/>
+          <xsl:with-param name="xpath" select="$xpath"/>
+          <xsl:with-param name="attributesSnippet" select="$attributes"/>
+          <xsl:with-param name="subTreeSnippet">
+            <xsl:apply-templates mode="mode-dcat-ap" select="*">
+              <xsl:with-param name="schema" select="$schema"/>
+              <xsl:with-param name="labels" select="$labels"/>
+            </xsl:apply-templates>
+          </xsl:with-param>
+        </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-	    <xsl:call-template name="render-boxed-element">
-	      <xsl:with-param name="label"
-	                      select="if ($thesaurusTitle)
+        <xsl:call-template name="render-boxed-element">
+          <xsl:with-param name="label"
+                          select="if ($thesaurusTitle)
 	                then $thesaurusTitle
 	                else gn-fn-metadata:getLabel($schema, name(), $labels, name(..), '', $xpath)/label"/>
-	      <xsl:with-param name="editInfo" select="gn:element"/>
-	      <xsl:with-param name="cls" select="local-name()"/>
-	      <xsl:with-param name="xpath" select="$xpath"/>
-	      <xsl:with-param name="attributesSnippet" select="$attributes"/>
-	      <xsl:with-param name="subTreeSnippet">
-	        <xsl:apply-templates mode="mode-dcat-ap" select="*">
-	          <xsl:with-param name="schema" select="$schema"/>
-	          <xsl:with-param name="labels" select="$labels"/>
-	        </xsl:apply-templates>
-	      </xsl:with-param>
-	    </xsl:call-template>
+          <xsl:with-param name="editInfo" select="gn:element"/>
+          <xsl:with-param name="cls" select="local-name()"/>
+          <xsl:with-param name="xpath" select="$xpath"/>
+          <xsl:with-param name="attributesSnippet" select="$attributes"/>
+          <xsl:with-param name="subTreeSnippet">
+            <xsl:apply-templates mode="mode-dcat-ap" select="*">
+              <xsl:with-param name="schema" select="$schema"/>
+              <xsl:with-param name="labels" select="$labels"/>
+            </xsl:apply-templates>
+          </xsl:with-param>
+        </xsl:call-template>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -118,7 +122,7 @@
 	                  select="if ($thesaurusList/thesaurus[@key=substring-after($thesaurusIdentifier, 'geonetwork.thesaurus.')])
 	                          then $thesaurusList/thesaurus[@key=substring-after($thesaurusIdentifier, 'geonetwork.thesaurus.')]
 	                          else $listOfThesaurus/thesaurus[title=$thesaurusTitle]"/>
-	
+
         <!-- The thesaurus key may be contained in the MD_Identifier field or
           get it from the list of thesaurus based on its title.
           -->
@@ -132,7 +136,7 @@
 		                      select="if (starts-with($thesaurusInternalKey, 'geonetwork.thesaurus.'))
 		                      then substring-after($thesaurusInternalKey, 'geonetwork.thesaurus.')
 		                      else $thesaurusInternalKey"/>
-		
+
 		        <!-- if gui lang eng > #EN -->
 		        <xsl:variable name="guiLangId"
                       select="
@@ -146,20 +150,20 @@
 		        in default language
 		        -->
 		        <xsl:variable name="keywords" select="string-join(replace(skos:prefLabel[@xml:lang=$prefLabelLangId], ',', ',,'), ',')"/>
-		
+
 		        <!-- Define the list of transformation mode available. -->
 		        <xsl:variable name="transformations"
 		                      as="xs:string"
 		                      select="if ($thesaurusConfig/@transformations != '')
 		                              then $thesaurusConfig/@transformations
 		                              else 'to-dcat-ap-concept'"/>
-		
+
 		        <!-- Get current transformation mode based on XML fragment analysis -->
 		        <xsl:variable name="transformation"
 		                      select="'to-dcat-ap-concept'"/>
-		
+
 		        <xsl:variable name="parentName" select="name(..)"/>
-		
+
 		        <!-- Create custom widget:
 		              * '' for item selector,
 		              * 'tagsinput' for tags
