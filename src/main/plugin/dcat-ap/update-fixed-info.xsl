@@ -201,9 +201,22 @@
   <xsl:template match="dcat:Dataset/dct:title" priority="10">
     <xsl:copy>
       <xsl:apply-templates select="@*"/>
+      <xsl:if test="not(@xml:lang)">
+        <xsl:attribute name="xml:lang">nl</xsl:attribute>
+      </xsl:if>
       <xsl:if test="/root/env/id!=''">
         <xsl:value-of select="."/>
       </xsl:if>
+    </xsl:copy>
+  </xsl:template>
+
+  <xsl:template match="dcat:Dataset/dct:description|dcat:Distribution/dct:title|dcat:Distribution/dct:description|foaf:Agent/foaf:name" priority="10">
+    <xsl:copy>
+      <xsl:apply-templates select="@*"/>
+      <xsl:if test="not(@xml:lang)">
+        <xsl:attribute name="xml:lang">nl</xsl:attribute>
+      </xsl:if>
+      <xsl:value-of select="."/>
     </xsl:copy>
   </xsl:template>
 
@@ -342,7 +355,7 @@
   <xsl:template match="@rdf:about[normalize-space() = '']|@rdf:datatype[normalize-space() = '']" priority="10"/>
 
   <!-- Remove non numeric byteSize and format scientific notation to decimal -->
-  <xsl:template match="dcat:byteSize" priority="10">
+  <!--xsl:template match="dcat:byteSize" priority="10">
     <xsl:if test="string(number(.)) != 'NaN'">
       <xsl:copy>
 		<xsl:attribute name="rdf:datatype">http://www.w3.org/2001/XMLSchema#decimal</xsl:attribute>
@@ -356,8 +369,8 @@
         </xsl:choose>
       </xsl:copy>
     </xsl:if>
-  </xsl:template>
-  
+  </xsl:template-->
+
   <!-- Fix value for attribute -->
   <xsl:template match="spdx:checksumValue" priority="10">
     <xsl:copy>
@@ -366,15 +379,22 @@
 		<xsl:value-of select="."/>
     </xsl:copy>
   </xsl:template>
-  
+
   <!-- Fix value for attribute -->
   <xsl:template match="spdx:algorithm" priority="10">
 	<spdx:algorithm rdf:resource="http://spdx.org/rdf/terms#checksumAlgorithm_sha1"/>
-  </xsl:template>    
+  </xsl:template>
 
   <!-- Reformat 'Vlaamse Open data' -->
   <xsl:template match="dcat:keyword[translate(text(), 'abcdefghijklmonpqrstuvwxyz', 'ABCDEFGHIJKLMONPQRSTUVWXYZ') = 'VLAAMSE OPEN DATA']" priority="10">
     <dcat:keyword xml:lang="nl">Vlaamse Open data</dcat:keyword>
   </xsl:template>
 
+  <!-- Update rdf:about with dct:identifier value -->
+  <xsl:template match="dct:LicenseDocument[@rdf:about!=dct:identifier]" priority="100">
+    <dct:LicenseDocument>
+      <xsl:attribute name="rdf:about" select="dct:identifier[1]"/>
+      <xsl:apply-templates select="*"/>
+    </dct:LicenseDocument>
+  </xsl:template>
 </xsl:stylesheet>
