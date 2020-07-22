@@ -27,12 +27,13 @@
   xmlns:gn-fn-dcat-ap="http://geonetwork-opensource.org/xsl/functions/profiles/dcat-ap"
   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
   xmlns:java="java:org.fao.geonet.util.XslUtil"
-  xmlns:java2="java:org.fao.geonet.schema.dcatap.util.XslUtil" 
+  xmlns:java2="java:org.fao.geonet.schema.dcatap.util.XslUtil"
   xmlns:saxon="http://saxon.sf.net/"
   extension-element-prefixes="saxon"
   exclude-result-prefixes="#all">
 
   <xsl:variable name="inSchemeAuthorityBaseUrl" select="'http://publications.europa.eu/resource/authority/'"/>
+  <xsl:variable name="inSchemeAuthBaseUrl" select="'http://vocab.belgif.be/auth/'"/>
   <xsl:variable name="inSchemeAdmsBaseUrl" select="'http://purl.org/adms/'"/>
   <xsl:variable name="thesaurusIdentifierBaseKey" select="'geonetwork.thesaurus.external.theme.'"/>
 
@@ -44,7 +45,7 @@
         <xsl:value-of select="concat($inSchemeAdmsBaseUrl,'publishertype/1.0')"/>
       </xsl:when>
       <xsl:when test="$elementName = 'dcat:theme'">
-        <xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'data-theme')"/>
+        <xsl:value-of select="concat($inSchemeAuthBaseUrl,'datatheme')"/>
       </xsl:when>
       <xsl:when test="$elementName = 'dct:accrualPeriodicity'">
         <xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'frequency')"/>
@@ -122,7 +123,7 @@
       <xsl:when test="$resource = concat($inSchemeAdmsBaseUrl,'publishertype/1.0')">
         <xsl:value-of select="'Publisher type thesaurus'"/>
       </xsl:when>
-      <xsl:when test="$resource = concat($inSchemeAuthorityBaseUrl,'data-theme')">
+      <xsl:when test="$resource = concat($inSchemeAuthBaseUrl,'datatheme')">
         <xsl:value-of select="'Thema thesaurus'"/>
       </xsl:when>
       <xsl:when test="$resource = concat($inSchemeAuthorityBaseUrl,'frequency')">
@@ -158,8 +159,8 @@
       <xsl:when test="$resource = concat($inSchemeAdmsBaseUrl,'publishertype/1.0')">
         <xsl:value-of select="concat($thesaurusIdentifierBaseKey,'publisher-type')"/>
       </xsl:when>
-      <xsl:when test="$resource = concat($inSchemeAuthorityBaseUrl,'data-theme')">
-        <xsl:value-of select="concat($thesaurusIdentifierBaseKey,'data-theme')"/>
+      <xsl:when test="$resource = concat($inSchemeAuthBaseUrl,'datatheme')">
+        <xsl:value-of select="concat($thesaurusIdentifierBaseKey,'datatheme')"/>
       </xsl:when>
       <xsl:when test="$resource = concat($inSchemeAuthorityBaseUrl,'frequency')">
         <xsl:value-of select="concat($thesaurusIdentifierBaseKey,'frequency')"/>

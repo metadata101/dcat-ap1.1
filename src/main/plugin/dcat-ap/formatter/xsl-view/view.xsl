@@ -50,7 +50,7 @@
 	<!-- The core formatter XSL layout based on the editor configuration -->
 	<xsl:include href="sharedFormatterDir/xslt/render-layout.xsl" />
 
-	<!-- The stylesheet 'common/functions-metadata.xsl' relies on two variables 
+	<!-- The stylesheet 'common/functions-metadata.xsl' relies on two variables
 		'iso19139labels' and 'defaultFieldType' -->
 	<xsl:variable name="iso19139labels" select="dummy" />
 	<xsl:variable name="defaultFieldType" select="'text'" />
@@ -58,18 +58,18 @@
 
 	<!-- Define the metadata to be loaded for this schema plugin -->
 	<xsl:variable name="metadata" select="/root/rdf:RDF" />
-	<xsl:variable name="langId" select="/root/gui/language" />  
+	<xsl:variable name="langId" select="/root/gui/language" />
 	<xsl:variable name="nodeUrl" select="/root/gui/nodeUrl"/>
   <xsl:variable name="langId-2char">
     <xsl:call-template name="langId3to2">
       <xsl:with-param name="langId-3char" select="$langId" />
     </xsl:call-template>
   </xsl:variable>
-	<!-- Create a SchemaLocalizations object to look up nodeLabels with function 
-		tr:node-label($schemaLocalizations, name(), name(..)). This is no longer 
+	<!-- Create a SchemaLocalizations object to look up nodeLabels with function
+		tr:node-label($schemaLocalizations, name(), name(..)). This is no longer
 		used -->
 	<!-- xmlns:tr="java:org.fao.geonet.api.records.formatters.SchemaLocalizations" -->
-	<!-- <xsl:variable name="schemaLocalizations" select="tr:create($schema)" 
+	<!-- <xsl:variable name="schemaLocalizations" select="tr:create($schema)"
 		/> -->
 
 	<!-- The labels and their translations -->
@@ -331,7 +331,7 @@
     </tr>
 	</xsl:template>
 
-	<!-- Bbox is displayed with an overview and the geom displayed on it and 
+	<!-- Bbox is displayed with an overview and the geom displayed on it and
 		the coordinates displayed around -->
 	<xsl:template mode="render-field" match="dct:Location">
     <xsl:param name="xpath"/>
@@ -438,7 +438,7 @@
 
 	<!-- Render values for URL -->
 	<xsl:template mode="render-url" match="*|@*">
-			<a href="{.}" style="color=#06c; text-decoration: underline;">
+			<a href="{.}" target="_blank" style="color=#06c; text-decoration: underline;">
 				<xsl:value-of select="." />
 			</a>
 	</xsl:template>

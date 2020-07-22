@@ -24,7 +24,7 @@
 
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
 				xmlns:adms="http://www.w3.org/ns/adms#"
-				xmlns:dct="http://purl.org/dc/terms/" 
+				xmlns:dct="http://purl.org/dc/terms/"
 				xmlns:dcat="http://www.w3.org/ns/dcat#"
 				xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 				xmlns:skos="http://www.w3.org/2004/02/skos/core#"
@@ -67,7 +67,7 @@
 		    	<xsl:copy-of select="$concept"/>
 		    </dct:type>
 			</xsl:when>
-    	<xsl:when test="ends-with($thesaurusKey,'data-theme')">
+    	<xsl:when test="ends-with($thesaurusKey,'datatheme')">
 		    <dcat:theme>
 		    	<xsl:copy-of select="$concept"/>
 		    </dcat:theme>

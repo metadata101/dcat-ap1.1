@@ -378,7 +378,7 @@
       </flatModeExceptions>
       <thesaurusList>
         <thesaurus key="external.theme.publisher-type" maxtags="1" transformations="" fieldset="false"/>
-        <thesaurus key="external.theme.data-theme" maxtags="1" transformations="" fieldset="false"/>
+        <thesaurus key="external.theme.datatheme" maxtags="1" transformations="" fieldset="false"/>
         <thesaurus key="external.theme.frequency" maxtags="1" transformations="" fieldset="false"/>
         <thesaurus key="external.theme.language" maxtags="1" transformations="" fieldset="false"/>
         <thesaurus key="external.theme.resource-type" maxtags="1" transformations="" fieldset="false"/>
@@ -684,7 +684,7 @@
       </flatModeExceptions>
       <thesaurusList>
         <thesaurus key="external.theme.publisher-type" maxtags="1" transformations="" fieldset="false"/>
-        <thesaurus key="external.theme.data-theme" maxtags="1" transformations="" fieldset="false"/>
+        <thesaurus key="external.theme.datatheme" maxtags="1" transformations="" fieldset="false"/>
         <thesaurus key="external.theme.frequency" maxtags="1" transformations="" fieldset="false"/>
         <thesaurus key="external.theme.language" maxtags="1" transformations="" fieldset="false"/>
         <thesaurus key="external.theme.resource-type" maxtags="1" transformations="" fieldset="false"/>

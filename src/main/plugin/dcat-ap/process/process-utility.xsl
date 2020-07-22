@@ -30,15 +30,16 @@
 	<!-- Function to get the inScheme URI based on the thesaurus key -->
   <xsl:function name="gn-fn-dcat-ap:getInSchemeURIByThesaurusId" as="xs:string">
 		<xsl:param name="key"/>
-	  <xsl:variable name="inSchemeAuthorityBaseUrl" select="'http://publications.europa.eu/resource/authority/'"/>
+    <xsl:variable name="inSchemeAuthorityBaseUrl" select="'http://publications.europa.eu/resource/authority/'"/>
+    <xsl:variable name="inSchemeAuthBaseUrl" select="'http://vocab.belgif.be/auth/'"/>
 	  <xsl:variable name="inSchemeAdmsBaseUrl" select="'http://purl.org/adms/'"/>
 		<xsl:variable name="keyPrefix" select="'external.theme.'"/>
 		<xsl:choose>
 			<xsl:when test="$key = concat($keyPrefix,'publisher-type')">
 				<xsl:value-of select="concat($inSchemeAdmsBaseUrl,'publishertype/1.0')"/>
 			</xsl:when>
-			<xsl:when test="$key = concat($keyPrefix,'data-theme')">
-				<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'data-theme')"/>
+			<xsl:when test="$key = concat($keyPrefix,'datatheme')">
+				<xsl:value-of select="concat($inSchemeAuthBaseUrl,'datatheme')"/>
 			</xsl:when>
 			<xsl:when test="$key = concat($keyPrefix,'frequency')">
 				<xsl:value-of select="concat($inSchemeAuthorityBaseUrl,'frequency')"/>
