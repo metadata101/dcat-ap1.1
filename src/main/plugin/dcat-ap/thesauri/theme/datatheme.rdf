@@ -19,20 +19,6 @@
     <dc:title xml:lang="fr">Data.gov.be themes</dc:title>
     <dc:title xml:lang="nl">Data.gov.be themes</dc:title>
     <owl:versionInfo>Production 2019-01-31</owl:versionInfo>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/AGRI"/>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/CULT"/>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/ECON"/>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/EDUC"/>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/ENER"/>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/ENVI"/>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/GOVE"/>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/HEAL"/>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/INTR"/>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/JUST"/>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/REGI"/>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/SOCI"/>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/TECH"/>
-    <skos:hasTopConcept rdf:resource="http://vocab.belgif.be/auth/datatheme/TRAN"/>
   </skos:ConceptScheme>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/AGRI">
@@ -43,7 +29,6 @@
     <skos:prefLabel xml:lang="fr">Agriculture, pêche, sylviculture et alimentation</skos:prefLabel>
     <skos:prefLabel xml:lang="nl">Landbouw, visserij, bosbouw en voeding</skos:prefLabel>
     <skos:prefLabel xml:lang="de">Landwirtschaft, Fischerei, Forstwirtschaft und Nahrungsmittel</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/ECON">
@@ -54,7 +39,6 @@
     <skos:prefLabel xml:lang="en">Economy and finance</skos:prefLabel>
     <skos:prefLabel xml:lang="de">Wirtschaft und Finanzen</skos:prefLabel>
     <skos:prefLabel xml:lang="fr">Économie et finances</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/CULT">
@@ -65,7 +49,6 @@
     <skos:prefLabel xml:lang="fr">Culture et sport</skos:prefLabel>
     <skos:prefLabel xml:lang="nl">Cultuur en sport</skos:prefLabel>
     <skos:prefLabel xml:lang="de">Kultur und Sport</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/EDUC">
@@ -76,7 +59,6 @@
     <skos:prefLabel xml:lang="en">Education</skos:prefLabel>
     <skos:prefLabel xml:lang="nl">Onderwijs</skos:prefLabel>
     <skos:prefLabel xml:lang="fr">Éducation</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/ENER">
@@ -87,7 +69,6 @@
     <skos:prefLabel xml:lang="nl">Energie</skos:prefLabel>
     <skos:prefLabel xml:lang="en">Energy</skos:prefLabel>
     <skos:prefLabel xml:lang="fr">Énergie</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/ENVI">
@@ -98,7 +79,6 @@
     <skos:prefLabel xml:lang="fr">Environnement</skos:prefLabel>
     <skos:prefLabel xml:lang="nl">Milieu</skos:prefLabel>
     <skos:prefLabel xml:lang="de">Umwelt</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/GOVE">
@@ -109,7 +89,6 @@
     <skos:prefLabel xml:lang="en">Government and public sector</skos:prefLabel>
     <skos:prefLabel xml:lang="nl">Overheid en publieke sector</skos:prefLabel>
     <skos:prefLabel xml:lang="de">Regierung und öffentlicher Sektor</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/HEAL">
@@ -120,7 +99,6 @@
     <skos:prefLabel xml:lang="nl">Gezondheid</skos:prefLabel>
     <skos:prefLabel xml:lang="en">Health</skos:prefLabel>
     <skos:prefLabel xml:lang="fr">Santé</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/INTR">
@@ -131,7 +109,6 @@
     <skos:prefLabel xml:lang="de">Internationale Themen</skos:prefLabel>
     <skos:prefLabel xml:lang="nl">Internationale vraagstukken</skos:prefLabel>
     <skos:prefLabel xml:lang="fr">Questions internationales</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/JUST">
@@ -142,7 +119,6 @@
     <skos:prefLabel xml:lang="fr">Justice, système juridique et sécurité publique</skos:prefLabel>
     <skos:prefLabel xml:lang="nl">Justitie, rechtsstelsel en openbare veiligheid</skos:prefLabel>
     <skos:prefLabel xml:lang="de">Justiz, Rechtssystem und öffentliche Sicherheit</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/REGI">
@@ -153,7 +129,6 @@
     <skos:prefLabel xml:lang="de">Regionen und Städte</skos:prefLabel>
     <skos:prefLabel xml:lang="en">Regions and cities</skos:prefLabel>
     <skos:prefLabel xml:lang="fr">Régions et villes</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/SOCI">
@@ -164,7 +139,6 @@
     <skos:prefLabel xml:lang="de">Bevölkerung und Gesellschaft</skos:prefLabel>
     <skos:prefLabel xml:lang="en">Population and society</skos:prefLabel>
     <skos:prefLabel xml:lang="fr">Population et société</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/TECH">
@@ -175,7 +149,6 @@
     <skos:prefLabel xml:lang="fr">Science et technologie</skos:prefLabel>
     <skos:prefLabel xml:lang="nl">Wetenschap en technologie</skos:prefLabel>
     <skos:prefLabel xml:lang="de">Wissenschaft und Technologie</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <skos:Concept rdf:about="http://vocab.belgif.be/auth/datatheme/TRAN">
@@ -186,7 +159,6 @@
     <skos:prefLabel xml:lang="fr">Transports</skos:prefLabel>
     <skos:prefLabel xml:lang="de">Verkehr</skos:prefLabel>
     <skos:prefLabel xml:lang="nl">Vervoer</skos:prefLabel>
-    <skos:topConceptOf rdf:resource="http://vocab.belgif.be/auth/datatheme"/>
   </skos:Concept>
 
   <void:Dataset rdf:about="http://vocab.belgif.be/void#datatheme">
