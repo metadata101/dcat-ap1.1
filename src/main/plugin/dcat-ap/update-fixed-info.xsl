@@ -352,7 +352,7 @@
   </xsl:template>
 
   <!-- Ignore all empty rdf:about -->
-  <xsl:template match="@rdf:about[normalize-space() = '']|@rdf:datatype[normalize-space() = '']" priority="10"/>
+  <xsl:template match="@rdf:about[normalize-space() = '' and not(name(..)='dct:LicenseDocument')]|@rdf:datatype[normalize-space() = '']" priority="10"/>
 
   <!-- Remove non numeric byteSize and format scientific notation to decimal -->
   <!--xsl:template match="dcat:byteSize" priority="10">
@@ -388,13 +388,5 @@
   <!-- Reformat 'Vlaamse Open data' -->
   <xsl:template match="dcat:keyword[translate(text(), 'abcdefghijklmonpqrstuvwxyz', 'ABCDEFGHIJKLMONPQRSTUVWXYZ') = 'VLAAMSE OPEN DATA']" priority="10">
     <dcat:keyword xml:lang="nl">Vlaamse Open data</dcat:keyword>
-  </xsl:template>
-
-  <!-- Update rdf:about with dct:identifier value -->
-  <xsl:template match="dct:LicenseDocument[@rdf:about!=dct:identifier]" priority="100">
-    <dct:LicenseDocument>
-      <xsl:attribute name="rdf:about" select="dct:identifier[1]"/>
-      <xsl:apply-templates select="*"/>
-    </dct:LicenseDocument>
   </xsl:template>
 </xsl:stylesheet>

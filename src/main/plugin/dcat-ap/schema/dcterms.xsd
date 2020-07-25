@@ -68,8 +68,7 @@
 			<xs:element name="LicenseDocument" minOccurs="1" maxOccurs="1">
 				<xs:complexType>
 					<xs:sequence>
-            <!-- dct:identifier mandatory for DCAT-AP-VL otherwise minOccurs="0" -->
-            <xs:element ref="dct:identifier" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element ref="dct:identifier" minOccurs="0" maxOccurs="unbounded"/>
 						<!-- recommended properties for dct:LicenseDocument-->
 						<xs:element ref="dct:type" minOccurs="0" maxOccurs="unbounded"/>
 						<!-- non-DCAT-AP properties for dct:LicenseDocument-->

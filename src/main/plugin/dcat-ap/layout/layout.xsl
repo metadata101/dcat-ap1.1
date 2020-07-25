@@ -350,7 +350,7 @@
                           $isFlatMode]" />
 
   <!-- Ignore the following attributes in flatMode -->
-  <xsl:template mode="render-for-field-for-attribute-dcat-ap" match="@*[$isFlatMode]|@gn:xsderror|@gn:addedObj" priority="101"/>
+  <xsl:template mode="render-for-field-for-attribute-dcat-ap" match="@*[$isFlatMode and not(name(..)='dct:LicenseDocument')]|@gn:xsderror|@gn:addedObj" priority="101"/>
 
   <xsl:template mode="render-for-field-for-attribute-dcat-ap" match="@*" priority="100">
     <xsl:variable name="attributeName" select="name(.)"/>
@@ -377,6 +377,7 @@
       <xsl:with-param name="name" select="$ref"/>
       <xsl:with-param name="editInfo" select="$attribute"/>
       <xsl:with-param name="listOfValues" select="$helper"/>
+      <xsl:with-param name="subRequired" select="(name() = 'rdf:about' and name(..) = 'dct:LicenseDocument')"/>
     </xsl:call-template>
   </xsl:template>
 

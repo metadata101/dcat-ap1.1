@@ -395,7 +395,9 @@
               <xsl:value-of select="dct:title"/>
             </xsl:when>
             <xsl:when test="@rdf:about and @rdf:about!=''">
-              <xsl:value-of select="@rdf:about"/>
+              <xsl:call-template name="getLicenseDocumentTitle">
+                <xsl:with-param name="rdfAbout" select="lower-case(@rdf:about)"/>
+              </xsl:call-template>
             </xsl:when>
             <xsl:otherwise>
             </xsl:otherwise>
@@ -458,6 +460,18 @@
                  index="true" />
         </xsl:for-each>-->
   </xsl:template>
+
+  <xsl:template name="getLicenseDocumentTitle">
+    <xsl:param name="rdfAbout" />
+    <xsl:choose>
+      <xsl:when test="contains($rdfAbout,'modellicentie-gratis-hergebruik')">odellicentie voor gratis hergebruik</xsl:when>
+      <xsl:when test="contains($rdfAbout,'creative-commons-zero-verklaring')">Creative Commons Zero verklaring</xsl:when>
+      <xsl:when test="contains($rdfAbout,'modellicentie-hergebruik-tegen-vergoeding')">Modellicentie voor hergebruik tegen vergoeding</xsl:when>
+      <xsl:when test="contains($rdfAbout,'onvoorwaardelijk-hergebruik')">Onvoorwaardelijk hergebruik</xsl:when>
+      <xsl:otherwise><xsl:value-of select="$rdfAbout"/></xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template mode="index-contact" match="vcard:Organization">
     <xsl:param name="type" />
     <xsl:param name="fieldPrefix" />

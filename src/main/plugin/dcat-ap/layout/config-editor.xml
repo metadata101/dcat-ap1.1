@@ -372,7 +372,6 @@
         <for name="dct:license"/>
         <for name="dct:LicenseDocument"/>
         <for name="dct:LicenseDocument/dct:type"/>
-        <for name="dct:identifier"/>
         <!-- Extra info -->
         <for name="dct:language" xpath="/rdf:RDF/dcat:Catalog/dcat:dataset/dcat:Dataset/dct:language"/>
       </flatModeExceptions>
