@@ -256,6 +256,18 @@ Source:
 		</sch:rule>
 	</sch:pattern>
 	<sch:pattern>
+		<sch:title>169. skos:prefLabel is a required property for skos:Concept.</sch:title>
+		<sch:rule context="//skos:Concept[name(..) = ('dct:type','dcat:theme','dct:format')]">
+			<sch:let name="id" value="@rdf:about/string()"/>
+			<sch:let name="value" value="skos:prefLabel[@xml:lang='nl']"/>
+			<sch:let name="missingProperty" value="not($value!='')"/>
+			<sch:assert test="$missingProperty = false()">ERROR: The <sch:value-of select="name(../..)"/>/<sch:value-of select="name(..)"/> does not have a skos:prefLabel value.
+			</sch:assert>
+			<sch:report test="$missingProperty = false()">The <sch:value-of select="name(../..)"/>/<sch:value-of select="name(..)"/> does have a skos:prefLabel with value <sch:value-of select="$value"/>.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>
+	<sch:pattern>
 		<sch:title>170. dct:type is a recommended property for Licence Document.</sch:title>
 		<sch:rule context="//dcat:Distribution/*/dct:LicenseDocument">
 			<sch:let name="id" value="@rdf:about/string()"/>
@@ -263,6 +275,17 @@ Source:
 			<sch:assert test="$noLicenseType = false()">WARNING: The licence "<sch:value-of select="$id"/>" has no dct:type property.
 			</sch:assert>
 			<sch:report test="$noLicenseType = false()">The licence "<sch:value-of select="$id"/>" has a dct:type property.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>
+	<sch:pattern>
+		<sch:title>235. dct:description should be a non-empty string for dcat:Distribution.</sch:title>
+		<sch:rule context="//dcat:Distribution/dct:description">
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="emptyString" value="normalize-space(.)=''"/>
+			<sch:assert test="$emptyString = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:description that is an empty string.
+			</sch:assert>
+			<sch:report test="$emptyString = false()">The dcat:Distribution '<sch:value-of select="$id"/>' has a dct:description '<sch:value-of select="./string()"/>' which is a non-empty string.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>

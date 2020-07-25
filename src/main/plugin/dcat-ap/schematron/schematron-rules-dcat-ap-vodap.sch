@@ -26,7 +26,7 @@
 
 Schematron validation for DCAT-AP-VL - Flemish Government.
 
-This script was written by GIM. 
+This script was written by GIM.
 
 Source:
 - DCAT-AP v1.1: https://joinup.ec.europa.eu/release/dcat-ap-v11
@@ -93,7 +93,7 @@ Source:
       <sch:report test="2 > $count">The dcat:Dataset "<sch:value-of select="$id"/>" has no more than one dct:publisher property.
       </sch:report>
     </sch:rule>
-  </sch:pattern>	
+  </sch:pattern>
 	<sch:pattern>
 		<sch:title>86. dct:license is a required property for Distribution.</sch:title>
 		<sch:rule context="//dcat:Distribution">
@@ -352,7 +352,7 @@ Source:
 			<sch:report test="$emptyString = false()">The dcat:Catalog '<sch:value-of select="$id"/>' has a dct:title '<sch:value-of select="./string()"/>' which is a non-empty string.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>	
+	</sch:pattern>
 	<sch:pattern>
 		<sch:title>232. dct:title should be a non-empty string for dcat:Distribution.</sch:title>
 		<sch:rule context="//dcat:Distribution/dct:title">
@@ -385,7 +385,7 @@ Source:
 			<sch:report test="$emptyString = false()">The dcat:Catalog '<sch:value-of select="$id"/>' has a dct:description '<sch:value-of select="./string()"/>' which is a non-empty string.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern>   
+	</sch:pattern>
 	<sch:pattern>
 		<sch:title>234. dct:description should be a non-empty string for Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset/dct:description">
@@ -397,17 +397,6 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
-	<sch:pattern>
-		<sch:title>235. dct:description should be a non-empty string for dcat:Distribution.</sch:title>
-		<sch:rule context="//dcat:Distribution/dct:description">
-			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
-			<sch:let name="emptyString" value="normalize-space(.)=''"/>
-			<sch:assert test="$emptyString = false()">ERROR: The dcat:Distribution "<sch:value-of select="$id"/>" has a dct:description that is an empty string.
-			</sch:assert>
-			<sch:report test="$emptyString = false()">The dcat:Distribution '<sch:value-of select="$id"/>' has a dct:description '<sch:value-of select="./string()"/>' which is a non-empty string.
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>		
 	<sch:pattern>
 		<sch:title>411. vcard:hasEmail is a mandatory property for a contactpoint of a Dataset.</sch:title>
 		<sch:rule context="//dcat:Dataset/dcat:contactPoint">
@@ -462,5 +451,5 @@ Source:
 			<sch:report test="$uri = true()">The vcard:hasEmail "<sch:value-of select="$id"/>" property is a valid URI.
 			</sch:report>
 		</sch:rule>
-  </sch:pattern>  
+  </sch:pattern>
 </sch:schema>

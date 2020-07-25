@@ -1303,7 +1303,7 @@ Source:
 	</sch:pattern>
 	<sch:pattern>
 		<sch:title>169. skos:prefLabel is a required property for skos:Concept.</sch:title>
-		<sch:rule context="//skos:Concept">
+		<sch:rule context="//skos:Concept[not(name(..) = ('dct:type','dcat:theme','dct:format'))]">
 			<sch:let name="id" value="@rdf:about/string()"/>
 			<sch:let name="value" value="skos:prefLabel[@xml:lang='nl']"/>
 			<sch:let name="missingProperty" value="not($value!='')"/>
@@ -1313,7 +1313,7 @@ Source:
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
-	<!--sch:pattern>
+	<sch:pattern>
 		<sch:title>169. skos:prefLabel is a required property for skos:Concept.</sch:title>
 		<sch:rule context="//skos:Concept">
 			<sch:let name="id" value="@rdf:about/string()"/>
@@ -1323,7 +1323,7 @@ Source:
 			<sch:report test="$missingProperty = false()">The skos:Concept "<sch:value-of select="$id"/>" has a skos:prefLabel property.
 			</sch:report>
 		</sch:rule>
-	</sch:pattern-->
+	</sch:pattern>
 	<sch:pattern>
 		<sch:title>171. dct:title is a required property for Category scheme.</sch:title>
 		<sch:rule context="//skos:ConceptScheme">
