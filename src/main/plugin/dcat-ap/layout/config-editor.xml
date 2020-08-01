@@ -362,6 +362,8 @@
         <for name="vcard:hasEmail"/>
         <for name="vcard:hasURL"/>
         <for name="vcard:hasTelephone"/>
+        <!-- Usage information -->
+        <for name="dct:accessRights"/>
         <!-- Distribution -->
         <for name="dcat:Distribution"/>
         <for name="dct:title"/>
