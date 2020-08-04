@@ -136,7 +136,18 @@
           <xsl:with-param name="labels" select="$labels"/>
         </xsl:apply-templates>
       </xsl:with-param>
-      <xsl:with-param name="isDisabled" select="name() = 'spdx:Checksum'"/>
+      <xsl:with-param name="isDisabled" select="name() = 'spdx:Checksum' or
+                                                name() = 'vcard:Organization' or
+                                                name() = 'adms:Identifier' or
+                                                name() = 'vcard:Address' or
+                                                name() = 'dct:PeriodOfTime' or
+                                                name() = 'dct:ProvenanceStatement' or
+                                                name() = 'foaf:Document' or
+                                                name() = 'dct:Standard' or
+                                                name() = 'dcat:Distribution' or
+                                                name() = 'dct:LicenseDocument' or
+                                                name() = 'dct:RightsStatement' or
+                                                name() = 'foaf:Agent'"/>
     </xsl:call-template>
 
   </xsl:template>
