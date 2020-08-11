@@ -976,10 +976,12 @@ Source:
 		<sch:title>118. dct:type has a maximum cardinality of 1 for dct:LicenseDocument.</sch:title>
 		<sch:rule context="//dct:LicenseDocument">
 			<sch:let name="id" value="@rdf:about/string()"/>
+			<!--sch:let name="defaultTitle" value="dct:title[@xml:lang = $lang]"/-->
+			<sch:let name="title" value="dct:title[1]"/>
 			<sch:let name="count" value="count(dct:type)"/>
-			<sch:assert test="2 > $count">ERROR: The dct:LicenseDocument "<sch:value-of select="$id"/>" has more than one dct:type property.
+			<sch:assert test="2 > $count">ERROR: The dct:LicenseDocument "<sch:value-of select="if ($title!='') then $title else $id"/>" has more than one dct:type property.
 			</sch:assert>
-			<sch:report test="2 > $count">The dct:LicenseDocument "<sch:value-of select="$id"/>" has no more than one dct:type property.
+			<sch:report test="2 > $count">The dct:LicenseDocument "<sch:value-of select="if ($title!='') then $title else $id"/>" has no more than one dct:type property.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>

@@ -244,7 +244,7 @@ Source:
 			<sch:let name="count" value="count(parent::node()/dct:title[@xml:lang = $lang])"/>
 			<sch:assert test="2 > $count">ERROR: The dcat:Catalog '<sch:value-of select="$id"/>' has more than one (<sch:value-of select="$count"/>) dct:title properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:assert>
-			<sch:report test="2 > $count">The dcat:Catalog '<sch:value-of select="$id"/>' less than one (<sch:value-of select="$count"/>) dct:title properties with language tag '<sch:value-of select="$lang"/>'.
+			<sch:report test="2 > $count">The dcat:Catalog '<sch:value-of select="$id"/>' has a maximum of one dct:title properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -267,7 +267,7 @@ Source:
 			<sch:let name="count" value="count(parent::node()/foaf:name[@xml:lang = $lang])"/>
 			<sch:assert test="2 > $count">ERROR: The foaf:Agent '<sch:value-of select="$id"/>' has more than one (<sch:value-of select="$count"/>) foaf:name properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:assert>
-			<sch:report test="2 > $count">The foaf:Agent '<sch:value-of select="$id"/>' less than one (<sch:value-of select="$count"/>) foaf:name properties with language tag '<sch:value-of select="$lang"/>'.
+			<sch:report test="2 > $count">The foaf:Agent '<sch:value-of select="$id"/>' has a maximum of one foaf:name properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -279,7 +279,7 @@ Source:
 			<sch:let name="count" value="count(parent::node()/dct:description[@xml:lang = $lang])"/>
 			<sch:assert test="2 > $count">ERROR: The dcat:Catalog '<sch:value-of select="$id"/>' has more than one (<sch:value-of select="$count"/>) dct:description properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:assert>
-			<sch:report test="2 > $count">The dcat:Catalog '<sch:value-of select="$id"/>' less than one (<sch:value-of select="$count"/>) dct:description properties with language tag '<sch:value-of select="$lang"/>'.
+			<sch:report test="2 > $count">The dcat:Catalog '<sch:value-of select="$id"/>' has a maximum of one dct:description properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -291,7 +291,7 @@ Source:
 			<sch:let name="count" value="count(parent::node()/dct:title[@xml:lang = $lang])"/>
 			<sch:assert test="2 > $count">ERROR: The dcat:Dataset '<sch:value-of select="$id"/>' has more than one (<sch:value-of select="$count"/>) dct:title properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:assert>
-			<sch:report test="2 > $count">The dcat:Dataset '<sch:value-of select="$id"/>' less than one (<sch:value-of select="$count"/>) dct:title properties with language tag '<sch:value-of select="$lang"/>'.
+			<sch:report test="2 > $count">The dcat:Dataset '<sch:value-of select="$id"/>' has a maximum of one dct:title properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -303,7 +303,7 @@ Source:
 			<sch:let name="count" value="count(parent::node()/dct:description[@xml:lang = $lang])"/>
 			<sch:assert test="2 > $count">ERROR: The dcat:Dataset '<sch:value-of select="$id"/>' has more than one (<sch:value-of select="$count"/>) dct:description properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:assert>
-			<sch:report test="2 > $count">The dcat:Dataset '<sch:value-of select="$id"/>' less than one (<sch:value-of select="$count"/>) dct:description properties with language tag '<sch:value-of select="$lang"/>'.
+			<sch:report test="2 > $count">The dcat:Dataset '<sch:value-of select="$id"/>' has a maximum of one dct:description properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -311,11 +311,12 @@ Source:
 		<sch:title>216. dct:title should have a single value per language tag for dcat:Distribution</sch:title>
 		<sch:rule context="//dcat:Distribution/dct:title">
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="title" value="parent::node()/dct:title[1]"/>
 			<sch:let name="lang" value="@xml:lang/string()"/>
 			<sch:let name="count" value="count(parent::node()/dct:title[@xml:lang = $lang])"/>
-			<sch:assert test="2 > $count">ERROR: The dcat:Distribution '<sch:value-of select="$id"/>' has more than one (<sch:value-of select="$count"/>) dct:title properties with language tag '<sch:value-of select="$lang"/>'.
+			<sch:assert test="2 > $count">ERROR: The dcat:Distribution '<sch:value-of select="if ($title!='') then $title else $id"/>' has more than one (<sch:value-of select="$count"/>) dct:title properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:assert>
-			<sch:report test="2 > $count">The dcat:Distribution '<sch:value-of select="$id"/>' less than one (<sch:value-of select="$count"/>) dct:title properties with language tag '<sch:value-of select="$lang"/>'.
+			<sch:report test="2 > $count">The dcat:Distribution '<sch:value-of select="if ($title!='') then $title else $id"/>' has a maximum of one dct:title properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>
@@ -325,9 +326,38 @@ Source:
 			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
 			<sch:let name="lang" value="@xml:lang/string()"/>
 			<sch:let name="count" value="count(parent::node()/dct:description[@xml:lang = $lang])"/>
-			<sch:assert test="2 > $count">ERROR: The dcat:Distribution '<sch:value-of select="$id"/>' has more than one (<sch:value-of select="$count"/>) dct:description properties with language tag '<sch:value-of select="$lang"/>'.
+			<!--sch:let name="defaultTitle" value="parent::node()/dct:title[@xml:lang = $lang]"/-->
+			<sch:let name="title" value="parent::node()/dct:title[1]"/>
+			<sch:assert test="2 > $count">ERROR: The dcat:Distribution '<sch:value-of select="if ($title!='') then $title else $id"/>' has more than one (<sch:value-of select="$count"/>) dct:description properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:assert>
-			<sch:report test="2 > $count">The dcat:Distribution '<sch:value-of select="$id"/>' less than one (<sch:value-of select="$count"/>) dct:description properties with language tag '<sch:value-of select="$lang"/>'.
+			<sch:report test="2 > $count">The dcat:Distribution '<sch:value-of select="if ($title!='') then $title else $id"/>' has a maximum of one dct:description properties with language tag '<sch:value-of select="$lang"/>'.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>
+	<sch:pattern>
+		<sch:title>216. dct:title should have a single value per language tag for dct:LicenseDocument</sch:title>
+		<sch:rule context="//dct:LicenseDocument/dct:title">
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="title" value="parent::node()/dct:title[1]"/>
+			<sch:let name="lang" value="@xml:lang/string()"/>
+			<sch:let name="count" value="count(parent::node()/dct:title[@xml:lang = $lang])"/>
+			<sch:assert test="2 > $count">ERROR: The dct:LicenseDocument '<sch:value-of select="if ($title!='') then $title else $id"/>' has more than one (<sch:value-of select="$count"/>) dct:title properties with language tag '<sch:value-of select="$lang"/>'.
+			</sch:assert>
+			<sch:report test="2 > $count">The dct:LicenseDocument '<sch:value-of select="if ($title!='') then $title else $id"/>' has a maximum of one dct:title properties with language tag '<sch:value-of select="$lang"/>'.
+			</sch:report>
+		</sch:rule>
+	</sch:pattern>
+	<sch:pattern>
+		<sch:title>217. dct:description should have a single value per language tag for dct:LicenseDocument</sch:title>
+		<sch:rule context="//dct:LicenseDocument/dct:description">
+			<sch:let name="id" value="parent::node()/@rdf:about/string()"/>
+			<sch:let name="lang" value="@xml:lang/string()"/>
+			<sch:let name="count" value="count(parent::node()/dct:description[@xml:lang = $lang])"/>
+			<!--sch:let name="defaultTitle" value="parent::node()/dct:title[@xml:lang = $lang]"/-->
+			<sch:let name="title" value="parent::node()/dct:title[1]"/>
+			<sch:assert test="2 > $count">ERROR: The dct:LicenseDocument '<sch:value-of select="if ($title!='') then $title else $id"/>' has more than one (<sch:value-of select="$count"/>) dct:description properties with language tag '<sch:value-of select="$lang"/>'.
+			</sch:assert>
+			<sch:report test="2 > $count">The dct:LicenseDocument '<sch:value-of select="if ($title!='') then $title else $id"/>' has a maximum of one dct:description properties with language tag '<sch:value-of select="$lang"/>'.
 			</sch:report>
 		</sch:rule>
 	</sch:pattern>

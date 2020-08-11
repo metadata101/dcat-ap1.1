@@ -10,5 +10,5 @@
   </dct:type>
   <dct:title xml:lang="nl">Vul uw eigen licentie in...</dct:title>
   <dct:description xml:lang="nl"/>
-  <dct:identifier/>
+  <!--dct:identifier/-->
 </dct:LicenseDocument>
