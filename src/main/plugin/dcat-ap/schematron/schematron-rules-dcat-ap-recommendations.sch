@@ -255,18 +255,18 @@ Source:
 			<sch:report test="$missingClass = false()">The recommended class skos:ConceptScheme does exist.</sch:report>
 		</sch:rule>
 	</sch:pattern>
-	<sch:pattern>
-		<sch:title>169. skos:prefLabel is a required property for skos:Concept.</sch:title>
-		<sch:rule context="//skos:Concept[name(..) = ('dct:type','dcat:theme','dct:format')]">
-			<sch:let name="id" value="@rdf:about/string()"/>
-			<sch:let name="value" value="skos:prefLabel[@xml:lang='nl']"/>
-			<sch:let name="missingProperty" value="not($value!='')"/>
-			<sch:assert test="$missingProperty = false()">ERROR: The <sch:value-of select="name(../..)"/>/<sch:value-of select="name(..)"/> does not have a skos:prefLabel value.
-			</sch:assert>
-			<sch:report test="$missingProperty = false()">The <sch:value-of select="name(../..)"/>/<sch:value-of select="name(..)"/> does have a skos:prefLabel with value <sch:value-of select="$value"/>.
-			</sch:report>
-		</sch:rule>
-	</sch:pattern>
+	<!--<sch:pattern>-->
+	<!--	<sch:title>169. skos:prefLabel is a required property for skos:Concept.</sch:title>-->
+	<!--	<sch:rule context="//skos:Concept[name(..) = ('dct:type','dcat:theme','dct:format')]">-->
+	<!--		<sch:let name="id" value="@rdf:about/string()"/>-->
+	<!--		<sch:let name="value" value="skos:prefLabel[@xml:lang='nl']"/>-->
+	<!--		<sch:let name="missingProperty" value="not($value!='')"/>-->
+	<!--		<sch:assert test="$missingProperty = false()">ERROR: The <sch:value-of select="name(../..)"/>/<sch:value-of select="name(..)"/> does not have a skos:prefLabel value.-->
+	<!--		</sch:assert>-->
+	<!--		<sch:report test="$missingProperty = false()">The <sch:value-of select="name(../..)"/>/<sch:value-of select="name(..)"/> does have a skos:prefLabel with value <sch:value-of select="$value"/>.-->
+	<!--		</sch:report>-->
+	<!--	</sch:rule>-->
+	<!--</sch:pattern>-->
 	<sch:pattern>
 		<sch:title>170. dct:type is a recommended property for Licence Document.</sch:title>
 		<sch:rule context="//dcat:Distribution/*/dct:LicenseDocument">
