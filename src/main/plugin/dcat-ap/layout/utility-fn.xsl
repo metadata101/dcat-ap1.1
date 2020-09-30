@@ -298,7 +298,7 @@
 	    </xsl:when>
 	    <xsl:otherwise>
           <!-- Initialize with Flanders bbox when locn:geometry contains invalid geometry -->
-          <xsl:value-of select="'2.53|50.67|5.92|51.51|Vlaams Gewest|http://mir.geopunt.be/cl/Geopunt/VlaamseAdminRegios/Vlaanderen'" />
+          <xsl:value-of select="'2.53|50.67|5.92|51.51|Vlaams Gewest|https://metadata.vlaanderen.be/id/GDI-Vlaanderen-Vlaamse-Administratieve-Eenheden'" />
 	    </xsl:otherwise>
 	  </xsl:choose>
   </xsl:function>
