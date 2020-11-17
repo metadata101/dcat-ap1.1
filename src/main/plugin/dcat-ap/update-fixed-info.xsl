@@ -114,7 +114,7 @@
             <skos:prefLabel xml:lang="nl">Nederlands</skos:prefLabel>
             <skos:prefLabel xml:lang="en">Dutch</skos:prefLabel>
             <skos:prefLabel xml:lang="fr">néerlandais</skos:prefLabel>
-            <skos:prefLabel xml:lang="de">NiederlÃ¤ndisch</skos:prefLabel>
+            <skos:prefLabel xml:lang="de">Niederländisch</skos:prefLabel>
             <skos:inScheme rdf:resource="http://publications.europa.eu/resource/authority/language"/>
          </skos:Concept>
       </dct:language>
