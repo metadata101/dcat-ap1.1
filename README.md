@@ -76,6 +76,8 @@ Add the module to the webapp in web/pom.xml:
   </resource>
 ```
 
+Commit these changes.
+
 Apply the [patches](/core-geonetwork-patches) to the geonetwork core. You may need to manually apply specific hunks of a patch.
 ```
 cd ..   (core-geonetwork)
@@ -99,6 +101,9 @@ mvn jetty:run -Penv-dev
 
 Samples and templates can be imported via the 'Admin Console' > 'Metadata and Templates' > 'DCAT-AP' menu.
 
+Make sure to import the thesauri located in `schemas/dcat-ap/src/main/plugin/dcat-ap/thesauri` as they are required for editing dcat-ap records.
+
+Subtemplates for the `dct:license` field are available at `schemas/dcat-ap/src/main/plugin/dcat-ap/subtemplates`.
 
 ## Metadata rules: metadata identifier
 
@@ -118,7 +123,6 @@ Comments and questions to the issue tracker.
 ## More work required
 
 This plugin would merit further improvements in at least the following areas:
-* **Harvester to support LDP/Hydra paging**: Now that the GeoNetwork endpoint supports paging, it would be better to also support it on the harvester.
 * **Default view**: the default view currently does not display distribution information, this is only included in the full view.
 
 ## Contributors
