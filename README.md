@@ -2,6 +2,8 @@
 
 This repository contains a [DCAT-AP v1.2](https://joinup.ec.europa.eu/release/dcat-ap/12) schema plugin for [GeoNetwork](http://geonetwork-opensource.org/) 3.8.3.
 
+This plugin is replaced by https://github.com/metadata101/dcat-ap.vl for version 4.
+
 ## Reference documents
 * [W3C Data Catalog Vocabulary (DCAT)](https://www.w3.org/TR/vocab-dcat/), Fadi Maali, John Erickson, 2014.
 * [DCAT Application profile for data portals in Europe (DCAT-AP) v1.2](https://joinup.ec.europa.eu/release/dcat-ap/12)
